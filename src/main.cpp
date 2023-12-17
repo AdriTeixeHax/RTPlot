@@ -28,60 +28,50 @@
 #include "tests/TestClearColor.h"
 #include "tests/TestTexture2D.h"
 
-int main(void)
+int main(int argc, char** argv)
 {
+    // Create window context
     Window* window;
-
-    if (!glfwInit())
-    {
-        std::cerr << "Error initializing GLFW." << std::endl;
-        return -1;
-    }
-
+    // Initialize GLFW
+    if (!glfwInit()) { std::cerr << "[GLFW]: Error initializing GLFW." << std::endl; return -1; }
+    // Set OpenGL version: 4.6 core
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Create a windowed mode window and its OpenGL context
     window = glfwCreateWindow(960, 540, "RTPlot - by AdriTeixeHax", NULL, NULL);
-    if (!window)
-    {
-        glfwTerminate();
-        return 0;
-    }
+    if (!window) { std::cerr << "[GLFW]: Error creating window." << std::endl; glfwTerminate(); return -1; }
 
-    // Input callback registering
-    glfwSetKeyCallback(window, OnKeyboard);
+    glfwSetKeyCallback(window, OnKeyboard); // Input callback registering
+    glfwMakeContextCurrent(window);         // Make the window's context current
 
-    // Make the window's context current
-    glfwMakeContextCurrent(window);
-
-    if (glewInit() != GLEW_OK)
-    {
-        std::cerr << "Error initializing GLEW." << std::endl;
-        return -1;
-    }
+    // Initialize GLEW
+    if (glewInit() != GLEW_OK) { std::cerr << "Error initializing GLEW." << std::endl; return -1; }
 
     // Print out the OpenGL version
     std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl << std::endl;
 
+    // Enable and set blending
     glCall(glEnable(GL_BLEND));
     glCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
+    // Create rendering instance
     Renderer renderer;
 
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
-    ImGui::StyleColorsDark();
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
-    const char* glsl_version = "#version 130";
-    ImGui_ImplOpenGL3_Init(glsl_version);
+    /* ImGui context creation and configuration */
+    ImGui::CreateContext();                                 // Create an ImGui context
+    ImGuiIO& io = ImGui::GetIO(); (void)io;                 // Get the IO configuration from ImGui
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // Enable Keyboard Controls
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;    // Enable Gamepad Controls
+    ImGui::StyleColorsDark();                               // Set the default color scheme to dark
+    ImGui_ImplGlfw_InitForOpenGL(window, true);             // Link the GLFW context with ImGui
+    ImGui_ImplOpenGL3_Init("#version 130");                 // Initialize the OpenGL version for ImGui
 
     //Model model(2U, 2U, 8U, 8U, 6U, positions, indices, glm::vec3(480.0f, 270.0f, 0.0f));
     //test::TestTextures test(proj, view, model, "res/shaders/Basic.shader", "res/textures/test.png", &renderer);
 
+    // Tests
     test::Test* currentTest = nullptr;
     test::TestMenu* testMenu = new test::TestMenu(currentTest);
     currentTest = testMenu;
@@ -96,7 +86,7 @@ int main(void)
         glCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
         renderer.clear();
 
-        // Start the Dear ImGui frame
+        // Start the ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
@@ -122,7 +112,7 @@ int main(void)
         // Swap front and back buffers
         glfwSwapBuffers(window);
 
-        // Poll for and process events
+        // Poll and process events
         glfwPollEvents();
     }
 
