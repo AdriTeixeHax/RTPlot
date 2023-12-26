@@ -11,9 +11,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-using Window = GLFWwindow;
-
-inline void OnKeyboard(Window* window, int key, int scanCode, int action, int mods)
+inline void OnKeyboard(GLFWwindow* window, int key, int scanCode, int action, int mods)
 {
 	// Actions triggered when pressed
 	if (action == GLFW_PRESS)
