@@ -11,11 +11,11 @@
 #include "IndexBuffer.h"
 #include "Shader.h"
 
-#define assert(x) if (!(x)) __debugbreak(); // MSVC assertion
+#define glAssert(x) if (!(x)) __debugbreak(); // MSVC assertion
 
 #define glCall(x) glClearError();\
     x;\
-    assert(glLogCall(#x, __FILE__, __LINE__))
+    glAssert(glLogCall(#x, __FILE__, __LINE__))
 
 void glClearError(void);
 bool glLogCall(const char* function, const char* file, int line);

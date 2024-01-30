@@ -39,35 +39,50 @@
 // Window name
 #define RTPLOT_WINDOW_NAME "RTPlot - by AdriTeixeHax"
 
+// Logo path
+#define RTPLOT_LOGO_PATH "res/logos/RTPlot.png"
+
 // Font paths
 #define RTPLOT_SOURCESANS_PATH "res/fonts/SourceSans/SourceSans3-Regular.ttf"
 #define RTPLOT_SOURCESANS_SIZE 20
 #define RTPLOT_CONSOLA_PATH "res/fonts/Consola/Consola.ttf"
 #define RTPLOT_CONSOLA_SIZE 15
 
+// UI Parameters
 #define RTPLOT_WINDOW_RADIUS 5
 #define RTPLOT_MAIN_RADIUS 3
 
-// Logo paths
-#define RTPLOT_LOGO_PATH "res/logos/RTPlot.png"
 
 /**********************************************************************************************/
-
-// Serial devices
-RTPlot::SerialDevice arduino("COM3");
 
 // Plotting tools
 RTPlot::RealTimePlot plotter;
 
+double fReading = 0;
+
 // Reading thread
-void serialReadingFunc(bool* exitFlag)
+void serialReadingFunc(bool* exitFlag, double* dataStream)
 {
+    // Serial devices
+    static RTPlot::SerialDevice* arduino = new RTPlot::SerialDevice("COM3");
+
     while (!*exitFlag)
     {
-        arduino.recieve(RTPLOT_BYTE_SIZE);
+        if (arduino->recieve(true))
+        {
+            // std::cout << "[MAIN]: " << arduino->getMessage() << std::endl;
+
+            fReading = arduino->getMessage();
+            //std::cout << fReading << std::endl;
+
+            //dataStream = fReading;
+        }
     }
+
+    delete arduino;
 }
 
+// Main function
 int main(int argc, char** argv)
 {
     // Create window context and get data from main monitor
@@ -84,9 +99,8 @@ int main(int argc, char** argv)
     window = glfwCreateWindow(1920, 1080, RTPLOT_WINDOW_NAME, /*glfwGetPrimaryMonitor()*/ NULL, NULL);
     if (!window) { std::cerr << "[GLFW]: Error creating window." << std::endl; glfwTerminate(); return -1; }
 
-    // Initialize threads
-    bool threadExitFlag = false;
-    std::thread readingThread(serialReadingFunc, &threadExitFlag);
+    // Set data pointer to the plotter
+    plotter.setDataPtr(&fReading);
 
     // Register callbacks
     //glfwSetKeyCallback(window, OnKeyboard); // Input callback registering
@@ -104,10 +118,15 @@ int main(int argc, char** argv)
     glfwSetWindowIcon(window, 1, images);
 
     // Initialize GLEW
-    if (glewInit() != GLEW_OK) { std::cerr << "Error initializing GLEW." << std::endl; return -1; }
+    if (glewInit() != GLEW_OK) { std::cerr << "[GLEW]: Error initializing GLEW." << std::endl; return -1; }
 
     // Print out the OpenGL version
-    std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl << std::endl;
+    std::cout << "[OPENGL]: OpenGL version: " << glGetString(GL_VERSION) << std::endl << std::endl;
+
+    // Initialize threads
+    bool threadExitFlag = false;
+    double dataToPlot = 0;
+    std::thread readingThread(serialReadingFunc, &threadExitFlag, &dataToPlot);
 
     // Enable and set blending
     glCall(glEnable(GL_BLEND));
@@ -157,7 +176,7 @@ int main(int argc, char** argv)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        plotter.plot((void*)0);
+        plotter.plot();
         //ImPlot::ShowDemoWindow();
 
         // GUI rendering

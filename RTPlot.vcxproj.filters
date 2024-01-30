@@ -341,8 +341,8 @@
     <ClInclude Include="src\vendor\implot\implot.h" />
     <ClInclude Include="src\vendor\implot\implot_internal.h" />
     <ClInclude Include="include\serial\SerialPort.h" />
-    <ClInclude Include="include\serial\SerialDevice.h" />
     <ClInclude Include="include\plotting\RealTimePlot.h" />
+    <ClInclude Include="include\serial\SerialDevice.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />

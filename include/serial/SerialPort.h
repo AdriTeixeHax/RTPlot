@@ -14,12 +14,14 @@
 #define RTPLOT_READING 1
 #define RTPLOT_FINISHED 0
 #define RTPLOT_ERROR -1
+
 #define RTPLOT_READING_DELAY 0
 
 namespace RTPlot
 {
 	class SerialPort
 	{
+		const char* portName;
 		HANDLE hCOM;
 		COMSTAT status;
 		DWORD errors;
@@ -27,12 +29,33 @@ namespace RTPlot
 
 	public:
 		SerialPort(void) = delete;
-		SerialPort(const char* port);
+		SerialPort(const char* port, DWORD baudRate = CBR_115200, BYTE byteSize = RTPLOT_BYTE_SIZE, WORD parity = NOPARITY);
 		~SerialPort(void);
 
-		bool isConnected(void) { return connected; }
+		bool isConnected(void)
+		{
+			//DWORD error = GetLastError();
+			//if (error == ERROR_FILE_NOT_FOUND)
+			//{
+			//	std::cerr << "[SerialPort]: Device disconnected from port " << portName << "." << std::endl;
+			//	connected = false;
+			//}
+			//else connected = true;
 
-		int8_t read(char* buf, size_t size);
+			DWORD modemStatus = 0;
+			if (!GetCommModemStatus(hCOM, &modemStatus))
+			{
+				DWORD error = GetLastError();
+				std::cerr << "[SerialPort]: Error getting modem status. Error code: " << error << std::endl;
+				return false;
+			}
+
+			return connected;
+		}
+
+		int8_t read(LPVOID buf, DWORD size);
+
+		bool clearBuffer(void) { return PurgeComm(hCOM, PURGE_RXCLEAR | PURGE_TXCLEAR); }
 	};
 }
 
