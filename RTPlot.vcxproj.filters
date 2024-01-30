@@ -343,6 +343,9 @@
     <ClInclude Include="include\serial\SerialPort.h" />
     <ClInclude Include="include\plotting\RealTimePlot.h" />
     <ClInclude Include="include\serial\SerialDevice.h" />
+    <ClInclude Include="include\windows\Window.h" />
+    <ClInclude Include="include\windows\MainWindow.h" />
+    <ClInclude Include="include\windows\DemoWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />

@@ -22,12 +22,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 // UI
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_glfw.h>
-#include <imgui/imgui_impl_opengl3.h>
-
-// Plotting
-#include "plotting/RealTimePlot.h"
+#include <windows/MainWindow.h>
+#include <windows/DemoWindow.h>
 
 // Serial devices
 #include "SerialDevice.h"
@@ -52,16 +48,12 @@
 #define RTPLOT_WINDOW_RADIUS 5
 #define RTPLOT_MAIN_RADIUS 3
 
-
 /**********************************************************************************************/
-
-// Plotting tools
-RTPlot::RealTimePlot plotter;
 
 double fReading = 0;
 
 // Reading thread
-void serialReadingFunc(bool* exitFlag, double* dataStream)
+void serialReadingFunc(bool* exitFlag)
 {
     // Serial devices
     static RTPlot::SerialDevice* arduino = new RTPlot::SerialDevice("COM3");
@@ -70,12 +62,7 @@ void serialReadingFunc(bool* exitFlag, double* dataStream)
     {
         if (arduino->recieve(true))
         {
-            // std::cout << "[MAIN]: " << arduino->getMessage() << std::endl;
-
             fReading = arduino->getMessage();
-            //std::cout << fReading << std::endl;
-
-            //dataStream = fReading;
         }
     }
 
@@ -96,11 +83,8 @@ int main(int argc, char** argv)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Create a windowed mode window and its OpenGL context
-    window = glfwCreateWindow(1920, 1080, RTPLOT_WINDOW_NAME, /*glfwGetPrimaryMonitor()*/ NULL, NULL);
+    window = glfwCreateWindow(1920, 1080, RTPLOT_WINDOW_NAME, NULL, NULL);
     if (!window) { std::cerr << "[GLFW]: Error creating window." << std::endl; glfwTerminate(); return -1; }
-
-    // Set data pointer to the plotter
-    plotter.setDataPtr(&fReading);
 
     // Register callbacks
     //glfwSetKeyCallback(window, OnKeyboard); // Input callback registering
@@ -112,7 +96,7 @@ int main(int argc, char** argv)
 
     // Change window icon
     GLFWimage images[1];
-    images[0].width = width;
+    images[0].width  = width;
     images[0].height = height;
     images[0].pixels = pixels;
     glfwSetWindowIcon(window, 1, images);
@@ -125,8 +109,7 @@ int main(int argc, char** argv)
 
     // Initialize threads
     bool threadExitFlag = false;
-    double dataToPlot = 0;
-    std::thread readingThread(serialReadingFunc, &threadExitFlag, &dataToPlot);
+    std::thread readingThread(serialReadingFunc, &threadExitFlag);
 
     // Enable and set blending
     glCall(glEnable(GL_BLEND));
@@ -145,7 +128,7 @@ int main(int argc, char** argv)
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;                         // Enable keyboard controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;                          // Enable gamepad controls
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;                             // Enable docking
-    //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;                           // Enable viewports
     io.Fonts->AddFontFromFileTTF(RTPLOT_SOURCESANS_PATH, RTPLOT_SOURCESANS_SIZE); // Add the SourceSans font
     io.Fonts->AddFontFromFileTTF(RTPLOT_CONSOLA_PATH,    RTPLOT_CONSOLA_SIZE);    // Add the Consolas font
     // ImGui element radius configuration
@@ -164,6 +147,14 @@ int main(int argc, char** argv)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 130");
 
+    // Plotting tools
+    RTPlot::RealTimePlot plotter;
+    plotter.setDataPtr(&fReading);
+
+    // Window constructions
+    RTPlot::MainWindow mainWindow(&plotter);
+    RTPlot::DemoWindow demoWindow;
+
     // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
     {
@@ -176,12 +167,24 @@ int main(int argc, char** argv)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        plotter.plot();
-        //ImPlot::ShowDemoWindow();
+        // Main window
+        mainWindow.render();
+
+        // Demo window
+        if (mainWindow.showDemoWindow) demoWindow.render();
 
         // GUI rendering
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+        // Update and Render additional Platform Windows
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+        {
+            GLFWwindow* backup_current_context = glfwGetCurrentContext();
+            ImGui::UpdatePlatformWindows();
+            ImGui::RenderPlatformWindowsDefault();
+            glfwMakeContextCurrent(backup_current_context);
+        }
 
         // Swap front and back buffers
         glfwSwapBuffers(window);

@@ -34,14 +34,6 @@ namespace RTPlot
 
 		bool isConnected(void)
 		{
-			//DWORD error = GetLastError();
-			//if (error == ERROR_FILE_NOT_FOUND)
-			//{
-			//	std::cerr << "[SerialPort]: Device disconnected from port " << portName << "." << std::endl;
-			//	connected = false;
-			//}
-			//else connected = true;
-
 			DWORD modemStatus = 0;
 			if (!GetCommModemStatus(hCOM, &modemStatus))
 			{

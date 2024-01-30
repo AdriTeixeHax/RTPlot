@@ -23,61 +23,43 @@ namespace RTPlot
 
         bool recieve(bool verboseData = false, uint32_t delay = RTPLOT_READING_DELAY)
 		{
-            if (port.isConnected())
+            if (!port.isConnected()) { std::cout << "[SerialDevice]: Device not connected." << std::endl; return false; }
+
+            int8_t readCode = port.read(reading, msgSize);
+            if      (readCode == RTPLOT_ERROR) { std::cout << "[SerialDevice]: Could not read message from device." << std::endl; return false; }
+            else if (readCode == RTPLOT_FINISHED)
             {
-                int8_t readCode = port.read(reading, msgSize);
+                if (reading == nullptr) { std::cout << "[SerialDevice]: Reading returned nullptr." << std::endl; return false; }
 
-                if (readCode == RTPLOT_FINISHED)
+                char tempMsg[RTPLOT_BYTE_SIZE];
+                for (uint8_t i = 0; i < sizeof(tempMsg); i++)
+                    tempMsg[i] = *((char*)reading + i);
+
+                if (tempMsg[7] != '\n') // Rotate buffer until tempMsg[7] == '\n'
                 {
-                    if (reading == nullptr) { std::cout << "[SerialDevice]: Reading returned nullptr." << std::endl; return false; }
-
-                    char tempMsg[RTPLOT_BYTE_SIZE];
-                    for (uint8_t i = 0; i < sizeof(tempMsg); i++)
+                    uint8_t rotationCounter = 0;
+                    while (tempMsg[7] != '\n')
                     {
-                        tempMsg[i] = *((char*)reading + i);
-                    }
-
-                    if (tempMsg[7] != '\n') // Rotate buffer until tempMsg[7] == '\n'
-                    {
-                        uint8_t rotationCounter = 0;
-                        while (tempMsg[7] != '\n')
+                        char aux = tempMsg[0];
+                        for (uint8_t i = 0; i < sizeof(tempMsg); i++)
                         {
-                            char aux = tempMsg[0];
-                            for (uint8_t i = 0; i < sizeof(tempMsg); i++)
-                            {
-                                if (i == sizeof(tempMsg) - 1) // Because it cannot copy the next element (goes out of scope)
-                                {
-                                    tempMsg[i] = aux;
-                                    break;
-                                }
+                            if (i == sizeof(tempMsg) - 1) tempMsg[i] = aux; break; // Because it cannot copy the next element (goes out of scope)
 
-                                tempMsg[i] = tempMsg[i + 1];
-                            }
-
-                            rotationCounter++;
-                            if (rotationCounter > sizeof(tempMsg)) return false;
+                            tempMsg[i] = tempMsg[i + 1];
                         }
-                    }
 
-                    if ((tempMsg[0] == ' ' || tempMsg[0] == '-') && tempMsg[7] == '\n')
-                    {
-                        std::cout << "[SerialDevice]: ";
-
-                        dReading = atof(tempMsg);
-                        std::cout << dReading << std::endl;
-                        Sleep(10);
+                        rotationCounter++;
+                        if (rotationCounter > sizeof(tempMsg)) return false;
                     }
                 }
-                else if (readCode == RTPLOT_ERROR)
+
+                if ((tempMsg[0] == ' ' || tempMsg[0] == '-') && tempMsg[7] == '\n')
                 {
-                    std::cout << "[SerialDevice]: Could not read message from device." << std::endl;
-                    return false;
+                    dReading = atof(tempMsg);
+                    //std::cout << "[SerialDevice]: ";
+                    //std::cout << dReading << std::endl;
+                    Sleep(10);
                 }
-            }
-            else
-            {
-                std::cout << "[SerialDevice]: Device not connected." << std::endl;
-                return false;
             }
 
             return true;
