@@ -157,7 +157,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\renderer\IndexBuffer.cpp" />
-    <ClCompile Include="include\Input.h" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\renderer\Model.cpp" />
     <ClCompile Include="src\renderer\Renderer.cpp" />
@@ -199,8 +198,10 @@
     <ClInclude Include="include\serial\SerialDevice.h" />
     <ClInclude Include="include\serial\SerialPort.h" />
     <ClInclude Include="include\windows\DemoWindow.h" />
-    <ClInclude Include="include\windows\MainWindow.h" />
+    <ClInclude Include="include\windows\MainMenuWindow.h" />
+    <ClInclude Include="include\windows\SerialPlotterWindow.h" />
     <ClInclude Include="include\windows\Window.h" />
+    <ClInclude Include="include\menus\Menu.h" />
     <ClInclude Include="src\tests\Test.h" />
     <ClInclude Include="src\tests\TestClearColor.h" />
     <ClInclude Include="src\tests\TestTexture2D.h" />

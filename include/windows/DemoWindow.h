@@ -5,15 +5,18 @@
 
 namespace RTPlot
 {
-	// Interface
 	class DemoWindow : public Window
 	{
 	public:
+		DemoWindow(void) : Window(WindowType::demo) { }
 		void render(void)
 		{
-			ImGui::Begin("RTPlot - by AdriTeixeHax");
+			if (shouldRender)
+			{
+				ImGui::Begin("RTPlot - by AdriTeixeHax");
 				ImPlot::ShowDemoWindow();
-			ImGui::End();
+				ImGui::End();
+			}
 		}
 	};
 }

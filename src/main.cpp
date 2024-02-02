@@ -22,7 +22,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 // UI
-#include <windows/MainWindow.h>
+#include <menus/Menu.h>
+#include <windows/SerialPlotterWindow.h>
 #include <windows/DemoWindow.h>
 
 // Serial devices
@@ -50,28 +51,22 @@
 
 /**********************************************************************************************/
 
-double fReading = 0;
-
 // Reading thread
-void serialReadingFunc(bool* exitFlag)
+void serialReadingFunc(bool* exitFlag, RTPlot::SerialDevice* deviceToRead, double* dataToPlot)
 {
-    // Serial devices
-    static RTPlot::SerialDevice* arduino = new RTPlot::SerialDevice("COM3");
-
     while (!*exitFlag)
     {
-        if (arduino->recieve(true))
+        if (deviceToRead->recieve(true))
         {
-            fReading = arduino->getMessage();
+            *dataToPlot = deviceToRead->getMessage();
         }
     }
-
-    delete arduino;
 }
 
 // Main function
 int main(int argc, char** argv)
 {
+    /******************** GLFW - GLEW CONFIG ********************/
     // Create window context and get data from main monitor
     GLFWwindow* window;
 
@@ -86,9 +81,8 @@ int main(int argc, char** argv)
     window = glfwCreateWindow(1920, 1080, RTPLOT_WINDOW_NAME, NULL, NULL);
     if (!window) { std::cerr << "[GLFW]: Error creating window." << std::endl; glfwTerminate(); return -1; }
 
-    // Register callbacks
-    //glfwSetKeyCallback(window, OnKeyboard); // Input callback registering
-    glfwMakeContextCurrent(window);         // Make the window's context current
+    // Make the window's context current
+    glfwMakeContextCurrent(window);         
 
     // Load window icon
     int width, height, channels;
@@ -107,13 +101,11 @@ int main(int argc, char** argv)
     // Print out the OpenGL version
     std::cout << "[OPENGL]: OpenGL version: " << glGetString(GL_VERSION) << std::endl << std::endl;
 
-    // Initialize threads
-    bool threadExitFlag = false;
-    std::thread readingThread(serialReadingFunc, &threadExitFlag);
-
     // Enable and set blending
     glCall(glEnable(GL_BLEND));
     glCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
+    /******************** IMGUI - IMPLOT CONFIG ********************/
 
     // Create a rendering instance
     Renderer renderer;
@@ -122,7 +114,6 @@ int main(int argc, char** argv)
     ImGui::CreateContext();
     ImPlot::CreateContext();
 
-    /** ImGui configuration **/
     // ImGui IO configuration
     ImGuiIO& io = ImGui::GetIO(); (void)io;                                       // Get the IO configuration from ImGui
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;                         // Enable keyboard controls
@@ -147,13 +138,22 @@ int main(int argc, char** argv)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 130");
 
-    // Plotting tools
-    RTPlot::RealTimePlot plotter;
-    plotter.setDataPtr(&fReading);
+    /******************** RTPLOT CONFIG ********************/
 
-    // Window constructions
-    RTPlot::MainWindow mainWindow(&plotter);
-    RTPlot::DemoWindow demoWindow;
+    // Serial devices
+    static RTPlot::SerialDevice* microController = new RTPlot::SerialDevice("COM3");
+
+    // Initialize threads
+    bool threadExitFlag = false;
+    double reading = 0;
+    std::thread readingThread(serialReadingFunc, &threadExitFlag, microController, &reading);
+
+    // Main menu construction
+    RTPlot::Menu mainMenu;
+    mainMenu.addWindow(new RTPlot::SerialPlotterWindow(new RTPlot::RealTimePlot(&reading)));
+    mainMenu.addWindow(new RTPlot::DemoWindow);
+
+    /******************** MAIN LOOP ********************/
 
     // Loop until the user closes the window
     while (!glfwWindowShouldClose(window))
@@ -167,11 +167,7 @@ int main(int argc, char** argv)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        // Main window
-        mainWindow.render();
-
-        // Demo window
-        if (mainWindow.showDemoWindow) demoWindow.render();
+        mainMenu.render();
 
         // GUI rendering
         ImGui::Render();

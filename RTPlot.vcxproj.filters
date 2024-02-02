@@ -2,7 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\renderer\IndexBuffer.cpp" />
-    <ClCompile Include="include\Input.h" />
     <ClCompile Include="src\renderer\Model.cpp" />
     <ClCompile Include="src\renderer\Renderer.cpp" />
     <ClCompile Include="src\renderer\Shader.cpp" />
@@ -344,8 +343,10 @@
     <ClInclude Include="include\plotting\RealTimePlot.h" />
     <ClInclude Include="include\serial\SerialDevice.h" />
     <ClInclude Include="include\windows\Window.h" />
-    <ClInclude Include="include\windows\MainWindow.h" />
+    <ClInclude Include="include\windows\SerialPlotterWindow.h" />
     <ClInclude Include="include\windows\DemoWindow.h" />
+    <ClInclude Include="include\menus\Menu.h" />
+    <ClInclude Include="include\windows\MainMenuWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />

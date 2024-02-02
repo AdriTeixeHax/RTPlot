@@ -72,6 +72,9 @@ namespace RTPlot
         double* dataPtr = nullptr;
 
     public:
+        RealTimePlot(void) : dataPtr(nullptr) { }
+        RealTimePlot(double* ptr) : dataPtr(ptr) { }
+
         void setDataPtr(double* ptr) { dataPtr = ptr; }
 
         int8_t plot(void)
