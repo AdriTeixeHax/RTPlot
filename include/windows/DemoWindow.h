@@ -13,7 +13,7 @@ namespace RTPlot
 		{
 			if (shouldRender)
 			{
-				ImGui::Begin("RTPlot - by AdriTeixeHax");
+				ImGui::Begin("Demo Window");
 				ImPlot::ShowDemoWindow();
 				ImGui::End();
 			}

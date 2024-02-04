@@ -2,44 +2,97 @@
 
 namespace RTPlot
 {
-	SerialPort::SerialPort(const char* port, DWORD baudRate, BYTE byteSize, WORD parity) : portName(port), hCOM((void*)0), status({ 0 }), errors(0), connected(false)
+	SerialPort::SerialPort(const char* _port, DWORD _baudRate, BYTE _byteSize, WORD _parity) : portName(_port), baudRate(_baudRate), parity(_parity), hCOM((void*)0), status({ 0 }), errors(0), connected(false), byteSize(_byteSize)
+	{
+		this->connect();
+	}
+
+	SerialPort::~SerialPort(void) { this->disconnect(); }
+
+	void SerialPort::setName(const char* name)
+	{
+		this->portName = name;
+	}
+
+	bool SerialPort::connect(void)
 	{
 		hCOM = CreateFileA(static_cast<LPCSTR>(portName), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 
-		DWORD error = GetLastError();
-		if (error == ERROR_FILE_NOT_FOUND) std::cerr << "[SerialPort]: Device not connected at port " << port << "." << std::endl;
-		else if (error == ERROR_ACCESS_DENIED)  std::cerr << "[SerialPort]: Device being used by another process at port " << portName << "." << std::endl;
-		else if (error == 0) // OK
+		switch (GetLastError())
 		{
-			DCB parameters = { 0 }; // DCB == Device Control Block
+		case ERROR_FILE_NOT_FOUND:
+			std::cerr << "[SerialPort]: Device not connected at port " << portName << "." << std::endl;
+			return false;
 
-			if (!GetCommState(hCOM, &parameters)) std::cout << "[SerialPort]: Failed to get serial parameters." << std::endl;
-			else
-			{
-				parameters.BaudRate = baudRate;
-				parameters.ByteSize = byteSize;
-				parameters.StopBits = ONESTOPBIT;
-				parameters.Parity = parity;
-				parameters.fDtrControl = DTR_CONTROL_ENABLE;
-				
-				if (!SetCommState(hCOM, &parameters)) std::cerr << "[SerialPort]: Could not set COM port parameters." << std::endl;
-				else
-				{
-					connected = true;
-					PurgeComm(hCOM, PURGE_RXCLEAR | PURGE_TXCLEAR);
-					std::cout << "[SerialPort]: Connected to device at COM port " << port << "." << std::endl;
-				}
-			}
+		case ERROR_ACCESS_DENIED:
+			std::cerr << "[SerialPort]: Device being used by another process at port " << portName << "." << std::endl;
+			return false;
+
+		case NO_ERROR:
+			if (!GetCommState(hCOM, &dcb)) { std::cout << "[SerialPort]: Failed to get COM port parameters." << std::endl; return false; }
+
+			dcb.BaudRate    = baudRate;
+			dcb.ByteSize    = byteSize;
+			dcb.Parity      = parity;
+			dcb.StopBits    = ONESTOPBIT;
+			dcb.fDtrControl = DTR_CONTROL_ENABLE;
+
+			if (!SetCommState(hCOM, &dcb)) { std::cerr << "[SerialPort]: Failed to set COM port parameters." << std::endl; return false; }
+
+			timeouts.WriteTotalTimeoutMultiplier = 10;
+			timeouts.ReadTotalTimeoutMultiplier  = 10;
+			timeouts.ReadIntervalTimeout		 = 50;
+			timeouts.ReadTotalTimeoutConstant    = 1000;
+			timeouts.WriteTotalTimeoutConstant   = 1000;
+
+			if (!SetCommTimeouts(hCOM, &timeouts)) { std::cerr << "[SerialPort]: Failed to set COM port timeouts." << std::endl; return false; }
+
+			// Everything OK
+			PurgeComm(hCOM, PURGE_RXCLEAR | PURGE_TXCLEAR); // Clear buffer
+			std::cout << "[SerialPort]: Connected to device at COM port " << portName << "." << std::endl;
+			connected = true;
+			return true;
+
+		default:
+			return false;
 		}
 	}
 
-	SerialPort::~SerialPort(void)
+	void SerialPort::disconnect(void)
 	{
 		if (connected == true)
 		{
 			connected = false;
 			CloseHandle(hCOM);
+			hCOM = (void*)0;
 		}
+	}
+
+	bool SerialPort::clearBuffer(uint8_t flags)
+	{
+		if (PurgeComm(hCOM, flags))
+		{
+			std::cout << "[SerialPort]: Buffer cleared." << std::endl;
+			return true;
+		}
+		else
+		{
+			std::cerr << "[SerialPort]: Failed to clear buffer." << std::endl;
+			return false;
+		}
+	}
+
+	bool SerialPort::isConnected(void)
+	{
+		DWORD modemStatus = 0;
+		if (!GetCommModemStatus(hCOM, &modemStatus))
+		{
+			DWORD error = GetLastError();
+			std::cerr << "[SerialPort]: Error getting modem status. Error code : " << error << std::endl;
+			return false;
+		}
+
+		return connected;
 	}
 
 	int8_t SerialPort::read(LPVOID buf, DWORD size)
@@ -54,10 +107,17 @@ namespace RTPlot
 			if (status.cbInQue >= size) bytesToRead = size;
 			else bytesToRead = status.cbInQue;
 		}
-				
+		
+		static uint8_t readingCount = 0;
+		if (readingCount >= 5)
+		{
+			clearBuffer(PURGE_RXCLEAR);
+			readingCount = 0;
+		}
+
 		if (ReadFile(hCOM, buf, bytesToRead, &bytesRead, NULL))
 		{
-			if (bytesRead == bytesToRead) return RTPLOT_FINISHED;
+			if (bytesRead == bytesToRead) { return RTPLOT_FINISHED; readingCount++; }
 			else if (bytesRead < bytesToRead) return RTPLOT_READING;
 			else if (bytesRead > bytesToRead) return RTPLOT_ERROR;
 		}

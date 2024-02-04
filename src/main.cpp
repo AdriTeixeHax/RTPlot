@@ -5,7 +5,7 @@
 
 // Callbacks and threads
 #include <thread>
-//#include "Input.h"
+#include <mutex>
 
 // Graphics
 #include "Shader.h"
@@ -51,15 +51,28 @@
 
 /**********************************************************************************************/
 
+std::mutex mutex;
+
 // Reading thread
 void serialReadingFunc(bool* exitFlag, RTPlot::SerialDevice* deviceToRead, double* dataToPlot)
 {
     while (!*exitFlag)
     {
+        //if (!deviceToRead->isConnected())
+        //{
+        //    std::string comPort;
+        //    std::cout << "[RTPlot]: Select a new port to connect to:" << std::endl;
+        //    std::cin >> comPort;
+        //    deviceToRead = new RTPlot::SerialDevice(comPort.c_str());
+        //    system("cls");
+        //}
+
+        mutex.lock();
         if (deviceToRead->recieve(true))
         {
             *dataToPlot = deviceToRead->getMessage();
         }
+        mutex.unlock();
     }
 }
 
@@ -141,7 +154,7 @@ int main(int argc, char** argv)
     /******************** RTPLOT CONFIG ********************/
 
     // Serial devices
-    static RTPlot::SerialDevice* microController = new RTPlot::SerialDevice("COM3");
+    static RTPlot::SerialDevice* microController = new RTPlot::SerialDevice("COM0");
 
     // Initialize threads
     bool threadExitFlag = false;
@@ -168,6 +181,27 @@ int main(int argc, char** argv)
         ImGui::NewFrame();
 
         mainMenu.render();
+
+        ImGui::Begin("Test", NULL);
+        if (ImGui::Button("COM3"))
+        {
+            mutex.lock();
+            microController->changePort("COM3");
+            mutex.unlock();
+        }
+        if (ImGui::Button("COM4"))
+        {
+            mutex.lock();
+            microController->changePort("COM4");
+            mutex.unlock();
+        }
+        if (ImGui::Button("COM5"))
+        {
+            mutex.lock();
+            microController->changePort("COM5");
+            mutex.unlock();
+        }
+        ImGui::End();
 
         // GUI rendering
         ImGui::Render();

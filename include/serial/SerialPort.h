@@ -21,33 +21,33 @@ namespace RTPlot
 {
 	class SerialPort
 	{
-		const char* portName;
-		HANDLE hCOM;
-		COMSTAT status;
-		DWORD errors;
-		bool connected;
+		DCB          dcb = { 0 };	   // DCB == Device Control Block
+		BYTE         byteSize;
+		WORD         parity;
+		bool         connected;
+		DWORD        errors;
+		DWORD        baudRate;
+		HANDLE       hCOM;
+		COMSTAT      status;
+		const char*  portName;
+		COMMTIMEOUTS timeouts = { 0 }; // Serial reading timeouts
 
 	public:
 		SerialPort(void) = delete;
-		SerialPort(const char* port, DWORD baudRate = CBR_115200, BYTE byteSize = RTPLOT_BYTE_SIZE, WORD parity = NOPARITY);
+		SerialPort(const char* _port, DWORD _baudRate = CBR_115200, BYTE _byteSize = RTPLOT_BYTE_SIZE, WORD _parity = NOPARITY);
 		~SerialPort(void);
 
-		bool isConnected(void)
-		{
-			DWORD modemStatus = 0;
-			if (!GetCommModemStatus(hCOM, &modemStatus))
-			{
-				DWORD error = GetLastError();
-				std::cerr << "[SerialPort]: Error getting modem status. Error code: " << error << std::endl;
-				return false;
-			}
+		// Getters
+		bool isConnected(void);
 
-			return connected;
-		}
+		// Setters
+		void setName(const char* name);
 
+		// Actions
+		bool connect(void);
+		void disconnect(void);
+		bool clearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
 		int8_t read(LPVOID buf, DWORD size);
-
-		bool clearBuffer(void) { return PurgeComm(hCOM, PURGE_RXCLEAR | PURGE_TXCLEAR); }
 	};
 }
 
