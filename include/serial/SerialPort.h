@@ -25,6 +25,7 @@ namespace RTPlot
 		BYTE         byteSize;
 		WORD         parity;
 		bool         connected;
+		bool		 verboseData;
 		DWORD        errors;
 		DWORD        baudRate;
 		HANDLE       hCOM;
@@ -34,14 +35,16 @@ namespace RTPlot
 
 	public:
 		SerialPort(void) = delete;
-		SerialPort(const char* _port, DWORD _baudRate = CBR_115200, BYTE _byteSize = RTPLOT_BYTE_SIZE, WORD _parity = NOPARITY);
+		SerialPort(const char* _port, DWORD _baudRate = CBR_115200, BYTE _byteSize = RTPLOT_BYTE_SIZE, WORD _parity = NOPARITY, bool verboseData = false);
 		~SerialPort(void);
 
 		// Getters
 		bool isConnected(void);
+		const char* getName(void) { return portName; }
 
 		// Setters
 		void setName(const char* name);
+		void setVerbose(bool vb) { verboseData = vb; }
 
 		// Actions
 		bool connect(void);

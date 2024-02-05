@@ -26,6 +26,7 @@
     <ClCompile Include="src\vendor\implot\implot_demo.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\serial\SerialPort.cpp" />
+    <ClCompile Include="src\serial\SerialDevice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFW\glfw3.h" />
@@ -347,6 +348,7 @@
     <ClInclude Include="include\windows\DemoWindow.h" />
     <ClInclude Include="include\menus\Menu.h" />
     <ClInclude Include="include\windows\MainMenuWindow.h" />
+    <ClInclude Include="include\plotting\Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />

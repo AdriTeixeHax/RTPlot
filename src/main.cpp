@@ -2,6 +2,8 @@
 
 // IO
 #include <iostream>
+#include <sstream>
+#include <cctype>
 
 // Callbacks and threads
 #include <thread>
@@ -21,10 +23,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-// UI
-#include <menus/Menu.h>
-#include <windows/SerialPlotterWindow.h>
-#include <windows/DemoWindow.h>
+// Plotting and UI
+#include <implot/implot.h>
+#include <implot/implot_internal.h>
+#include <plotting/RealTimePlot.h>
+#include <plotting/Logger.h>
 
 // Serial devices
 #include "SerialDevice.h"
@@ -51,28 +54,19 @@
 
 /**********************************************************************************************/
 
-std::mutex mutex;
+std::mutex serialDeviceMutex;
 
 // Reading thread
 void serialReadingFunc(bool* exitFlag, RTPlot::SerialDevice* deviceToRead, double* dataToPlot)
 {
     while (!*exitFlag)
     {
-        //if (!deviceToRead->isConnected())
-        //{
-        //    std::string comPort;
-        //    std::cout << "[RTPlot]: Select a new port to connect to:" << std::endl;
-        //    std::cin >> comPort;
-        //    deviceToRead = new RTPlot::SerialDevice(comPort.c_str());
-        //    system("cls");
-        //}
-
-        mutex.lock();
-        if (deviceToRead->recieve(true))
+        serialDeviceMutex.lock();
+        if (deviceToRead->recieve())
         {
             *dataToPlot = deviceToRead->getMessage();
         }
-        mutex.unlock();
+        serialDeviceMutex.unlock();
     }
 }
 
@@ -161,10 +155,8 @@ int main(int argc, char** argv)
     double reading = 0;
     std::thread readingThread(serialReadingFunc, &threadExitFlag, microController, &reading);
 
-    // Main menu construction
-    RTPlot::Menu mainMenu;
-    mainMenu.addWindow(new RTPlot::SerialPlotterWindow(new RTPlot::RealTimePlot(&reading)));
-    mainMenu.addWindow(new RTPlot::DemoWindow);
+    // Plotting tools
+    RTPlot::RealTimePlot plotter(&reading);
 
     /******************** MAIN LOOP ********************/
 
@@ -180,28 +172,110 @@ int main(int argc, char** argv)
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        mainMenu.render();
+        // UI Elements (view imgui_demo.cpp for comments regarding flag choices)
 
-        ImGui::Begin("Test", NULL);
-        if (ImGui::Button("COM3"))
+        static bool opt_fullscreen = true;
+        static bool opt_padding = false;
+        static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+
+        ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+        if (opt_fullscreen)
         {
-            mutex.lock();
-            microController->changePort("COM3");
-            mutex.unlock();
+            const ImGuiViewport* viewport = ImGui::GetMainViewport();
+            ImGui::SetNextWindowPos(viewport->WorkPos);
+            ImGui::SetNextWindowSize(viewport->WorkSize);
+            ImGui::SetNextWindowViewport(viewport->ID);
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
+            ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, 0.0f);
+            window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+            window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
         }
-        if (ImGui::Button("COM4"))
-        {
-            mutex.lock();
-            microController->changePort("COM4");
-            mutex.unlock();
-        }
-        if (ImGui::Button("COM5"))
-        {
-            mutex.lock();
-            microController->changePort("COM5");
-            mutex.unlock();
-        }
+        else dockspace_flags &= ~ImGuiDockNodeFlags_PassthruCentralNode;
+
+        if (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) window_flags |= ImGuiWindowFlags_NoBackground;
+
+        if (!opt_padding) ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+        static bool ImPlotDemo = false;
+        static bool ImGuiDemo  = false;
+        static bool consoleLog = false;
+        static bool verbose    = false;
+
+        std::string logMsg;
+
+        ImGui::Begin("RTPlot", NULL, window_flags);
+            if (!opt_padding)   ImGui::PopStyleVar();
+            if (opt_fullscreen) ImGui::PopStyleVar(2);
+
+            // Submit the DockSpace
+            ImGuiIO& io = ImGui::GetIO();
+            if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+            {
+                ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+                ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+            }
+
+            if (ImGui::BeginMenuBar())
+            {
+                if (ImGui::BeginMenu("Options"))
+                {
+                    if (ImGui::MenuItem("ImPlot Demo", "", ImPlotDemo)) { ImPlotDemo = !ImPlotDemo; }
+                    if (ImGui::MenuItem("ImGui Demo", "", ImGuiDemo)) { ImGuiDemo = !ImGuiDemo; }
+                    ImGui::Separator();
+                    if (ImGui::MenuItem("Verbose data", "", verbose))
+                    {
+                        verbose = !verbose;
+                        if (verbose) logMsg = "Turned on verbose.\n";
+                        else         logMsg = "Turned off verbose.\n";
+                    }
+                    if (ImGui::MenuItem("Console log", "", consoleLog)) { consoleLog = !consoleLog; }
+                    ImGui::EndMenu();
+                }
+
+                ImGui::EndMenuBar();
+            }
         ImGui::End();
+
+        ImGui::Begin("RTPlot - by AdriTeixeHax", NULL); // Window
+            plotter.plot();
+
+            if (ImPlotDemo) ImPlot::ShowDemoWindow(&ImPlotDemo);
+            if (ImGuiDemo)  ImGui::ShowDemoWindow(&ImGuiDemo);
+
+            if (ImGui::Button("COM3"))
+            {
+                serialDeviceMutex.lock();
+                if (microController->changePort("COM3"))
+                    logMsg = "Connected to port COM3.\n";
+                else
+                    logMsg = "Couldn't connect to port COM3.\n";
+                serialDeviceMutex.unlock();
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("COM4"))
+            {
+                serialDeviceMutex.lock();
+                if (microController->changePort("COM4"))
+                    logMsg = "Connected to port COM4.\n";
+                else
+                    logMsg = "Couldn't connect to port COM4.\n";
+                serialDeviceMutex.unlock();
+            }
+            ImGui::SameLine();
+            if (ImGui::Button("COM5"))
+            {
+                serialDeviceMutex.lock();
+                if (microController->changePort("COM5"))
+                    logMsg = "Connected to port COM5.\n";
+                else
+                    logMsg = "Couldn't connect to port COM5.\n";
+                serialDeviceMutex.unlock();
+            }
+        ImGui::End();
+
+        if (consoleLog) RTPlot::ShowConsoleLog(logMsg, &consoleLog);
+
+        microController->setVerbose(verbose);
 
         // GUI rendering
         ImGui::Render();

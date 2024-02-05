@@ -161,6 +161,7 @@
     <ClCompile Include="src\renderer\Model.cpp" />
     <ClCompile Include="src\renderer\Renderer.cpp" />
     <ClCompile Include="src\renderer\Shader.cpp" />
+    <ClCompile Include="src\serial\SerialDevice.cpp" />
     <ClCompile Include="src\serial\SerialPort.cpp" />
     <ClCompile Include="src\tests\Test.cpp" />
     <ClCompile Include="src\tests\TestClearColor.cpp" />
@@ -189,6 +190,7 @@
     <ClInclude Include="include\GL\glew.h" />
     <ClInclude Include="include\GL\glxew.h" />
     <ClInclude Include="include\GL\wglew.h" />
+    <ClInclude Include="include\plotting\Logger.h" />
     <ClInclude Include="include\plotting\RealTimePlot.h" />
     <ClInclude Include="include\renderer\IndexBuffer.h" />
     <ClInclude Include="include\renderer\Model.h" />
