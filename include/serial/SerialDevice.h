@@ -3,6 +3,8 @@
 
 #include "SerialPort.h"
 
+#include <vector>
+
 #define RTPLOT_FLOAT_STR_SIZE 7
 
 namespace RTPlot
@@ -25,6 +27,7 @@ namespace RTPlot
         // Getters
         double getMessage(void) { return dReading; }
         bool isConnected(void) { return port->isConnected(); }
+        SerialPort* getPort(void) { return port; }
 
         // Setters
         bool changePort(const char* portName);
@@ -32,6 +35,7 @@ namespace RTPlot
 
         // Actions
         bool recieve(uint32_t delay = RTPLOT_READING_DELAY);
+        static std::vector<uint8_t> scanSerialDevices(void);
 	};
 }
 

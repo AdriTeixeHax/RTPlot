@@ -45,6 +45,7 @@ namespace RTPlot
 		// Setters
 		void setName(const char* name);
 		void setVerbose(bool vb) { verboseData = vb; }
+		void setTimeouts(DWORD WriteTotalMultiplier = 10, DWORD ReadTotalMultiplier = 10, DWORD ReadInterval = 50, DWORD ReadTotalConstant = 1000, DWORD WriteTotalConstant = 1000);
 
 		// Actions
 		bool connect(void);

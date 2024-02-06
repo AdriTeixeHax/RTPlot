@@ -150,13 +150,13 @@ int main(int argc, char** argv)
     // Serial devices
     static RTPlot::SerialDevice* microController = new RTPlot::SerialDevice("COM0");
 
+    // Plotting tools
+    double reading = 0;
+    RTPlot::RealTimePlot plotter(&reading);
+
     // Initialize threads
     bool threadExitFlag = false;
-    double reading = 0;
     std::thread readingThread(serialReadingFunc, &threadExitFlag, microController, &reading);
-
-    // Plotting tools
-    RTPlot::RealTimePlot plotter(&reading);
 
     /******************** MAIN LOOP ********************/
 
@@ -196,10 +196,11 @@ int main(int argc, char** argv)
 
         if (!opt_padding) ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
-        static bool ImPlotDemo = false;
-        static bool ImGuiDemo  = false;
-        static bool consoleLog = false;
-        static bool verbose    = false;
+        static bool verboseFlag        = false;
+        static bool ImGuiDemoFlag      = false;
+        static bool ImPlotDemoFlag     = false;
+        static bool consoleLogFlag     = false;
+        static bool serialOptionsFlag = false;
 
         std::string logMsg;
 
@@ -219,16 +220,17 @@ int main(int argc, char** argv)
             {
                 if (ImGui::BeginMenu("Options"))
                 {
-                    if (ImGui::MenuItem("ImPlot Demo", "", ImPlotDemo)) { ImPlotDemo = !ImPlotDemo; }
-                    if (ImGui::MenuItem("ImGui Demo", "", ImGuiDemo)) { ImGuiDemo = !ImGuiDemo; }
+                    if (ImGui::MenuItem("ImPlot Demo", "", ImPlotDemoFlag)) { ImPlotDemoFlag = !ImPlotDemoFlag; }
+                    if (ImGui::MenuItem("ImGui Demo",  "", ImGuiDemoFlag))  { ImGuiDemoFlag  = !ImGuiDemoFlag; }
                     ImGui::Separator();
-                    if (ImGui::MenuItem("Verbose data", "", verbose))
+                    if (ImGui::MenuItem("Verbose data", "", verboseFlag))
                     {
-                        verbose = !verbose;
-                        if (verbose) logMsg = "Turned on verbose.\n";
+                        verboseFlag = !verboseFlag;
+                        if (verboseFlag) logMsg = "Turned on verbose.\n";
                         else         logMsg = "Turned off verbose.\n";
                     }
-                    if (ImGui::MenuItem("Console log", "", consoleLog)) { consoleLog = !consoleLog; }
+                    if (ImGui::MenuItem("Console log",    "", consoleLogFlag))    { consoleLogFlag = !consoleLogFlag; }
+                    if (ImGui::MenuItem("Serial options", "", serialOptionsFlag)) { serialOptionsFlag = !serialOptionsFlag; }
                     ImGui::EndMenu();
                 }
 
@@ -236,46 +238,53 @@ int main(int argc, char** argv)
             }
         ImGui::End();
 
+        if (serialOptionsFlag)
+        {
+            static int wtm = 10, rtm = 10, ri = 50, rtc = 1000, wtc = 1000;
+            ImGui::Begin("Serial Options", &serialOptionsFlag);
+                ImGui::InputInt("Write Total Multiplier", &wtm);
+                ImGui::InputInt("Write Total Constant",   &wtc);
+                ImGui::InputInt("Read Total Multiplier",  &rtm);
+                ImGui::InputInt("Read Total Constant",    &rtc);
+                ImGui::InputInt("Read Interval",          &ri);
+
+                if (ImGui::Button("Apply"))
+                    microController->getPort()->setTimeouts(wtm, rtm, ri, rtc, wtc);
+
+            ImGui::End();
+
+        }
+
         ImGui::Begin("RTPlot - by AdriTeixeHax", NULL); // Window
+            if (ImPlotDemoFlag) ImPlot::ShowDemoWindow(&ImPlotDemoFlag);
+            if (ImGuiDemoFlag)   ImGui::ShowDemoWindow(&ImGuiDemoFlag);
+
             plotter.plot();
 
-            if (ImPlotDemo) ImPlot::ShowDemoWindow(&ImPlotDemo);
-            if (ImGuiDemo)  ImGui::ShowDemoWindow(&ImGuiDemo);
+            static std::vector<uint8_t> serialDevices;
+            if (ImGui::Button("Scan for Devices"))
+            {
+                serialDevices = RTPlot::SerialDevice::scanSerialDevices();
+            }
 
-            if (ImGui::Button("COM3"))
+            for (uint8_t device : serialDevices)
             {
-                serialDeviceMutex.lock();
-                if (microController->changePort("COM3"))
-                    logMsg = "Connected to port COM3.\n";
-                else
-                    logMsg = "Couldn't connect to port COM3.\n";
-                serialDeviceMutex.unlock();
-            }
-            ImGui::SameLine();
-            if (ImGui::Button("COM4"))
-            {
-                serialDeviceMutex.lock();
-                if (microController->changePort("COM4"))
-                    logMsg = "Connected to port COM4.\n";
-                else
-                    logMsg = "Couldn't connect to port COM4.\n";
-                serialDeviceMutex.unlock();
-            }
-            ImGui::SameLine();
-            if (ImGui::Button("COM5"))
-            {
-                serialDeviceMutex.lock();
-                if (microController->changePort("COM5"))
-                    logMsg = "Connected to port COM5.\n";
-                else
-                    logMsg = "Couldn't connect to port COM5.\n";
-                serialDeviceMutex.unlock();
+                std::string port = "COM" + std::to_string(device);
+                if (ImGui::Button(port.c_str()))
+                {
+                    serialDeviceMutex.lock();
+                    if (microController->changePort(port.c_str()))
+                        logMsg = "Connected to port " + port + ".\n";
+                    else
+                        logMsg = "Couldn't connect to port " + port + ".\n";
+                    serialDeviceMutex.unlock();
+                }
             }
         ImGui::End();
 
-        if (consoleLog) RTPlot::ShowConsoleLog(logMsg, &consoleLog);
+        if (consoleLogFlag) RTPlot::ShowConsoleLog(logMsg, &consoleLogFlag);
 
-        microController->setVerbose(verbose);
+        microController->setVerbose(verboseFlag);
 
         // GUI rendering
         ImGui::Render();
@@ -303,10 +312,10 @@ int main(int argc, char** argv)
     ImPlot::DestroyContext();
     ImGui::DestroyContext();
 
-    // Thread finish
+    // Finish threads
     threadExitFlag = true;
     readingThread.join();
-
+    
     // GLFW shutdown
     glfwTerminate();
 

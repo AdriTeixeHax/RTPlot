@@ -5,6 +5,7 @@ namespace RTPlot
 	SerialPort::SerialPort(const char* _port, DWORD _baudRate, BYTE _byteSize, WORD _parity, bool verboseData) : portName(_port), baudRate(_baudRate), parity(_parity), hCOM((void*)0), status({ 0 }), errors(0), connected(false), byteSize(_byteSize)
 	{
 		this->connect();
+		this->setTimeouts();
 	}
 
 	SerialPort::~SerialPort(void) { this->disconnect(); }
@@ -12,6 +13,15 @@ namespace RTPlot
 	void SerialPort::setName(const char* name)
 	{
 		this->portName = name;
+	}
+
+	void SerialPort::setTimeouts(DWORD WriteTotalMultiplier, DWORD ReadTotalMultiplier, DWORD ReadInterval, DWORD ReadTotalConstant, DWORD WriteTotalConstant)
+	{
+		timeouts.WriteTotalTimeoutMultiplier = WriteTotalMultiplier;
+		timeouts.ReadTotalTimeoutMultiplier  = ReadTotalMultiplier;
+		timeouts.ReadIntervalTimeout         = ReadInterval;
+		timeouts.ReadTotalTimeoutConstant    = ReadTotalConstant;
+		timeouts.WriteTotalTimeoutConstant   = WriteTotalConstant;
 	}
 
 	bool SerialPort::connect(void)
@@ -38,12 +48,6 @@ namespace RTPlot
 			dcb.fDtrControl = DTR_CONTROL_ENABLE;
 
 			if (!SetCommState(hCOM, &dcb)) { if (verboseData) std::cerr << "[SerialPort]: Failed to set COM port parameters." << std::endl; return false; }
-
-			timeouts.WriteTotalTimeoutMultiplier = 10;
-			timeouts.ReadTotalTimeoutMultiplier = 10;
-			timeouts.ReadIntervalTimeout = 50;
-			timeouts.ReadTotalTimeoutConstant = 1000;
-			timeouts.WriteTotalTimeoutConstant = 1000;
 
 			if (!SetCommTimeouts(hCOM, &timeouts)) { if (verboseData) std::cerr << "[SerialPort]: Failed to set COM port timeouts." << std::endl; return false; }
 

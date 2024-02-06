@@ -1,5 +1,7 @@
 #include <serial/SerialDevice.h>
 
+#include <string>
+
 bool RTPlot::SerialDevice::recieve(uint32_t delay)
 {
     if (!port) { if (verboseData) std::cerr << "[SerialDevice]: Error dereferencing port: it is nullptr." << std::endl; return false; }
@@ -52,6 +54,23 @@ bool RTPlot::SerialDevice::recieve(uint32_t delay)
     }
 
     return true;
+}
+
+std::vector<uint8_t> RTPlot::SerialDevice::scanSerialDevices(void)
+{
+    std::vector<uint8_t> ports;
+    for (uint8_t portNumber = 0; portNumber < 255U; portNumber++)
+    {
+        std::wstring portName = L"COM" + std::to_wstring(portNumber);
+        HANDLE hPort = CreateFileW(portName.c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+        if (hPort != INVALID_HANDLE_VALUE)
+        {
+            ports.push_back(portNumber);
+            CloseHandle(hPort);
+        }
+    }
+
+    return ports;
 }
 
 bool RTPlot::SerialDevice::changePort(const char* portName)

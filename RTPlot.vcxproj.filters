@@ -27,6 +27,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\serial\SerialPort.cpp" />
     <ClCompile Include="src\serial\SerialDevice.cpp" />
+    <ClCompile Include="src\plotting\RealTimePlot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFW\glfw3.h" />
@@ -349,6 +350,7 @@
     <ClInclude Include="include\menus\Menu.h" />
     <ClInclude Include="include\windows\MainMenuWindow.h" />
     <ClInclude Include="include\plotting\Logger.h" />
+    <ClInclude Include="include\serial\DeviceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />
