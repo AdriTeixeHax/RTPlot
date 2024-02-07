@@ -1,5 +1,7 @@
 #include "SerialPort.h"
 
+#include <string>
+
 namespace RTPlot
 {
 	SerialPort::SerialPort(const char* _port, DWORD _baudRate, BYTE _byteSize, WORD _parity, bool verboseData) : portName(_port), baudRate(_baudRate), parity(_parity), hCOM((void*)0), status({ 0 }), errors(0), connected(false), byteSize(_byteSize)
@@ -26,7 +28,7 @@ namespace RTPlot
 
 	bool SerialPort::connect(void)
 	{
-		hCOM = CreateFileA(static_cast<LPCSTR>(portName), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+		hCOM = CreateFileA(static_cast<LPCSTR>(portName.c_str()), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 
 		switch (GetLastError())
 		{
@@ -131,5 +133,21 @@ namespace RTPlot
 			if (GetLastError() == 0x3E6) std::cerr << "[SerialPort]: Invalid access to memory location." << std::endl;
 			return RTPLOT_ERROR;
 		}
+	}
+	std::vector<uint8_t> SerialPort::scanAvailablePorts(void)
+	{
+		std::vector<uint8_t> ports;
+		for (uint8_t portNumber = 0; portNumber < 255U; portNumber++)
+		{
+			std::wstring portName = L"COM" + std::to_wstring(portNumber);
+			HANDLE hPort = CreateFileW(portName.c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+			if (hPort != INVALID_HANDLE_VALUE)
+			{
+				ports.push_back(portNumber);
+				CloseHandle(hPort);
+			}
+		}
+
+		return ports;
 	}
 }

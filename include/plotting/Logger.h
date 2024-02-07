@@ -71,10 +71,8 @@ namespace ImGui
 
             if (ImGui::BeginChild("scrolling", ImVec2(0, 0), ImGuiChildFlags_None, ImGuiWindowFlags_HorizontalScrollbar))
             {
-                if (clear)
-                    Clear();
-                if (copy)
-                    ImGui::LogToClipboard();
+                if (clear) Clear();
+                if (copy) ImGui::LogToClipboard();
 
                 ImGui::PushStyleVar(ImGuiStyleVar_ItemSpacing, ImVec2(0, 0));
                 const char* buf = Buf.begin();

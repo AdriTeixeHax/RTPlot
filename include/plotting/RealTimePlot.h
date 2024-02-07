@@ -6,6 +6,7 @@
 
 #include <cmath>
 #include <cstdint>
+#include <string>
 
 namespace RTPlot
 {
@@ -35,20 +36,34 @@ namespace RTPlot
 
 	class RealTimePlot
 	{
-        double* dataPtr = nullptr;
+        RollingBuffer* rdata;
+        double* dataPtr;
+        uint8_t id;
+
+        ImVec4 color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
+
+        float history = 10.0f;
 
     public:
-        RealTimePlot(void) : dataPtr(nullptr) { }
-        RealTimePlot(double* ptr) : dataPtr(ptr) { }
+        RealTimePlot(void) : rdata(new RollingBuffer), dataPtr(new double), id(0) { }
+        RealTimePlot(double* ptr) : rdata(new RollingBuffer), dataPtr(ptr), id(0) { }
+        ~RealTimePlot(void) 
+        { 
+            delete rdata; 
+            dataPtr = new double;
+            delete dataPtr;
+        }
 
         // Getters
         double* getDataPtr(void) { return dataPtr; }
 
         // Setters
         void setDataPtr(double* ptr) { dataPtr = ptr; }
+        void setID(uint8_t _id) { id = _id; }
 
         // Actions
         int8_t plot(void);
+        void clear(void);
 	};
 }
 

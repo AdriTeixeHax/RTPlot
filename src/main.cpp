@@ -24,13 +24,14 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 // Plotting and UI
+
 #include <implot/implot.h>
 #include <implot/implot_internal.h>
 #include <plotting/RealTimePlot.h>
 #include <plotting/Logger.h>
 
 // Serial devices
-#include "SerialDevice.h"
+#include "DeviceManager.h"
 
 // Tests
 #include "tests/TestClearColor.h"
@@ -74,6 +75,7 @@ void serialReadingFunc(bool* exitFlag, RTPlot::SerialDevice* deviceToRead, doubl
 int main(int argc, char** argv)
 {
     /******************** GLFW - GLEW CONFIG ********************/
+
     // Create window context and get data from main monitor
     GLFWwindow* window;
 
@@ -89,18 +91,7 @@ int main(int argc, char** argv)
     if (!window) { std::cerr << "[GLFW]: Error creating window." << std::endl; glfwTerminate(); return -1; }
 
     // Make the window's context current
-    glfwMakeContextCurrent(window);         
-
-    // Load window icon
-    int width, height, channels;
-    unsigned char* pixels = stbi_load(RTPLOT_LOGO_PATH, &width, &height, &channels, 4);
-
-    // Change window icon
-    GLFWimage images[1];
-    images[0].width  = width;
-    images[0].height = height;
-    images[0].pixels = pixels;
-    glfwSetWindowIcon(window, 1, images);
+    glfwMakeContextCurrent(window);
 
     // Initialize GLEW
     if (glewInit() != GLEW_OK) { std::cerr << "[GLEW]: Error initializing GLEW." << std::endl; return -1; }
@@ -114,9 +105,6 @@ int main(int argc, char** argv)
 
     /******************** IMGUI - IMPLOT CONFIG ********************/
 
-    // Create a rendering instance
-    Renderer renderer;
-
     // ImGui and ImPlot context creation
     ImGui::CreateContext();
     ImPlot::CreateContext();
@@ -129,7 +117,7 @@ int main(int argc, char** argv)
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;                           // Enable viewports
     io.Fonts->AddFontFromFileTTF(RTPLOT_SOURCESANS_PATH, RTPLOT_SOURCESANS_SIZE); // Add the SourceSans font
     io.Fonts->AddFontFromFileTTF(RTPLOT_CONSOLA_PATH,    RTPLOT_CONSOLA_SIZE);    // Add the Consolas font
-    // ImGui element radius configuration
+    // ImGui element radius setting
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding,     RTPLOT_MAIN_RADIUS);
     ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding,     RTPLOT_MAIN_RADIUS);
     ImGui::PushStyleVar(ImGuiStyleVar_GrabRounding,      RTPLOT_MAIN_RADIUS);
@@ -145,18 +133,22 @@ int main(int argc, char** argv)
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init("#version 130");
 
+    // Create a rendering instance
+    Renderer renderer;
+
     /******************** RTPLOT CONFIG ********************/
 
-    // Serial devices
-    static RTPlot::SerialDevice* microController = new RTPlot::SerialDevice("COM0");
+    //// Serial devices
+    //static RTPlot::SerialDevice* microController = new RTPlot::SerialDevice("COM0");
 
-    // Plotting tools
-    double reading = 0;
-    RTPlot::RealTimePlot plotter(&reading);
+    //// Plotting tools
+    //double reading = 0;
+    //RTPlot::RealTimePlot plotter(&reading);
 
     // Initialize threads
     bool threadExitFlag = false;
-    std::thread readingThread(serialReadingFunc, &threadExitFlag, microController, &reading);
+    RTPlot::DeviceManager deviceManager;
+    //std::thread readingThread(serialReadingFunc, &threadExitFlag, microController, &reading);
 
     /******************** MAIN LOOP ********************/
 
@@ -166,6 +158,9 @@ int main(int argc, char** argv)
         // Clear color buffer bit
         glCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
         renderer.clear();
+
+        // Disable ugly menu arrow
+        ImGui::GetStyle().WindowMenuButtonPosition = ImGuiDir_None;
 
         // Start the ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
@@ -196,95 +191,149 @@ int main(int argc, char** argv)
 
         if (!opt_padding) ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
-        static bool verboseFlag        = false;
-        static bool ImGuiDemoFlag      = false;
-        static bool ImPlotDemoFlag     = false;
-        static bool consoleLogFlag     = false;
+        ImGui::Begin("RTPlot", NULL, window_flags);
+        if (!opt_padding)   ImGui::PopStyleVar();
+        if (opt_fullscreen) ImGui::PopStyleVar(2);
+
+        // Submit the DockSpace
+        ImGuiIO& io = ImGui::GetIO();
+        if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+        {
+            ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
+        }
+
+        static bool verboseFlag = false;
+        static bool ImGuiDemoFlag = false;
+        static bool ImPlotDemoFlag = false;
+        static bool consoleLogFlag = false;
+        static bool showAddPlotFlag = true;
         static bool serialOptionsFlag = false;
+        static bool showDeletePlotFlag = true;
 
         std::string logMsg;
 
-        ImGui::Begin("RTPlot", NULL, window_flags);
-            if (!opt_padding)   ImGui::PopStyleVar();
-            if (opt_fullscreen) ImGui::PopStyleVar(2);
-
-            // Submit the DockSpace
-            ImGuiIO& io = ImGui::GetIO();
-            if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+        // Menu Bar
+        if (ImGui::BeginMenuBar())
+        {
+            if (ImGui::BeginMenu("Options"))
             {
-                ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-                ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
-            }
-
-            if (ImGui::BeginMenuBar())
-            {
-                if (ImGui::BeginMenu("Options"))
+                if (ImGui::MenuItem("ImPlot Demo", "", ImPlotDemoFlag)) { ImPlotDemoFlag = !ImPlotDemoFlag; }
+                if (ImGui::MenuItem("ImGui Demo",  "", ImGuiDemoFlag))  { ImGuiDemoFlag  = !ImGuiDemoFlag; }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Verbose data", "", verboseFlag))
                 {
-                    if (ImGui::MenuItem("ImPlot Demo", "", ImPlotDemoFlag)) { ImPlotDemoFlag = !ImPlotDemoFlag; }
-                    if (ImGui::MenuItem("ImGui Demo",  "", ImGuiDemoFlag))  { ImGuiDemoFlag  = !ImGuiDemoFlag; }
-                    ImGui::Separator();
-                    if (ImGui::MenuItem("Verbose data", "", verboseFlag))
-                    {
-                        verboseFlag = !verboseFlag;
-                        if (verboseFlag) logMsg = "Turned on verbose.\n";
-                        else         logMsg = "Turned off verbose.\n";
-                    }
-                    if (ImGui::MenuItem("Console log",    "", consoleLogFlag))    { consoleLogFlag = !consoleLogFlag; }
-                    if (ImGui::MenuItem("Serial options", "", serialOptionsFlag)) { serialOptionsFlag = !serialOptionsFlag; }
-                    ImGui::EndMenu();
+                    verboseFlag = !verboseFlag;
+                    if (verboseFlag) logMsg = "Turned on verbose.\n";
+                    else             logMsg = "Turned off verbose.\n";
                 }
-
-                ImGui::EndMenuBar();
+                if (ImGui::MenuItem("Console log",    "", consoleLogFlag))    { consoleLogFlag = !consoleLogFlag; }
+                if (ImGui::MenuItem("Serial options", "", serialOptionsFlag)) { serialOptionsFlag = !serialOptionsFlag; }
+                ImGui::EndMenu();
             }
+            ImGui::EndMenuBar();
+        }
         ImGui::End();
 
+        // Serial Options tab
         if (serialOptionsFlag)
         {
-            static int wtm = 10, rtm = 10, ri = 50, rtc = 1000, wtc = 1000;
             ImGui::Begin("Serial Options", &serialOptionsFlag);
-                ImGui::InputInt("Write Total Multiplier", &wtm);
-                ImGui::InputInt("Write Total Constant",   &wtc);
-                ImGui::InputInt("Read Total Multiplier",  &rtm);
-                ImGui::InputInt("Read Total Constant",    &rtc);
-                ImGui::InputInt("Read Interval",          &ri);
+            static int wtm = 10, rtm = 10, ri = 50, rtc = 1000, wtc = 1000; // Serial parameters
 
-                if (ImGui::Button("Apply"))
-                    microController->getPort()->setTimeouts(wtm, rtm, ri, rtc, wtc);
+            ImGui::InputInt("Write Total Multiplier", &wtm);
+            ImGui::InputInt("Write Total Constant",   &wtc);
+            ImGui::InputInt("Read Total Multiplier",  &rtm);
+            ImGui::InputInt("Read Total Constant",    &rtc);
+            ImGui::InputInt("Read Interval",          &ri);
 
-            ImGui::End();
-
-        }
-
-        ImGui::Begin("RTPlot - by AdriTeixeHax", NULL); // Window
-            if (ImPlotDemoFlag) ImPlot::ShowDemoWindow(&ImPlotDemoFlag);
-            if (ImGuiDemoFlag)   ImGui::ShowDemoWindow(&ImGuiDemoFlag);
-
-            plotter.plot();
-
-            static std::vector<uint8_t> serialDevices;
-            if (ImGui::Button("Scan for Devices"))
+            if (ImGui::Button("Apply"))
             {
-                serialDevices = RTPlot::SerialDevice::scanSerialDevices();
+                for (uint8_t i = 0; i < deviceManager.size(); i++)
+                    deviceManager[i]->serialDevice->getPort()->setTimeouts(wtm, rtm, ri, rtc, wtc);
+                logMsg = "Applied serial parameters.\n";
+                serialOptionsFlag = false;
             }
 
-            for (uint8_t device : serialDevices)
+            ImGui::End();
+        }
+
+        // Serial plotting window
+        ImGui::Begin("RTPlot - by AdriTeixeHax", NULL); // Null so that it cannot be closed
+        if (ImPlotDemoFlag) ImPlot::ShowDemoWindow(&ImPlotDemoFlag);
+        if (ImGuiDemoFlag)   ImGui::ShowDemoWindow(&ImGuiDemoFlag);
+
+        static std::vector<uint8_t> serialPorts;
+        if (ImGui::Button("Add Device"))
+        {
+            serialPorts = RTPlot::SerialPort::scanAvailablePorts();
+            showAddPlotFlag = true;
+        }
+
+        if (showAddPlotFlag)
+        {
+            for (uint8_t device : serialPorts)
             {
+                ImGui::SameLine();
+
+                ImGui::PushID(device);
+                ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(device / 7.0f, 1.0f, 0.6f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 7.0f, 0.7f, 0.7f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(device / 7.0f, 0.8f, 0.8f));
+
                 std::string port = "COM" + std::to_string(device);
                 if (ImGui::Button(port.c_str()))
                 {
-                    serialDeviceMutex.lock();
-                    if (microController->changePort(port.c_str()))
-                        logMsg = "Connected to port " + port + ".\n";
-                    else
-                        logMsg = "Couldn't connect to port " + port + ".\n";
-                    serialDeviceMutex.unlock();
+                    const char* portName = port.c_str();
+                    deviceManager.AddDevice(portName);
+                    showAddPlotFlag = false;
                 }
+
+                ImGui::PopStyleColor(3);
+                ImGui::PopID();
             }
+        }
+        
+        static std::vector<std::string> portsOpen;
+        if (ImGui::Button("Remove Device"))
+        {
+            portsOpen.clear();
+            for (uint8_t i = 0; i < deviceManager.size(); i++)
+            {
+                const char* portName = deviceManager[i]->serialDevice->getPort()->getName().c_str();
+                portsOpen.push_back(portName);
+            }
+            showDeletePlotFlag = true;
+        }
+
+        if (showDeletePlotFlag)
+        {
+            for (uint8_t i = 0; i < portsOpen.size(); i++)
+            {
+                ImGui::SameLine();
+
+                ImGui::PushID(i);
+                ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(i / 7.0f, 1.0f, 0.6f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(i / 7.0f, 0.7f, 0.7f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(i / 7.0f, 0.8f, 0.8f));
+
+                if (ImGui::Button(portsOpen[i].c_str()))
+                {
+                    deviceManager.RemoveDevice(i);
+                    portsOpen.erase(portsOpen.begin() + i);
+                    showDeletePlotFlag = false;
+                }
+
+                ImGui::PopStyleColor(3);
+                ImGui::PopID();
+            }
+        }
+
+        deviceManager.plotAll();
+
         ImGui::End();
 
         if (consoleLogFlag) RTPlot::ShowConsoleLog(logMsg, &consoleLogFlag);
-
-        microController->setVerbose(verboseFlag);
 
         // GUI rendering
         ImGui::Render();
@@ -298,13 +347,11 @@ int main(int argc, char** argv)
             ImGui::RenderPlatformWindowsDefault();
             glfwMakeContextCurrent(backup_current_context);
         }
+        
+        glfwSwapBuffers(window);// Swap front and back buffers
+        glfwPollEvents(); // Poll and process events
 
-        // Swap front and back buffers
-        glfwSwapBuffers(window);
-
-        // Poll and process events
-        glfwPollEvents();
-    }
+    } // !while
 
     // GUI shutdown
     ImGui_ImplOpenGL3_Shutdown();
@@ -314,7 +361,7 @@ int main(int argc, char** argv)
 
     // Finish threads
     threadExitFlag = true;
-    readingThread.join();
+    //readingThread.join();
     
     // GLFW shutdown
     glfwTerminate();

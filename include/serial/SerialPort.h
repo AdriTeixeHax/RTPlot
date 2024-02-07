@@ -8,6 +8,7 @@
 #endif
 
 #include <iostream>
+#include <vector>
 
 #define RTPLOT_BYTE_SIZE 8
 #define RTPLOT_INIT_WAIT_TIME 2000
@@ -30,7 +31,7 @@ namespace RTPlot
 		DWORD        baudRate;
 		HANDLE       hCOM;
 		COMSTAT      status;
-		const char*  portName;
+		std::string  portName;
 		COMMTIMEOUTS timeouts = { 0 }; // Serial reading timeouts
 
 	public:
@@ -40,7 +41,7 @@ namespace RTPlot
 
 		// Getters
 		bool isConnected(void);
-		const char* getName(void) { return portName; }
+		const std::string& getName(void) { return portName; }
 
 		// Setters
 		void setName(const char* name);
@@ -52,6 +53,7 @@ namespace RTPlot
 		void disconnect(void);
 		bool clearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
 		int8_t read(LPVOID buf, DWORD size);
+		static std::vector<uint8_t> scanAvailablePorts(void);
 	};
 }
 

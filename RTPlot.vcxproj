@@ -185,6 +185,7 @@
     <ClCompile Include="include\renderer\VertexBufferLayout.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\File.h" />
     <ClInclude Include="include\GLFW\glfw3.h" />
     <ClInclude Include="include\GLFW\glfw3native.h" />
     <ClInclude Include="include\GL\eglew.h" />

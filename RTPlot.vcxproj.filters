@@ -351,6 +351,7 @@
     <ClInclude Include="include\windows\MainMenuWindow.h" />
     <ClInclude Include="include\plotting\Logger.h" />
     <ClInclude Include="include\serial\DeviceManager.h" />
+    <ClInclude Include="include\File.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />

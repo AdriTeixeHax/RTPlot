@@ -17,12 +17,13 @@ namespace RTPlot
 		std::mutex    mutex;
 		RealTimePlot* plotter;
 		SerialDevice* serialDevice;
-		uint8_t id = 0;
 		bool exitFlag = false;
+		uint8_t id = 0;
+		double reading = 0;
 
-		DeviceComponents(const char* port) : plotter(new RealTimePlot), serialDevice(new SerialDevice(port))
+		DeviceComponents(const char* port) : plotter(new RealTimePlot(&reading)), serialDevice(new SerialDevice(port))
 		{
-			thread = std::thread(serialReadingFunc);
+			thread = std::thread(&DeviceComponents::serialReadingFunc, this);
 		}
 
 		~DeviceComponents(void)
@@ -54,12 +55,25 @@ namespace RTPlot
 	public:
 		~DeviceManager(void) { for (auto i : components) delete i; }
 
-		// Actions
-		void AddDevice(const char* port) { components.push_back(new DeviceComponents(port)); components[components.size() - 1]->id = components.size() - 1; }
-		void RemoveDevice(uint8_t i)     { components.erase(components.begin() + i); }
+		// Getters
+		uint8_t size(void) { return components.size(); }
+		DeviceComponents* operator[](uint8_t i) { return components[i]; }
 
-		void plotDevice(uint8_t id)      { components[id]->plotter->plot(); }
-		void plotAll(void)               { for (uint8_t i = 0; i < components.size(); i++) plotDevice(i); }
+		// Actions
+		void AddDevice(const char* port) 
+		{ 
+			components.push_back(new DeviceComponents(port)); 
+			components[components.size() - 1]->id = components.size() - 1;
+			components[components.size() - 1]->plotter->setID(components[components.size() - 1]->id);
+		}
+		void RemoveDevice(uint8_t i)
+		{
+			delete components[i];
+			components.erase(components.begin() + i); 
+		}
+
+		void plotDevice(uint8_t id) { components[id]->plotter->plot(); }
+		void plotAll(void)          { for (uint8_t i = 0; i < components.size(); i++) plotDevice(i); }
 	};
 }
 
