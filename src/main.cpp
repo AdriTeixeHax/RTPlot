@@ -55,22 +55,6 @@
 
 /**********************************************************************************************/
 
-std::mutex serialDeviceMutex;
-
-// Reading thread
-void serialReadingFunc(bool* exitFlag, RTPlot::SerialDevice* deviceToRead, double* dataToPlot)
-{
-    while (!*exitFlag)
-    {
-        serialDeviceMutex.lock();
-        if (deviceToRead->recieve())
-        {
-            *dataToPlot = deviceToRead->getMessage();
-        }
-        serialDeviceMutex.unlock();
-    }
-}
-
 // Main function
 int main(int argc, char** argv)
 {
@@ -137,13 +121,6 @@ int main(int argc, char** argv)
     Renderer renderer;
 
     /******************** RTPLOT CONFIG ********************/
-
-    //// Serial devices
-    //static RTPlot::SerialDevice* microController = new RTPlot::SerialDevice("COM0");
-
-    //// Plotting tools
-    //double reading = 0;
-    //RTPlot::RealTimePlot plotter(&reading);
 
     // Initialize threads
     bool threadExitFlag = false;
@@ -287,6 +264,7 @@ int main(int argc, char** argv)
                     const char* portName = port.c_str();
                     deviceManager.AddDevice(portName);
                     showAddPlotFlag = false;
+                    logMsg = "Added device " + port + "\n";
                 }
 
                 ImGui::PopStyleColor(3);
@@ -322,6 +300,7 @@ int main(int argc, char** argv)
                     deviceManager.RemoveDevice(i);
                     portsOpen.erase(portsOpen.begin() + i);
                     showDeletePlotFlag = false;
+                    logMsg = "Deleted device";
                 }
 
                 ImGui::PopStyleColor(3);
