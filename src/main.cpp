@@ -24,7 +24,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 // Plotting and UI
-
 #include <implot/implot.h>
 #include <implot/implot_internal.h>
 #include <plotting/RealTimePlot.h>
@@ -127,6 +126,15 @@ int main(int argc, char** argv)
     RTPlot::DeviceManager deviceManager;
     //std::thread readingThread(serialReadingFunc, &threadExitFlag, microController, &reading);
 
+    // Disable ugly menu arrow
+    ImGui::GetStyle().WindowMenuButtonPosition = ImGuiDir_None;
+
+    // Load app logo
+    GLFWimage* appLogo = new GLFWimage();
+    appLogo->pixels = stbi_load(RTPLOT_LOGO_PATH, &appLogo->width, &appLogo->height, nullptr, 4);
+    glfwSetWindowIcon(window, 1, appLogo);
+    delete appLogo;
+
     /******************** MAIN LOOP ********************/
 
     // Loop until the user closes the window
@@ -136,16 +144,12 @@ int main(int argc, char** argv)
         glCall(glClearColor(0.0f, 0.0f, 0.0f, 1.0f));
         renderer.clear();
 
-        // Disable ugly menu arrow
-        ImGui::GetStyle().WindowMenuButtonPosition = ImGuiDir_None;
-
         // Start the ImGui frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
         // UI Elements (view imgui_demo.cpp for comments regarding flag choices)
-
         static bool opt_fullscreen = true;
         static bool opt_padding = false;
         static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
@@ -284,6 +288,14 @@ int main(int argc, char** argv)
             showDeletePlotFlag = true;
         }
 
+        if (!consoleLogFlag)
+        {
+            if (ImGui::Button("Console Log"))
+            {
+                consoleLogFlag = true;
+            }
+        }
+
         if (showDeletePlotFlag)
         {
             for (uint8_t i = 0; i < portsOpen.size(); i++)
@@ -308,6 +320,7 @@ int main(int argc, char** argv)
             }
         }
 
+        // Plotting
         deviceManager.plotAll();
 
         ImGui::End();
