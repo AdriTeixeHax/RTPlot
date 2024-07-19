@@ -10,13 +10,13 @@
 #include <mutex>
 
 // Graphics
-#include "Shader.h"
-#include "Renderer.h"
-#include "VertexBuffer.h"
-#include "VertexBufferLayout.h"
-#include "IndexBuffer.h"
-#include "VertexArray.h"
-#include "Texture.h"
+#include <renderer/Shader.h>
+#include <renderer/Renderer.h>
+#include <renderer/VertexBuffer.h>
+#include <renderer/VertexBufferLayout.h>
+#include <renderer/IndexBuffer.h>
+#include <renderer/VertexArray.h>
+#include <renderer/Texture.h>
 #include <stb_image/stb_image.h>
 
 // OpenGL math
@@ -24,14 +24,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 // Plotting and UI
-
 #include <implot/implot.h>
 #include <implot/implot_internal.h>
 #include <plotting/RealTimePlot.h>
 #include <plotting/Logger.h>
 
 // Serial devices
-#include "DeviceManager.h"
+#include <serial/DeviceManager.h>
 
 // Tests
 #include "tests/TestClearColor.h"

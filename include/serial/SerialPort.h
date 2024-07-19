@@ -3,12 +3,16 @@
 
 #ifdef _WIN32
 #include <Windows.h>
+#define USING_WINDOWS
 #else
-#error This program is currently only supported in Windows
+#ifdef __linux__
+#include <libserial/SerialPort.h>
+#define USING_LINUX
 #endif
 
 #include <iostream>
 #include <vector>
+#include <unistd.h>
 
 #define RTPLOT_BYTE_SIZE 8
 #define RTPLOT_INIT_WAIT_TIME 2000
@@ -18,6 +22,7 @@
 
 #define RTPLOT_READING_DELAY 0
 
+#ifdef USING_WINDOWS
 namespace RTPlot
 {
 	class SerialPort
@@ -56,6 +61,40 @@ namespace RTPlot
 		static std::vector<uint8_t> scanAvailablePorts(void);
 	};
 }
+#endif
 
+#ifdef USING_LINUX
+namespace RTPlot
+{
+	class SerialPort
+	{
+		LibSerial::SerialPort serialPort;
+		std::string  		  portName;
+		bool         		  connected;
+		bool		 		  verboseData;
+
+	public:
+		SerialPort(void) = delete;
+		SerialPort(const char* _port, LibSerial::BaudRate _baudRate = LibSerial::BaudRate::BAUD_115200, LibSerial::CharacterSize _byteSize = LibSerial::CharacterSize::CHAR_SIZE_8, LibSerial::Parity _parity = LibSerial::Parity::PARITY_NONE, bool verboseData = false);
+		~SerialPort(void);
+
+		// Getters
+		bool isConnected(void);
+		const std::string& getName(void) { return portName; }
+
+		// Setters
+		void setName(const char* name);
+		void setVerbose(bool vb) { verboseData = vb; }
+		void setTimeouts(DWORD WriteTotalMultiplier = 10, DWORD ReadTotalMultiplier = 10, DWORD ReadInterval = 50, DWORD ReadTotalConstant = 1000, DWORD WriteTotalConstant = 1000);
+
+		// Actions
+		bool connect(void);
+		void disconnect(void);
+		bool clearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
+		int8_t read(LPVOID buf, DWORD size);
+		static std::vector<uint8_t> scanAvailablePorts(void);
+	};
+}
+#endif
 
 #endif

@@ -3,11 +3,11 @@
 
 #include "Test.h"
 #include "glm/glm.hpp"
-#include "VertexArray.h"
-#include "VertexBuffer.h"
-#include "VertexBufferLayout.h"
-#include "IndexBuffer.h"
-#include "Texture.h"
+#include "renderer/VertexArray.h"
+#include "renderer/VertexBuffer.h"
+#include "renderer/VertexBufferLayout.h"
+#include "renderer/IndexBuffer.h"
+#include "renderer/Texture.h"
 
 #include <memory>
 

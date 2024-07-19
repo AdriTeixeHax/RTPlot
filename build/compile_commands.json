@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/main.cpp.o -c /home/ateixeira/dev/RTPlot/src/main.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/main.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/main.cpp.o"
+}
+]

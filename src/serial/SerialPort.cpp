@@ -2,6 +2,7 @@
 
 #include <string>
 
+#ifdef USING_WINDOWS
 namespace RTPlot
 {
 	SerialPort::SerialPort(const char* _port, DWORD _baudRate, BYTE _byteSize, WORD _parity, bool verboseData) : portName(_port), baudRate(_baudRate), parity(_parity), hCOM((void*)0), status({ 0 }), errors(0), connected(false), byteSize(_byteSize)
@@ -147,7 +148,28 @@ namespace RTPlot
 				CloseHandle(hPort);
 			}
 		}
-
 		return ports;
 	}
+
+#endif
+
+#ifdef USING_LINUX
+
+namespace RTPlot
+{
+	SerialPort::SerialPort(const char* _port, LibSerial::BaudRate _baudRate, LibSerial::CharacterSize _byteSize, LibSerial::Parity _parity, bool verboseData)
+	{
+		serialPort.SetBaudRate(_baudRate);
+		serialPort.SetCharacterSize(_byteSize);
+		serialPort.SetFlowControl(LibSerial::FlowControl::FLOW_CONTROL_NONE);
+		serialPort.SetParity(_parity);
+		serialPort.SetStopBits(LibSerial::StopBits::STOP_BITS_1);
+
+		this->connect();
+		this->setTimeouts();
+	}
 }
+
+// TODO: continue implementing
+
+#endif
