@@ -4,5 +4,29 @@
   "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/main.cpp.o -c /home/ateixeira/dev/RTPlot/src/main.cpp",
   "file": "/home/ateixeira/dev/RTPlot/src/main.cpp",
   "output": "CMakeFiles/RTPlot.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_demo.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_demo.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_draw.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_draw.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_widgets.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_widgets.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o"
 }
 ]

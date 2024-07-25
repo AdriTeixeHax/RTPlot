@@ -12,10 +12,17 @@ pkg_check_modules(SERIAL libserial)
 include_directories(RTPlot include src/vendor)
 find_package(OpenGL REQUIRED)
 find_package(GLEW 2.2.0 REQUIRED)
+aux_source_directory(RTPlot src)
+set(IMGUI_SOURCES
+    src/vendor/imgui/imgui.cpp
+    src/vendor/imgui/imgui_demo.cpp
+    src/vendor/imgui/imgui_draw.cpp
+    src/vendor/imgui/imgui_widgets.cpp
+)
 
 # Executable
-add_executable(RTPlot src/main.cpp)
+add_executable(RTPlot src/main.cpp ${IMGUI_SOURCES})
 
 # Libraries
 target_include_directories(RTPlot PRIVATE ${SERIAL_INCLUDE_DIRS})
-target_link_libraries(RTPlot glfw GLEW GLPRIVATE ${SERIAL_LDFLAGS} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(RTPlot glfw GLEW GL PRIVATE)

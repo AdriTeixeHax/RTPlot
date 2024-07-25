@@ -193,9 +193,8 @@ namespace RTPlot
 		serialPort.Close();
 	}
 
-	int8_t SerialPort::read(void)
+	bool SerialPort::read(char& reading)
 	{
-		char reading;
 		try
 		{
 			serialPort.ReadByte(reading, this->readingTimeout);

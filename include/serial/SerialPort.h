@@ -92,7 +92,7 @@ namespace RTPlot
 		bool connect(void);
 		void disconnect(void);
 		bool isConnected(void);
-		int8_t read(void);
+		bool read(char& reading);
 		static std::vector<std::string> scanAvailablePorts(void);
 	};
 }

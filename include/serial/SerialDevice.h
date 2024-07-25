@@ -50,15 +50,15 @@ namespace RTPlot
 		SerialPort*  port;
 
         const size_t msgSize;
-        void*        reading;
+        char         reading;
         double       dReading = 0;
 
         bool         verboseData = false;
 
 	public:
         SerialDevice(void) = delete;
-        SerialDevice(const char* portName, size_t size = RTPLOT_BYTE_SIZE, LibSerial::BaudRate baudRate = LibSerial::BaudRate::BAUD_115200) : port(new RTPlot::SerialPort(portName, baudRate)), msgSize(size), reading(new void*) { }
-        ~SerialDevice(void) { delete[] reading; delete port; }
+        SerialDevice(const char* portName, size_t size = RTPLOT_BYTE_SIZE, LibSerial::BaudRate baudRate = LibSerial::BaudRate::BAUD_115200) : port(new RTPlot::SerialPort(portName, baudRate)), msgSize(size), reading(0) { }
+        ~SerialDevice(void) { delete port; }
 
         // Getters
         double getMessage(void) { return dReading; }
