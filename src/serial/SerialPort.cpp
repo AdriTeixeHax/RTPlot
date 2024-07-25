@@ -1,6 +1,8 @@
 #include "SerialPort.h"
 
 #include <string>
+#include <cstring>
+#include <dirent.h>
 
 #ifdef USING_WINDOWS
 namespace RTPlot
@@ -135,6 +137,7 @@ namespace RTPlot
 			return RTPLOT_ERROR;
 		}
 	}
+
 	std::vector<uint8_t> SerialPort::scanAvailablePorts(void)
 	{
 		std::vector<uint8_t> ports;
@@ -148,8 +151,10 @@ namespace RTPlot
 				CloseHandle(hPort);
 			}
 		}
+
 		return ports;
 	}
+}
 
 #endif
 
@@ -166,10 +171,91 @@ namespace RTPlot
 		serialPort.SetStopBits(LibSerial::StopBits::STOP_BITS_1);
 
 		this->connect();
-		this->setTimeouts();
+		this->setTimeouts(10);
 	}
-}
 
-// TODO: continue implementing
+	bool SerialPort::connect(void)
+	{
+		try
+		{
+			serialPort.Open(portName);
+			return true;
+		}
+		catch (const LibSerial::OpenFailed&)
+		{
+			std::cerr << "[SerialPort]: The serial port did not open correctly." << std::endl;
+			return false;
+		}
+	}
+
+	void SerialPort::disconnect(void)
+	{
+		serialPort.Close();
+	}
+
+	int8_t SerialPort::read(void)
+	{
+		char reading;
+		try
+		{
+			serialPort.ReadByte(reading, this->readingTimeout);
+
+		}
+		catch (const LibSerial::ReadTimeout&)
+		{
+			std::cerr << "[SerialPort]: The ReadByte() call has timed out." << std::endl;
+		}
+	}
+
+	std::vector<std::string> SerialPort::scanAvailablePorts(void)
+	{
+		const char* dirPath = "/dev/";
+
+		// Open the directory
+		DIR* dir = opendir(dirPath);
+		if (dir == nullptr)
+		{
+			std::cerr << "[SerialPort]: Failed to open the " << dirPath << " directory to scan for ports." << std::endl;
+		}
+
+		// List all available devices and store them into a buffer
+		std::vector<std::string> filenames;
+
+		struct dirent* entry;
+		while((entry = readdir(dir)) != nullptr)
+		{
+			if (strncmp(entry->d_name, "tty", 3) == 0)
+			{
+				filenames.push_back(entry->d_name);
+			}
+		}
+
+		// Close the directory
+		closedir(dir);
+
+		// Print out the filenames for now
+		std::cout << "Filenames starting with 'tty' in " << dirPath << ":" << std::endl;
+		for (const auto& filename : filenames) {
+			std::cout << filename << std::endl;
+		}
+
+		return filenames;
+	}
+
+	bool SerialPort::isConnected(void)
+	{
+		char reading;
+		try
+		{
+			serialPort.ReadByte(reading, this->readingTimeout);
+			return true;
+		}
+		catch (const LibSerial::ReadTimeout&)
+		{
+			return false;
+		}
+	}
+
+}
 
 #endif

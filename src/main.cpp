@@ -212,6 +212,7 @@ int main(int argc, char** argv)
         ImGui::End();
 
         // Serial Options tab
+        #ifndef __linux__
         if (serialOptionsFlag)
         {
             ImGui::Begin("Serial Options", &serialOptionsFlag);
@@ -233,12 +234,32 @@ int main(int argc, char** argv)
 
             ImGui::End();
         }
+        #else
+        if (serialOptionsFlag)
+        {
+            ImGui::Begin("Serial Options", &serialOptionsFlag);
+            static int serialTimeout; // Serial parameters
+
+            ImGui::InputInt("Serial Port Timeout", &serialTimeout);
+
+            if (ImGui::Button("Apply"))
+            {
+                for (uint8_t i = 0; i < deviceManager.size(); i++)
+                    deviceManager[i]->serialDevice->getPort()->setTimeouts(serialTimeout);
+                logMsg = "Applied serial parameters.\n";
+                serialOptionsFlag = false;
+            }
+
+            ImGui::End();
+        }
+        #endif
 
         // Serial plotting window
         ImGui::Begin("RTPlot - by AdriTeixeHax", NULL); // Null so that it cannot be closed
         if (ImPlotDemoFlag) ImPlot::ShowDemoWindow(&ImPlotDemoFlag);
         if (ImGuiDemoFlag)   ImGui::ShowDemoWindow(&ImGuiDemoFlag);
 
+        #ifndef __linux__
         static std::vector<uint8_t> serialPorts;
         if (ImGui::Button("Add Device"))
         {
@@ -270,6 +291,40 @@ int main(int argc, char** argv)
                 ImGui::PopID();
             }
         }
+        #else
+        static std::vector<std::string> serialPorts;
+        if (ImGui::Button("Add Device"))
+        {
+            serialPorts = RTPlot::SerialPort::scanAvailablePorts();
+            showAddPlotFlag = true;
+        }
+
+        if (showAddPlotFlag)
+        {
+            for (std::string device : serialPorts)
+            {
+                ImGui::SameLine();
+                
+                int id = 0;
+                ImGui::PushID(id);
+                ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(id / 7.0f, 1.0f, 0.6f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(id / 7.0f, 0.7f, 0.7f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(id / 7.0f, 0.8f, 0.8f));
+                id++;
+
+                if (ImGui::Button(device.c_str()))
+                {
+                    const char* portName = device.c_str();
+                    deviceManager.AddDevice(portName);
+                    showAddPlotFlag = false;
+                    logMsg = "Added device " + device + "\n";
+                }
+
+                ImGui::PopStyleColor(3);
+                ImGui::PopID();
+            }
+        }
+        #endif
         
         static std::vector<std::string> portsOpen;
         if (ImGui::Button("Remove Device"))

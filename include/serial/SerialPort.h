@@ -2,12 +2,13 @@
 #define _SERIALPORT__HPP_
 
 #ifdef _WIN32
-#include <Windows.h>
-#define USING_WINDOWS
+	#include <Windows.h>
+	#define USING_WINDOWS
 #else
-#ifdef __linux__
-#include <libserial/SerialPort.h>
-#define USING_LINUX
+	#ifdef __linux__
+		#include <libserial/SerialPort.h>
+		#define USING_LINUX
+	#endif
 #endif
 
 #include <iostream>
@@ -70,29 +71,29 @@ namespace RTPlot
 	{
 		LibSerial::SerialPort serialPort;
 		std::string  		  portName;
+		uint32_t			  readingTimeout = 0;
 		bool         		  connected;
 		bool		 		  verboseData;
 
 	public:
 		SerialPort(void) = delete;
-		SerialPort(const char* _port, LibSerial::BaudRate _baudRate = LibSerial::BaudRate::BAUD_115200, LibSerial::CharacterSize _byteSize = LibSerial::CharacterSize::CHAR_SIZE_8, LibSerial::Parity _parity = LibSerial::Parity::PARITY_NONE, bool verboseData = false);
-		~SerialPort(void);
+		SerialPort(const char* _port, LibSerial::BaudRate _baudRate, LibSerial::CharacterSize _byteSize = LibSerial::CharacterSize::CHAR_SIZE_8, LibSerial::Parity _parity = LibSerial::Parity::PARITY_NONE, bool verboseData = false);
+		~SerialPort(void) { this->disconnect(); }
 
 		// Getters
-		bool isConnected(void);
-		const std::string& getName(void) { return portName; }
+		const std::string& getName(void) const { return portName; }
 
 		// Setters
-		void setName(const char* name);
+		void setName(const char* name) { this->portName = name; }
 		void setVerbose(bool vb) { verboseData = vb; }
-		void setTimeouts(DWORD WriteTotalMultiplier = 10, DWORD ReadTotalMultiplier = 10, DWORD ReadInterval = 50, DWORD ReadTotalConstant = 1000, DWORD WriteTotalConstant = 1000);
+		void setTimeouts(float timeout) { this->readingTimeout = timeout; }
 
 		// Actions
 		bool connect(void);
 		void disconnect(void);
-		bool clearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
-		int8_t read(LPVOID buf, DWORD size);
-		static std::vector<uint8_t> scanAvailablePorts(void);
+		bool isConnected(void);
+		int8_t read(void);
+		static std::vector<std::string> scanAvailablePorts(void);
 	};
 }
 #endif

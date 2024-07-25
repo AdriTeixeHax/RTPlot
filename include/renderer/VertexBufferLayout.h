@@ -39,31 +39,10 @@ private:
 public:
 	VertexBufferLayout(void) : _elements(), _stride(0) {}
 
-	template<typename Type>
 	void push(uint32_t count)
-	{
-		assert(false);
-	}
-
-	template<>
-	void push<float>(uint32_t count)
 	{
 		_elements.push_back({ GL_FLOAT, count, GL_FALSE });
 		_stride += sizeof(float) * count;
-	}
-
-	template<>
-	void push<uint32_t>(uint32_t count)
-	{
-		_elements.push_back({ GL_UNSIGNED_INT, count, GL_FALSE });
-		_stride += sizeof(uint32_t) * count;
-	}
-
-	template<>
-	void push<uint8_t>(uint32_t count)
-	{
-		_elements.push_back({ GL_UNSIGNED_BYTE, count, GL_TRUE });
-		_stride += sizeof(uint8_t) * count;
 	}
 
 	inline const std::vector<VertexBufferElement> getElements(void) const { return _elements; }

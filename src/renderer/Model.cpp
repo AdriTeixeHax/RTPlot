@@ -22,8 +22,8 @@ Model::Model
 	_ib(_indices, _numIndices),
 	_position(initialPos)
 {
-	if (vertexSize > 0)  _layout.push<float>(vertexSize);
-	if (textureSize > 0) _layout.push<float>(textureSize);
+	if (vertexSize > 0)  _layout.push(vertexSize);
+	if (textureSize > 0) _layout.push(textureSize);
 
 	_va.addBuffer(_vb, _layout);
 
