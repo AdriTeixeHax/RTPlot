@@ -52,37 +52,58 @@ build cmake_object_order_depends_target_RTPlot: phony || CMakeFiles/RTPlot.dir
 build CMakeFiles/RTPlot.dir/src/main.cpp.o: CXX_COMPILER__RTPlot_unscanned_Debug /home/ateixeira/dev/RTPlot/src/main.cpp || cmake_object_order_depends_target_RTPlot
   DEP_FILE = CMakeFiles/RTPlot.dir/src/main.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor
+  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -I/home/ateixeira/dev/RTPlot/imgui -I/home/ateixeira/dev/RTPlot/implot
   OBJECT_DIR = CMakeFiles/RTPlot.dir
   OBJECT_FILE_DIR = CMakeFiles/RTPlot.dir/src
 
 build CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o: CXX_COMPILER__RTPlot_unscanned_Debug /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui.cpp || cmake_object_order_depends_target_RTPlot
   DEP_FILE = CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor
+  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -I/home/ateixeira/dev/RTPlot/imgui -I/home/ateixeira/dev/RTPlot/implot
   OBJECT_DIR = CMakeFiles/RTPlot.dir
   OBJECT_FILE_DIR = CMakeFiles/RTPlot.dir/src/vendor/imgui
 
 build CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o: CXX_COMPILER__RTPlot_unscanned_Debug /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_demo.cpp || cmake_object_order_depends_target_RTPlot
   DEP_FILE = CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor
+  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -I/home/ateixeira/dev/RTPlot/imgui -I/home/ateixeira/dev/RTPlot/implot
   OBJECT_DIR = CMakeFiles/RTPlot.dir
   OBJECT_FILE_DIR = CMakeFiles/RTPlot.dir/src/vendor/imgui
 
 build CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o: CXX_COMPILER__RTPlot_unscanned_Debug /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_draw.cpp || cmake_object_order_depends_target_RTPlot
   DEP_FILE = CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor
+  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -I/home/ateixeira/dev/RTPlot/imgui -I/home/ateixeira/dev/RTPlot/implot
   OBJECT_DIR = CMakeFiles/RTPlot.dir
   OBJECT_FILE_DIR = CMakeFiles/RTPlot.dir/src/vendor/imgui
 
 build CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o: CXX_COMPILER__RTPlot_unscanned_Debug /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_widgets.cpp || cmake_object_order_depends_target_RTPlot
   DEP_FILE = CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o.d
   FLAGS = -g
-  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor
+  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -I/home/ateixeira/dev/RTPlot/imgui -I/home/ateixeira/dev/RTPlot/implot
   OBJECT_DIR = CMakeFiles/RTPlot.dir
   OBJECT_FILE_DIR = CMakeFiles/RTPlot.dir/src/vendor/imgui
+
+build CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o: CXX_COMPILER__RTPlot_unscanned_Debug /home/ateixeira/dev/RTPlot/src/vendor/implot/implot.cpp || cmake_object_order_depends_target_RTPlot
+  DEP_FILE = CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -I/home/ateixeira/dev/RTPlot/imgui -I/home/ateixeira/dev/RTPlot/implot
+  OBJECT_DIR = CMakeFiles/RTPlot.dir
+  OBJECT_FILE_DIR = CMakeFiles/RTPlot.dir/src/vendor/implot
+
+build CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o: CXX_COMPILER__RTPlot_unscanned_Debug /home/ateixeira/dev/RTPlot/src/vendor/implot/implot_demo.cpp || cmake_object_order_depends_target_RTPlot
+  DEP_FILE = CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -I/home/ateixeira/dev/RTPlot/imgui -I/home/ateixeira/dev/RTPlot/implot
+  OBJECT_DIR = CMakeFiles/RTPlot.dir
+  OBJECT_FILE_DIR = CMakeFiles/RTPlot.dir/src/vendor/implot
+
+build CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o: CXX_COMPILER__RTPlot_unscanned_Debug /home/ateixeira/dev/RTPlot/src/vendor/implot/implot_items.cpp || cmake_object_order_depends_target_RTPlot
+  DEP_FILE = CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o.d
+  FLAGS = -g
+  INCLUDES = -I/home/ateixeira/dev/RTPlot/RTPlot -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/src/vendor -I/home/ateixeira/dev/RTPlot/imgui -I/home/ateixeira/dev/RTPlot/implot
+  OBJECT_DIR = CMakeFiles/RTPlot.dir
+  OBJECT_FILE_DIR = CMakeFiles/RTPlot.dir/src/vendor/implot
 
 
 # =============================================================================
@@ -92,9 +113,9 @@ build CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o: CXX_COMPILER__
 #############################################
 # Link the executable RTPlot
 
-build RTPlot: CXX_EXECUTABLE_LINKER__RTPlot_Debug CMakeFiles/RTPlot.dir/src/main.cpp.o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o
+build RTPlot: CXX_EXECUTABLE_LINKER__RTPlot_Debug CMakeFiles/RTPlot.dir/src/main.cpp.o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o | /usr/lib/x86_64-linux-gnu/libGLEW.so
   FLAGS = -g
-  LINK_LIBRARIES = -lglfw  -lGLEW  -lGL
+  LINK_LIBRARIES = /usr/lib/x86_64-linux-gnu/libGLEW.so  -lglfw  -lGLEW  -lGL  -L/usr/lib/x86_64-linux-gnu  -lserial
   OBJECT_DIR = CMakeFiles/RTPlot.dir
   POST_BUILD = :
   PRE_LINK = :
