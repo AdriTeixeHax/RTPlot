@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\dev\RTPlot\bin\RTPlot.exe</FullPath>
+      <FullPath>C:\dev\RTPlot\bin\RTPlot.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

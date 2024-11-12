@@ -28,6 +28,7 @@
     <ClCompile Include="src\serial\SerialPort.cpp" />
     <ClCompile Include="src\serial\SerialDevice.cpp" />
     <ClCompile Include="src\plotting\RealTimePlot.cpp" />
+    <ClCompile Include="include\Graphics.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFW\glfw3.h" />
@@ -352,6 +353,7 @@
     <ClInclude Include="include\plotting\Logger.h" />
     <ClInclude Include="include\serial\DeviceManager.h" />
     <ClInclude Include="include\File.h" />
+    <ClInclude Include="include\RTPlotVars.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />
@@ -503,5 +505,6 @@
     <None Include="src\vendor\glm\gtx\vector_angle.inl" />
     <None Include="src\vendor\glm\gtx\vector_query.inl" />
     <None Include="src\vendor\glm\gtx\wrap.inl" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

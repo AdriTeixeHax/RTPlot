@@ -129,6 +129,11 @@ namespace RTPlot
             ImGui::EndPopup();
         }
 
+        char buf[64] = "";
+        ImGui::InputText("Parameter modification", buf, sizeof(buf));
+
+        writingPtr = new std::string(buf);
+
         return 0;
     }
 

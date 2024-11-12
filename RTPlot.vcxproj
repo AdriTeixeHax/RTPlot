@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="include\Graphics.h" />
     <ClCompile Include="src\plotting\RealTimePlot.cpp" />
     <ClCompile Include="src\renderer\IndexBuffer.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -199,6 +200,7 @@
     <ClInclude Include="include\renderer\Polygon.hpp" />
     <ClInclude Include="include\renderer\Renderer.h" />
     <ClInclude Include="include\renderer\Shader.h" />
+    <ClInclude Include="include\RTPlotVars.h" />
     <ClInclude Include="include\serial\DeviceManager.h" />
     <ClInclude Include="include\serial\SerialDevice.h" />
     <ClInclude Include="include\serial\SerialPort.h" />
@@ -510,6 +512,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
+    <None Include="ClassDiagram.cd" />
     <None Include="imgui.ini" />
     <None Include="LICENSE" />
     <None Include="README.md" />

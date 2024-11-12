@@ -53,6 +53,7 @@ namespace RTPlot
 		void disconnect(void);
 		bool clearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
 		int8_t read(LPVOID buf, DWORD size);
+		int8_t write(LPVOID buf, DWORD size);
 		static std::vector<uint8_t> scanAvailablePorts(void);
 	};
 }

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RTPlot::DeviceComponents">
+    <Position X="0.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAIAAAAQAQAgAEAAEAIoA=</HashCode>
+      <FileName>include\serial\DeviceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RTPlot::DeviceManager">
+    <Position X="2.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAgAAAAIiABAAAAAkAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>include\serial\DeviceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RTPlot::SerialDevice">
+    <Position X="0.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAgAAIAIAQACAIAAAQAAAAAAAAAgAAAAAAABgA4A=</HashCode>
+      <FileName>include\serial\SerialDevice.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RTPlot::SerialPort">
+    <Position X="2.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABRBAgbAAAAAAAAAhiEAUAAAAAAAAABABAAEAABGAAA=</HashCode>
+      <FileName>include\serial\SerialPort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ImGui::Log">
+    <Position X="4.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAACAAAAgAAAAAAAAAAAhgAAAAAAAAAAABAAAA=</HashCode>
+      <FileName>include\plotting\Logger.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RTPlot::ScrollingBuffer">
+    <Position X="4.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAABAAAAAAAAAAAAAIAAABAAACAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>include\plotting\RealTimePlot.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RTPlot::RollingBuffer">
+    <Position X="6" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAA=</HashCode>
+      <FileName>include\plotting\RealTimePlot.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RTPlot::RealTimePlot">
+    <Position X="6" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAEAAAAAAAAgAAAAAAAQQAAAASgAAAAAAAACgA=</HashCode>
+      <FileName>include\plotting\RealTimePlot.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="RTPlot::Graphics">
+    <Position X="7.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAgAAAAAAAAACAAAACAIAAAAAAABAAE=</HashCode>
+      <FileName>include\Graphics.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

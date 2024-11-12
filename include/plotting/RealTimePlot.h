@@ -40,18 +40,22 @@ namespace RTPlot
         double* dataPtr;
         uint8_t id;
 
+        std::string* writingPtr;
+
         ImVec4 color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
 
         float history = 10.0f;
 
     public:
-        RealTimePlot(void) : rdata(new RollingBuffer), dataPtr(new double), id(0) { }
-        RealTimePlot(double* ptr) : rdata(new RollingBuffer), dataPtr(ptr), id(0) { }
+        RealTimePlot(void) : rdata(new RollingBuffer), dataPtr(new double), id(0), writingPtr(new std::string) { }
+        RealTimePlot(double* readingPtr, std::string* writingPtr) : rdata(new RollingBuffer), dataPtr(readingPtr), writingPtr(writingPtr), id(0) { }
         ~RealTimePlot(void) 
         { 
             delete rdata; 
             dataPtr = new double;
             delete dataPtr;
+            writingPtr = new std::string;
+            delete writingPtr;
         }
 
         // Getters

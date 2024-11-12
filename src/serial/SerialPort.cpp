@@ -134,6 +134,23 @@ namespace RTPlot
 			return RTPLOT_ERROR;
 		}
 	}
+
+	int8_t SerialPort::write(LPVOID buf, DWORD size)
+	{
+		// Write data to the serial port
+		const char* data = "Hello, Serial Port!\n";
+		DWORD bytesWritten;
+		if (!WriteFile(hCOM, data, strlen(data), &bytesWritten, NULL))
+		{
+			if (verboseData) std::cerr << "Error writing to serial port!" << std::endl;
+			return RTPLOT_ERROR;
+		}
+
+		if (verboseData) std::cout << "Data written to serial port successfully!" << std::endl;
+
+		return RTPLOT_FINISHED;
+	}
+
 	std::vector<uint8_t> SerialPort::scanAvailablePorts(void)
 	{
 		std::vector<uint8_t> ports;

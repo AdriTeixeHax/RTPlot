@@ -35,7 +35,7 @@ namespace RTPlot
 
         // Actions
         bool recieve(uint32_t delay = RTPLOT_READING_DELAY);
-        static std::vector<uint8_t> scanSerialDevices(void);
+        bool send(const std::string& msg);
 	};
 }
 

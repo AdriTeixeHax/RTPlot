@@ -17,11 +17,12 @@ namespace RTPlot
 		std::mutex    mutex;
 		RealTimePlot* plotter;
 		SerialDevice* serialDevice;
-		bool exitFlag = false;
-		uint8_t id = 0;
-		double reading = 0;
+		bool          exitFlag = false;
+		uint8_t       id = 0;
+		double        reading = 0;
+		std::string   writingPtr = "";
 
-		DeviceComponents(const char* port) : plotter(new RealTimePlot(&reading)), serialDevice(new SerialDevice(port))
+		DeviceComponents(const char* port) : plotter(new RealTimePlot(&reading, &writingPtr)), serialDevice(new SerialDevice(port))
 		{
 			thread = std::thread(&DeviceComponents::serialReadingFunc, this);
 		}
