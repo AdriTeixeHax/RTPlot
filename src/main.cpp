@@ -9,28 +9,10 @@
 #include <thread>
 #include <mutex>
 
-// Graphics
-#include "Shader.h"
-#include "Renderer.h"
-#include "VertexBuffer.h"
-#include "VertexBufferLayout.h"
-#include "IndexBuffer.h"
-#include "VertexArray.h"
-#include "Texture.h"
-
 #include <plotting/Logger.h>
-
-
-//// OpenGL math
-//#include <glm/glm.hpp>
-//#include <glm/gtc/matrix_transform.hpp>
 
 // Serial devices
 #include "DeviceManager.h"
-
-// Tests
-#include "tests/TestClearColor.h"
-#include "tests/TestTexture2D.h"
 
 // Graphics struct
 #include "Graphics.h"
