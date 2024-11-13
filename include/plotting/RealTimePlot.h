@@ -46,6 +46,8 @@ namespace RTPlot
 
         float history = 10.0f;
 
+        bool plotExitFlag = true;
+
     public:
         RealTimePlot(void) : rdata(new RollingBuffer), dataPtr(new double), id(0), writingPtr(new std::string) { }
         RealTimePlot(double* readingPtr, std::string* writingPtr) : rdata(new RollingBuffer), dataPtr(readingPtr), writingPtr(writingPtr), id(0) { }
@@ -59,14 +61,15 @@ namespace RTPlot
         }
 
         // Getters
-        double* getDataPtr(void) { return dataPtr; }
+        double* getDataPtr(void)   { return dataPtr; }
+        bool getPlotExitFlag(void) { return plotExitFlag; }
 
         // Setters
         void setDataPtr(double* ptr) { dataPtr = ptr; }
         void setID(uint8_t _id) { id = _id; }
 
         // Actions
-        int8_t plot(void);
+        int8_t plot(const std::string& name, bool* plotFlag);
         void clear(void);
 	};
 }

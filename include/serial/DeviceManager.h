@@ -2,8 +2,6 @@
 #define _DEVICEMANAGER__H_
 
 #include <thread>
-#include <mutex>
-#include <unordered_map>
 
 #include <plotting/RealTimePlot.h>
 #include <serial/SerialDevice.h>
@@ -21,6 +19,7 @@ namespace RTPlot
 		uint8_t       id = 0;
 		double        reading = 0;
 		std::string   writingPtr = "";
+		bool	      plotFlag = false;
 
 		DeviceComponents(const char* port) : plotter(new RealTimePlot(&reading, &writingPtr)), serialDevice(new SerialDevice(port))
 		{
@@ -34,6 +33,10 @@ namespace RTPlot
 			delete plotter;
 			delete serialDevice;
 		}
+
+		bool  getPlotFlag(void)       { return plotFlag; }
+		bool* getPlotFlagPtr(void)    { if (&plotFlag) return &plotFlag; }
+		void  setPlotFlag(bool state) { plotFlag = state; }
 
 		void serialReadingFunc(void)
 		{
@@ -73,8 +76,12 @@ namespace RTPlot
 			components.erase(components.begin() + i); 
 		}
 
-		void plotDevice(uint8_t id) { components[id]->plotter->plot(); }
-		void plotAll(void)          { for (uint8_t i = 0; i < components.size(); i++) plotDevice(i); }
+		void plotDevice(uint8_t id) 
+		{
+			if (components[id]->plotter->getPlotExitFlag()) 
+				components[id]->plotter->plot(components[id]->serialDevice->getPort()->getName(), components[id]->getPlotFlagPtr());
+		}
+		void plotDevices(void)      { for (uint8_t i = 0; i < components.size(); i++) plotDevice(i); }
 	};
 }
 

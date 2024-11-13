@@ -98,92 +98,92 @@ int main(int argc, char** argv)
             ImGui::End();
         }
 
-        // Serial plotting window
+        // Main window - Serial Plotting occurs here
         ImGui::Begin("RTPlot - by AdriTeixeHax", NULL); // Null so that it cannot be closed
-        if (ImPlotDemoFlag) ImPlot::ShowDemoWindow(&ImPlotDemoFlag);
-        if (ImGuiDemoFlag)   ImGui::ShowDemoWindow(&ImGuiDemoFlag);
+            if (ImPlotDemoFlag) ImPlot::ShowDemoWindow(&ImPlotDemoFlag);
+            if (ImGuiDemoFlag)   ImGui::ShowDemoWindow(&ImGuiDemoFlag);
 
-        static std::vector<uint8_t> serialPorts;
-        if (ImGui::Button("Add Device"))
-        {
-            serialPorts = RTPlot::SerialPort::scanAvailablePorts();
-            showAddPlotFlag = true;
-        }
-
-        if (showAddPlotFlag)
-        {
-            for (uint8_t device : serialPorts)
+            static std::vector<uint8_t> serialPorts;
+            if (ImGui::Button("Add Device"))
             {
-                ImGui::SameLine();
-
-                ImGui::PushID(device);
-                ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(device / 7.0f, 1.0f, 0.6f));
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 7.0f, 0.7f, 0.7f));
-                ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(device / 7.0f, 0.8f, 0.8f));
-
-                std::string port = "COM" + std::to_string(device);
-                if (ImGui::Button(port.c_str()))
-                {
-                    const char* portName = port.c_str();
-                    deviceManager.AddDevice(portName);
-                    showAddPlotFlag = false;
-                    logMsg = "Added device " + port + "\n";
-                }
-
-                ImGui::PopStyleColor(3);
-                ImGui::PopID();
+                serialPorts = RTPlot::SerialPort::scanAvailablePorts();
+                showAddPlotFlag = true;
             }
-        }
+
+            if (showAddPlotFlag)
+            {
+                for (uint8_t device : serialPorts)
+                {
+                    ImGui::SameLine();
+
+                    ImGui::PushID(device);
+                    ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(device / 7.0f, 1.0f, 0.6f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 7.0f, 0.7f, 0.7f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(device / 7.0f, 0.8f, 0.8f));
+
+                    std::string port = "COM" + std::to_string(device);
+                    if (ImGui::Button(port.c_str()))
+                    {
+                        const char* portName = port.c_str();
+                        deviceManager.AddDevice(portName);
+                        showAddPlotFlag = false;
+                        logMsg = "Added device " + port + "\n";
+                    }
+
+                    ImGui::PopStyleColor(3);
+                    ImGui::PopID();
+                }
+            }
         
-        static std::vector<std::string> portsOpen;
-        if (ImGui::Button("Remove Device"))
-        {
-            portsOpen.clear();
-            for (uint8_t i = 0; i < deviceManager.size(); i++)
+            static std::vector<std::string> portsOpen;
+            if (ImGui::Button("Remove Device"))
             {
-                const char* portName = deviceManager[i]->serialDevice->getPort()->getName().c_str();
-                portsOpen.push_back(portName);
-            }
-            showDeletePlotFlag = true;
-        }
-
-        if (!consoleLogFlag)
-        {
-            if (ImGui::Button("Console Log"))
-            {
-                consoleLogFlag = true;
-            }
-        }
-
-        if (showDeletePlotFlag)
-        {
-            for (uint8_t i = 0; i < portsOpen.size(); i++)
-            {
-                ImGui::SameLine();
-
-                ImGui::PushID(i);
-                ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(i / 7.0f, 1.0f, 0.6f));
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(i / 7.0f, 0.7f, 0.7f));
-                ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(i / 7.0f, 0.8f, 0.8f));
-
-                if (ImGui::Button(portsOpen[i].c_str()))
+                portsOpen.clear();
+                for (uint8_t i = 0; i < deviceManager.size(); i++)
                 {
-                    deviceManager.RemoveDevice(i);
-                    portsOpen.erase(portsOpen.begin() + i);
-                    showDeletePlotFlag = false;
-                    logMsg = "Deleted device\n";
+                    const char* portName = deviceManager[i]->serialDevice->getPort()->getName().c_str();
+                    portsOpen.push_back(portName);
                 }
-
-                ImGui::PopStyleColor(3);
-                ImGui::PopID();
+                showDeletePlotFlag = true;
             }
-        }
 
-        // Plotting
-        deviceManager.plotAll();
+            if (showDeletePlotFlag)
+            {
+                for (uint8_t i = 0; i < portsOpen.size(); i++)
+                {
+                    ImGui::SameLine();
 
-        if (consoleLogFlag) RTPlot::ShowConsoleLog(logMsg, &consoleLogFlag);
+                    ImGui::PushID(i);
+                    ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(i / 7.0f, 1.0f, 0.6f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(i / 7.0f, 0.7f, 0.7f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(i / 7.0f, 0.8f, 0.8f));
 
+                    if (ImGui::Button(portsOpen[i].c_str()))
+                    {
+                        deviceManager.RemoveDevice(i);
+                        portsOpen.erase(portsOpen.begin() + i);
+                        showDeletePlotFlag = false;
+                        logMsg = "Deleted device\n";
+                    }
+
+                    ImGui::PopStyleColor(3);
+                    ImGui::PopID();
+                }
+            }
+
+            if (!consoleLogFlag)
+            {
+                if (ImGui::Button("Console Log"))
+                {
+                    consoleLogFlag = true;
+                }
+            }
+
+            // Plotting
+            deviceManager.plotDevices();
+
+            // Plot the log message of the current cycle
+            if (consoleLogFlag) RTPlot::ShowConsoleLog(logMsg, &consoleLogFlag);
         ImGui::End();
 
         // GUI rendering
