@@ -16,12 +16,13 @@ namespace RTPlot
 		RealTimePlot* plotter;
 		SerialDevice* serialDevice;
 		bool          exitFlag = false;
+		bool		  sendMsgFlag = false;
 		uint8_t       id = 0;
 		double        reading = 0;
-		std::string   writingPtr = "";
+		std::string   writingMsg = "";
 		bool	      plotFlag = false;
 
-		DeviceComponents(const char* port) : plotter(new RealTimePlot(&reading, &writingPtr)), serialDevice(new SerialDevice(port))
+		DeviceComponents(const char* port) : plotter(new RealTimePlot(&reading, &writingMsg)), serialDevice(new SerialDevice(port))
 		{
 			thread = std::thread(&DeviceComponents::serialReadingFunc, this);
 		}
@@ -46,6 +47,11 @@ namespace RTPlot
 				if (serialDevice->recieve())
 				{
 					*(plotter->getDataPtr()) = serialDevice->getMessage();
+				}
+				if (sendMsgFlag)
+				{
+					serialDevice->send(writingMsg);
+					sendMsgFlag = false;
 				}
 				mutex.unlock();
 			}
@@ -76,12 +82,12 @@ namespace RTPlot
 			components.erase(components.begin() + i); 
 		}
 
-		void plotDevice(uint8_t id) 
+		void plotDevice(uint8_t id, RTPlot::Graphics* graphicsPtr)
 		{
 			if (components[id]->plotter->getPlotExitFlag()) 
-				components[id]->plotter->plot(components[id]->serialDevice->getPort()->getName(), components[id]->getPlotFlagPtr());
+				components[id]->plotter->plot(components[id]->serialDevice->getPort()->getName(), components[id]->getPlotFlagPtr(), graphicsPtr);
 		}
-		void plotDevices(void)      { for (uint8_t i = 0; i < components.size(); i++) plotDevice(i); }
+		void plotDevices(RTPlot::Graphics* graphicsPtr)      { for (uint8_t i = 0; i < components.size(); i++) plotDevice(i, graphicsPtr); }
 	};
 }
 

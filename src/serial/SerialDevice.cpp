@@ -57,7 +57,7 @@ bool RTPlot::SerialDevice::recieve(uint32_t delay)
 bool RTPlot::SerialDevice::send(const std::string& msg)
 {
     LPVOID message = (LPVOID)msg.c_str();
-    if (port->write(message, sizeof(message) == RTPLOT_FINISHED) == RTPLOT_FINISHED)
+    if (port->write(message, sizeof(message)) == RTPLOT_FINISHED)
         return true;
     else return false;
 }

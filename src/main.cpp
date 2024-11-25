@@ -12,9 +12,15 @@
 #include <plotting/Logger.h>
 
 // Serial devices
+/* 
+    Messages must be sent in the format:
+    1st bit: sign (' ' or '-')
+    Next 6 bits: number (ex. 1.5847)
+    Last bit: '\n'
+*/
 #include "DeviceManager.h"
 
-// Graphics struct
+// Graphics object
 #include "Graphics.h"
 
 /**********************************************************************************************/
@@ -104,7 +110,7 @@ int main(int argc, char** argv)
             if (ImGuiDemoFlag)   ImGui::ShowDemoWindow(&ImGuiDemoFlag);
 
             static std::vector<uint8_t> serialPorts;
-            if (ImGui::Button("Add Device"))
+            if (ImGui::Button("List Devices"))
             {
                 serialPorts = RTPlot::SerialPort::scanAvailablePorts();
                 showAddPlotFlag = true;
@@ -180,7 +186,7 @@ int main(int argc, char** argv)
             }
 
             // Plotting
-            deviceManager.plotDevices();
+            deviceManager.plotDevices(graphics);
 
             // Plot the log message of the current cycle
             if (consoleLogFlag) RTPlot::ShowConsoleLog(logMsg, &consoleLogFlag);

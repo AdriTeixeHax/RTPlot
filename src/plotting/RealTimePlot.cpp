@@ -43,9 +43,13 @@ namespace RTPlot
         data.push_back(ImVec2(xmod, y));
     }
 
-    int8_t RealTimePlot::plot(const std::string& name, bool* plotFlag)
+    int8_t RealTimePlot::plot(const std::string& name, bool* plotFlag, RTPlot::Graphics* graphicsPtr)
     {
         ImGui::Begin(name.c_str(), &plotExitFlag);
+            ImGui::PushFont(graphicsPtr->getLargeFontPtr());
+            ImGui::Text("Read data: %.3f", *dataPtr);
+            ImGui::PopFont();
+
             ImGui::Checkbox("Plot", plotFlag);
             if (!*plotFlag) { ImGui::End(); return 0; }
 
@@ -53,7 +57,7 @@ namespace RTPlot
             uint8_t misc_flags = 0;
 
             t += ImGui::GetIO().DeltaTime;
-            rdata->addPoint(t, *dataPtr);
+            if (dataPtr) rdata->addPoint(t, *dataPtr);
 
             rdata->span = history;
 

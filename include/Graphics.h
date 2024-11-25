@@ -15,7 +15,6 @@
 #include <imgui/imgui_internal.h>
 #include <imgui/imgui_impl_opengl3.h>
 #include <imgui/imgui_impl_glfw.h>
-#include <plotting/RealTimePlot.h>
 
 #include <stb_image/stb_image.h>
 
@@ -25,12 +24,15 @@
 
 namespace RTPlot
 {
-    struct Graphics
+    class Graphics
     {
+    public:
         GLFWwindow* window;
+        ImFont* largeFont;
 
+    public:
         Graphics(void) : window(nullptr) { }
-        ~Graphics(void) { /* window pointer is deleted by the imgui library */ }
+        ~Graphics(void) { /* window pointer is deleted by the ImGui library */ }
         bool GraphicsInit(void)
         {
             // Initialize GLFW
@@ -74,7 +76,9 @@ namespace RTPlot
             io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;                             // Enable docking
             io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;                           // Enable viewports
             io.Fonts->AddFontFromFileTTF(RTPLOT_SOURCESANS_PATH, RTPLOT_SOURCESANS_SIZE); // Add the SourceSans font
-            io.Fonts->AddFontFromFileTTF(RTPLOT_CONSOLA_PATH, RTPLOT_CONSOLA_SIZE);    // Add the Consolas font
+            io.Fonts->AddFontFromFileTTF(RTPLOT_CONSOLA_PATH, RTPLOT_CONSOLA_SIZE);       // Add the Consolas font
+            largeFont = io.Fonts->AddFontFromFileTTF(RTPLOT_SOURCESANS_PATH, RTPLOT_SOURCESANS_SIZE_LARGE);
+
             // ImGui element radius setting
             ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, RTPLOT_MAIN_RADIUS);
             ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_MAIN_RADIUS);
@@ -154,9 +158,14 @@ namespace RTPlot
                 ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
             }
         }
-    };
 
-    
+        // Returns a font pointer to use externally
+        ImFont* getLargeFontPtr(void)
+        {
+            if (largeFont) return largeFont;
+            else return nullptr;
+        }
+    };
 }
 
 

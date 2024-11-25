@@ -9,14 +9,7 @@
 
 #include <iostream>
 #include <vector>
-
-#define RTPLOT_BYTE_SIZE 8
-#define RTPLOT_INIT_WAIT_TIME 2000
-#define RTPLOT_READING 1
-#define RTPLOT_FINISHED 0
-#define RTPLOT_ERROR -1
-
-#define RTPLOT_READING_DELAY 0
+#include <RTPlotVars.h>
 
 namespace RTPlot
 {
@@ -36,7 +29,7 @@ namespace RTPlot
 
 	public:
 		SerialPort(void) = delete;
-		SerialPort(const char* _port, DWORD _baudRate = CBR_115200, BYTE _byteSize = RTPLOT_BYTE_SIZE, WORD _parity = NOPARITY, bool verboseData = false);
+		SerialPort(const char* _port, DWORD _baudRate = CBR_9600, BYTE _byteSize = RTPLOT_BYTE_SIZE, WORD _parity = NOPARITY, bool verboseData = false);
 		~SerialPort(void);
 
 		// Getters

@@ -154,15 +154,24 @@ namespace RTPlot
 	std::vector<uint8_t> SerialPort::scanAvailablePorts(void)
 	{
 		std::vector<uint8_t> ports;
-		for (uint8_t portNumber = 0; portNumber < 255U; portNumber++)
+		static std::vector<std::wstring> portNames;
+
+		if (portNames.size() < 1) // Empty
 		{
-			std::wstring portName = L"COM" + std::to_wstring(portNumber);
-			HANDLE hPort = CreateFileW(portName.c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+			for (uint8_t portNumber = 0; portNumber < 255U; portNumber++)
+			{
+				portNames.push_back(L"COM" + std::to_wstring(portNumber));
+			}
+		}
+
+		for (uint8_t portNumber = 0; portNumber < RTPLOT_MAX_PORT_NUMBER; portNumber++)
+		{
+			HANDLE hPort = CreateFileW(portNames[portNumber].c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 			if (hPort != INVALID_HANDLE_VALUE)
 			{
 				ports.push_back(portNumber);
-				CloseHandle(hPort);
 			}
+			CloseHandle(hPort);
 		}
 
 		return ports;

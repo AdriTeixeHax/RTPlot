@@ -8,6 +8,8 @@
 #include <cstdint>
 #include <string>
 
+#include <Graphics.h>
+
 namespace RTPlot
 {
     class ScrollingBuffer // Taken from implot_demo.cpp
@@ -69,7 +71,7 @@ namespace RTPlot
         void setID(uint8_t _id) { id = _id; }
 
         // Actions
-        int8_t plot(const std::string& name, bool* plotFlag);
+        int8_t plot(const std::string& name, bool* plotFlag, RTPlot::Graphics* graphicsPtr);
         void clear(void);
 	};
 }
