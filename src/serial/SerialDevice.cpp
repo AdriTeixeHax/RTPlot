@@ -11,41 +11,28 @@ bool RTPlot::SerialDevice::recieve(uint32_t delay)
     {
         if (reading == nullptr) { if (verboseData) std::cout << "[SerialDevice]: Reading returned nullptr." << std::endl; return false; }
 
-        char tempMsg[RTPLOT_BYTE_SIZE];
+        char tempMsg[RTPLOT_MSG_SIZE];
         for (uint8_t i = 0; i < sizeof(tempMsg); i++)
-            tempMsg[i] = *((char*)reading + i);
-
-        if (tempMsg[7] != '\n') // Rotate buffer until tempMsg[7] == '\n'
         {
-            uint8_t rotationCounter = 0;
-            while (tempMsg[7] != '\n')
+            tempMsg[i] = *((char*)reading + i);
+            if (tempMsg[i] == '\n')
             {
-                char aux = tempMsg[0];
-                for (uint8_t i = 0; i < sizeof(tempMsg); i++)
-                {
-                    if (i == sizeof(tempMsg) - 1) // Because it cannot copy the next element (goes out of scope)
-                    {
-                        tempMsg[i] = aux;
-                        break;
-                    }
+                for (uint8_t j = i + 1; j < sizeof(tempMsg); j++)
+                    tempMsg[j] = '\0';
 
-                    tempMsg[i] = tempMsg[i + 1];
-                }
-
-                rotationCounter++;
-                if (rotationCounter > sizeof(tempMsg))
-                {
-                    if (verboseData) std::cout << "[SerialDevice]: Raw read data: " << tempMsg << std::endl;
-                    if (verboseData) std::cerr << "[SerialDevice]: Couldn't read a valid message. Clearing buffer..." << std::endl;
-                    port->clearBuffer();
-                    return false;
-                }
+                break;
             }
         }
 
-        if ((tempMsg[0] == ' ' || tempMsg[0] == '-') && tempMsg[7] == '\n')
+        if ((tempMsg[1] == '+' || tempMsg[1] == '-')/* && tempMsg[sizeof(tempMsg) - 1] == '\n'*/)
         {
-            dReading = atof(tempMsg);
+            char filteredMsg[15];
+            for (uint8_t i = 0; i < sizeof(filteredMsg); i++)
+            {
+                filteredMsg[i] = tempMsg[i + 1];
+            }
+            dReading = atof(filteredMsg);
+
             if (verboseData) std::cout << "[" << port->getName() << "]: Converted read data : " << dReading << std::endl;
             Sleep(RTPLOT_READING_DELAY);
         }

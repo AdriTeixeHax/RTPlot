@@ -29,7 +29,7 @@ namespace RTPlot
 
 	public:
 		SerialPort(void) = delete;
-		SerialPort(const char* _port, DWORD _baudRate = CBR_9600, BYTE _byteSize = RTPLOT_BYTE_SIZE, WORD _parity = NOPARITY, bool verboseData = false);
+		SerialPort(const char* _port, DWORD _baudRate = CBR_9600, BYTE _byteSize = RTPLOT_MSG_SIZE, WORD _parity = NOPARITY, bool verboseData = false);
 		~SerialPort(void);
 
 		// Getters

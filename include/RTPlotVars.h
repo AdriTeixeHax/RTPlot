@@ -20,7 +20,7 @@
 
 // Serial parameters
 #define RTPLOT_MAX_PORT_NUMBER 64U
-#define RTPLOT_BYTE_SIZE 8
+#define RTPLOT_MSG_SIZE 16
 #define RTPLOT_INIT_WAIT_TIME 2000
 #define RTPLOT_READING 1
 #define RTPLOT_FINISHED 0

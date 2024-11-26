@@ -21,7 +21,7 @@ namespace RTPlot
 
 	public:
         SerialDevice(void) = delete;
-        SerialDevice(const char* portName, size_t size = RTPLOT_BYTE_SIZE, uint32_t baudRate = CBR_115200) : port(new RTPlot::SerialPort(portName, baudRate)), msgSize(size), reading(new void*) { port->clearBuffer(); }
+        SerialDevice(const char* portName, size_t size = RTPLOT_MSG_SIZE, uint32_t baudRate = CBR_115200) : port(new RTPlot::SerialPort(portName, baudRate)), msgSize(size), reading(new void*) { port->clearBuffer(); }
         ~SerialDevice(void) { delete[] reading; port->clearBuffer(); delete port; }
 
         // Getters
