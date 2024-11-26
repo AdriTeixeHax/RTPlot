@@ -33,21 +33,22 @@ namespace RTPlot
 		~SerialPort(void);
 
 		// Getters
-		bool isConnected(void);
-		const std::string& getName(void) { return portName; }
+		bool IsConnected(void);
+		const std::string& GetName(void) { return portName; }
 
 		// Setters
-		void setName(const char* name);
-		void setVerbose(bool vb) { verboseData = vb; }
-		void setTimeouts(DWORD WriteTotalMultiplier = 10, DWORD ReadTotalMultiplier = 10, DWORD ReadInterval = 50, DWORD ReadTotalConstant = 1000, DWORD WriteTotalConstant = 1000);
+		void SetName(const char* name);
+		void SetVerbose(bool vb) { verboseData = vb; }
+		void SetTimeouts(DWORD WriteTotalMultiplier = 10, DWORD ReadTotalMultiplier = 10, DWORD ReadInterval = 50, DWORD ReadTotalConstant = 1000, DWORD WriteTotalConstant = 1000);
 
 		// Actions
-		bool connect(void);
-		void disconnect(void);
-		bool clearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
-		int8_t read(LPVOID buf, DWORD size);
-		int8_t write(LPVOID buf, DWORD size);
-		static std::vector<uint8_t> scanAvailablePorts(void);
+		bool Connect(void);
+		void Disconnect(void);
+		bool ClearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
+		int8_t Read(LPVOID buf, DWORD size);
+		int8_t Write(LPVOID buf, DWORD size);
+
+		static std::vector<uint8_t> ScanAvailablePorts(void);
 	};
 }
 

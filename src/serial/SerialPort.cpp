@@ -6,18 +6,18 @@ namespace RTPlot
 {
 	SerialPort::SerialPort(const char* _port, DWORD _baudRate, BYTE _byteSize, WORD _parity, bool verboseData) : portName(_port), baudRate(_baudRate), parity(_parity), hCOM((void*)0), status({ 0 }), errors(0), connected(false), byteSize(_byteSize)
 	{
-		this->connect();
-		this->setTimeouts();
+		this->Connect();
+		this->SetTimeouts();
 	}
 
-	SerialPort::~SerialPort(void) { this->disconnect(); }
+	SerialPort::~SerialPort(void) { this->Disconnect(); }
 
-	void SerialPort::setName(const char* name)
+	void SerialPort::SetName(const char* name)
 	{
 		this->portName = name;
 	}
 
-	void SerialPort::setTimeouts(DWORD WriteTotalMultiplier, DWORD ReadTotalMultiplier, DWORD ReadInterval, DWORD ReadTotalConstant, DWORD WriteTotalConstant)
+	void SerialPort::SetTimeouts(DWORD WriteTotalMultiplier, DWORD ReadTotalMultiplier, DWORD ReadInterval, DWORD ReadTotalConstant, DWORD WriteTotalConstant)
 	{
 		timeouts.WriteTotalTimeoutMultiplier = WriteTotalMultiplier;
 		timeouts.ReadTotalTimeoutMultiplier  = ReadTotalMultiplier;
@@ -26,7 +26,7 @@ namespace RTPlot
 		timeouts.WriteTotalTimeoutConstant   = WriteTotalConstant;
 	}
 
-	bool SerialPort::connect(void)
+	bool SerialPort::Connect(void)
 	{
 		hCOM = CreateFileA(static_cast<LPCSTR>(portName.c_str()), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 
@@ -64,7 +64,7 @@ namespace RTPlot
 		}
 	}
 
-	void SerialPort::disconnect(void)
+	void SerialPort::Disconnect(void)
 	{
 		if (connected == true)
 		{
@@ -74,7 +74,7 @@ namespace RTPlot
 		}
 	}
 
-	bool SerialPort::clearBuffer(uint8_t flags)
+	bool SerialPort::ClearBuffer(uint8_t flags)
 	{
 		if (PurgeComm(hCOM, flags))
 		{
@@ -88,7 +88,7 @@ namespace RTPlot
 		}
 	}
 
-	bool SerialPort::isConnected(void)
+	bool SerialPort::IsConnected(void)
 	{
 		DWORD modemStatus = 0;
 		if (!GetCommModemStatus(hCOM, &modemStatus))
@@ -101,7 +101,7 @@ namespace RTPlot
 		return connected;
 	}
 
-	int8_t SerialPort::read(LPVOID buf, DWORD size)
+	int8_t SerialPort::Read(LPVOID buf, DWORD size)
 	{
 		DWORD bytesRead;
 		DWORD bytesToRead = 0;
@@ -117,7 +117,7 @@ namespace RTPlot
 		static uint8_t readingCount = 0;
 		if (readingCount >= 5)
 		{
-			clearBuffer(PURGE_RXCLEAR);
+			ClearBuffer(PURGE_RXCLEAR);
 			readingCount = 0;
 		}
 
@@ -135,7 +135,7 @@ namespace RTPlot
 		}
 	}
 
-	int8_t SerialPort::write(LPVOID buf, DWORD size)
+	int8_t SerialPort::Write(LPVOID buf, DWORD size)
 	{
 		// Write data to the serial port
 		const char* data = "Hello, Serial Port!\n";
@@ -151,7 +151,7 @@ namespace RTPlot
 		return RTPLOT_FINISHED;
 	}
 
-	std::vector<uint8_t> SerialPort::scanAvailablePorts(void)
+	std::vector<uint8_t> SerialPort::ScanAvailablePorts(void)
 	{
 		std::vector<uint8_t> ports;
 		static std::vector<std::wstring> portNames;

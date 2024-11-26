@@ -7,7 +7,7 @@
 // Logo path
 #define RTPLOT_LOGO_PATH "res/logos/RTPlot.png"
 
-// Font paths
+// Font paths and sizes
 #define RTPLOT_SOURCESANS_PATH "res/fonts/SourceSans/SourceSans3-Regular.ttf"
 #define RTPLOT_SOURCESANS_SIZE 20
 #define RTPLOT_SOURCESANS_SIZE_LARGE 40

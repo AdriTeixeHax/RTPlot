@@ -96,8 +96,8 @@ int main(int argc, char** argv)
 
             if (ImGui::Button("Apply"))
             {
-                for (uint8_t i = 0; i < deviceManager.size(); i++)
-                    deviceManager[i]->serialDevice->getPort()->setTimeouts(wtm, rtm, ri, rtc, wtc);
+                for (uint8_t i = 0; i < deviceManager.Size(); i++)
+                    deviceManager[i]->serialDevice->GetPort()->SetTimeouts(wtm, rtm, ri, rtc, wtc);
                 logMsg = "Applied serial parameters.\n";
                 serialOptionsFlag = false;
             }
@@ -113,7 +113,7 @@ int main(int argc, char** argv)
             static std::vector<uint8_t> serialPorts;
             if (ImGui::Button("List Devices"))
             {
-                serialPorts = RTPlot::SerialPort::scanAvailablePorts();
+                serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
                 showAddPlotFlag = true;
             }
 
@@ -146,9 +146,9 @@ int main(int argc, char** argv)
             if (ImGui::Button("Remove Device"))
             {
                 portsOpen.clear();
-                for (uint8_t i = 0; i < deviceManager.size(); i++)
+                for (uint8_t i = 0; i < deviceManager.Size(); i++)
                 {
-                    const char* portName = deviceManager[i]->serialDevice->getPort()->getName().c_str();
+                    const char* portName = deviceManager[i]->serialDevice->GetPort()->GetName().c_str();
                     portsOpen.push_back(portName);
                 }
                 showDeletePlotFlag = true;
@@ -187,7 +187,7 @@ int main(int argc, char** argv)
             }
 
             // Plotting
-            deviceManager.plotDevices(graphics);
+            deviceManager.PlotDevices(graphics);
 
             // Plot the log message of the current cycle
             if (consoleLogFlag) RTPlot::ShowConsoleLog(logMsg, &consoleLogFlag);

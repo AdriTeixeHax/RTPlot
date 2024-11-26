@@ -41,26 +41,15 @@ namespace RTPlot
         RollingBuffer* rdata;
         double* dataPtr;
         uint8_t id;
-
         std::string* writingPtr;
-
-        ImVec4 color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
-
+        ImVec4 plotColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
         float history = 10.0f;
-
         bool plotExitFlag = true;
 
     public:
-        RealTimePlot(void) : rdata(new RollingBuffer), dataPtr(new double), id(0), writingPtr(new std::string) { }
-        RealTimePlot(double* readingPtr, std::string* writingPtr) : rdata(new RollingBuffer), dataPtr(readingPtr), writingPtr(writingPtr), id(0) { }
-        ~RealTimePlot(void) 
-        { 
-            delete rdata; 
-            dataPtr = new double;
-            delete dataPtr;
-            writingPtr = new std::string;
-            delete writingPtr;
-        }
+        RealTimePlot(void);
+        RealTimePlot(double* readingPtr, std::string* writingPtr);
+        ~RealTimePlot(void);
 
         // Getters
         double* getDataPtr(void)   { return dataPtr; }
@@ -68,7 +57,7 @@ namespace RTPlot
 
         // Setters
         void setDataPtr(double* ptr) { dataPtr = ptr; }
-        void setID(uint8_t _id) { id = _id; }
+        void setID     (uint8_t _id) { id = _id; }
 
         // Actions
         int8_t plot(const std::string& name, bool* plotFlag, RTPlot::Graphics* graphicsPtr);

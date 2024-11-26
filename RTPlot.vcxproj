@@ -157,8 +157,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="include\Graphics.h" />
+    <ClCompile Include="src\Graphics.cpp" />
+    <ClCompile Include="src\plotting\Logger.cpp" />
     <ClCompile Include="src\plotting\RealTimePlot.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\serial\DeviceComponents.cpp" />
+    <ClCompile Include="src\serial\DeviceManager.cpp" />
     <ClCompile Include="src\serial\SerialDevice.cpp" />
     <ClCompile Include="src\serial\SerialPort.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui.cpp" />
@@ -184,6 +188,7 @@
     <ClInclude Include="include\plotting\Logger.h" />
     <ClInclude Include="include\plotting\RealTimePlot.h" />
     <ClInclude Include="include\RTPlotVars.h" />
+    <ClInclude Include="include\serial\DeviceComponents.h" />
     <ClInclude Include="include\serial\DeviceManager.h" />
     <ClInclude Include="include\serial\SerialDevice.h" />
     <ClInclude Include="include\serial\SerialPort.h" />
