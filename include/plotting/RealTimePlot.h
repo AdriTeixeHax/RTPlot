@@ -5,34 +5,11 @@
 #include <cstdint>
 #include <string>
 
-#include <../Graphics.h>
+#include <ScrollingBuffer.h>
+#include <RollingBuffer.h>
 
 namespace RTPlot
 {
-    class ScrollingBuffer // Taken from implot_demo.cpp
-    {
-    public:
-        int maxSize;
-        int offset;
-        ImVector<ImVec2> data;
-
-        ScrollingBuffer(int max_size = 2000);
-
-        void AddPoint(float x, float y);
-        void Erase(void);
-    };
-
-    class RollingBuffer // Taken from implot_demo.cpp
-    {
-    public:
-        double span;
-        ImVector<ImVec2> data;
-
-        RollingBuffer(void);
-
-        void AddPoint(double x, double y);
-    };
-
 	class RealTimePlot
 	{
         RollingBuffer* rdata;

@@ -21,6 +21,8 @@
     <ClCompile Include="src\serial\DeviceManager.cpp" />
     <ClCompile Include="src\serial\DeviceComponents.cpp" />
     <ClCompile Include="src\plotting\Logger.cpp" />
+    <ClCompile Include="src\plotting\ScrollingBuffer.cpp" />
+    <ClCompile Include="src\plotting\RollingBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFW\glfw3.h" />
@@ -54,6 +56,8 @@
     <ClInclude Include="include\File.h" />
     <ClInclude Include="include\RTPlotVars.h" />
     <ClInclude Include="include\serial\DeviceComponents.h" />
+    <ClInclude Include="include\plotting\ScrollingBuffer.h" />
+    <ClInclude Include="include\plotting\RollingBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />
