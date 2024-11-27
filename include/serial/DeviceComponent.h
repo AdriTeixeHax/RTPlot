@@ -6,7 +6,7 @@
 
 namespace RTPlot
 {
-	class DeviceComponents
+	class DeviceComponent
 	{
 	public:
 		std::thread   thread;
@@ -20,8 +20,8 @@ namespace RTPlot
 		std::string   writingMsg = "";
 		bool	      plotFlag = false;
 
-		DeviceComponents(const char* port);
-		~DeviceComponents(void);
+		DeviceComponent(const char* port, Graphics* graphicsPtr);
+		~DeviceComponent(void);
 
 		bool  GetPlotFlag(void) const { return plotFlag; }
 		bool* GetPlotFlagPtr(void) { if (&plotFlag) return &plotFlag; }

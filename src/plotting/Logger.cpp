@@ -92,3 +92,15 @@ void ImGui::Log::AddLog(const char* fmt, ...) IM_FMTARGS(2)
         if (Buf[old_size] == '\n')
             LineOffsets.push_back(old_size + 1);
 }
+
+void ImGui::Log::ShowConsoleLog(const std::string& logMsg, bool* closable)
+{
+    static ImGui::Log log;
+
+    ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
+    ImGui::Begin("Console output", closable);
+    log.AddLog(logMsg.c_str());
+    ImGui::End();
+
+    log.Draw("Console output", closable);
+}

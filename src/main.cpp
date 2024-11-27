@@ -40,12 +40,12 @@ int main(int argc, char** argv)
     {
         graphics->NewFrame();
 
-        static bool verboseFlag = false;
-        static bool ImGuiDemoFlag = false;
-        static bool ImPlotDemoFlag = false;
-        static bool consoleLogFlag = false;
-        static bool showAddPlotFlag = true;
-        static bool serialOptionsFlag = false;
+        static bool verboseFlag        = true;
+        static bool ImGuiDemoFlag      = false;
+        static bool ImPlotDemoFlag     = false;
+        static bool consoleLogFlag     = true;
+        static bool showAddPlotFlag    = true;
+        static bool serialOptionsFlag  = false;
         static bool showDeletePlotFlag = true;
 
         std::string logMsg;
@@ -89,7 +89,6 @@ int main(int argc, char** argv)
                 for (uint8_t i = 0; i < deviceManager.Size(); i++)
                     deviceManager[i]->serialDevice->GetPort()->SetTimeouts(wtm, rtm, ri, rtc, wtc);
                 logMsg = "Applied serial parameters.\n";
-                serialOptionsFlag = false;
             }
 
             ImGui::End();
@@ -122,7 +121,7 @@ int main(int argc, char** argv)
                     if (ImGui::Button(port.c_str()))
                     {
                         const char* portName = port.c_str();
-                        deviceManager.AddDevice(portName);
+                        deviceManager.AddDevice(portName, graphics);
                         showAddPlotFlag = false;
                         logMsg = "Added device " + port + "\n";
                     }
@@ -177,10 +176,10 @@ int main(int argc, char** argv)
             }
 
             // Plotting
-            deviceManager.PlotDevices(graphics);
+            deviceManager.PlotDevices();
 
             // Plot the log message of the current cycle
-            if (consoleLogFlag) RTPlot::ShowConsoleLog(logMsg, &consoleLogFlag);
+            if (consoleLogFlag) ImGui::Log::ShowConsoleLog(logMsg, &consoleLogFlag);
         ImGui::End();
 
         // GUI rendering

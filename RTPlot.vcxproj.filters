@@ -19,7 +19,7 @@
     <ClCompile Include="include\Graphics.h" />
     <ClCompile Include="src\Graphics.cpp" />
     <ClCompile Include="src\serial\DeviceManager.cpp" />
-    <ClCompile Include="src\serial\DeviceComponents.cpp" />
+    <ClCompile Include="src\serial\DeviceComponent.cpp" />
     <ClCompile Include="src\plotting\Logger.cpp" />
     <ClCompile Include="src\plotting\ScrollingBuffer.cpp" />
     <ClCompile Include="src\plotting\RollingBuffer.cpp" />
@@ -55,7 +55,7 @@
     <ClInclude Include="include\serial\DeviceManager.h" />
     <ClInclude Include="include\File.h" />
     <ClInclude Include="include\RTPlotVars.h" />
-    <ClInclude Include="include\serial\DeviceComponents.h" />
+    <ClInclude Include="include\serial\DeviceComponent.h" />
     <ClInclude Include="include\plotting\ScrollingBuffer.h" />
     <ClInclude Include="include\plotting\RollingBuffer.h" />
   </ItemGroup>
@@ -73,5 +73,6 @@
     <None Include="LICENSE" />
     <None Include="README.md" />
     <None Include="res\shaders\Basic.shader" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

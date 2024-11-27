@@ -23,22 +23,9 @@ namespace ImGui
         void Clear();
         void Draw(const char* title, bool* p_open = NULL);
         void AddLog(const char* fmt, ...);
+
+        static void ShowConsoleLog(const std::string& logMsg, bool* closable);
     };
-}
-
-namespace RTPlot
-{
-    inline void ShowConsoleLog(const std::string& logMsg, bool* closable)
-    {
-        static ImGui::Log log;
-
-        ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
-        ImGui::Begin("Console output", closable);
-        log.AddLog(logMsg.c_str());
-        ImGui::End();
-
-        log.Draw("Console output", closable);
-    }
 }
 
 #endif

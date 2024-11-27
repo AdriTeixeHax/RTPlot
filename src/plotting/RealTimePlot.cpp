@@ -4,16 +4,16 @@ namespace RTPlot
 {
     RealTimePlot::RealTimePlot(void) : 
         rdata(new RollingBuffer), 
-        dataPtr(new double), 
-        id(0), 
-        writingPtr(new std::string) 
+        writingPtr(new std::string),
+        graphicsPtr(nullptr),
+        dataPtr(new double)
     { }
 
-    RealTimePlot::RealTimePlot(double* readingPtr, std::string * writingPtr) : 
+    RealTimePlot::RealTimePlot(double* readingPtr, std::string* writingPtr, Graphics* graphicsPtr) : 
         rdata(new RollingBuffer),
-        dataPtr(readingPtr), 
-        writingPtr(writingPtr), 
-        id(0) 
+        writingPtr(writingPtr),
+        graphicsPtr(graphicsPtr),
+        dataPtr(readingPtr)
     { }
 
     RealTimePlot::~RealTimePlot(void)
@@ -25,9 +25,9 @@ namespace RTPlot
         delete writingPtr;
     }
 
-    int8_t RealTimePlot::Plot(const std::string& name, bool* plotFlag, RTPlot::Graphics* graphicsPtr)
+    int8_t RealTimePlot::Plot(const std::string& name, bool* plotFlag)
     {
-        ImGui::Begin(name.c_str(), &plotExitFlag);
+        ImGui::Begin(name.c_str(), NULL);
             ImGui::PushFont(graphicsPtr->GetLargeFontPtr());
             ImGui::Text("Read data: %.3f", *dataPtr);
             ImGui::PopFont();

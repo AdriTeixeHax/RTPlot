@@ -1,13 +1,13 @@
-#include <serial/DeviceComponents.h>
+#include <serial/DeviceComponent.h>
 
-RTPlot::DeviceComponents::DeviceComponents(const char* port) :
-	plotter(new RealTimePlot(&reading, &writingMsg)),
+RTPlot::DeviceComponent::DeviceComponent(const char* port, Graphics* graphicsPtr) :
+	plotter(new RealTimePlot(&reading, &writingMsg, graphicsPtr)),
 	serialDevice(new SerialDevice(port))
 {
-	thread = std::thread(&DeviceComponents::SerialReadingFunc, this);
+	thread = std::thread(&DeviceComponent::SerialReadingFunc, this);
 }
 
-RTPlot::DeviceComponents::~DeviceComponents(void)
+RTPlot::DeviceComponent::~DeviceComponent(void)
 {
 	exitFlag = true;
 	thread.join();
@@ -15,7 +15,7 @@ RTPlot::DeviceComponents::~DeviceComponents(void)
 	delete serialDevice;
 }
 
-void RTPlot::DeviceComponents::SerialReadingFunc(void)
+void RTPlot::DeviceComponent::SerialReadingFunc(void)
 {
 	while (!exitFlag)
 	{
