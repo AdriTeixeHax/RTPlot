@@ -1,8 +1,8 @@
 #include <thread>
 #include <mutex>
 
-#include <plotting/RealTimePlot.h>
 #include <serial/SerialDevice.h>
+#include <plotting/RealTimePlot.h>
 
 namespace RTPlot
 {
@@ -23,7 +23,7 @@ namespace RTPlot
 		DeviceComponents(const char* port);
 		~DeviceComponents(void);
 
-		bool  GetPlotFlag(void) { return plotFlag; }
+		bool  GetPlotFlag(void) const { return plotFlag; }
 		bool* GetPlotFlagPtr(void) { if (&plotFlag) return &plotFlag; }
 		void  SetPlotFlag(bool state) { plotFlag = state; }
 

@@ -9,7 +9,7 @@ namespace RTPlot
         data.reserve(maxSize);
     }
 
-    void ScrollingBuffer::addPoint(float x, float y)
+    void ScrollingBuffer::AddPoint(float x, float y)
     {
         if (data.size() < maxSize)
             data.push_back(ImVec2(x, y));
@@ -20,7 +20,7 @@ namespace RTPlot
         }
     }
 
-    void ScrollingBuffer::erase(void)
+    void ScrollingBuffer::Erase(void)
     {
         if (data.size() > 0)
         {
@@ -35,7 +35,7 @@ namespace RTPlot
         data.reserve(2000);
     }
 
-    void RollingBuffer::addPoint(double x, double y)
+    void RollingBuffer::AddPoint(double x, double y)
     {
         double xmod = fmod(x, span);
         if (!data.empty() && xmod < data.back().x)
@@ -66,7 +66,7 @@ namespace RTPlot
         delete writingPtr;
     }
 
-    int8_t RealTimePlot::plot(const std::string& name, bool* plotFlag, RTPlot::Graphics* graphicsPtr)
+    int8_t RealTimePlot::Plot(const std::string& name, bool* plotFlag, RTPlot::Graphics* graphicsPtr)
     {
         ImGui::Begin(name.c_str(), &plotExitFlag);
             ImGui::PushFont(graphicsPtr->GetLargeFontPtr());
@@ -80,12 +80,12 @@ namespace RTPlot
             uint8_t misc_flags = 0;
 
             t += ImGui::GetIO().DeltaTime;
-            if (dataPtr) rdata->addPoint(t, *dataPtr);
+            if (dataPtr) rdata->AddPoint(t, *dataPtr);
 
             rdata->span = history;
 
             static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_NoTickLabels;
-            if (ImPlot::BeginPlot(std::string("Serial Data " + std::to_string(id)).c_str(), ImVec2(-1, 300)))
+            if (ImPlot::BeginPlot(std::string("Data " + std::to_string(id)).c_str(), ImVec2(-1, 300)))
             {
                 ImPlot::SetupAxes("Time [s]", "Value", linePlotFlags, 0);
                 ImPlot::SetupAxisLimits(ImAxis_X1, 0, history, ImGuiCond_Always);
@@ -164,7 +164,7 @@ namespace RTPlot
         return 0;
     }
 
-    void RealTimePlot::clear(void)
+    void RealTimePlot::Clear(void)
     {
         rdata = new RollingBuffer;
     }

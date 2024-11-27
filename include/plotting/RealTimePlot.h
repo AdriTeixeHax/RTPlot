@@ -1,14 +1,11 @@
 #ifndef _REALTIMEPLOT__H_
 #define _REALTIMEPLOT__H_
 
-#include "imgui/imgui.h"
-#include "implot/implot.h"
-
 #include <cmath>
 #include <cstdint>
 #include <string>
 
-#include <Graphics.h>
+#include <../Graphics.h>
 
 namespace RTPlot
 {
@@ -21,8 +18,8 @@ namespace RTPlot
 
         ScrollingBuffer(int max_size = 2000);
 
-        void addPoint(float x, float y);
-        void erase(void);
+        void AddPoint(float x, float y);
+        void Erase(void);
     };
 
     class RollingBuffer // Taken from implot_demo.cpp
@@ -33,7 +30,7 @@ namespace RTPlot
 
         RollingBuffer(void);
 
-        void addPoint(double x, double y);
+        void AddPoint(double x, double y);
     };
 
 	class RealTimePlot
@@ -52,16 +49,16 @@ namespace RTPlot
         ~RealTimePlot(void);
 
         // Getters
-        double* getDataPtr(void)   { return dataPtr; }
-        bool getPlotExitFlag(void) { return plotExitFlag; }
+        double* GetDataPtr(void)   { return dataPtr; }
+        bool GetPlotExitFlag(void) const { return plotExitFlag; }
 
         // Setters
-        void setDataPtr(double* ptr) { dataPtr = ptr; }
-        void setID     (uint8_t _id) { id = _id; }
+        void SetDataPtr(double* ptr) { dataPtr = ptr; }
+        void SetID     (uint8_t _id) { id = _id; }
 
         // Actions
-        int8_t plot(const std::string& name, bool* plotFlag, RTPlot::Graphics* graphicsPtr);
-        void clear(void);
+        int8_t Plot(const std::string& name, bool* plotFlag, RTPlot::Graphics* graphicsPtr);
+        void   Clear(void);
 	};
 }
 

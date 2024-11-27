@@ -1,4 +1,4 @@
-#include "DeviceComponents.h"
+#include <serial/DeviceComponents.h>
 
 RTPlot::DeviceComponents::DeviceComponents(const char* port) :
 	plotter(new RealTimePlot(&reading, &writingMsg)),
@@ -22,7 +22,7 @@ void RTPlot::DeviceComponents::SerialReadingFunc(void)
 		mutex.lock();
 		if (serialDevice->Recieve())
 		{
-			*(plotter->getDataPtr()) = serialDevice->GetMsg();
+			*(plotter->GetDataPtr()) = serialDevice->GetMsg();
 		}
 		if (sendMsgFlag)
 		{

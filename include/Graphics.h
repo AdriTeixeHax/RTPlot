@@ -1,8 +1,6 @@
 #ifndef __GRAPHICS_H__
 #define __GRAPHICS_H__
 
-#include <iostream>
-
 // OpenGL libraries
 #ifndef GLEW_STATIC
 #define GLEW_STATIC
@@ -19,6 +17,7 @@
 #include <imgui/imgui_impl_glfw.h>
 
 #include <stb_image/stb_image.h>
+
 #include <RTPlotVars.h>
 
 namespace RTPlot
@@ -33,12 +32,12 @@ namespace RTPlot
         Graphics(void) : window(nullptr), largeFont(nullptr) { }
         ~Graphics(void) { /* window pointer is deleted by the ImGui library */ }
         
-        ImFont* GetLargeFontPtr(void);
-
         bool GraphicsInit(void);
         bool GuiInit(void);
         bool LoadLogo(void);
         void NewFrame(void);
+
+        ImFont* GetLargeFontPtr(void);
     };
 }
 

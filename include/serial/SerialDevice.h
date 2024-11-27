@@ -1,9 +1,7 @@
 #ifndef _SERIALDEVICE__H_
 #define _SERIALDEVICE__H_
 
-#include "SerialPort.h"
-
-#include <vector>
+#include <serial/SerialPort.h>
 
 namespace RTPlot
 {
@@ -23,7 +21,7 @@ namespace RTPlot
         ~SerialDevice(void) { delete[] reading; port->ClearBuffer(); delete port; }
 
         // Getters
-        double GetMsg(void) { return dReading; }
+        double GetMsg(void) const { return dReading; }
         bool IsConnected(void) { return port->IsConnected(); }
         SerialPort* GetPort(void) { return port; }
 

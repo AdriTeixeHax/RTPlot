@@ -12,19 +12,9 @@
 #include <plotting/Logger.h>
 
 // Serial devices
-/* 
-    Messages must be sent in the format:
-    1st bit: id character (e.g. d = right, i = left)
-    2nd bit: sign ('+' or '-')
-    Next 13 bits: number (ex. 1.58465625881, 1584656.25881, etc.)
-    Last bit: '\n'
-*/
-#include "DeviceManager.h"
+#include <serial/DeviceManager.h>
 
-// Graphics object
-#include "Graphics.h"
-
-/**********************************************************************************************/
+/*********************************************************/
 
 // Main function
 int main(int argc, char** argv)

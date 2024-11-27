@@ -16,15 +16,15 @@ namespace RTPlot
 	class SerialPort
 	{
 		DCB          dcb = { 0 };	   // DCB == Device Control Block
-		BYTE         byteSize;
-		WORD         parity;
-		bool         connected;
-		bool		 verboseData;
-		DWORD        errors;
-		DWORD        baudRate;
-		HANDLE       hCOM;
-		COMSTAT      status;
-		std::string  portName;
+		BYTE         byteSize;		   // Byte size
+		WORD         parity;		   // Parity type
+		bool         connected;		   // Connection status
+		bool		 verboseData;	   // Send messages or not through console
+		DWORD        errors;		   // Error messages
+		DWORD        baudRate;		   // Baud rate (CBR_XXXXXX)
+		HANDLE       hCOM;			   // Handle variable for the COM port
+		COMSTAT      status;		   // Status of the COM port
+		std::string  portName;		   // Port name
 		COMMTIMEOUTS timeouts = { 0 }; // Serial reading timeouts
 
 	public:

@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "DeviceComponents.h"
+#include <serial/DeviceComponents.h>
 
 namespace RTPlot
 {

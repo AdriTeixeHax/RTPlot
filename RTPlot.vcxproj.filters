@@ -69,6 +69,5 @@
     <None Include="LICENSE" />
     <None Include="README.md" />
     <None Include="res\shaders\Basic.shader" />
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

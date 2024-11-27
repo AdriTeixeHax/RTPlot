@@ -144,7 +144,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include;src/vendor;include/renderer;include/serial</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;src/vendor;include/renderer;include/serial;include/plotting</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -212,7 +212,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
-    <None Include="ClassDiagram.cd" />
     <None Include="imgui.ini" />
     <None Include="LICENSE" />
     <None Include="README.md" />

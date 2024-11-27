@@ -1,4 +1,6 @@
-#include <Graphics.h>
+#include <../include/Graphics.h>
+
+#include <iostream>
 
 bool RTPlot::Graphics::GraphicsInit(void)
 {
