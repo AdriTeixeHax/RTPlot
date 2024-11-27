@@ -182,22 +182,8 @@ int main(int argc, char** argv)
             if (consoleLogFlag) ImGui::Log::ShowConsoleLog(logMsg, &consoleLogFlag);
         ImGui::End();
 
-        // GUI rendering
-        ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-
-        // Update and Render additional Platform Windows
-        ImGuiIO& io = ImGui::GetIO();
-        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
-        {
-            GLFWwindow* backup_current_context = glfwGetCurrentContext();
-            ImGui::UpdatePlatformWindows();
-            ImGui::RenderPlatformWindowsDefault();
-            glfwMakeContextCurrent(backup_current_context);
-        }
-        
-        glfwSwapBuffers(graphics->window); // Swap front and back buffers
-        glfwPollEvents(); // Poll and process events
+        graphics->GuiEnd();
+        graphics->EndFrame();
 
     } // !while
 

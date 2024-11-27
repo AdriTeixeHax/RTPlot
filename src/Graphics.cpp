@@ -133,3 +133,26 @@ ImFont* RTPlot::Graphics::GetLargeFontPtr(void)
     if (largeFont) return largeFont;
     else return nullptr;
 }
+
+void RTPlot::Graphics::GuiEnd(void)
+{
+    // GUI rendering
+    ImGui::Render();
+    ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+}
+
+void RTPlot::Graphics::EndFrame(void)
+{
+    // Update and Render additional Platform Windows
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    {
+        GLFWwindow* backup_current_context = glfwGetCurrentContext();
+        ImGui::UpdatePlatformWindows();
+        ImGui::RenderPlatformWindowsDefault();
+        glfwMakeContextCurrent(backup_current_context);
+    }
+
+    glfwSwapBuffers(window); // Swap front and back buffers
+    glfwPollEvents(); // Poll and process events
+}

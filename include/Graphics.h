@@ -36,6 +36,8 @@ namespace RTPlot
         bool GuiInit(void);
         bool LoadLogo(void);
         void NewFrame(void);
+        void GuiEnd(void);
+        void EndFrame(void);
 
         ImFont* GetLargeFontPtr(void);
     };
