@@ -5,8 +5,8 @@
 #include <cstdint>
 #include <string>
 
-#include <ScrollingBuffer.h>
-#include <RollingBuffer.h>
+#include <plotting/ScrollingBuffer.h>
+#include <plotting/RollingBuffer.h>
 
 namespace RTPlot
 {

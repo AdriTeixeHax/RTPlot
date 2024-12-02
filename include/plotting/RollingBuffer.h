@@ -15,6 +15,7 @@ namespace RTPlot // Had to rename the namespace because of linker issues
         ImVector<ImVec2> data;
 
         RollingBuffer(void);
+        ~RollingBuffer(void);
 
         void AddPoint(double x, double y);
     };

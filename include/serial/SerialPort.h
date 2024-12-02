@@ -24,20 +24,21 @@ namespace RTPlot
 		DWORD        baudRate;		   // Baud rate (CBR_XXXXXX)
 		HANDLE       hCOM;			   // Handle variable for the COM port
 		COMSTAT      status;		   // Status of the COM port
-		std::string  portName;		   // Port name
+		std::string  portName;         // Port name in standard short ASCII format
 		COMMTIMEOUTS timeouts = { 0 }; // Serial reading timeouts
 
 	public:
 		SerialPort(void) = delete;
-		SerialPort(const char* _port, DWORD _baudRate = CBR_9600, BYTE _byteSize = RTPLOT_MSG_SIZE, WORD _parity = NOPARITY, bool verboseData = false);
+		SerialPort(const std::string& _port, DWORD _baudRate = CBR_9600, BYTE _byteSize = RTPLOT_MSG_SIZE, WORD _parity = NOPARITY, bool _verboseData = true);
 		~SerialPort(void);
 
 		// Getters
 		bool IsConnected(void);
 		const std::string& GetName(void) { return portName; }
+		const std::string& GetNameStr(void);
 
 		// Setters
-		void SetName(const char* name);
+		void SetName(const std::string& name) { this->portName = name; }
 		void SetVerbose(bool vb) { verboseData = vb; }
 		void SetTimeouts(DWORD WriteTotalMultiplier = 10, DWORD ReadTotalMultiplier = 10, DWORD ReadInterval = 50, DWORD ReadTotalConstant = 1000, DWORD WriteTotalConstant = 1000);
 

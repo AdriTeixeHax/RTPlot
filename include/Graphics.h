@@ -29,8 +29,8 @@ namespace RTPlot
         ImFont* largeFont;
 
     public:
-        Graphics(void) : window(nullptr), largeFont(nullptr) { }
-        ~Graphics(void) { /* window pointer is deleted by the ImGui library */ }
+        Graphics(void) : window(nullptr), largeFont(new ImFont) { }
+        ~Graphics(void) { delete largeFont; /* window pointer is deleted by the ImGui library */ }
         
         bool GraphicsInit(void);
         bool GuiInit(void);

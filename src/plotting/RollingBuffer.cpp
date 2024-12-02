@@ -8,6 +8,11 @@ namespace RTPlot // Had to rename the namespace because of linker issues
         data.reserve(2000);
     }
 
+    RollingBuffer::~RollingBuffer(void)
+    {
+        data.clear();
+    }
+
     void RollingBuffer::AddPoint(double x, double y)
     {
         double xmod = fmod(x, span);

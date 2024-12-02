@@ -5,10 +5,6 @@
 #include <sstream>
 #include <cctype>
 
-// Callbacks and threads
-#include <thread>
-#include <mutex>
-
 #include <plotting/Logger.h>
 
 // Serial devices
@@ -117,13 +113,13 @@ int main(int argc, char** argv)
                     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 7.0f, 0.7f, 0.7f));
                     ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(device / 7.0f, 0.8f, 0.8f));
 
-                    std::string port = "COM" + std::to_string(device);
-                    if (ImGui::Button(port.c_str()))
+                    std::string portName = "\\\\.\\COM" + std::to_string(device);
+                    std::string portNameGUI = "COM" + std::to_string(device);
+                    if (ImGui::Button(portNameGUI.c_str()))
                     {
-                        const char* portName = port.c_str();
-                        deviceManager.AddDevice(portName, graphics);
+                        deviceManager.AddDevice(portName.c_str(), graphics);
                         showAddPlotFlag = false;
-                        logMsg = "Added device " + port + "\n";
+                        logMsg = "Added device " + portNameGUI + "\n";
                     }
 
                     ImGui::PopStyleColor(3);
@@ -186,6 +182,8 @@ int main(int argc, char** argv)
         graphics->EndFrame();
 
     } // !while
+
+    deviceManager.~DeviceManager(); // To end threads and mutex present in its components.
 
     // GUI shutdown
     ImGui_ImplOpenGL3_Shutdown();

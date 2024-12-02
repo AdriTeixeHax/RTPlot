@@ -16,7 +16,7 @@ namespace RTPlot
 
 		// Getters
 		uint8_t Size(void) { return components.size(); }
-		DeviceComponent* operator[](uint8_t i) { return components[i]; }
+		DeviceComponent* operator[](uint8_t i) { return components.at(i); }
 
 		// Actions
 		void AddDevice(const char* port, Graphics* graphicsPtr);

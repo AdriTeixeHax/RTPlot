@@ -12,6 +12,7 @@ RTPlot::DeviceComponent::~DeviceComponent(void)
 	exitFlag = true;
 	thread.join();
 	delete plotter;
+	mutex.lock();
 	delete serialDevice;
 }
 
@@ -20,15 +21,17 @@ void RTPlot::DeviceComponent::SerialReadingFunc(void)
 	while (!exitFlag)
 	{
 		mutex.lock();
-		if (serialDevice->Recieve())
-		{
-			*(plotter->GetDataPtr()) = serialDevice->GetMsg();
-		}
-		if (sendMsgFlag)
-		{
-			serialDevice->Send(writingMsg);
-			sendMsgFlag = false;
-		}
+		if (!serialDevice) { std::cerr << "[DeviceComponent]: Serial Device pointer does not exist." << std::endl; break; }
+		serialDevice->Recieve();
 		mutex.unlock();
+		//for (uint8_t i = 0; i < RTPLOT_DATA_NUM; i++)
+		//{
+		//	plotter->GetDataPtr()[i] = serialDevice->GetMsgArray()->at(i);
+		//}
+		//if (sendMsgFlag)
+		//{
+		//	serialDevice->Send(writingMsg);
+		//	sendMsgFlag = false;
+		//}
 	}
 }

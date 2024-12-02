@@ -2,6 +2,7 @@
 
 void RTPlot::DeviceManager::AddDevice(const char* port, Graphics* graphicsPtr)
 {
+	if (!graphicsPtr) std::cerr << "[DeviceManager]: Graphics pointer is not valid." << std::endl;
 	components.push_back(new DeviceComponent(port, graphicsPtr));
 	components[components.size() - 1]->id = components.size() - 1;
 	components[components.size() - 1]->plotter->SetID(components[components.size() - 1]->id);

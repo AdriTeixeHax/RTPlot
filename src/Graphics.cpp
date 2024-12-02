@@ -1,4 +1,4 @@
-#include <../include/Graphics.h>
+#include "../include/Graphics.h"
 
 #include <iostream>
 
@@ -128,12 +128,6 @@ void RTPlot::Graphics::NewFrame(void)
     }
 }
 
-ImFont* RTPlot::Graphics::GetLargeFontPtr(void)
-{
-    if (largeFont) return largeFont;
-    else return nullptr;
-}
-
 void RTPlot::Graphics::GuiEnd(void)
 {
     // GUI rendering
@@ -155,4 +149,10 @@ void RTPlot::Graphics::EndFrame(void)
 
     glfwSwapBuffers(window); // Swap front and back buffers
     glfwPollEvents(); // Poll and process events
+}
+
+ImFont* RTPlot::Graphics::GetLargeFontPtr(void)
+{
+    if (largeFont) return largeFont;
+    else return nullptr;
 }

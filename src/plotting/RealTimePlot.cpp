@@ -29,7 +29,11 @@ namespace RTPlot
     {
         ImGui::Begin(name.c_str(), NULL);
             ImGui::PushFont(graphicsPtr->GetLargeFontPtr());
-            ImGui::Text("Read data: %.3f", *dataPtr);
+                ImGui::Text("Read data: ");
+                for (uint8_t i = 0; i < RTPLOT_DATA_NUM; i++)
+                {
+                    ImGui::Text("%.3f ", dataPtr[i]);
+                }
             ImGui::PopFont();
 
             ImGui::Checkbox("Plot", plotFlag);
