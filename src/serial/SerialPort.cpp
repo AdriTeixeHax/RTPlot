@@ -19,7 +19,7 @@ namespace RTPlot
 		else std::cerr << "[SerialPort]: Error constructing SerialPort object because couldn't connect with the serial port." << std::endl;
 	}
 
-	SerialPort::~SerialPort(void) { this->Disconnect(); delete hCOM; }
+	SerialPort::~SerialPort(void) { this->ClearBuffer(); this->Disconnect(); }
 
 	void SerialPort::SetTimeouts(DWORD WriteTotalMultiplier, DWORD ReadTotalMultiplier, DWORD ReadInterval, DWORD ReadTotalConstant, DWORD WriteTotalConstant)
 	{
@@ -82,10 +82,12 @@ namespace RTPlot
 	{
 		if (connected == true)
 		{
+			this->ClearBuffer();	
+			if (hCOM == INVALID_HANDLE_VALUE) std::cerr << "[SerialPort]: Port handle is invalid." << std::endl;
+			if (!CloseHandle(hCOM)) std::cerr << "[SerialPort]: Couldn't close the serial port. Error " << GetLastError() << std::endl;
 			connected = false;
-			if (hCOM) CloseHandle(hCOM);
+			hCOM = INVALID_HANDLE_VALUE;
 		}
-		hCOM = (void*)0;
 	}
 
 	bool SerialPort::ClearBuffer(uint8_t flags)
@@ -191,7 +193,7 @@ namespace RTPlot
 		std::vector<uint8_t> ports;
 		for (uint8_t portNumber = 0; portNumber < RTPLOT_MAX_PORT_NUMBER; portNumber++)
 		{
-			HANDLE hPort = CreateFileW(portNames[portNumber].c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+			HANDLE hPort = CreateFileW(portNames[portNumber].c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, 0, nullptr);
 			if (hPort != INVALID_HANDLE_VALUE)
 			{
 				ports.push_back(portNumber);

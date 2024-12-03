@@ -10,7 +10,6 @@ namespace RTPlot
 	{
 		SerialPort*         port;
 
-        const size_t        msgSize;
         void*               reading;
         std::vector<double> dReading;
 

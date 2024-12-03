@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <vector>
+#include <mutex>
 #include <RTPlotVars.h>
 
 namespace RTPlot
