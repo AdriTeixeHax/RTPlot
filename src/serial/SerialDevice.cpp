@@ -18,11 +18,11 @@ RTPlot::SerialDevice::~SerialDevice(void)
 bool RTPlot::SerialDevice::Recieve(uint32_t delay)
 {
     // Error checking
-    //if (!port) { if (verboseData) std::cerr << "[SerialDevice]: Error dereferencing port: it is nullptr." << std::endl; return false; }
-    //if (!port->IsConnected()) { if (verboseData) std::cout << "[SerialDevice]: Device not connected." << std::endl; return false; }
+    if (!port) { if (verboseData) std::cerr << "[SerialDevice]: Error dereferencing port: it is nullptr." << std::endl; return false; }
+    if (!port->IsConnected()) { if (verboseData) std::cout << "[SerialDevice]: Device not connected." << std::endl; return false; }
 
     // Reading from port and error checking
-    //int8_t readCode = port->Read(reading, msgSize);
+    int8_t readCode = port->Read(reading, RTPLOT_MSG_SIZE);
     //if (readCode == RTPLOT_ERROR) { if (verboseData) std::cout << "[SerialDevice]: Could not read message from device." << std::endl; return false; }
     
     // If the reading is correct, process the data

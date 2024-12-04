@@ -19,7 +19,10 @@ namespace RTPlot
 		else std::cerr << "[SerialPort]: Error constructing SerialPort object because couldn't connect with the serial port." << std::endl;
 	}
 
-	SerialPort::~SerialPort(void) { this->ClearBuffer(); this->Disconnect(); }
+	SerialPort::~SerialPort(void) 
+	{ 
+		while (!this->Disconnect());
+	}
 
 	void SerialPort::SetTimeouts(DWORD WriteTotalMultiplier, DWORD ReadTotalMultiplier, DWORD ReadInterval, DWORD ReadTotalConstant, DWORD WriteTotalConstant)
 	{
@@ -78,16 +81,19 @@ namespace RTPlot
 		errorCodePrev = errorCode;
 	}
 
-	void SerialPort::Disconnect(void)
+	bool SerialPort::Disconnect(void)
 	{
 		if (connected == true)
 		{
-			this->ClearBuffer();	
+			this->ClearBuffer();
 			if (hCOM == INVALID_HANDLE_VALUE) std::cerr << "[SerialPort]: Port handle is invalid." << std::endl;
 			if (!CloseHandle(hCOM)) std::cerr << "[SerialPort]: Couldn't close the serial port. Error " << GetLastError() << std::endl;
 			connected = false;
 			hCOM = INVALID_HANDLE_VALUE;
+			return true;
 		}
+		else std::cerr << "[SerialPort]: The device trying to disconnect is not connected." << std::endl;
+		return false;
 	}
 
 	bool SerialPort::ClearBuffer(uint8_t flags)
@@ -107,6 +113,7 @@ namespace RTPlot
 	bool SerialPort::IsConnected(void)
 	{
 		DWORD modemStatus = 0;
+		if (!hCOM || hCOM == 0) { std::cerr << "[SerialPort]: invalid handle." << std::endl; return false; }
 		if (!GetCommModemStatus(hCOM, &modemStatus))
 		{
 			DWORD error = GetLastError();
@@ -131,6 +138,8 @@ namespace RTPlot
 
 	int8_t SerialPort::Read(LPVOID buf, DWORD size)
 	{
+		if (!hCOM || hCOM == 0) { std::cerr << "[SerialPort]: invalid handle value." << std::endl; return -1; }
+		
 		DWORD bytesRead;
 		DWORD bytesToRead = 0;
 
@@ -198,7 +207,7 @@ namespace RTPlot
 			{
 				ports.push_back(portNumber);
 			}
-			else std::wcout << "[COM" << portNumber << "]: Error code " << GetLastError() << std::endl;
+			// else std::wcout << "[COM" << portNumber << "]: Error code " << GetLastError() << std::endl;
 			CloseHandle(hPort);
 		}
 

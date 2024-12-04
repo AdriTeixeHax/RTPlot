@@ -12,7 +12,7 @@ namespace RTPlot
 		std::vector<DeviceComponent*> components;
 
 	public:
-		~DeviceManager(void) { for (auto i : components) delete i; }
+		~DeviceManager(void) { for (auto i : components) delete i; }	
 
 		// Getters
 		uint8_t Size(void) { return components.size(); }

@@ -45,7 +45,7 @@ namespace RTPlot
 
 		// Actions
 		bool Connect(void);
-		void Disconnect(void);
+		bool Disconnect(void);
 		bool ClearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
 		int8_t Read(LPVOID buf, DWORD size);
 		int8_t Write(LPVOID buf, DWORD size);
