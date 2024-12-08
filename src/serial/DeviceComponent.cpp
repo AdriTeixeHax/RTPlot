@@ -12,15 +12,19 @@ RTPlot::DeviceComponent::~DeviceComponent(void)
     exitThreadFlag = true;
     thread.join();
 
+    mutex.lock();
     delete plotter;
     delete serialDevice;
+    mutex.unlock();
 }
 
 void RTPlot::DeviceComponent::SerialReadingFunc(void)
 {
     while (!exitThreadFlag)
     {
+        mutex.lock();
         serialDevice->Recieve();
+        mutex.unlock();
 
         // Process data outside the lock
         /*

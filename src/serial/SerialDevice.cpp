@@ -21,85 +21,88 @@ bool RTPlot::SerialDevice::Recieve(uint32_t delay)
 
     // Reading from port and error checking
     int8_t readCode = port->Read(reading, RTPLOT_MSG_SIZE);
-    //if (readCode == RTPLOT_ERROR) { if (verboseData) std::cout << "[SerialDevice]: Could not read message from device." << std::endl; return false; }
+    if (readCode == RTPLOT_ERROR) { if (verboseData) std::cout << "[SerialDevice]: Could not read message from device." << std::endl; return false; }
     
     // If the reading is correct, process the data
-    //else if (readCode == RTPLOT_FINISHED)
-    //{
-    //    if (reading == nullptr) { if (verboseData) std::cout << "[SerialDevice]: Reading returned nullptr." << std::endl; return false; }
+    else if (readCode == RTPLOT_FINISHED)
+    {
+        if (reading == nullptr) { if (verboseData) std::cout << "[SerialDevice]: Reading returned nullptr." << std::endl; return false; }
 
-    //    // Convert the void* data into char*. ';' marks the end of the message, and the rest is filled with '\0'.
-    //    char tempMsg[RTPLOT_MSG_SIZE] = { 0 };
-    //    for (uint8_t i = 0; i < sizeof(tempMsg); i++)
-    //    {
-    //        tempMsg[i] = *((char*)reading + i);
-    //        if (tempMsg[i] == ';')
-    //        {
-    //            for (uint8_t j = i + 1; j < sizeof(tempMsg); j++)
-    //                tempMsg[j] = '\0';
+        char tempMsg[RTPLOT_MSG_SIZE];
+        bool startFlag = false;
+        bool endFlag = false;
+        uint8_t x = 0;
+        for (uint8_t i = 0; i < sizeof(tempMsg); i++)
+        {
 
-    //            break;
-    //        }
-    //    }
+            // If the byte read is a 'b' (begin), then start copying the message
+            if (reading[i] == 'b') startFlag = true;
+            if (startFlag && reading[i] != 'b' && reading[i] != 'e')
+            {
+                tempMsg[x] = reading[i];
+                x++;
+            }
 
-    //    //if ((tempMsg[1] == '+' || tempMsg[1] == '-')/* && tempMsg[sizeof(tempMsg) - 1] == '\n'*/)
-    //    //{
-    //    //    char filteredMsg[15];
-    //    //    for (uint8_t i = 0; i < sizeof(filteredMsg); i++)
-    //    //    {
-    //    //        filteredMsg[i] = tempMsg[i + 1];
-    //    //    }
-    //    //    dReading = atof(filteredMsg);
+            if (reading[i] == 'e') endFlag = true;
+            if (endFlag && i < sizeof(tempMsg))
+            {
+                // Fill the rest with 0s.
+                for (uint8_t j = x - 1; j < sizeof(tempMsg); j++)
+                    tempMsg[j] = '\0';
 
-    //    //    if (verboseData) std::cout << "[" << port->GetName() << "]: Converted read data : " << dReading << std::endl;
-    //    //    Sleep(RTPLOT_READING_DELAY);
-    //    //}
+                // Exit the "for" loop
+                break;
+            }
+        }
 
-    //    // Process the data
-    //    char finalMsg[RTPLOT_DATA_NUM][RTPLOT_DATA_SIZE] = { 0 };
-    //    static uint8_t msgSel = 0;
-    //    static uint8_t k = 0;
-    //    //for (uint8_t i = 0; i < sizeof(tempMsg); i++)
-    //    //{
-    //    //    k += i;
-    //    //    if (tempMsg[i] == ',') 
-    //    //    {
-    //    //        k = 0;
-    //    //        msgSel++;
-    //    //    }
-    //    //    else if (tempMsg[i] == ';') 
-    //    //    {
-    //    //        msgSel = 0; 
-    //    //        k = 0;
-    //    //        break;
-    //    //    }
-    //    //    else finalMsg[msgSel][k % RTPLOT_DATA_SIZE] = tempMsg[i];
-    //    //}
+        std::cout << "[Reading]:" << reading << std::endl;
+        std::cout << "[TempMsg]:" << tempMsg << std::endl;
 
-    //    //// Cast the data into a double if the message is correct
-    //    //if (finalMsg[RTPLOT_DATA_NUM - 1][RTPLOT_DATA_SIZE - 1] == ';')
-    //    //{
-    //    //    for (uint8_t i = 0; i < dReading.size(); i++)
-    //    //    {
-    //    //        dReading.at(i) = atof(finalMsg[i]);
-    //    //    }
-    //    //}
+        // Process the data
+        char finalMsg[RTPLOT_DATA_NUM][RTPLOT_DATA_SIZE];
+        static uint8_t msgSel = 0;
+        static uint8_t k = 0;
+        //for (uint8_t i = 0; i < sizeof(tempMsg); i++)
+        //{
+        //    k += i;
+        //    if (tempMsg[i] == ',') 
+        //    {
+        //        k = 0;
+        //        msgSel++;
+        //    }
+        //    else if (tempMsg[i] == ';') 
+        //    {
+        //        msgSel = 0; 
+        //        k = 0;
+        //        break;
+        //    }
+        //    else finalMsg[msgSel][k % RTPLOT_DATA_SIZE] = tempMsg[i];
+        //}
 
-    //    //if (verboseData)
-    //    //{
-    //    //    std::cout << "[" << port->GetName() << "]: Converted read data: ";
+        //// Cast the data into a double if the message is correct
+        //if (finalMsg[RTPLOT_DATA_NUM - 1][RTPLOT_DATA_SIZE - 1] == ';')
+        //{
+        //    for (uint8_t i = 0; i < dReading.size(); i++)
+        //    {
+        //        dReading.at(i) = atof(finalMsg[i]);
+        //    }
+        //}
 
-    //    //    for (uint8_t i = 0; i < sizeof(finalMsg); i++)
-    //    //    {
-    //    //        std::cout << finalMsg[i];
-    //    //        if (i < RTPLOT_DATA_NUM - 1)
-    //    //            std::cout << ", ";
-    //    //    }
-    //    //    std::cout << std::endl;
-    //    //}
+        //if (verboseData)
+        //{
+        //    std::cout << "[" << port->GetName() << "]: Converted read data: ";
 
-    //    Sleep(RTPLOT_READING_DELAY);
-    //}
+        //    for (uint8_t i = 0; i < sizeof(finalMsg); i++)
+        //    {
+        //        std::cout << finalMsg[i];
+        //        if (i < RTPLOT_DATA_NUM - 1)
+        //            std::cout << ", ";
+        //    }
+        //    std::cout << std::endl;
+        //}
+
+        Sleep(RTPLOT_READING_DELAY);
+    }
 
     return true;
 }
