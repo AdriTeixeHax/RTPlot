@@ -2,7 +2,7 @@
 
 RTPlot::SerialDevice::SerialDevice(const char* portName, size_t size, uint32_t baudRate) : 
     port(new RTPlot::SerialPort(portName, baudRate)), 
-    reading(new void*)
+    reading("\0")
 { 
     port->ClearBuffer(); 
     for (uint8_t i = 0; i < RTPLOT_DATA_NUM; i++) dReading.push_back(0);
@@ -10,8 +10,6 @@ RTPlot::SerialDevice::SerialDevice(const char* portName, size_t size, uint32_t b
 
 RTPlot::SerialDevice::~SerialDevice(void) 
 { 
-    reading = (void*)0; // To avoid heap corruption.
-    delete reading; 
     delete port; 
 }
 

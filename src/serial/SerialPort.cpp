@@ -160,7 +160,7 @@ namespace RTPlot
 
 		if (ReadFile(hCOM, buf, bytesToRead, &bytesRead, NULL))
 		{
-			if (bytesRead == bytesToRead) { return RTPLOT_FINISHED; readingCount++; }
+			if (bytesRead == bytesToRead)   { return RTPLOT_FINISHED; readingCount++; }
 			else if (bytesRead < bytesToRead) return RTPLOT_READING;
 			else if (bytesRead > bytesToRead) return RTPLOT_ERROR;
 		}

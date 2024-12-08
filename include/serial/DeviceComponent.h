@@ -13,7 +13,7 @@ namespace RTPlot
 		std::mutex    mutex;
 		RealTimePlot* plotter;
 		SerialDevice* serialDevice;
-		bool          exitFlag = false;
+		bool          exitThreadFlag = false;
 		bool		  sendMsgFlag = false;
 		uint8_t       id = 0;
 		double        reading = 0;

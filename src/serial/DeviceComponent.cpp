@@ -9,22 +9,18 @@ RTPlot::DeviceComponent::DeviceComponent(const char* port, Graphics* graphicsPtr
 
 RTPlot::DeviceComponent::~DeviceComponent(void)
 {
-    exitFlag = true;
+    exitThreadFlag = true;
     thread.join();
 
-    mutex.lock();
     delete plotter;
     delete serialDevice;
-    mutex.unlock();
 }
 
 void RTPlot::DeviceComponent::SerialReadingFunc(void)
 {
-    while (!exitFlag)
+    while (!exitThreadFlag)
     {
-        mutex.lock();
         serialDevice->Recieve();
-        mutex.unlock();
 
         // Process data outside the lock
         /*

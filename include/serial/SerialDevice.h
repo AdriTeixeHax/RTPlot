@@ -10,7 +10,7 @@ namespace RTPlot
 	{
 		SerialPort*         port;
 
-        void*               reading;
+        char                reading[RTPLOT_MSG_SIZE];
         std::vector<double> dReading;
 
         bool                verboseData = true;
