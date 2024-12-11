@@ -17,7 +17,7 @@
     <ClCompile Include="src\serial\SerialDevice.cpp" />
     <ClCompile Include="src\plotting\RealTimePlot.cpp" />
     <ClCompile Include="include\Graphics.h" />
-    <ClCompile Include="src\Graphics.cpp" />
+    <ClCompile Include="include\Graphics.cpp" />
     <ClCompile Include="src\serial\DeviceManager.cpp" />
     <ClCompile Include="src\serial\DeviceComponent.cpp" />
     <ClCompile Include="src\plotting\Logger.cpp" />

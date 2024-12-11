@@ -157,7 +157,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="include\Graphics.h" />
-    <ClCompile Include="src\Graphics.cpp" />
+    <ClCompile Include="include\Graphics.cpp" />
     <ClCompile Include="src\plotting\Logger.cpp" />
     <ClCompile Include="src\plotting\RealTimePlot.cpp" />
     <ClCompile Include="src\main.cpp" />

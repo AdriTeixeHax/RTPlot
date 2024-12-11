@@ -13,33 +13,26 @@ namespace RTPlot
         delete rdata;
     }
 
-    void RealTimePlot::SetDataToPlot(std::vector<double>* data)
+    void RealTimePlot::SetDataToPlot(double data)
     {
-        dataToPlot = *data;
+        dataToPlot = data;
     }
 
     int8_t RealTimePlot::Plot(const std::string& name)
     {
         ImGui::Begin(name.c_str(), NULL);
             ImGui::PushFont(graphicsPtr->GetLargeFontPtr());
-                ImGui::Text("Read data: ");
-                for (uint8_t i = 0; i < dataToPlot.size(); i++)
-                {
-                    ImGui::Text("%.3f ", dataToPlot.at(i));
-                }
+                ImGui::Text("Read data: %.4f", dataToPlot);
             ImGui::PopFont();
-
-            static bool plotFlag = false;
-            ImGui::Checkbox("Plot", &plotFlag);
-            if (!plotFlag) { ImGui::End(); return 0; }
+       
+            ImGui::Checkbox("Plot", &plotExitFlag);
+            if (!plotExitFlag) { ImGui::End(); return 0; }
 
             static float t = 0;
             uint8_t misc_flags = 0;
 
             t += ImGui::GetIO().DeltaTime;
-            if (dataToPlot.size() > 0)
-                rdata->AddPoint(t, dataToPlot.at(0));
-            else rdata->AddPoint(t, 0);
+            rdata->AddPoint(t, dataToPlot);
 
             rdata->span = history;
 

@@ -1,9 +1,13 @@
 #include <serial/DeviceComponent.h>
+#include <RTPlotVars.h>
 
 RTPlot::DeviceComponent::DeviceComponent(const char* port, Graphics* graphicsPtr) :
-	plotter(new RealTimePlot(graphicsPtr)),
+	plotters(),
 	serialDevice(new SerialDevice(port))
 {
+    for (uint8_t i = 0; i < RTPLOT_DATA_NUM; i++)
+        plotters.push_back(new RealTimePlot(graphicsPtr));
+
 	thread = std::thread(&DeviceComponent::SerialReadingFunc, this);
 }
 
@@ -13,8 +17,9 @@ RTPlot::DeviceComponent::~DeviceComponent(void)
     thread.join();
 
     mutex.lock();
-    delete plotter;
-    delete serialDevice;
+        for (auto i : plotters)
+            delete i;
+        delete serialDevice;
     mutex.unlock();
 }
 
@@ -26,6 +31,7 @@ void RTPlot::DeviceComponent::SerialReadingFunc(void)
         serialDevice->Recieve();
         mutex.unlock();
 
-        plotter->SetDataToPlot(serialDevice->GetMsgArray());
+        for (uint8_t i = 0; i < plotters.size(); i++)
+            plotters.at(i)->SetDataToPlot(serialDevice->GetValue(i));
     }
 }

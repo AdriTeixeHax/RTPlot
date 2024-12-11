@@ -13,13 +13,14 @@ namespace RTPlot
 {
 	class RealTimePlot
 	{
-        std::vector<double> dataToPlot;
+        double         dataToPlot;
         RollingBuffer* rdata;
         Graphics*      graphicsPtr;
         uint8_t        id = 0;
         ImVec4         plotColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
         float          history = 10.0f;
-        bool           plotExitFlag = true;
+        bool           exitFlag = true;
+        bool           plotExitFlag = false;
 
     public:
         RealTimePlot(void) = delete;
@@ -27,11 +28,11 @@ namespace RTPlot
         ~RealTimePlot(void);
 
         // Getters
-        std::vector<double>& GetDataToPlot(void) { return dataToPlot; }
-        bool GetPlotExitFlag(void) const { return plotExitFlag; }
+        double GetDataToPlot(void) const { return dataToPlot; }
+        bool GetPlotExitFlag(void) const { return exitFlag; }
 
         // Setters
-        void SetDataToPlot(std::vector<double>* data);
+        void SetDataToPlot(double data);
         void SetID     (uint8_t _id) { id = _id; }
 
         // Actions
