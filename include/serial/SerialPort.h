@@ -34,7 +34,7 @@ namespace RTPlot
 		~SerialPort(void);
 
 		// Getters
-		bool IsConnected(void);
+		bool IsConnected(void) const;
 		const std::string& GetName(void) { return portName; }
 		const std::string& GetNameStr(void);
 
@@ -46,9 +46,9 @@ namespace RTPlot
 		// Actions
 		bool Connect(void);
 		bool Disconnect(void);
-		bool ClearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
+		bool ClearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR) const;
 		int8_t Read(LPVOID buf, DWORD size);
-		int8_t Write(LPVOID buf, DWORD size);
+		int8_t Write(LPVOID buf, DWORD size) const;
 
 		static std::vector<uint8_t> ScanAvailablePorts(void);
 	};

@@ -1,7 +1,7 @@
 #include <serial/DeviceComponent.h>
 
 RTPlot::DeviceComponent::DeviceComponent(const char* port, Graphics* graphicsPtr) :
-	plotter(new RealTimePlot(&reading, &writingMsg, graphicsPtr)),
+	plotter(new RealTimePlot(graphicsPtr)),
 	serialDevice(new SerialDevice(port))
 {
 	thread = std::thread(&DeviceComponent::SerialReadingFunc, this);
@@ -26,17 +26,6 @@ void RTPlot::DeviceComponent::SerialReadingFunc(void)
         serialDevice->Recieve();
         mutex.unlock();
 
-        // Process data outside the lock
-        /*
-        for (uint8_t i = 0; i < RTPLOT_DATA_NUM; i++)
-        {
-            plotter->GetDataPtr()[i] = serialDevice->GetMsgArray()->at(i);
-        }
-        if (sendMsgFlag)
-        {
-            serialDevice->Send(writingMsg);
-            sendMsgFlag = false;
-        }
-        */
+        plotter->SetDataToPlot(serialDevice->GetMsgArray());
     }
 }

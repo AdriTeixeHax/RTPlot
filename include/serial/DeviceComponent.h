@@ -8,25 +8,33 @@ namespace RTPlot
 {
 	class DeviceComponent
 	{
-	public:
 		std::thread   thread;
 		std::mutex    mutex;
-		RealTimePlot* plotter;
+		RealTimePlot* plotter; // std::vector<RealTimePlot*> plotters
 		SerialDevice* serialDevice;
 		bool          exitThreadFlag = false;
 		bool		  sendMsgFlag = false;
 		uint8_t       id = 0;
 		double        reading = 0;
-		std::string   writingMsg = "";
-		bool	      plotFlag = false;
 
+	public:
 		DeviceComponent(const char* port, Graphics* graphicsPtr);
 		~DeviceComponent(void);
 
-		bool  GetPlotFlag(void) const { return plotFlag; }
-		bool* GetPlotFlagPtr(void) { if (&plotFlag) return &plotFlag; }
-		void  SetPlotFlag(bool state) { plotFlag = state; }
+		// Getters
+		bool        GetPlotExitFlag(void)       { return plotter->GetPlotExitFlag(); }
+		uint8_t     GetID          (void)       { return id; }
+		SerialPort* GetPort        (void)       { return serialDevice->GetPort(); }
+		std::string GetPortName    (void) const { return serialDevice->GetPort()->GetName(); }
+		
+		// Setters
+		void SetID(uint8_t id) { this->id = id; }
+		void SetPlotterID(uint8_t id) { plotter->SetID(id); }
 
+		// Functions
+		int8_t Plot(const std::string& name) { return plotter->Plot(name); }
+
+		// Thread functions
 		void SerialReadingFunc(void);
 	};
 }

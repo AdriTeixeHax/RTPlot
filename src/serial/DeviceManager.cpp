@@ -3,9 +3,11 @@
 void RTPlot::DeviceManager::AddDevice(const char* port, Graphics* graphicsPtr)
 {
 	if (!graphicsPtr) std::cerr << "[DeviceManager]: Graphics pointer is not valid." << std::endl;
+	
 	components.push_back(new DeviceComponent(port, graphicsPtr));
-	components[components.size() - 1]->id = components.size() - 1;
-	components[components.size() - 1]->plotter->SetID(components[components.size() - 1]->id);
+	uint8_t newID = components.size() - 1;
+	components[components.size() - 1]->SetID(newID);
+	components[components.size() - 1]->SetPlotterID(newID);
 }
 
 void RTPlot::DeviceManager::RemoveDevice(uint8_t i)
@@ -16,11 +18,11 @@ void RTPlot::DeviceManager::RemoveDevice(uint8_t i)
 
 void RTPlot::DeviceManager::PlotDevice(uint8_t id)
 {
-	if (components[id]->plotter->GetPlotExitFlag())
-		components[id]->plotter->Plot(components[id]->serialDevice->GetPort()->GetName(), components[id]->GetPlotFlagPtr());
+	if (components[id]->GetPlotExitFlag())
+		components[id]->Plot(components[id]->GetPortName());
 }
 
-void RTPlot::DeviceManager::PlotDevices(void)
+void RTPlot::DeviceManager::PlotAllDevices(void)
 {
 	for (uint8_t i = 0; i < components.size(); i++)
 		PlotDevice(i);

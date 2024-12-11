@@ -87,7 +87,11 @@ namespace RTPlot
 		{
 			this->ClearBuffer();
 			if (hCOM == INVALID_HANDLE_VALUE) std::cerr << "[SerialPort]: Port handle is invalid." << std::endl;
-			if (!CloseHandle(hCOM)) std::cerr << "[SerialPort]: Couldn't close the serial port. Error " << GetLastError() << std::endl;
+			if (!CloseHandle(hCOM)) 
+			{
+				std::cerr << "[SerialPort]: Couldn't close the serial port. Error " << GetLastError() << std::endl;
+				return false;
+			}
 			connected = false;
 			hCOM = INVALID_HANDLE_VALUE;
 			return true;
@@ -96,7 +100,7 @@ namespace RTPlot
 		return false;
 	}
 
-	bool SerialPort::ClearBuffer(uint8_t flags)
+	bool SerialPort::ClearBuffer(uint8_t flags) const
 	{
 		if (PurgeComm(hCOM, flags))
 		{
@@ -110,7 +114,7 @@ namespace RTPlot
 		}
 	}
 
-	bool SerialPort::IsConnected(void)
+	bool SerialPort::IsConnected(void) const
 	{
 		DWORD modemStatus = 0;
 		if (!hCOM || hCOM == 0) { std::cerr << "[SerialPort]: invalid handle." << std::endl; return false; }
@@ -172,7 +176,7 @@ namespace RTPlot
 		}
 	}
 
-	int8_t SerialPort::Write(LPVOID buf, DWORD size)
+	int8_t SerialPort::Write(LPVOID buf, DWORD size) const
 	{
 		// Write data to the serial port
 		const char* data = "Hello, Serial Port!\n";

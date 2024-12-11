@@ -2,48 +2,44 @@
 
 namespace RTPlot
 {
-    RealTimePlot::RealTimePlot(void) : 
-        rdata(new RollingBuffer), 
-        writingPtr(new std::string),
-        graphicsPtr(nullptr),
-        dataPtr(new double)
-    { }
-
-    RealTimePlot::RealTimePlot(double* readingPtr, std::string* writingPtr, Graphics* graphicsPtr) : 
+    RealTimePlot::RealTimePlot(Graphics* graphicsPtr) : 
+        dataToPlot(),
         rdata(new RollingBuffer),
-        writingPtr(writingPtr),
-        graphicsPtr(graphicsPtr),
-        dataPtr(readingPtr)
+        graphicsPtr(graphicsPtr)
     { }
 
     RealTimePlot::~RealTimePlot(void)
     {
         delete rdata;
-        dataPtr = new double;
-        delete dataPtr;
-        writingPtr = new std::string;
-        delete writingPtr;
     }
 
-    int8_t RealTimePlot::Plot(const std::string& name, bool* plotFlag)
+    void RealTimePlot::SetDataToPlot(std::vector<double>* data)
+    {
+        dataToPlot = *data;
+    }
+
+    int8_t RealTimePlot::Plot(const std::string& name)
     {
         ImGui::Begin(name.c_str(), NULL);
             ImGui::PushFont(graphicsPtr->GetLargeFontPtr());
                 ImGui::Text("Read data: ");
-                for (uint8_t i = 0; i < RTPLOT_DATA_NUM; i++)
+                for (uint8_t i = 0; i < dataToPlot.size(); i++)
                 {
-                    ImGui::Text("%.3f ", dataPtr[i]);
+                    ImGui::Text("%.3f ", dataToPlot.at(i));
                 }
             ImGui::PopFont();
 
-            ImGui::Checkbox("Plot", plotFlag);
-            if (!*plotFlag) { ImGui::End(); return 0; }
+            static bool plotFlag = false;
+            ImGui::Checkbox("Plot", &plotFlag);
+            if (!plotFlag) { ImGui::End(); return 0; }
 
             static float t = 0;
             uint8_t misc_flags = 0;
 
             t += ImGui::GetIO().DeltaTime;
-            if (dataPtr) rdata->AddPoint(t, *dataPtr);
+            if (dataToPlot.size() > 0)
+                rdata->AddPoint(t, dataToPlot.at(0));
+            else rdata->AddPoint(t, 0);
 
             rdata->span = history;
 

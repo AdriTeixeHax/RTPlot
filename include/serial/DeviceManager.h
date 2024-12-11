@@ -23,7 +23,7 @@ namespace RTPlot
 		void RemoveDevice(uint8_t i);
 
 		void PlotDevice(uint8_t id);
-		void PlotDevices(void);
+		void PlotAllDevices(void);
 	};
 }
 

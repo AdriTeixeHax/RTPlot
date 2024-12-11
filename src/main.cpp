@@ -83,7 +83,7 @@ int main(int argc, char** argv)
             if (ImGui::Button("Apply"))
             {
                 for (uint8_t i = 0; i < deviceManager.Size(); i++)
-                    deviceManager[i]->serialDevice->GetPort()->SetTimeouts(wtm, rtm, ri, rtc, wtc);
+                    deviceManager[i]->GetPort()->SetTimeouts(wtm, rtm, ri, rtc, wtc);
                 logMsg = "Applied serial parameters.\n";
             }
 
@@ -133,7 +133,7 @@ int main(int argc, char** argv)
                 portsOpen.clear();
                 for (uint8_t i = 0; i < deviceManager.Size(); i++)
                 {
-                    const char* portName = deviceManager[i]->serialDevice->GetPort()->GetName().c_str();
+                    const char* portName = deviceManager[i]->GetPort()->GetName().c_str();
                     portsOpen.push_back(portName);
                 }
                 showDeletePlotFlag = true;
@@ -172,7 +172,7 @@ int main(int argc, char** argv)
             }
 
             // Plotting
-            deviceManager.PlotDevices();
+            deviceManager.PlotAllDevices();
 
             // Plot the log message of the current cycle
             if (consoleLogFlag) ImGui::Log::ShowConsoleLog(logMsg, &consoleLogFlag);
