@@ -5,7 +5,7 @@ RTPlot::DeviceComponent::DeviceComponent(const char* port, Graphics* graphicsPtr
 	plotters(),
 	serialDevice(new SerialDevice(port))
 {
-    for (uint8_t i = 0; i < RTPLOT_DATA_NUM; i++)
+    for (uint8_t i = 0; i < RTPLOT_DATA_NUM - 1; i++) // - 1 because the first value is the time
         plotters.push_back(new RealTimePlot(graphicsPtr));
 
 	thread = std::thread(&DeviceComponent::SerialReadingFunc, this);
@@ -31,7 +31,7 @@ void RTPlot::DeviceComponent::SerialReadingFunc(void)
         serialDevice->Recieve();
         mutex.unlock();
 
-        for (uint8_t i = 0; i < plotters.size(); i++)
-            plotters.at(i)->SetDataToPlot(serialDevice->GetValue(i));
+        for (uint8_t i = 0; i < plotters.size(); i++) // plotters.size() = RTPLOT_DATA_NUM - 1
+            plotters.at(i)->SetDataToPlot(serialDevice->GetValue(0), serialDevice->GetValue(i + 1));
     }
 }

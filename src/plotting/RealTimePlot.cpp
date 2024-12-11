@@ -4,17 +4,18 @@ namespace RTPlot
 {
     RealTimePlot::RealTimePlot(Graphics* graphicsPtr) : 
         dataToPlot(),
-        rdata(new RollingBuffer),
+        data(new RollingBuffer),
         graphicsPtr(graphicsPtr)
     { }
 
     RealTimePlot::~RealTimePlot(void)
     {
-        delete rdata;
+        delete data;
     }
 
-    void RealTimePlot::SetDataToPlot(double data)
+    void RealTimePlot::SetDataToPlot(const double& time, const double& data)
     {
+        timeToPlot = time;
         dataToPlot = data;
     }
 
@@ -28,13 +29,14 @@ namespace RTPlot
             ImGui::Checkbox("Plot", &plotExitFlag);
             if (!plotExitFlag) { ImGui::End(); return 0; }
 
-            static float t = 0;
             uint8_t misc_flags = 0;
+            static double t = 0;
 
+            //static float t = 0;
             t += ImGui::GetIO().DeltaTime;
-            rdata->AddPoint(t, dataToPlot);
 
-            rdata->span = history;
+            data->AddPoint(timeToPlot, dataToPlot);
+            data->span = history;
 
             static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_NoTickLabels;
             if (ImPlot::BeginPlot(std::string("Data " + std::to_string(id)).c_str(), ImVec2(-1, 300)))
@@ -43,7 +45,7 @@ namespace RTPlot
                 ImPlot::SetupAxisLimits(ImAxis_X1, 0, history, ImGuiCond_Always);
                 ImPlot::SetupAxisLimits(ImAxis_Y1, -0.5, 2);
                 ImPlot::PushStyleColor(ImPlotCol_Line, plotColor);
-                ImPlot::PlotLine(std::string("Data stream " + std::to_string(id)).c_str(), &rdata->data[0].x, &rdata->data[0].y, rdata->data.size(), 0, 0, 2 * sizeof(float));
+                ImPlot::PlotLine(std::string("Data stream " + std::to_string(id)).c_str(), &data->data[0].x, &data->data[0].y, data->data.size(), 0, 0, 2 * sizeof(float));
                 ImPlot::EndPlot();
             }
             ImGui::SliderFloat(std::string("History " + std::to_string(id)).c_str(), &history, 0.1, 10, "%.1f s");
@@ -114,10 +116,5 @@ namespace RTPlot
         ImGui::End();
 
         return 0;
-    }
-
-    void RealTimePlot::Clear(void)
-    {
-        rdata = new RollingBuffer;
     }
 }
