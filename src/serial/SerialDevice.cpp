@@ -31,8 +31,8 @@ bool RTPlot::SerialDevice::Recieve(uint32_t delay)
         char tempMsg[RTPLOT_MSG_SIZE] = { 0 };
         bool startFlag = false;
         bool endFlag = false;
-        uint8_t x = 0;
-        for (uint8_t i = 0; i < sizeof(tempMsg); i++)
+        size_t x = 0;
+        for (size_t i = 0; i < sizeof(tempMsg); i++)
         {
 
             // If the byte read is a 'b' (begin), then start copying the message
@@ -47,7 +47,7 @@ bool RTPlot::SerialDevice::Recieve(uint32_t delay)
             if (endFlag && i < sizeof(tempMsg))
             {
                 // Fill the rest with 0s.
-                for (uint8_t j = x - 1; j < sizeof(tempMsg); j++)
+                for (size_t j = x - 1; j < sizeof(tempMsg); j++)
                     tempMsg[j] = '\0';
 
                 // Exit the "for" loop
@@ -57,9 +57,9 @@ bool RTPlot::SerialDevice::Recieve(uint32_t delay)
 
         // Process the data
         char finalMsg[RTPLOT_DATA_NUM][RTPLOT_DATA_SIZE] = { 0 };
-        uint8_t msgSel = 0;
-        uint8_t k = 0;
-        for (uint8_t i = 0; i < sizeof(tempMsg); i++)
+        size_t msgSel = 0;
+        size_t k = 0;
+        for (size_t i = 0; i < sizeof(tempMsg); i++)
         {
             if (tempMsg[i] == ',') 
             {
