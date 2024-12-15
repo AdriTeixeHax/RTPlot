@@ -21,7 +21,7 @@ namespace RTPlot
         ~SerialDevice(void);
 
         // Getters
-        double GetValue(uint8_t i) { return dReading.at(i); }
+        const std::vector<double>& GetReading(void) { return dReading; }
 
         bool IsConnected(void) { return port->IsConnected(); }
         SerialPort* GetPort(void) { return port; }

@@ -1,8 +1,8 @@
 #include <../include/plotting/RollingBuffer.h>
 
-namespace RTPlot // Had to rename the namespace because of linker issues
+namespace RTPlot // Had to rename the namespace because of linker issues. Class taken and slightly modified from the implot_demo.cpp file.
 {
-    RollingBuffer::RollingBuffer(void)
+    RollingBuffer::RollingBuffer(const std::string& _name) : name(_name)
     {
         span = 10.0f;
         data.reserve(2000);

@@ -13,9 +13,7 @@ namespace RTPlot
 {
 	class RealTimePlot
 	{
-        double         timeToPlot = 0;
-        double         dataToPlot = 0;
-        RollingBuffer* data;
+        std::vector<RollingBuffer*>  rdata;
         Graphics*      graphicsPtr;
         uint8_t        id = 0;
         ImVec4         plotColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
@@ -29,11 +27,10 @@ namespace RTPlot
         ~RealTimePlot(void);
 
         // Getters
-        double GetDataToPlot(void) const { return dataToPlot; }
         bool GetPlotExitFlag(void) const { return exitFlag; }
 
         // Setters
-        void SetDataToPlot(const double& time, const double& data);
+        void SetDataToPlot(const std::vector<double>& data);
         void SetID     (uint8_t _id) { id = _id; }
 
         // Actions

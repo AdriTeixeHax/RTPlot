@@ -3,49 +3,57 @@
 namespace RTPlot
 {
     RealTimePlot::RealTimePlot(Graphics* graphicsPtr) : 
-        dataToPlot(),
-        data(new RollingBuffer),
         graphicsPtr(graphicsPtr)
-    { }
+    { 
+        for (size_t i = 0; i < RTPLOT_DATA_NUM - 1; i++)
+            rdata.push_back(new RollingBuffer(std::to_string(i)));
+    }
 
     RealTimePlot::~RealTimePlot(void)
     {
-        delete data;
+        for (auto i : rdata) delete i;
     }
 
-    void RealTimePlot::SetDataToPlot(const double& time, const double& data)
+    void RealTimePlot::SetDataToPlot(const std::vector<double>& data)
     {
-        timeToPlot = time;
-        dataToPlot = data;
+        for (size_t i = 0; i < data.size() - 1; i++)
+            rdata.at(i)->AddPoint(data[0], data[i + 1]);
     }
 
     int8_t RealTimePlot::Plot(const std::string& name)
     {
         ImGui::Begin(name.c_str(), NULL);
-            ImGui::PushFont(graphicsPtr->GetLargeFontPtr());
-                ImGui::Text("Read data: %.4f", dataToPlot);
-            ImGui::PopFont();
+            // TODO@Fix
+            //ImGui::PushFont(graphicsPtr->GetLargeFontPtr());
+            //    for (auto i : rdata)
+            //    {
+            //        if (!i) break;
+            //        ImGui::SameLine();
+            //        const float data = i->data.Data->y;
+            //        ImGui::Text("Read data: %.2f", data);
+            //    }
+            //ImGui::PopFont();
        
-            ImGui::Checkbox("Plot", &plotExitFlag);
-            if (!plotExitFlag) { ImGui::End(); return 0; }
-
             uint8_t misc_flags = 0;
-            static double t = 0;
 
-            //static float t = 0;
-            t += ImGui::GetIO().DeltaTime;
+            for (auto i : rdata)
+            {
+                i->span = history;
+                ImGui::Checkbox(std::string(std::string("Plot var ") + i->name).c_str(), &i->plotFlag);
+            }
 
-            data->AddPoint(timeToPlot, dataToPlot);
-            data->span = history;
-
-            static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_NoTickLabels;
+            static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_None;
             if (ImPlot::BeginPlot(std::string("Data " + std::to_string(id)).c_str(), ImVec2(-1, 300)))
             {
                 ImPlot::SetupAxes("Time [s]", "Value", linePlotFlags, 0);
                 ImPlot::SetupAxisLimits(ImAxis_X1, 0, history, ImGuiCond_Always);
                 ImPlot::SetupAxisLimits(ImAxis_Y1, -0.5, 2);
                 ImPlot::PushStyleColor(ImPlotCol_Line, plotColor);
-                ImPlot::PlotLine(std::string("Data stream " + std::to_string(id)).c_str(), &data->data[0].x, &data->data[0].y, data->data.size(), 0, 0, 2 * sizeof(float));
+                for (auto i : rdata)
+                {
+                    if (i->plotFlag)
+                        ImPlot::PlotLine(i->name.c_str(), &i->data[0].x, &i->data[0].y, i->data.size(), 0, 0, 2 * sizeof(float));
+                }
                 ImPlot::EndPlot();
             }
             ImGui::SliderFloat(std::string("History " + std::to_string(id)).c_str(), &history, 0.1, 10, "%.1f s");

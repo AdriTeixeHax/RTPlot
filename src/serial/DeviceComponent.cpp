@@ -32,6 +32,6 @@ void RTPlot::DeviceComponent::SerialReadingFunc(void)
         mutex.unlock();
 
         for (uint8_t i = 0; i < plotters.size(); i++) // plotters.size() = RTPLOT_DATA_NUM - 1
-            plotters.at(i)->SetDataToPlot(serialDevice->GetValue(0), serialDevice->GetValue(i + 1));
+            plotters.at(i)->SetDataToPlot(serialDevice->GetReading());
     }
 }

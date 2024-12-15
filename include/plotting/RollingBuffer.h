@@ -6,15 +6,19 @@
 #include <imgui/imgui_impl_opengl3.h>
 #include <imgui/imgui_impl_glfw.h>
 
+#include <string>
+
 namespace RTPlot // Had to rename the namespace because of linker issues
 {
-    class RollingBuffer // Taken from implot_demo.cpp
+    struct RollingBuffer // Taken from implot_demo.cpp
     {
-    public:
         double span;
         ImVector<ImVec2> data;
+        std::string name;
+        bool plotFlag = false;
 
-        RollingBuffer(void);
+        RollingBuffer(void) = delete;
+        RollingBuffer(const std::string& _name);
         ~RollingBuffer(void);
 
         void AddPoint(double x, double y);
