@@ -8,15 +8,16 @@
 
 #include <plotting/ScrollingBuffer.h>
 #include <plotting/RollingBuffer.h>
+#include <plotting/ColorPalette.h>
 
 namespace RTPlot
 {
 	class RealTimePlot
 	{
         std::vector<RollingBuffer*>  rdata;
+        std::vector<ColorPalette*>   plotColors;
         Graphics*      graphicsPtr;
         uint8_t        id = 0;
-        ImVec4         plotColor = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
         float          history = 10.0f;
         bool           exitFlag = true;
         bool           plotExitFlag = false;

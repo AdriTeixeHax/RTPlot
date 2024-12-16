@@ -22,6 +22,7 @@
     <ClCompile Include="src\plotting\Logger.cpp" />
     <ClCompile Include="src\plotting\ScrollingBuffer.cpp" />
     <ClCompile Include="src\plotting\RollingBuffer.cpp" />
+    <ClCompile Include="src\plotting\ColorPalette.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFW\glfw3.h" />
@@ -56,6 +57,7 @@
     <ClInclude Include="include\serial\DeviceComponent.h" />
     <ClInclude Include="include\plotting\ScrollingBuffer.h" />
     <ClInclude Include="include\plotting\RollingBuffer.h" />
+    <ClInclude Include="include\plotting\ColorPalette.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />
