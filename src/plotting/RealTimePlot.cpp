@@ -39,15 +39,16 @@ namespace RTPlot
             for (auto i : rdata)
             {
                 i->span = history;
+                ImGui::SameLine();
                 ImGui::Checkbox(std::string(std::string("Plot var ") + i->name).c_str(), &i->plotFlag);
             }
 
             static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_None;
-            if (ImPlot::BeginPlot(std::string("Data " + std::to_string(id)).c_str(), ImVec2(-1, 300)))
+            if (ImPlot::BeginPlot(std::string("Data " + std::to_string(id)).c_str(), ImVec2(-1, -1)))
             {
                 ImPlot::SetupAxes("Time [s]", "Value", linePlotFlags, 0);
                 ImPlot::SetupAxisLimits(ImAxis_X1, 0, history, ImGuiCond_Always);
-                ImPlot::SetupAxisLimits(ImAxis_Y1, -0.5, 2);
+                ImPlot::SetupAxisLimits(ImAxis_Y1, -2, 2);
                 ImPlot::PushStyleColor(ImPlotCol_Line, plotColor);
                 for (auto i : rdata)
                 {
