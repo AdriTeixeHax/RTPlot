@@ -36,9 +36,7 @@ namespace RTPlot
             //        ImGui::Text("Read data: %.2f", data);
             //    }
             //ImGui::PopFont();
-            
-            ImGui::Checkbox("Plot", &plotExitFlag);
-            if (!plotExitFlag) { ImGui::End(); return 0; }
+       
 
             for (auto i : rdata)
             {

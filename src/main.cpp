@@ -40,7 +40,7 @@ int main(int argc, char** argv)
         static bool ImGuiDemoFlag      = false;
         static bool ImPlotDemoFlag     = false;
         static bool consoleLogFlag     = true;
-        static bool showAddDeviceFlag    = true;
+        static bool showAddPlotFlag    = true;
         static bool serialOptionsFlag  = false;
         static bool showDeletePlotFlag = true;
 
@@ -99,10 +99,10 @@ int main(int argc, char** argv)
             if (ImGui::Button("List Devices"))
             {
                 serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
-                showAddDeviceFlag = true;
+                showAddPlotFlag = true;
             }
 
-            if (showAddDeviceFlag)
+            if (showAddPlotFlag)
             {
                 for (uint8_t device : serialPorts)
                 {
@@ -118,7 +118,7 @@ int main(int argc, char** argv)
                     if (ImGui::Button(portNameGUI.c_str()))
                     {
                         deviceManager.AddDevice(portName.c_str(), graphics);
-                        showAddDeviceFlag = false;
+                        showAddPlotFlag = false;
                         logMsg = "Added device " + portNameGUI + "\n";
                     }
 
