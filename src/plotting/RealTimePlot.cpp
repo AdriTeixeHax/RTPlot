@@ -45,8 +45,11 @@ namespace RTPlot
                 ImGui::Checkbox(std::string(std::string("Plot var ") + i->name).c_str(), &i->plotFlag);
             }
 
+            ImGui::SliderFloat(std::string("History " + std::to_string(id)).c_str(), &history, 0.1, 10, "%.1f s");
+
             static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_None;
-            if (ImPlot::BeginPlot(std::string("Data " + std::to_string(id)).c_str(), ImVec2(-1, -1)))
+            ImVec2 available_size = ImGui::GetContentRegionAvail();
+            if (ImPlot::BeginPlot(std::string("Data " + std::to_string(id)).c_str(), ImVec2(available_size.x, available_size.y - 100)))
             {
                 ImPlot::SetupAxes("Time [s]", "Value", linePlotFlags, 0);
                 ImPlot::SetupAxisLimits(ImAxis_X1, 0, history, ImGuiCond_Always);
@@ -63,9 +66,6 @@ namespace RTPlot
                 }
                 ImPlot::EndPlot();
             }
-            ImGui::SliderFloat(std::string("History " + std::to_string(id)).c_str(), &history, 0.1, 10, "%.1f s");
-            ImGui::SameLine();
-
         ImGui::End();
 
         return 0;
