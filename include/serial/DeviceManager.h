@@ -22,7 +22,7 @@ namespace RTPlot
 		void AddDevice(const char* port, Graphics* graphicsPtr);
 		void RemoveDevice(uint8_t i);
 
-		void PlotDevice(uint8_t id, uint8_t plotterID);
+		void PlotDevice(uint8_t id);
 		void PlotAllDevices(void);
 	};
 }

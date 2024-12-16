@@ -10,7 +10,7 @@ namespace RTPlot
 	{
 		std::thread   thread;
 		std::mutex    mutex;
-		std::vector<RealTimePlot*> plotters;
+		RealTimePlot* plotter;
 		SerialDevice* serialDevice;
 		bool          exitThreadFlag = false;
 		bool		  sendMsgFlag = false;
@@ -22,18 +22,17 @@ namespace RTPlot
 		~DeviceComponent(void);
 
 		// Getters
-		bool        GetPlotExitFlag(uint8_t i)  { return plotters.at(i)->GetPlotExitFlag(); }
+		bool        GetPlotExitFlag(uint8_t i)  { return plotter->GetPlotExitFlag(); }
 		uint8_t     GetID          (void)       { return id; }
 		SerialPort* GetPort        (void)       { return serialDevice->GetPort(); }
 		std::string GetPortName    (void) const { return serialDevice->GetPort()->GetName(); }
-		size_t      GetPlottersSize(void) const { return plotters.size(); }
 
 		// Setters
 		void SetID(uint8_t id) { this->id = id; }
-		void SetPlotterID(uint8_t plotterNum, uint8_t newID) { plotters.at(plotterNum)->SetID(newID); }
+		void SetPlotterID(uint8_t newID) { plotter->SetID(newID); }
 
 		// Functions
-		int8_t Plot(uint8_t id, const std::string& portName) { return plotters.at(id)->Plot(portName); }
+		int8_t Plot(const std::string& portName) { return plotter->Plot(portName); }
 
 		// Thread functions
 		void SerialReadingFunc(void);
