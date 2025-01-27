@@ -36,17 +36,23 @@ namespace RTPlot
             //        ImGui::Text("Read data: %.2f", data);
             //    }
             //ImGui::PopFont();
-       
 
-            for (auto i : rdata)
+            const float availX = ImGui::GetContentRegionAvail().x - 15;
+            ImGui::NewLine();
+            for (uint8_t i = 0; i < rdata.size(); i++)
             {
-                i->span = history;
+                ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_WINDOW_RADIUS);
+                ImGui::BeginChild(rdata[i]->name.c_str(), ImVec2(availX / rdata.size(), 100), ImGuiChildFlags_Border);
+                ImGui::SeparatorText(rdata[i]->name.c_str());
+                ImGui::Checkbox(std::string(std::string("Plot ") + rdata[i]->name).c_str(), &rdata[i]->plotFlag);
+                ImGui::EndChild();
+                ImGui::PopStyleVar();
                 ImGui::SameLine();
-                ImGui::Checkbox(std::string(std::string("Plot var ") + i->name).c_str(), &i->plotFlag);
+                // Data
+                rdata[i]->span = history;
             }
 
-            ImGui::SliderFloat(std::string("History").c_str(), &history, 0.1, 10, "%.1f s");
-
+            ImGui::NewLine();
             static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_None;
             ImVec2 available_size = ImGui::GetContentRegionAvail();
             if (ImPlot::BeginPlot(std::string("Data " + std::to_string(id)).c_str(), ImVec2(available_size.x, available_size.y - 100)))
@@ -61,11 +67,16 @@ namespace RTPlot
                         ImPlot::PushStyleColor(ImPlotCol_Line, plotColors.at(i)->GetColor());
                         ImPlot::PlotLine(rdata.at(i)->name.c_str(), &rdata.at(i)->data[0].x, &rdata.at(i)->data[0].y, rdata.at(i)->data.size(), 0, 0, 2 * sizeof(float));
                         plotColors.at(i)->ColorPicker();
-                        ImGui::SameLine();
                     }
+                    ImGui::SameLine();
                 }
                 ImPlot::EndPlot();
             }
+
+            ImGui::Text("History [s]:");
+            ImGui::SameLine();
+            ImGui::SliderFloat(" ", &history, 0.1, 60, "%.1f s");
+
         ImGui::End();
 
         return 0;
