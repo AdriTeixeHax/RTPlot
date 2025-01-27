@@ -47,10 +47,10 @@ bool RTPlot::SerialDevice::Recieve(uint32_t delay)
             if (endFlag && i < sizeof(tempMsg))
             {
                 // Fill the rest with 0s.
-                for (size_t j = x - 1; j < sizeof(tempMsg); j++)
+                for (size_t j = x; j < sizeof(tempMsg); j++)
                     tempMsg[j] = '\0';
 
-                // Exit the "for" loop
+                // Exit the main "for" loop
                 break;
             }
         }

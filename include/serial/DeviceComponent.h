@@ -16,6 +16,7 @@ namespace RTPlot
 		bool		  sendMsgFlag = false;
 		uint8_t       id = 0;
 		double        reading = 0;
+		Graphics*     graphicsPtr;
 
 	public:
 		DeviceComponent(const char* port, Graphics* graphicsPtr);
@@ -29,8 +30,10 @@ namespace RTPlot
 		size_t      GetPlottersSize(void) const { return plotters.size(); }
 
 		// Setters
-		void SetID(uint8_t id) { this->id = id; }
+		void SetID(uint8_t id)                               { this->id = id; }
 		void SetPlotterID(uint8_t plotterNum, uint8_t newID) { plotters.at(plotterNum)->SetID(newID); }
+		void AddPlotter(void)                                { plotters.push_back(new RealTimePlot(graphicsPtr)); }
+		void DeletePlotter(uint8_t plotterID)                { plotters.erase(plotters.begin() + plotterID); }
 
 		// Functions
 		int8_t Plot(uint8_t id, const std::string& portName) { return plotters.at(id)->Plot(portName); }

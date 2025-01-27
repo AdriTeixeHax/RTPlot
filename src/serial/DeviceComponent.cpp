@@ -5,9 +5,10 @@ RTPlot::DeviceComponent::DeviceComponent(const char* port, Graphics* graphicsPtr
 	plotters(),
 	serialDevice(new SerialDevice(port))
 {
-    for (uint8_t i = 0; i < RTPLOT_DATA_NUM - 1; i++) // - 1 because the first value is the time
-        plotters.push_back(new RealTimePlot(graphicsPtr));
-
+    //for (uint8_t i = 0; i < RTPLOT_DATA_NUM - 1; i++) // - 1 because the first value is the time
+    //    plotters.push_back(new RealTimePlot(graphicsPtr));
+    this->graphicsPtr = graphicsPtr;  
+    AddPlotter(); // Add a first plotter
 	thread = std::thread(&DeviceComponent::SerialReadingFunc, this);
 }
 
