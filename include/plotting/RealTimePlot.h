@@ -35,7 +35,7 @@ namespace RTPlot
         void SetID     (uint8_t _id) { id = _id; }
 
         // Actions
-        int8_t Plot (const std::string& name);
+        int8_t Plot (const std::string& name, bool* killFlag);
 	};
 }
 

@@ -18,6 +18,8 @@ namespace RTPlot
 		double        reading = 0;
 		Graphics*     graphicsPtr;
 
+		bool		  killFlag = true;
+
 	public:
 		DeviceComponent(const char* port, Graphics* graphicsPtr);
 		~DeviceComponent(void);
@@ -27,7 +29,9 @@ namespace RTPlot
 		uint8_t     GetID          (void)       { return id; }
 		SerialPort* GetPort        (void)       { return serialDevice->GetPort(); }
 		std::string GetPortName    (void) const { return serialDevice->GetPort()->GetName(); }
+		std::string GetPortNameGUI (void) const;
 		size_t      GetPlottersSize(void) const { return plotters.size(); }
+		bool		GetKillFlag    (void) const { return killFlag; }
 
 		// Setters
 		void SetID(uint8_t id)                               { this->id = id; }
@@ -36,7 +40,7 @@ namespace RTPlot
 		void DeletePlotter(uint8_t plotterID)                { plotters.erase(plotters.begin() + plotterID); }
 
 		// Functions
-		int8_t Plot(uint8_t id, const std::string& portName) { return plotters.at(id)->Plot(portName); }
+		int8_t Plot(uint8_t id, const std::string& portName) { return plotters.at(id)->Plot(portName, &killFlag); }
 
 		// Thread functions
 		void SerialReadingFunc(void);

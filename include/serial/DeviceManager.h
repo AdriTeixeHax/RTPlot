@@ -16,6 +16,7 @@ namespace RTPlot
 
 		// Getters
 		uint8_t Size(void) { return components.size(); }
+		const std::vector<DeviceComponent*>& GetComponents(void) { return components; }
 		DeviceComponent* operator[](uint8_t i) { return components.at(i); }
 
 		// Actions

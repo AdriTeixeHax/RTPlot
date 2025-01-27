@@ -40,11 +40,12 @@ int main(int argc, char** argv)
         static bool ImGuiDemoFlag      = false;
         static bool ImPlotDemoFlag     = false;
         static bool consoleLogFlag     = true;
-        static bool showAddPlotFlag    = true;
+        static bool showAddPlotFlag    = false;
         static bool serialOptionsFlag  = false;
         static bool showDeletePlotFlag = true;
 
         std::string logMsg;
+        static std::vector<uint8_t> serialPorts;
 
         // Menu Bar
         if (ImGui::BeginMenuBar())
@@ -62,6 +63,23 @@ int main(int argc, char** argv)
                 }
                 if (ImGui::MenuItem("Console log",    "", consoleLogFlag))    { consoleLogFlag = !consoleLogFlag; }
                 if (ImGui::MenuItem("Serial options", "", serialOptionsFlag)) { serialOptionsFlag = !serialOptionsFlag; }
+                ImGui::EndMenu();
+            }
+            if (ImGui::BeginMenu("Add device"))
+            {
+                serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
+                for (uint8_t device : serialPorts)
+                {
+                    std::string tempName = "COM" + std::to_string(device);
+                    if (ImGui::MenuItem(tempName.c_str(), "", false))
+                    {
+                        std::string portName = "\\\\.\\COM" + std::to_string(device);
+                        deviceManager.AddDevice(portName.c_str(), graphics);
+                        logMsg = "Added device " + tempName + "\n";
+                        showAddPlotFlag = false;
+                    }
+                }
+                if (serialPorts.size() == 0) ImGui::MenuItem("No serial ports found", "", false);
                 ImGui::EndMenu();
             }
             ImGui::EndMenuBar();
@@ -95,7 +113,6 @@ int main(int argc, char** argv)
             if (ImPlotDemoFlag) ImPlot::ShowDemoWindow(&ImPlotDemoFlag);
             if (ImGuiDemoFlag)   ImGui::ShowDemoWindow(&ImGuiDemoFlag);
 
-            static std::vector<uint8_t> serialPorts;
             if (ImGui::Button("List Devices"))
             {
                 serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
@@ -126,53 +143,22 @@ int main(int argc, char** argv)
                     ImGui::PopID();
                 }
             }
-        
-            static std::vector<std::string> portsOpen;
-            if (ImGui::Button("Remove Device"))
-            {
-                portsOpen.clear();
-                for (uint8_t i = 0; i < deviceManager.Size(); i++)
-                {
-                    const char* portName = deviceManager[i]->GetPort()->GetName().c_str();
-                    portsOpen.push_back(portName);
-                }
-                showDeletePlotFlag = true;
-            }
-
-            if (showDeletePlotFlag)
-            {
-                for (uint8_t i = 0; i < portsOpen.size(); i++)
-                {
-                    ImGui::SameLine();
-
-                    ImGui::PushID(i);
-                    ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(i / 7.0f, 1.0f, 0.6f));
-                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(i / 7.0f, 0.7f, 0.7f));
-                    ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(i / 7.0f, 0.8f, 0.8f));
-
-                    if (ImGui::Button(portsOpen[i].c_str()))
-                    {
-                        deviceManager.RemoveDevice(i);
-                        portsOpen.erase(portsOpen.begin() + i);
-                        showDeletePlotFlag = false;
-                        logMsg = "Deleted device\n";
-                    }
-
-                    ImGui::PopStyleColor(3);
-                    ImGui::PopID();
-                }
-            }
-
-            if (!consoleLogFlag)
-            {
-                if (ImGui::Button("Console Log"))
-                {
-                    consoleLogFlag = true;
-                }
-            }
 
             // Plotting
             deviceManager.PlotAllDevices();
+
+            uint8_t tempCounter = 0;
+            for (auto itComponent : deviceManager.GetComponents())
+            {
+                if (!itComponent->GetKillFlag())
+                {
+                    logMsg = "Deleted device " + itComponent->GetPortNameGUI() + "\n";
+                    deviceManager.RemoveDevice(tempCounter);
+                    tempCounter = 0;
+                    break;
+                }
+                tempCounter++;
+            }
 
             // Plot the log message of the current cycle
             if (consoleLogFlag) ImGui::Log::ShowConsoleLog(logMsg, &consoleLogFlag);

@@ -24,6 +24,16 @@ RTPlot::DeviceComponent::~DeviceComponent(void)
     mutex.unlock();
 }
 
+std::string RTPlot::DeviceComponent::GetPortNameGUI(void) const 
+{
+    std::string name = this->GetPortName();
+    static const std::string prefix = "\\\\.\\"; // Part of the string to strip
+    size_t pos; // Iterator
+    while ((pos = name.find(prefix)) != std::string::npos)
+        name.erase(pos, prefix.length());
+    return name;
+}
+
 void RTPlot::DeviceComponent::SerialReadingFunc(void)
 {
     while (!exitThreadFlag)

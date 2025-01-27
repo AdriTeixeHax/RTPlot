@@ -23,9 +23,9 @@ namespace RTPlot
             rdata.at(i)->AddPoint(data[0], data[i + 1]);
     }
 
-    int8_t RealTimePlot::Plot(const std::string& name)
+    int8_t RealTimePlot::Plot(const std::string& name, bool* killFlag)
     {
-        ImGui::Begin(name.c_str(), NULL);
+        ImGui::Begin(name.c_str(), killFlag);
             // TODO@Fix
             //ImGui::PushFont(graphicsPtr->GetLargeFontPtr());
             //    for (auto i : rdata)
@@ -45,7 +45,7 @@ namespace RTPlot
                 ImGui::Checkbox(std::string(std::string("Plot var ") + i->name).c_str(), &i->plotFlag);
             }
 
-            ImGui::SliderFloat(std::string("History " + std::to_string(id)).c_str(), &history, 0.1, 10, "%.1f s");
+            ImGui::SliderFloat(std::string("History").c_str(), &history, 0.1, 10, "%.1f s");
 
             static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_None;
             ImVec2 available_size = ImGui::GetContentRegionAvail();
