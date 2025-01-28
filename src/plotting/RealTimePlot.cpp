@@ -63,7 +63,7 @@ namespace RTPlot
 
             ImGui::NewLine();
 
-            for (uint8_t i = 0; i < plotData.size(); i++)
+            for (uint8_t i = 0; i < 1/*plotData.size()*/; i++)
             {
                 PlotGraph(i, availX);
                 ImGui::SameLine();
@@ -88,7 +88,7 @@ namespace RTPlot
                 ImPlot::SetupAxisLimits(ImAxis_X1, 0, *(plotData[id]->history), ImGuiCond_Always);
                 ImPlot::SetupAxisLimits(ImAxis_Y1, -2, 2);
 
-                //plotData[id]->PlotGraph(plotColors);
+                plotData[id]->PlotGraph(plotColors);
 
                 ImPlot::EndPlot();
             }
