@@ -159,6 +159,7 @@
     <ClCompile Include="include\Graphics.h" />
     <ClCompile Include="src\plotting\ColorPalette.cpp" />
     <ClCompile Include="src\plotting\Logger.cpp" />
+    <ClCompile Include="src\plotting\PlotData.cpp" />
     <ClCompile Include="src\plotting\RealTimePlot.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\plotting\RollingBuffer.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="include\GL\wglew.h" />
     <ClInclude Include="include\plotting\ColorPalette.h" />
     <ClInclude Include="include\plotting\Logger.h" />
+    <ClInclude Include="include\plotting\PlotData.h" />
     <ClInclude Include="include\plotting\RealTimePlot.h" />
     <ClInclude Include="include\plotting\RollingBuffer.h" />
     <ClInclude Include="include\plotting\ScrollingBuffer.h" />

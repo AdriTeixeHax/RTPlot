@@ -4,23 +4,20 @@
 #include <cmath>
 #include <cstdint>
 #include <string>
-#include <vector>
 
-#include <plotting/ScrollingBuffer.h>
-#include <plotting/RollingBuffer.h>
-#include <plotting/ColorPalette.h>
+#include <plotting/PlotData.h>
 
 namespace RTPlot
 {
 	class RealTimePlot
 	{
-        std::vector<RollingBuffer*>  rdata;
         std::vector<ColorPalette*>   plotColors;
-        Graphics*      graphicsPtr;
-        uint8_t        id = 0;
-        float          history = 10.0f;
-        bool           exitFlag = true;
-        bool           plotExitFlag = false;
+        std::vector<PlotData*>       plotData;
+        std::vector<RollingBuffer*>  basicData;
+        Graphics* graphicsPtr;
+        bool      plotExitFlag   = false;
+        bool      exitFlag       = true;
+        uint8_t   id             = 0;
 
     public:
         RealTimePlot(void) = delete;
@@ -31,11 +28,13 @@ namespace RTPlot
         bool GetPlotExitFlag(void) const { return exitFlag; }
 
         // Setters
+        void SetID        (uint8_t _id) { id = _id; }
         void SetDataToPlot(const std::vector<double>& data);
-        void SetID     (uint8_t _id) { id = _id; }
+
 
         // Actions
         int8_t Plot (const std::string& name, bool* killFlag);
+        int8_t PlotGraph(uint8_t id, uint32_t availX);
 	};
 }
 

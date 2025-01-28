@@ -2,7 +2,7 @@
 
 namespace RTPlot // Had to rename the namespace because of linker issues. Class taken and slightly modified from the implot_demo.cpp file.
 {
-    RollingBuffer::RollingBuffer(const std::string& _name) : name(_name)
+    RollingBuffer::RollingBuffer(const std::string& _name) : name(_name), tempName(" ")
     {
         span = 10.0f;
         data.reserve(2000);
