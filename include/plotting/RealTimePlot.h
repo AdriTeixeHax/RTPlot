@@ -34,7 +34,7 @@ namespace RTPlot
 
         // Actions
         int8_t Plot (const std::string& name, bool* killFlag);
-        int8_t PlotGraph(uint8_t id, uint32_t availX);
+        int8_t PlotGraph(uint8_t id);
 	};
 }
 

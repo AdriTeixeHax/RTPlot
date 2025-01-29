@@ -37,6 +37,12 @@ namespace RTPlot
             if (ImGui::Button("Add Plot")) plotData.push_back(new PlotData(basicData));
 
             const float availX = ImGui::GetContentRegionAvail().x - 15;
+            std::vector<std::string> currentNames;
+            for (uint8_t i = 0; i < basicData.size(); i++)
+            {
+                currentNames.push_back(basicData[i]->name);
+            }
+
             for (uint8_t i = 0; i < basicData.size(); i++)
             {
                 ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_WINDOW_RADIUS);
@@ -49,12 +55,34 @@ namespace RTPlot
                     ImGui::SameLine();
                     // create the drag thingy instead of this
                     //ImGui::Checkbox(std::string(std::string("Plot ") + basicData[i]->name).c_str(), &plotData[i]->plotFlag);
-                
+                    bool sameNameFlag = false;
+                    bool emptyFlag = false;
+
+                    for (auto names : currentNames)
+                    {
+                        if (basicData[i]->tempName == names)
+                            sameNameFlag = true;
+                    }
+
+                    if (basicData[i]->tempName[0] == '\0')
+                        emptyFlag = true;
+
                     if (ImGui::InputText(" ", basicData[i]->tempName, sizeof(basicData[i]->tempName), ImGuiInputTextFlags_EnterReturnsTrue))
-                        basicData[i]->name = basicData[i]->tempName;
+                    {
+                        if (!sameNameFlag && !emptyFlag) basicData[i]->name = basicData[i]->tempName;
+                    }
                     ImGui::SameLine();
                     if (ImGui::Button("Change name"))
-                        basicData[i]->name = basicData[i]->tempName;
+                    {
+                        if (!sameNameFlag && !emptyFlag) basicData[i]->name = basicData[i]->tempName;
+                    }                    
+
+                    if (sameNameFlag && basicData[i]->tempName != basicData[i]->name)
+                        ImGui::Text("There is already a variable with that name.");
+
+                    if (emptyFlag) 
+                        ImGui::Text("You cannot enter an empty variable name.");
+
 
                 ImGui::EndChild();
                 ImGui::PopStyleVar();
@@ -65,7 +93,7 @@ namespace RTPlot
 
             for (uint8_t i = 0; i < plotData.size(); i++)
             {
-                PlotGraph(i, availX);
+                PlotGraph(i);
                 ImGui::SameLine();
             }                
 
@@ -74,15 +102,15 @@ namespace RTPlot
         return 0;
     }
 
-    int8_t RealTimePlot::PlotGraph(uint8_t id, uint32_t availX)
+    int8_t RealTimePlot::PlotGraph(uint8_t id)
     {
         static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_None;
         ImVec2 available_size = ImGui::GetContentRegionAvail();
         std::string name = std::to_string(id) + "graph"; // Just to avoid child overlapping
         
         ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_WINDOW_RADIUS);
-        ImGui::BeginChild(name.c_str(), ImVec2(availX / plotData.size(), 2000), ImGuiChildFlags_Border);
-            if (ImPlot::BeginPlot(std::string("Data " + std::to_string(id)).c_str(), ImVec2(available_size.x, available_size.y - 100)))
+        ImGui::BeginChild(name.c_str(), ImVec2(available_size.x, available_size.y), ImGuiChildFlags_Border);
+            if (ImPlot::BeginPlot(std::string("Data " + std::to_string(id)).c_str(), ImVec2(available_size.x, available_size.y - 50)))
             {
                 ImPlot::SetupAxes("Time [s]", "Value", linePlotFlags, 0);
                 ImPlot::SetupAxisLimits(ImAxis_X1, 0, *(plotData[id]->history), ImGuiCond_Always);

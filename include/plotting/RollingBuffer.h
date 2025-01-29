@@ -15,7 +15,7 @@ namespace RTPlot // Had to rename the namespace because of linker issues
         double span;
         ImVector<ImVec2> data;
         std::string name;
-        char tempName[16];
+        char tempName[32];
 
         RollingBuffer(void) = delete;
         RollingBuffer(const std::string& _name);
