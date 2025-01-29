@@ -9,7 +9,6 @@ namespace RTPlot
 	class DeviceComponent
 	{
 		std::thread   thread;
-		std::mutex    mutex;
 		std::vector<RealTimePlot*> plotters;
 		SerialDevice* serialDevice;
 		bool          exitThreadFlag = false;

@@ -15,8 +15,8 @@ namespace RTPlot // Had to rename the namespace because of linker issues. Class 
 
     void RollingBuffer::AddPoint(double x, double y)
     {
-        double xmod = fmod(x, span);
-        if (!data.empty() && xmod < data.back().x && (data.back().x - xmod) > span / 2)
+        float xmod = fmodf(x, span);
+        if (!data.empty() && xmod < data.back().x)
             data.shrink(0);
         data.push_back(ImVec2(xmod, y));
     }

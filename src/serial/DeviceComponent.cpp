@@ -17,11 +17,9 @@ RTPlot::DeviceComponent::~DeviceComponent(void)
     exitThreadFlag = true;
     thread.join();
 
-    mutex.lock();
-        for (auto i : plotters)
-            delete i;
-        delete serialDevice;
-    mutex.unlock();
+    for (auto i : plotters)
+        delete i;
+    delete serialDevice;
 }
 
 std::string RTPlot::DeviceComponent::GetPortNameGUI(void) const 
@@ -38,9 +36,7 @@ void RTPlot::DeviceComponent::SerialReadingFunc(void)
 {
     while (!exitThreadFlag)
     {
-        mutex.lock();
         serialDevice->Recieve();
-        mutex.unlock();
 
         for (uint8_t i = 0; i < plotters.size(); i++) // plotters.size() = RTPLOT_DATA_NUM - 1
             plotters.at(i)->SetDataToPlot(serialDevice->GetReading());

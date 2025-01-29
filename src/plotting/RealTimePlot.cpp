@@ -63,7 +63,7 @@ namespace RTPlot
 
             ImGui::NewLine();
 
-            for (uint8_t i = 0; i < 1/*plotData.size()*/; i++)
+            for (uint8_t i = 0; i < plotData.size(); i++)
             {
                 PlotGraph(i, availX);
                 ImGui::SameLine();
@@ -100,6 +100,13 @@ namespace RTPlot
 
         for (uint8_t i = 0; i < plotData[id]->rdata.size(); i++)
             plotData[id]->rdata[i]->span = *plotData[id]->history;
+
+        static float prevHistory = 0.0f;
+        if (*plotData[id]->history != prevHistory)
+        {
+            plotData[id]->rdata.clear();
+            prevHistory = *plotData[id]->history;
+        }
 
         return 0;
     }
