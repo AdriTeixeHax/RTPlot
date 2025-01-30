@@ -32,7 +32,7 @@ namespace RTPlot
 
     public:
         Graphics(void) : window(nullptr), largeFont(new ImFont) { }
-        ~Graphics(void) { delete largeFont; /* window pointer is deleted by the ImGui library */ }
+        ~Graphics(void) { } // window and font pointers are deleted by the ImGui library
         
         bool GraphicsInit(void)
         {

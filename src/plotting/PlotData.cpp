@@ -3,9 +3,11 @@
 namespace RTPlot
 {
     PlotData::PlotData(std::vector<RollingBuffer*> _rdata) : // Deliberately copy whole vector
-        history(new float(10.0f)) 
+        history(new float(10.0f))
     {
         rdata = _rdata;
+        name = "New Plot";
+        strcpy_s(tempName, "New plot name");
     }
 
     void PlotData::PlotGraph(const std::vector<ColorPalette*>& plotColors)
