@@ -27,7 +27,7 @@ namespace RTPlot
             basicData.at(i)->AddPoint(data[0], data[i + 1]);
 
         for (auto i : plotData)
-            i->SetDataToPlot(basicData);
+            i->SetDataToPlot(data);
     }
 
     int8_t RealTimePlot::Plot(const std::string& name, bool* killFlag)
@@ -138,7 +138,7 @@ namespace RTPlot
             ImGui::SameLine();
 
             ImGui::PushItemWidth(xsize - 70);
-            ImGui::SliderFloat(" ", plotData[id]->history, 0.1, 60, "%.1f s");
+            ImGui::SliderFloat(std::string("##" + std::to_string(id)).c_str(), plotData[id]->history, 0.1, 60, "%.1f s");
             ImGui::PopItemWidth();
         ImGui::EndChild();
         ImGui::PopStyleVar();

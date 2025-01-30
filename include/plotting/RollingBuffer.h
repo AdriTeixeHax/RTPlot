@@ -8,9 +8,9 @@
 
 #include <string>
 
-namespace RTPlot // Had to rename the namespace because of linker issues
+namespace RTPlot // Had to rename the namespace because of linker issues (honestly idfk wtf was going on there)
 {
-    struct RollingBuffer // Taken from implot_demo.cpp
+    struct RollingBuffer // Taken and modified from implot_demo.cpp
     {
         double span;
         ImVector<ImVec2> data;

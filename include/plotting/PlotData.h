@@ -20,11 +20,15 @@ namespace RTPlot
 
         PlotData(void) = delete;
         PlotData(std::vector<RollingBuffer*> _rdata); // Deliberately copy whole vector
-        ~PlotData(void) { delete history; } // rdata is cleared by the basicData object
+        ~PlotData(void) { delete history; }
 
         bool* GetKillPtr(void) { return &killPlot; }
         const std::string& GetName(void) { return name; }
-        void SetDataToPlot(const std::vector<RollingBuffer*>& data) { rdata = data; }
+        void SetDataToPlot(std::vector<double> data) // Yes, copy
+        {
+            for (size_t i = 0; i < data.size() - 1; i++)
+                rdata.at(i)->AddPoint(data[0], data[i + 1]);
+        }
         void PlotGraph(const std::vector<ColorPalette*>& plotColors);
     };
 }
