@@ -11,9 +11,9 @@ namespace RTPlot
 {
 	class RealTimePlot
 	{
-        std::vector<ColorPalette*>   plotColors;
-        std::vector<PlotData*>       plotData;
-        std::vector<RollingBuffer*>  basicData;
+        std::vector<ColorPalette*> plotColors;
+        std::vector<PlotData*>     plotData;
+        std::vector<RollingBuffer> basicData;
         Graphics* graphicsPtr;
         bool      plotExitFlag   = false;
         bool      exitFlag       = true;

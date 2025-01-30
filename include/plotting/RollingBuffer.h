@@ -21,6 +21,14 @@ namespace RTPlot // Had to rename the namespace because of linker issues (honest
         RollingBuffer(const std::string& _name);
         ~RollingBuffer(void);
 
+        RollingBuffer operator=(const RollingBuffer& rbuf)
+        {
+            RollingBuffer result(rbuf.name);
+            result.data = rbuf.data;
+            strcpy_s(result.tempName, rbuf.tempName);
+            return result;
+        }
+
         void AddPoint(double x, double y);
     };
 }
