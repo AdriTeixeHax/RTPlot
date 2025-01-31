@@ -69,12 +69,22 @@ namespace RTPlot
 
                     if (ImGui::InputText("##", basicData[i].tempName, sizeof(basicData[i].tempName), ImGuiInputTextFlags_EnterReturnsTrue))
                     {
-                        if (!sameNameFlag && !emptyFlag) basicData[i].name = basicData[i].tempName;
+                        if (!sameNameFlag && !emptyFlag) 
+                        {
+                            basicData[i].name = basicData[i].tempName;
+                            for (auto k : plotData)
+                                k->rdata[i].name = basicData[i].tempName;
+                        }
                     }
                     ImGui::SameLine();
                     if (ImGui::Button("Change name"))
                     {
-                        if (!sameNameFlag && !emptyFlag) basicData[i].name = basicData[i].tempName;
+                        if (!sameNameFlag && !emptyFlag) 
+                        {
+                            basicData[i].name = basicData[i].tempName;
+                            for (auto k : plotData)
+                                k->rdata[i].name = basicData[i].tempName;
+                        }
                     }                    
 
                     if (sameNameFlag && basicData[i].tempName != basicData[i].name)
@@ -107,16 +117,16 @@ namespace RTPlot
     int8_t RealTimePlot::PlotGraph(uint8_t id, uint16_t xsize, uint16_t ysize, bool* killPlotFlag)
     {
         static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_None;
-        std::string name = std::to_string(id) + "graph"; // Just to avoid child overlapping
-        
         ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_WINDOW_RADIUS);
-        ImGui::BeginChild(name.c_str(), ImVec2(xsize, ysize), ImGuiChildFlags_Border);
+        ImGui::BeginChild(std::string(std::to_string(id) + "graph").c_str(), ImVec2(xsize, ysize), ImGuiChildFlags_Border);
             if (ImGui::Button("Delete this plot")) *killPlotFlag = true;
             ImGui::SameLine();
+            ImGui::PushItemWidth(xsize - 217);
             if (ImGui::InputText("##", plotData[id]->tempName, sizeof(plotData[id]->tempName), ImGuiInputTextFlags_EnterReturnsTrue))
             {
                 plotData[id]->name = plotData[id]->tempName;
             }
+            ImGui::PopItemWidth();
             ImGui::SameLine();
             if (ImGui::Button("Change name"))
             {

@@ -31,7 +31,6 @@ namespace RTPlot
         void SetID        (uint8_t _id) { id = _id; }
         void SetDataToPlot(const std::vector<double>& data);
 
-
         // Actions
         int8_t Plot (const std::string& name, bool* killFlag);
         int8_t PlotGraph(uint8_t id, uint16_t xsize, uint16_t ysize, bool* killPlotFlag);
