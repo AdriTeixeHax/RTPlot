@@ -33,7 +33,8 @@ namespace RTPlot
 
         // Actions
         int8_t Plot (const std::string& name, bool* killFlag);
-        int8_t PlotGraph(uint8_t id, uint16_t xsize, uint16_t ysize, bool* killPlotFlag);
+        int8_t PlotGraph(uint8_t id, bool* killPlotFlag);
+        int8_t PlotVars(uint8_t i, const std::string& portName, const std::vector<std::string>& currentNames);
 	};
 }
 
