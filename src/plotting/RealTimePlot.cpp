@@ -66,7 +66,7 @@ namespace RTPlot
 
                     if (basicData[i].tempName[0] == '\0')
                         emptyFlag = true;
-
+                    ImGui::PushItemWidth(availX - 1480);
                     if (ImGui::InputText("##", basicData[i].tempName, sizeof(basicData[i].tempName), ImGuiInputTextFlags_EnterReturnsTrue))
                     {
                         if (!sameNameFlag && !emptyFlag) 
@@ -76,6 +76,7 @@ namespace RTPlot
                                 k->rdata[i].name = basicData[i].tempName;
                         }
                     }
+                    ImGui::PopItemWidth();
                     ImGui::SameLine();
                     if (ImGui::Button("Change name"))
                     {
