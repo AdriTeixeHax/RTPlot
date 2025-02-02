@@ -34,6 +34,7 @@ namespace RTPlot
         ImGui::Begin(std::string(name + " - Plotting").c_str(), killFlag);
             ImGui::SeparatorText(name.c_str());
             if (ImGui::Button("Add Plot")) plotData.push_back(new PlotData(basicData));
+            
 
             std::vector<std::string> currentNames;
             for (uint8_t i = 0; i < basicData.size(); i++)
@@ -45,6 +46,27 @@ namespace RTPlot
             for (uint8_t i = 0; i < plotData.size(); i++)
             {
                 PlotGraph(i, plotData[i]->GetKillPtr());
+                if (ImGui::BeginDragDropTarget())
+                {
+                    ImGuiDragDropFlags drop_target_flags = ImGuiDragDropFlags_AcceptNoPreviewTooltip;
+                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("plotDndPayloadSet", drop_target_flags))
+                    {
+                        for (size_t j = 0; j < plotData[i]->rdata.size(); j++)
+                        {
+                            if (std::string((char*)payload->Data) == plotData[i]->rdata[j].name)
+                                plotData[i]->rdata[j].plotFlag = true;
+                        }
+                    }
+                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("plotDndPayloadReset", drop_target_flags))
+                    {
+                        for (size_t j = 0; j < plotData[i]->rdata.size(); j++)
+                        {
+                            if (std::string((char*)payload->Data) == plotData[i]->rdata[j].name)
+                                plotData[i]->rdata[j].plotFlag = false;
+                        }
+                    }
+                    ImGui::EndDragDropTarget();
+                }
                 ImGui::SameLine();
                 
                 if (*plotData[i]->GetKillPtr() == true)
@@ -107,6 +129,22 @@ namespace RTPlot
                         for (auto k : plotData)
                             k->rdata[i].name = basicData[i].tempName;
                     }
+                }
+
+                ImGui::Button("Drag to plot");
+                if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+                {
+                    ImGui::SetDragDropPayload("plotDndPayloadSet", basicData[i].GetNameCPtr(), sizeof(char)*32);
+                    ImGui::Text(std::string("Plot " + basicData[i].name).c_str());
+                    ImGui::EndDragDropSource();
+                }
+                ImGui::SameLine();
+                ImGui::Button("Drag to delete");
+                if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+                {
+                    ImGui::SetDragDropPayload("plotDndPayloadReset", basicData[i].GetNameCPtr(), sizeof(char) * 32);
+                    ImGui::Text(std::string("Plot " + basicData[i].name).c_str());
+                    ImGui::EndDragDropSource();
                 }
 
                 if (sameNameFlag && basicData[i].tempName != basicData[i].name)

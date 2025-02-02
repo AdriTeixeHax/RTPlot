@@ -14,7 +14,7 @@ namespace RTPlot
     {
         for (uint32_t i = 0; i < rdata.size(); i++)
         {
-            if (plotFlag && rdata.at(i).data.Size > 0)
+            if (plotFlag && rdata.at(i).plotFlag && rdata.at(i).data.Size > 0)
             {
                 ImPlot::PushStyleColor(ImPlotCol_Line, plotColors.at(i)->GetColor());
                 ImPlot::PlotLine(rdata.at(i).name.c_str(), &rdata.at(i).data[0].x, &rdata.at(i).data[0].y, rdata.at(i).data.size(), 0, 0, 2 * sizeof(float));

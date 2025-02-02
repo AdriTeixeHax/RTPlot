@@ -16,6 +16,7 @@ namespace RTPlot // Had to rename the namespace because of linker issues (honest
         ImVector<ImVec2> data;
         std::string name;
         char tempName[32];
+        bool plotFlag = false;
 
         RollingBuffer(void) = delete;
         RollingBuffer(const std::string& _name);
@@ -28,6 +29,8 @@ namespace RTPlot // Had to rename the namespace because of linker issues (honest
             strcpy_s(result.tempName, rbuf.tempName);
             return result;
         }
+
+        char* GetNameCPtr(void) { static char cname[32]; strcpy_s(cname, name.c_str()); return cname; }
 
         void AddPoint(double x, double y);
     };
