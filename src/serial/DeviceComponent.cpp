@@ -6,7 +6,7 @@ RTPlot::DeviceComponent::DeviceComponent(const char* port, Graphics* graphicsPtr
 	serialDevice(new SerialDevice(port))
 {
     this->graphicsPtr = graphicsPtr;  
-	thread = std::thread(&DeviceComponent::SerialReadingFunc, this);
+	thread = std::thread(&DeviceComponent::SerialFunc, this);
 }
 
 RTPlot::DeviceComponent::~DeviceComponent(void)
@@ -26,7 +26,7 @@ std::string RTPlot::DeviceComponent::GetPortNameGUI(void) const
     return name;
 }
 
-void RTPlot::DeviceComponent::SerialReadingFunc(void)
+void RTPlot::DeviceComponent::SerialFunc(void)
 {
     while (!exitThreadFlag)
     {

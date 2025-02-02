@@ -29,12 +29,26 @@ namespace RTPlot
             i->SetDataToPlot(data);
     }
 
-    int8_t RealTimePlot::Plot(const std::string& name, bool* killFlag)
+    int8_t RealTimePlot::Plot(const std::string& name, bool* killFlag, char* command)
     {
         ImGui::Begin(std::string(name + " - Plotting").c_str(), killFlag);
             ImGui::SeparatorText(name.c_str());
             if (ImGui::Button("Add Plot")) plotData.push_back(new PlotData(basicData));
-            
+            ImGui::SameLine();
+
+            static char tempCommand[RTPLOT_MSG_SIZE] = "Send message to device";
+            ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x - 48);
+            if (ImGui::InputText(std::string("##" + name).c_str(), tempCommand, sizeof(tempCommand), ImGuiInputTextFlags_EnterReturnsTrue))
+            {
+                strcpy_s(command, sizeof(tempCommand), tempCommand);
+            }
+            ImGui::PopItemWidth();
+            ImGui::SameLine();
+
+            if (ImGui::Button("Send"))
+            {
+                strcpy_s(command, sizeof(tempCommand), tempCommand);
+            }
 
             std::vector<std::string> currentNames;
             for (uint8_t i = 0; i < basicData.size(); i++)
