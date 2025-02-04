@@ -32,5 +32,11 @@ void RTPlot::DeviceComponent::SerialFunc(void)
     {
         serialDevice->Recieve();
         plotter.SetDataToPlot(serialDevice->GetReading());
+
+        if (sendCommand)
+        {
+            serialDevice->Send(command);
+            sendCommand = false;
+        }
     }
 }

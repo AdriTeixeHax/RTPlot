@@ -17,6 +17,7 @@ namespace RTPlot
 		double        reading = 0;
 		Graphics*     graphicsPtr;
 		char		  command[RTPLOT_MSG_SIZE];
+		bool		  sendCommand = false;
 
 		bool		  killFlag = true;
 
@@ -36,7 +37,7 @@ namespace RTPlot
 		void SetID(uint8_t id) { this->id = id; }
 
 		// Functions
-		int8_t Plot(const std::string& portName) { return plotter.Plot(portName, &killFlag, command); }
+		int8_t Plot(const std::string& portName) { return plotter.Plot(portName, &killFlag, command, &sendCommand); }
 
 		// Thread functions
 		void SerialFunc(void);

@@ -61,16 +61,22 @@ bool RTPlot::SerialDevice::Recieve(uint32_t delay)
         size_t k = 0;
         for (size_t i = 0; i < sizeof(tempMsg); i++)
         {
-            if (tempMsg[i] == ',') 
+            if (tempMsg[i] == ',' || k >= RTPLOT_DATA_SIZE) 
             {
                 k = 0;
                 msgSel++;
+            }
+            else if (msgSel >= RTPLOT_DATA_NUM)
+            {
+                msgSel = 0;
+                return RTPLOT_ERROR;
             }
             else 
             {
                 finalMsg[msgSel][k] = tempMsg[i];
                 if (k < RTPLOT_DATA_SIZE - 1) k++;
-                else break;
+                else 
+                    break;
             }
         }
 
@@ -100,10 +106,16 @@ bool RTPlot::SerialDevice::Recieve(uint32_t delay)
     return true;
 }
 
-bool RTPlot::SerialDevice::Send(const std::string& msg)
+bool RTPlot::SerialDevice::Send(const char* msg)
 {
-    LPVOID message = (LPVOID)msg.c_str();
+    char tempMsg[RTPLOT_MSG_SIZE] = { 0 };
+    for (uint32_t i = 0; i < sizeof(msg) - 1; i++) // -1 to delete \0
+        tempMsg[i] = msg[i];
+
+    LPVOID message = (LPVOID)tempMsg;
     if (port->Write(message, sizeof(message)) == RTPLOT_FINISHED)
+    {
         return true;
+    }
     else return false;
 }

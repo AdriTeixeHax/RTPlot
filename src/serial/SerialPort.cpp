@@ -178,10 +178,8 @@ namespace RTPlot
 
 	int8_t SerialPort::Write(LPVOID buf, DWORD size) const
 	{
-		// Write data to the serial port
-		const char* data = "Hello, Serial Port!\n";
 		DWORD bytesWritten;
-		if (!WriteFile(hCOM, data, strlen(data), &bytesWritten, NULL))
+		if (!WriteFile(hCOM, buf, size, &bytesWritten, NULL))
 		{
 			if (verboseData) std::cerr << "Error writing to serial port!" << std::endl;
 			return RTPLOT_ERROR;
