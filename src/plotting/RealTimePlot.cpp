@@ -43,7 +43,7 @@ namespace RTPlot
                 strcpy_s(command, sizeof(tempCommand), tempCommand);
                 *sendCommand = true;
             }
-            else 
+            else
                 *sendCommand = false;
             ImGui::PopItemWidth();
             ImGui::SameLine();
@@ -53,8 +53,6 @@ namespace RTPlot
                 strcpy_s(command, sizeof(tempCommand), tempCommand);
                 *sendCommand = true;
             }
-            else
-                *sendCommand = false;
 
             std::vector<std::string> currentNames;
             for (uint8_t i = 0; i < basicData.size(); i++)
