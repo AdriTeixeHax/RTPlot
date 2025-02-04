@@ -118,6 +118,24 @@ namespace RTPlot
 
             ImGui::BeginChild(basicData[i].name.c_str(), ImVec2(availX, 100), ImGuiChildFlags_Border);
 
+                static bool dragFlag = false;
+                if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
+                {
+                    if (!dragFlag)
+                    {
+                        ImGui::SetDragDropPayload("plotDndPayloadSet", basicData[i].GetNameCPtr(), sizeof(char) * 32);
+                        ImGui::Text(std::string("Plot " + basicData[i].name).c_str());
+                        ImGui::EndDragDropSource();
+                    }
+                    else
+                    {
+                        ImGui::SetDragDropPayload("plotDndPayloadReset", basicData[i].GetNameCPtr(), sizeof(char) * 32);
+                        ImGui::Text(std::string("Plot " + basicData[i].name).c_str());
+                        ImGui::EndDragDropSource();
+                    }
+                    dragFlag = !dragFlag;
+                }
+
                 ImGui::SeparatorText(basicData[i].name.c_str());
 
                 ImGui::Text("Plot color:");
@@ -147,22 +165,6 @@ namespace RTPlot
                         for (auto k : plotData)
                             k->rdata[i].name = basicData[i].tempName;
                     }
-                }
-
-                ImGui::Button("Drag to plot");
-                if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
-                {
-                    ImGui::SetDragDropPayload("plotDndPayloadSet", basicData[i].GetNameCPtr(), sizeof(char)*32);
-                    ImGui::Text(std::string("Plot " + basicData[i].name).c_str());
-                    ImGui::EndDragDropSource();
-                }
-                ImGui::SameLine();
-                ImGui::Button("Drag to delete");
-                if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
-                {
-                    ImGui::SetDragDropPayload("plotDndPayloadReset", basicData[i].GetNameCPtr(), sizeof(char) * 32);
-                    ImGui::Text(std::string("Plot " + basicData[i].name).c_str());
-                    ImGui::EndDragDropSource();
                 }
 
                 if (sameNameFlag && basicData[i].tempName != basicData[i].name)
