@@ -1,70 +1,121 @@
 #include <serial/SerialDevice.h>
 
-bool RTPlot::SerialDevice::recieve(uint32_t delay)
-{
-    if (!port) { if (verboseData) std::cerr << "[SerialDevice]: Error dereferencing port: it is nullptr." << std::endl; return false; }
-    if (!port->isConnected()) { if (verboseData) std::cout << "[SerialDevice]: Device not connected." << std::endl; return false; }
+RTPlot::SerialDevice::SerialDevice(const char* portName, size_t size, uint32_t baudRate) : 
+    port(new RTPlot::SerialPort(portName, baudRate)), 
+    reading("\0")
+{ 
+    port->ClearBuffer(); 
+    for (uint8_t i = 0; i < RTPLOT_DATA_NUM; i++) dReading.push_back(0);
+}
 
-    int8_t readCode = port->read(reading, msgSize);
+RTPlot::SerialDevice::~SerialDevice(void) 
+{ 
+    delete port; 
+}
+
+bool RTPlot::SerialDevice::Recieve(uint32_t delay)
+{
+    // Error checking
+    if (!port) { if (verboseData) std::cerr << "[SerialDevice]: Error dereferencing port: it is nullptr." << std::endl; return false; }
+    if (!port->IsConnected()) { if (verboseData) std::cout << "[SerialDevice]: Device not connected." << std::endl; return false; }
+
+    // Reading from port and error checking
+    int8_t readCode = port->Read(reading, RTPLOT_MSG_SIZE);
     if (readCode == RTPLOT_ERROR) { if (verboseData) std::cout << "[SerialDevice]: Could not read message from device." << std::endl; return false; }
+    
+    // If the reading is correct, process the data
     else if (readCode == RTPLOT_FINISHED)
     {
         if (reading == nullptr) { if (verboseData) std::cout << "[SerialDevice]: Reading returned nullptr." << std::endl; return false; }
 
-        char tempMsg[RTPLOT_BYTE_SIZE];
-        for (uint8_t i = 0; i < sizeof(tempMsg); i++)
-            tempMsg[i] = *((char*)reading + i);
-
-        if (tempMsg[7] != '\n') // Rotate buffer until tempMsg[7] == '\n'
+        char tempMsg[RTPLOT_MSG_SIZE] = { 0 };
+        bool startFlag = false;
+        bool endFlag = false;
+        size_t x = 0;
+        for (size_t i = 0; i < sizeof(tempMsg); i++)
         {
-            uint8_t rotationCounter = 0;
-            while (tempMsg[7] != '\n')
+
+            // If the byte read is a 'b' (begin), then start copying the message
+            if (reading[i] == 'b') startFlag = true;
+            if (startFlag && reading[i] != 'b' && reading[i] != 'e')
             {
-                char aux = tempMsg[0];
-                for (uint8_t i = 0; i < sizeof(tempMsg); i++)
-                {
-                    if (i == sizeof(tempMsg) - 1) // Because it cannot copy the next element (goes out of scope)
-                    {
-                        tempMsg[i] = aux;
-                        break;
-                    }
+                tempMsg[x] = reading[i];
+                x++;
+            }
 
-                    tempMsg[i] = tempMsg[i + 1];
-                }
+            if (reading[i] == 'e') endFlag = true;
+            if (endFlag && i < sizeof(tempMsg))
+            {
+                // Fill the rest with 0s.
+                for (size_t j = x; j < sizeof(tempMsg); j++)
+                    tempMsg[j] = '\0';
 
-                rotationCounter++;
-                if (rotationCounter > sizeof(tempMsg))
-                {
-                    if (verboseData) std::cout << "[SerialDevice]: Raw read data: " << tempMsg << std::endl;
-                    if (verboseData) std::cerr << "[SerialDevice]: Couldn't read a valid message. Clearing buffer..." << std::endl;
-                    port->clearBuffer();
-                    return false;
-                }
+                // Exit the main "for" loop
+                break;
             }
         }
 
-        if ((tempMsg[0] == ' ' || tempMsg[0] == '-') && tempMsg[7] == '\n')
+        // Process the data
+        char finalMsg[RTPLOT_DATA_NUM][RTPLOT_DATA_SIZE] = { 0 };
+        size_t msgSel = 0;
+        size_t k = 0;
+        for (size_t i = 0; i < sizeof(tempMsg); i++)
         {
-            dReading = atof(tempMsg);
-            if (verboseData) std::cout << "[" << port->getName() << "]: Converted read data : " << dReading << std::endl;
-            Sleep(RTPLOT_READING_DELAY);
+            if (tempMsg[i] == ',' || k >= RTPLOT_DATA_SIZE) 
+            {
+                k = 0;
+                msgSel++;
+            }
+            else if (msgSel >= RTPLOT_DATA_NUM)
+            {
+                msgSel = 0;
+                return RTPLOT_ERROR;
+            }
+            else 
+            {
+                finalMsg[msgSel][k] = tempMsg[i];
+                if (k < RTPLOT_DATA_SIZE - 1) k++;
+                else 
+                    break;
+            }
         }
+
+        // Cast the data into a double and filter the random 0s.
+        for (uint8_t i = 0; i < RTPLOT_DATA_NUM; i++)
+        {
+            if (abs(atof(finalMsg[i])) >= RTPLOT_TOLERANCE)
+                dReading.at(i) = atof(finalMsg[i]);
+        }
+
+        if (verboseData)
+        {
+            std::cout << "[" << port->GetName() << "]: Converted read data: ";
+
+            for (uint8_t i = 0; i < dReading.size(); i++)
+            {
+                std::cout << dReading.at(i);
+                if (i < RTPLOT_DATA_NUM - 1)
+                    std::cout << ", ";
+            }
+            std::cout << std::endl;
+        }
+
+        Sleep(RTPLOT_READING_DELAY);
     }
 
     return true;
 }
 
-bool RTPlot::SerialDevice::changePort(const char* portName)
+bool RTPlot::SerialDevice::Send(const char* msg)
 {
-    if (!port) return false;
+    char tempMsg[RTPLOT_MSG_SIZE] = { 0 };
+    for (uint32_t i = 0; i < sizeof(msg) - 1; i++) // -1 to delete \0
+        tempMsg[i] = msg[i];
 
-    if (reading) delete[] reading;
-    port->disconnect();
-
-    reading = new void*;
-    port->setName(portName);
-
-    if (port->connect())
+    LPVOID message = (LPVOID)tempMsg;
+    if (port->Write(message, sizeof(message)) == RTPLOT_FINISHED)
+    {
         return true;
+    }
     else return false;
 }

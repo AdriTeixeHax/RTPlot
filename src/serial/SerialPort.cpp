@@ -1,23 +1,30 @@
-#include "SerialPort.h"
+#include <serial/SerialPort.h>
 
 #include <string>
 
 namespace RTPlot
 {
-	SerialPort::SerialPort(const char* _port, DWORD _baudRate, BYTE _byteSize, WORD _parity, bool verboseData) : portName(_port), baudRate(_baudRate), parity(_parity), hCOM((void*)0), status({ 0 }), errors(0), connected(false), byteSize(_byteSize)
+	SerialPort::SerialPort(const std::string& _port, DWORD _baudRate, BYTE _byteSize, WORD _parity, bool _verboseData) : 
+		byteSize(_byteSize),
+		parity(_parity), 
+		connected(false),
+		verboseData(_verboseData),
+		errors(0), 
+		baudRate(_baudRate), 
+		hCOM((void*)0), 
+		status({ 0 }), 
+		portName(_port)
 	{
-		this->connect();
-		this->setTimeouts();
+		if (this->Connect()) this->SetTimeouts();
+		else std::cerr << "[SerialPort]: Error constructing SerialPort object because couldn't connect with the serial port." << std::endl;
 	}
 
-	SerialPort::~SerialPort(void) { this->disconnect(); }
-
-	void SerialPort::setName(const char* name)
-	{
-		this->portName = name;
+	SerialPort::~SerialPort(void) 
+	{ 
+		while (!this->Disconnect());
 	}
 
-	void SerialPort::setTimeouts(DWORD WriteTotalMultiplier, DWORD ReadTotalMultiplier, DWORD ReadInterval, DWORD ReadTotalConstant, DWORD WriteTotalConstant)
+	void SerialPort::SetTimeouts(DWORD WriteTotalMultiplier, DWORD ReadTotalMultiplier, DWORD ReadInterval, DWORD ReadTotalConstant, DWORD WriteTotalConstant)
 	{
 		timeouts.WriteTotalTimeoutMultiplier = WriteTotalMultiplier;
 		timeouts.ReadTotalTimeoutMultiplier  = ReadTotalMultiplier;
@@ -26,22 +33,30 @@ namespace RTPlot
 		timeouts.WriteTotalTimeoutConstant   = WriteTotalConstant;
 	}
 
-	bool SerialPort::connect(void)
+	bool SerialPort::Connect(void)
 	{
-		hCOM = CreateFileA(static_cast<LPCSTR>(portName.c_str()), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+		if (portName.rfind("\\\\.\\", 0) != 0) { std::cerr << "[SerialPort]: Couldn't connect. Invalid port name." << std::endl; }
 
-		switch (GetLastError())
+		hCOM = CreateFileA(reinterpret_cast<LPCSTR>(portName.c_str()), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+		if (!hCOM) if (verboseData) { std::cerr << "[SerialPort]: Invalid handle pointer." << std::endl; return false; }
+		
+		static DWORD errorCode = 0;
+		static DWORD errorCodePrev = 0;
+
+		errorCode = GetLastError();
+
+		switch (errorCode)
 		{
 		case ERROR_FILE_NOT_FOUND:
-			if (verboseData) std::cerr << "[SerialPort]: Device not connected at port " << portName << "." << std::endl;
+			if (verboseData && errorCode != errorCodePrev) std::cerr << "[SerialPort]: Device not connected at port " << portName.c_str() << "." << std::endl;
 			return false;
 
 		case ERROR_ACCESS_DENIED:
-			if (verboseData) std::cerr << "[SerialPort]: Device being used by another process at port " << portName << "." << std::endl;
+			if (verboseData && errorCode != errorCodePrev) std::cerr << "[SerialPort]: Device being used by another process at port " << portName.c_str() << "." << std::endl;
 			return false;
 
 		case NO_ERROR:
-			if (!GetCommState(hCOM, &dcb)) { if (verboseData) std::cout << "[SerialPort]: Failed to get COM port parameters." << std::endl; return false; }
+			if (!GetCommState(hCOM, &dcb)) { if (verboseData && errorCode != errorCodePrev) std::cout << "[SerialPort]: Failed to get COM port parameters." << std::endl; return false; }
 
 			dcb.BaudRate = baudRate;
 			dcb.ByteSize = byteSize;
@@ -49,32 +64,43 @@ namespace RTPlot
 			dcb.StopBits = ONESTOPBIT;
 			dcb.fDtrControl = DTR_CONTROL_ENABLE;
 
-			if (!SetCommState(hCOM, &dcb)) { if (verboseData) std::cerr << "[SerialPort]: Failed to set COM port parameters." << std::endl; return false; }
+			if (!SetCommState(hCOM, &dcb)) { if (verboseData && errorCode != errorCodePrev) std::cerr << "[SerialPort]: Failed to set COM port parameters." << std::endl; return false; }
 
-			if (!SetCommTimeouts(hCOM, &timeouts)) { if (verboseData) std::cerr << "[SerialPort]: Failed to set COM port timeouts." << std::endl; return false; }
+			if (!SetCommTimeouts(hCOM, &timeouts)) { if (verboseData && errorCode != errorCodePrev) std::cerr << "[SerialPort]: Failed to set COM port timeouts." << std::endl; return false; }
 
 			// Everything OK
 			PurgeComm(hCOM, PURGE_RXCLEAR | PURGE_TXCLEAR); // Clear buffer
-			if (verboseData) std::cout << "[SerialPort]: Connected to device at COM port " << portName << "." << std::endl;
+			if (verboseData && errorCode != errorCodePrev) std::cout << "[SerialPort]: Connected to device at COM port " << portName.c_str() << "." << std::endl;
 			connected = true;
 			return true;
 
 		default:
 			return false;
 		}
+
+		errorCodePrev = errorCode;
 	}
 
-	void SerialPort::disconnect(void)
+	bool SerialPort::Disconnect(void)
 	{
 		if (connected == true)
 		{
+			this->ClearBuffer();
+			if (hCOM == INVALID_HANDLE_VALUE) std::cerr << "[SerialPort]: Port handle is invalid." << std::endl;
+			if (!CloseHandle(hCOM)) 
+			{
+				std::cerr << "[SerialPort]: Couldn't close the serial port. Error " << GetLastError() << std::endl;
+				return false;
+			}
 			connected = false;
-			CloseHandle(hCOM);
-			hCOM = (void*)0;
+			hCOM = INVALID_HANDLE_VALUE;
+			return true;
 		}
+		else std::cerr << "[SerialPort]: The device trying to disconnect is not connected." << std::endl;
+		return false;
 	}
 
-	bool SerialPort::clearBuffer(uint8_t flags)
+	bool SerialPort::ClearBuffer(uint8_t flags) const
 	{
 		if (PurgeComm(hCOM, flags))
 		{
@@ -88,9 +114,10 @@ namespace RTPlot
 		}
 	}
 
-	bool SerialPort::isConnected(void)
+	bool SerialPort::IsConnected(void) const
 	{
 		DWORD modemStatus = 0;
+		if (!hCOM || hCOM == 0) { std::cerr << "[SerialPort]: invalid handle." << std::endl; return false; }
 		if (!GetCommModemStatus(hCOM, &modemStatus))
 		{
 			DWORD error = GetLastError();
@@ -101,8 +128,22 @@ namespace RTPlot
 		return connected;
 	}
 
-	int8_t SerialPort::read(LPVOID buf, DWORD size)
+	const std::string& SerialPort::GetNameStr(void)
 	{
+		const std::string prefix = "\\\\.\\";
+		std::string result;
+		if (portName.rfind(prefix, 0) == 0) 
+		{ // Check if the string starts with the prefix
+			result = portName.substr(prefix.size());
+			return result;
+		}
+		else return portName; // Return the original string if no prefix is found
+	}
+
+	int8_t SerialPort::Read(LPVOID buf, DWORD size)
+	{
+		if (!hCOM || hCOM == 0) { std::cerr << "[SerialPort]: invalid handle value." << std::endl; return -1; }
+		
 		DWORD bytesRead;
 		DWORD bytesToRead = 0;
 
@@ -117,13 +158,13 @@ namespace RTPlot
 		static uint8_t readingCount = 0;
 		if (readingCount >= 5)
 		{
-			clearBuffer(PURGE_RXCLEAR);
+			ClearBuffer(PURGE_RXCLEAR);
 			readingCount = 0;
 		}
 
 		if (ReadFile(hCOM, buf, bytesToRead, &bytesRead, NULL))
 		{
-			if (bytesRead == bytesToRead) { return RTPLOT_FINISHED; readingCount++; }
+			if (bytesRead == bytesToRead)   { return RTPLOT_FINISHED; readingCount++; }
 			else if (bytesRead < bytesToRead) return RTPLOT_READING;
 			else if (bytesRead > bytesToRead) return RTPLOT_ERROR;
 		}
@@ -134,18 +175,42 @@ namespace RTPlot
 			return RTPLOT_ERROR;
 		}
 	}
-	std::vector<uint8_t> SerialPort::scanAvailablePorts(void)
+
+	int8_t SerialPort::Write(LPVOID buf, DWORD size) const
 	{
-		std::vector<uint8_t> ports;
-		for (uint8_t portNumber = 0; portNumber < 255U; portNumber++)
+		DWORD bytesWritten;
+		if (!WriteFile(hCOM, buf, size, &bytesWritten, NULL))
 		{
-			std::wstring portName = L"COM" + std::to_wstring(portNumber);
-			HANDLE hPort = CreateFileW(portName.c_str(), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
+			if (verboseData) std::cerr << "Error writing to serial port!" << std::endl;
+			return RTPLOT_ERROR;
+		}
+
+		if (verboseData) std::cout << "Data written to serial port successfully!" << std::endl;
+
+		return RTPLOT_FINISHED;
+	}
+
+	std::vector<uint8_t> SerialPort::ScanAvailablePorts(void)
+	{
+		static std::vector<std::wstring> portNames;
+		if (portNames.size() < 1) // Create names just once
+		{
+			for (uint8_t portNumber = 0; portNumber < RTPLOT_MAX_PORT_NUMBER; portNumber++)
+			{
+				portNames.push_back(L"\\\\.\\COM" + std::to_wstring(portNumber));
+			}
+		}
+
+		std::vector<uint8_t> ports;
+		for (uint8_t portNumber = 0; portNumber < RTPLOT_MAX_PORT_NUMBER; portNumber++)
+		{
+			HANDLE hPort = CreateFileW(portNames[portNumber].c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, 0, nullptr);
 			if (hPort != INVALID_HANDLE_VALUE)
 			{
 				ports.push_back(portNumber);
-				CloseHandle(hPort);
 			}
+			// else std::wcout << "[COM" << portNumber << "]: Error code " << GetLastError() << std::endl;
+			CloseHandle(hPort);
 		}
 
 		return ports;

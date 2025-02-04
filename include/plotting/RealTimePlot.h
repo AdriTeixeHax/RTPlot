@@ -1,69 +1,40 @@
 #ifndef _REALTIMEPLOT__H_
 #define _REALTIMEPLOT__H_
 
-#include "imgui/imgui.h"
-#include "implot/implot.h"
-
 #include <cmath>
 #include <cstdint>
 #include <string>
 
+#include <plotting/PlotData.h>
+
 namespace RTPlot
 {
-    class ScrollingBuffer // Taken from implot_demo.cpp
-    {
-    public:
-        int maxSize;
-        int offset;
-        ImVector<ImVec2> data;
-
-        ScrollingBuffer(int max_size = 2000);
-
-        void addPoint(float x, float y);
-        void erase(void);
-    };
-
-    class RollingBuffer // Taken from implot_demo.cpp
-    {
-    public:
-        double span;
-        ImVector<ImVec2> data;
-
-        RollingBuffer(void);
-
-        void addPoint(double x, double y);
-    };
-
 	class RealTimePlot
 	{
-        RollingBuffer* rdata;
-        double* dataPtr;
-        uint8_t id;
-
-        ImVec4 color = ImVec4(1.0f, 1.0f, 0.0f, 1.0f);
-
-        float history = 10.0f;
+        std::vector<ColorPalette*> plotColors;
+        std::vector<PlotData*>     plotData;
+        std::vector<RollingBuffer> basicData;
+        Graphics* graphicsPtr;
+        bool      plotExitFlag   = false;
+        bool      exitFlag       = true;
+        uint8_t   id             = 0;
 
     public:
-        RealTimePlot(void) : rdata(new RollingBuffer), dataPtr(new double), id(0) { }
-        RealTimePlot(double* ptr) : rdata(new RollingBuffer), dataPtr(ptr), id(0) { }
-        ~RealTimePlot(void) 
-        { 
-            delete rdata; 
-            dataPtr = new double;
-            delete dataPtr;
-        }
+        RealTimePlot(void) = delete;
+        RealTimePlot(Graphics* graphicsPtr);
+        ~RealTimePlot(void);
 
         // Getters
-        double* getDataPtr(void) { return dataPtr; }
+        bool GetPlotExitFlag(void) const { return exitFlag; }
 
         // Setters
-        void setDataPtr(double* ptr) { dataPtr = ptr; }
-        void setID(uint8_t _id) { id = _id; }
+        void SetID        (uint8_t _id) { id = _id; }
+        void SetDataToPlot(const std::vector<double>& data);
 
         // Actions
-        int8_t plot(void);
-        void clear(void);
+        int8_t Plot (const std::string& name, bool* killFlag, char* command, bool* sendCommand);
+        int8_t PlotGraph(uint8_t id, bool* killPlotFlag);
+        int8_t PlotVars(uint8_t i, const std::string& portName, const std::vector<std::string>& currentNames);
 	};
 }
 
