@@ -67,20 +67,12 @@ namespace RTPlot
                 if (ImGui::BeginDragDropTarget())
                 {
                     ImGuiDragDropFlags drop_target_flags = ImGuiDragDropFlags_AcceptNoPreviewTooltip;
-                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("plotDndPayloadSet", drop_target_flags))
+                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("plotDndPayload", drop_target_flags))
                     {
                         for (size_t j = 0; j < plotData[i]->rdata.size(); j++)
                         {
                             if (std::string((char*)payload->Data) == plotData[i]->rdata[j].name)
-                                plotData[i]->rdata[j].plotFlag = true;
-                        }
-                    }
-                    if (const ImGuiPayload* payload = ImGui::AcceptDragDropPayload("plotDndPayloadReset", drop_target_flags))
-                    {
-                        for (size_t j = 0; j < plotData[i]->rdata.size(); j++)
-                        {
-                            if (std::string((char*)payload->Data) == plotData[i]->rdata[j].name)
-                                plotData[i]->rdata[j].plotFlag = false;
+                                plotData[i]->rdata[j].plotFlag = !plotData[i]->rdata[j].plotFlag;
                         }
                     }
                     ImGui::EndDragDropTarget();
@@ -116,24 +108,13 @@ namespace RTPlot
 
             ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_WINDOW_RADIUS);
 
+            static bool dragFlag = false;
             ImGui::BeginChild(basicData[i].name.c_str(), ImVec2(availX, 100), ImGuiChildFlags_Border);
-
-                static bool dragFlag = false;
                 if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
                 {
-                    if (!dragFlag)
-                    {
-                        ImGui::SetDragDropPayload("plotDndPayloadSet", basicData[i].GetNameCPtr(), sizeof(char) * 32);
-                        ImGui::Text(std::string("Plot " + basicData[i].name).c_str());
-                        ImGui::EndDragDropSource();
-                    }
-                    else
-                    {
-                        ImGui::SetDragDropPayload("plotDndPayloadReset", basicData[i].GetNameCPtr(), sizeof(char) * 32);
-                        ImGui::Text(std::string("Plot " + basicData[i].name).c_str());
-                        ImGui::EndDragDropSource();
-                    }
-                    dragFlag = !dragFlag;
+                    ImGui::SetDragDropPayload("plotDndPayload", basicData[i].GetNameCPtr(), sizeof(char) * 32);
+                    ImGui::Text(std::string("Plot/Remove " + basicData[i].name).c_str());
+                    ImGui::EndDragDropSource();
                 }
 
                 ImGui::SeparatorText(basicData[i].name.c_str());

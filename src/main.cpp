@@ -108,10 +108,9 @@ int main(int argc, char** argv)
             ImGui::End();
         }
 
-        // Main window - Serial Plotting occurs here
-        ImGui::Begin("RTPlot - by AdriTeixeHax", NULL); // Null so that it cannot be closed
-            if (ImPlotDemoFlag) ImPlot::ShowDemoWindow(&ImPlotDemoFlag);
-            if (ImGuiDemoFlag)   ImGui::ShowDemoWindow(&ImGuiDemoFlag);
+        if (deviceManager.Size() == 0)
+        {
+            ImGui::Begin("RTPlot - by AdriTeixeHax", NULL); // Null so that it cannot be closed
 
             if (ImGui::Button("List Devices"))
             {
@@ -126,9 +125,9 @@ int main(int argc, char** argv)
                     ImGui::SameLine();
 
                     ImGui::PushID(device);
-                    ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(device / 7.0f, 1.0f, 0.6f));
+                    ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(device / 7.0f, 1.0f, 0.6f));
                     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 7.0f, 0.7f, 0.7f));
-                    ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(device / 7.0f, 0.8f, 0.8f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(device / 7.0f, 0.8f, 0.8f));
 
                     std::string portName = "\\\\.\\COM" + std::to_string(device);
                     std::string portNameGUI = "COM" + std::to_string(device);
@@ -144,25 +143,32 @@ int main(int argc, char** argv)
                 }
             }
 
-            // Plotting
-            deviceManager.PlotAllDevices();
+            ImGui::End();
+        }
 
-            uint8_t tempCounter = 0;
-            for (auto itComponent : deviceManager.GetComponents())
+        // Demo windows
+        if (ImPlotDemoFlag) ImPlot::ShowDemoWindow(&ImPlotDemoFlag);
+        if (ImGuiDemoFlag)   ImGui::ShowDemoWindow(&ImGuiDemoFlag);
+
+        // Check if a device wishes to be deleted
+        uint8_t tempCounter = 0;
+        for (auto itComponent : deviceManager.GetComponents())
+        {
+            if (!itComponent->GetKillFlag())
             {
-                if (!itComponent->GetKillFlag())
-                {
-                    logMsg = "Deleted device " + itComponent->GetPortNameGUI() + "\n";
-                    deviceManager.RemoveDevice(tempCounter);
-                    tempCounter = 0;
-                    break;
-                }
-                tempCounter++;
+                logMsg = "Deleted device " + itComponent->GetPortNameGUI() + "\n";
+                deviceManager.RemoveDevice(tempCounter);
+                tempCounter = 0;
+                break;
             }
+            tempCounter++;
+        }
 
-            // Plot the log message of the current cycle
-            if (consoleLogFlag) ImGui::Log::ShowConsoleLog(logMsg, &consoleLogFlag);
-        ImGui::End();
+        // Plotting
+        deviceManager.PlotAllDevices();
+
+        // Plot the log message of the current cycle
+        if (consoleLogFlag) ImGui::Log::ShowConsoleLog(logMsg, &consoleLogFlag);
 
         graphics->GuiEnd();
         graphics->EndFrame();
