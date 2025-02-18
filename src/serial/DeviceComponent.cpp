@@ -35,7 +35,7 @@ void RTPlot::DeviceComponent::SerialFunc(void)
 
         if (sendCommand)
         {
-            serialDevice->Send(command);
+            serialDevice->Send(command, sizeof(command));
             sendCommand = false;
         }
     }

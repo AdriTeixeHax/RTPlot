@@ -31,7 +31,7 @@ namespace RTPlot
 
         // Actions
         bool Recieve(uint32_t delay = RTPLOT_READING_DELAY);
-        bool Send(const char* msg);
+        bool Send(const char* msg, uint32_t len);
 	};
 }
 

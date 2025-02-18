@@ -83,7 +83,7 @@ bool RTPlot::SerialDevice::Recieve(uint32_t delay)
         // Cast the data into a double and filter the random 0s.
         for (uint8_t i = 0; i < RTPLOT_DATA_NUM; i++)
         {
-            if (abs(atof(finalMsg[i])) >= RTPLOT_TOLERANCE)
+            //if (abs(atof(finalMsg[i])) >= RTPLOT_TOLERANCE)
                 dReading.at(i) = atof(finalMsg[i]);
         }
 
@@ -106,14 +106,10 @@ bool RTPlot::SerialDevice::Recieve(uint32_t delay)
     return true;
 }
 
-bool RTPlot::SerialDevice::Send(const char* msg)
+bool RTPlot::SerialDevice::Send(const char* msg, uint32_t len)
 {
-    char tempMsg[RTPLOT_MSG_SIZE] = { 0 };
-    for (uint32_t i = 0; i < sizeof(msg) - 1; i++) // -1 to delete \0
-        tempMsg[i] = msg[i];
-
-    LPVOID message = (LPVOID)tempMsg;
-    if (port->Write(message, sizeof(message)) == RTPLOT_FINISHED)
+    LPVOID message = (LPVOID)msg;
+    if (port->Write(message, len) == RTPLOT_FINISHED)
     {
         return true;
     }
