@@ -1,11 +1,13 @@
 #include <plotting/RealTimePlot.h>
 
+#include <thread>
+
 namespace RTPlot
 {
-    RealTimePlot::RealTimePlot(Graphics* graphicsPtr) : 
+    RealTimePlot::RealTimePlot(Graphics* graphicsPtr) :
         graphicsPtr(graphicsPtr)
     {
-        for (size_t i = 0; i < RTPLOT_DATA_NUM - 1; i++)
+        for (uint8_t i = 0; i < RTPLOT_DATA_NUM - 1; i++)
         {
             basicData.push_back(std::to_string(i));
             plotColors.push_back(new ColorPalette((ImVec4)ImColor::HSV(i / 7.0f, 1.0f, 1.0f), i));
@@ -29,9 +31,10 @@ namespace RTPlot
             i->SetDataToPlot(data);
     }
 
-    int8_t RealTimePlot::Plot(const std::string& name, bool* killFlag, char* command, bool* sendCommand)
+    int8_t RealTimePlot::Plot(const std::string& name, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable)
     {
         ImGui::Begin(std::string(name + " - Plotting").c_str(), killFlag);
+            ImVec2 nameSize = ImGui::CalcTextSize(name.c_str());
             ImGui::SeparatorText(name.c_str());
             if (ImGui::Button("Add Plot")) plotData.push_back(new PlotData(basicData));
             ImGui::SameLine();
@@ -54,11 +57,43 @@ namespace RTPlot
                 *sendCommand = true;
             }
 
+            ImGui::Begin(std::string(name + " - Data settings").c_str(), NULL);
+                if (ImGui::Button("Add variable"))
+                {
+                    basicData.push_back(std::to_string(basicData.size()));
+                    plotColors.push_back(new ColorPalette((ImVec4)ImColor::HSV((plotColors.size()) / 7.0f, 1.0f, 1.0f), plotColors.size()));
+                    
+                    *addVariable = true;
+
+                    for (auto i : plotData)
+                        i->rdata = basicData;
+                }
+            ImGui::End();
+
             std::vector<std::string> currentNames;
             for (uint8_t i = 0; i < basicData.size(); i++)
             {
                 currentNames.push_back(basicData[i].name);
-                PlotVars(i, name, currentNames);
+                PlotVars(i, name, currentNames, command, sendCommand);
+            }
+
+            static float kiVal = 0, kpVal = 0;
+
+            ImGui::InputFloat("Ki", &kiVal);
+            ImGui::InputFloat("Kp", &kpVal);
+            ImGui::SameLine();
+            if (ImGui::Button("Apply"))
+            {
+                char tempCommand[32] = "";
+                snprintf(tempCommand, sizeof(tempCommand), "bKi:%.3f;", kiVal);
+                strcpy_s(command, sizeof(tempCommand), tempCommand);
+                *sendCommand = true;
+
+                while (*sendCommand) std::this_thread::yield();
+
+                snprintf(tempCommand, sizeof(tempCommand), "bKp:%.3f;", kpVal);
+                strcpy_s(command, sizeof(tempCommand), tempCommand);
+                *sendCommand = true;
             }
 
             for (uint8_t i = 0; i < plotData.size(); i++)
@@ -71,7 +106,8 @@ namespace RTPlot
                     {
                         for (size_t j = 0; j < plotData[i]->rdata.size(); j++)
                         {
-                            if (std::string((char*)payload->Data) == plotData[i]->rdata[j].name)
+                            std::string tempNameData = std::string((char*)payload->Data);
+                            if (tempNameData == plotData[i]->rdata[j].name)
                                 plotData[i]->rdata[j].plotFlag = !plotData[i]->rdata[j].plotFlag;
                         }
                     }
@@ -88,7 +124,7 @@ namespace RTPlot
         return 0;
     }
 
-    int8_t RealTimePlot::PlotVars(uint8_t i, const std::string& portName, const std::vector<std::string>& currentNames)
+    int8_t RealTimePlot::PlotVars(uint8_t i, const std::string& portName, const std::vector<std::string>& currentNames, char* command, bool* sendCommand)
     {
         bool sameNameFlag = false;
         bool emptyFlag = false;

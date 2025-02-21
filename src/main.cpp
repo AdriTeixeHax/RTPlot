@@ -41,7 +41,7 @@ int main(int argc, char** argv)
         static bool ImPlotDemoFlag     = false;
         static bool consoleLogFlag     = true;
         static bool showAddPlotFlag    = false;
-        static bool serialOptionsFlag  = false;
+        static bool serialOptionsFlag  = true;
         static bool showDeletePlotFlag = true;
 
         std::string logMsg;
@@ -79,7 +79,7 @@ int main(int argc, char** argv)
                         showAddPlotFlag = false;
                     }
                 }
-                if (serialPorts.size() == 0) ImGui::MenuItem("No serial ports found", "", false);
+                if (serialPorts.size() == 0) ImGui::MenuItem("No free serial ports found", "", false);
                 ImGui::EndMenu();
             }
             ImGui::EndMenuBar();
@@ -111,23 +111,40 @@ int main(int argc, char** argv)
         if (deviceManager.Size() == 0)
         {
             ImGui::Begin("RTPlot - by AdriTeixeHax", NULL); // Null so that it cannot be closed
+            ImVec2 avail = ImGui::GetContentRegionAvail();
 
-            if (ImGui::Button("List Devices"))
+            static const char* welcome = "Welcome to RTPlot!";
+            static const char* connectBtn = "Connect to a device...";
+            ImVec2 welcomeSize = ImGui::CalcTextSize(welcome);
+
+            static ImVec2 connectSize = ImVec2(0, 0);
+
+            ImGui::SetCursorPosX((avail.x - welcomeSize.x) * 0.5f);
+            ImGui::SetCursorPosY((avail.y - welcomeSize.y) * 0.5f - 15);
+            ImGui::Text(welcome);
+
+            ImGui::SetCursorPosX((avail.x - connectSize.x) * 0.5f);
+            ImGui::SetCursorPosY((avail.y - connectSize.y) * 0.5f + 15);
+            if (ImGui::Button(connectBtn))
             {
                 serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
                 showAddPlotFlag = true;
             }
+            connectSize = ImGui::GetItemRectSize();
 
             if (showAddPlotFlag)
             {
+                static ImVec2 groupSize = ImVec2(0, 0);
+
+                ImGui::SetCursorPosX((avail.x - groupSize.x) / 2);
+                ImGui::SetCursorPosY((avail.y - groupSize.y) / 2 + 50);
+                ImGui::BeginGroup();
                 for (uint8_t device : serialPorts)
                 {
-                    ImGui::SameLine();
-
                     ImGui::PushID(device);
-                    ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(device / 7.0f, 1.0f, 0.6f));
-                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 7.0f, 0.7f, 0.7f));
-                    ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(device / 7.0f, 0.8f, 0.8f));
+                    ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(device / 10.0f, 1.0f, 0.6f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.7f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.5f));
 
                     std::string portName = "\\\\.\\COM" + std::to_string(device);
                     std::string portNameGUI = "COM" + std::to_string(device);
@@ -140,7 +157,14 @@ int main(int argc, char** argv)
 
                     ImGui::PopStyleColor(3);
                     ImGui::PopID();
+
+                    ImGui::SameLine();
                 }
+                ImGui::EndGroup();
+
+                groupSize = ImGui::GetItemRectSize();
+                float posX = ImGui::GetCursorPosX();
+                float posY = ImGui::GetCursorPosY();
             }
 
             ImGui::End();

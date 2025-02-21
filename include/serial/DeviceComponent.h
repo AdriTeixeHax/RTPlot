@@ -1,5 +1,5 @@
 #include <thread>
-#include <mutex>
+#include <semaphore>
 
 #include <serial/SerialDevice.h>
 #include <plotting/RealTimePlot.h>
@@ -11,15 +11,17 @@ namespace RTPlot
 		std::thread   thread;
 		RealTimePlot  plotter;
 		SerialDevice* serialDevice;
-		bool          exitThreadFlag = false;
-		bool		  sendMsgFlag = false;
-		uint8_t       id = 0;
-		double        reading = 0;
+		bool          exitThreadFlag	= false;
+		bool		  sendMsgFlag		= false;
+		double        reading			= 0;
 		Graphics*     graphicsPtr;
 		char		  command[RTPLOT_MSG_SIZE];
-		bool		  sendCommand = false;
+		bool		  sendCommand		= false;
+		bool		  addVariable		= false;
+		bool		  removeVariable	= false;
+		uint32_t      varToRemove		= 0;
 
-		bool		  killFlag = true;
+		bool		  killFlag			= true;
 
 	public:
 		DeviceComponent(const char* port, Graphics* graphicsPtr);
@@ -27,17 +29,13 @@ namespace RTPlot
 
 		// Getters
 		bool        GetPlotExitFlag(uint8_t i)  { return plotter.GetPlotExitFlag(); }
-		uint8_t     GetID          (void)       { return id; }
 		SerialPort* GetPort        (void)       { return serialDevice->GetPort(); }
 		std::string GetPortName    (void) const { return serialDevice->GetPort()->GetName(); }
 		std::string GetPortNameGUI (void) const;
 		bool		GetKillFlag    (void) const { return killFlag; }
 
-		// Setters
-		void SetID(uint8_t id) { this->id = id; }
-
 		// Functions
-		int8_t Plot(const std::string& portName) { return plotter.Plot(portName, &killFlag, command, &sendCommand); }
+		void Plot(const std::string& portName);
 
 		// Thread functions
 		void SerialFunc(void);

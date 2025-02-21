@@ -9,10 +9,8 @@ namespace RTPlot
 	class SerialDevice
 	{
 		SerialPort*         port;
-
         char                reading[RTPLOT_MSG_SIZE];
         std::vector<double> dReading;
-
         bool                verboseData = true;
 
 	public:
@@ -21,17 +19,18 @@ namespace RTPlot
         ~SerialDevice(void);
 
         // Getters
-        const std::vector<double>& GetReading(void) { return dReading; }
-
-        bool IsConnected(void) { return port->IsConnected(); }
-        SerialPort* GetPort(void) { return port; }
+        const std::vector<double>& GetReadingVals(void) { return  dReading; }
+        std::vector<double>*       GetReadingPtr (void) { return &dReading; }
+        SerialPort*                GetPort       (void) { return port; }
+        bool                       IsConnected   (void) { return port->IsConnected(); }
 
         // Setters
         void SetPortVerbose(bool vb) { verboseData = vb; port->SetVerbose(vb); }
 
         // Actions
-        bool Recieve(uint32_t delay = RTPLOT_READING_DELAY);
-        bool Send(const char* msg, uint32_t len);
+        bool   Recieve    (uint32_t delay = RTPLOT_READING_DELAY);
+        bool   Send       (const char* msg, uint32_t len);
+        int8_t ProcessData(void);
 	};
 }
 

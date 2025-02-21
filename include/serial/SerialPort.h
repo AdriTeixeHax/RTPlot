@@ -30,7 +30,7 @@ namespace RTPlot
 
 	public:
 		SerialPort(void) = delete;
-		SerialPort(const std::string& _port, DWORD _baudRate = CBR_9600, BYTE _byteSize = RTPLOT_MSG_SIZE, WORD _parity = NOPARITY, bool _verboseData = true);
+		SerialPort(const std::string& _port, DWORD _baudRate = CBR_115200, BYTE _byteSize = 8, WORD _parity = NOPARITY, bool _verboseData = true);
 		~SerialPort(void);
 
 		// Getters

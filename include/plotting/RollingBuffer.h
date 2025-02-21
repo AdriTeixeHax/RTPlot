@@ -27,6 +27,7 @@ namespace RTPlot // Had to rename the namespace because of linker issues (honest
             RollingBuffer result(rbuf.name);
             result.data = rbuf.data;
             strcpy_s(result.tempName, rbuf.tempName);
+            result.data.reserve(2000);
             return result;
         }
 

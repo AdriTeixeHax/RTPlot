@@ -26,12 +26,22 @@ std::string RTPlot::DeviceComponent::GetPortNameGUI(void) const
     return name;
 }
 
+void RTPlot::DeviceComponent::Plot(const std::string& portName)
+{
+    plotter.Plot(portName, &killFlag, command, &sendCommand, &addVariable, &varToRemove, &removeVariable);
+    if (addVariable)
+    {
+        serialDevice->GetReadingPtr()->push_back(0.0f);
+        addVariable = false;
+    }
+}
+
 void RTPlot::DeviceComponent::SerialFunc(void)
 {
     while (!exitThreadFlag)
     {
         serialDevice->Recieve();
-        plotter.SetDataToPlot(serialDevice->GetReading());
+        plotter.SetDataToPlot(serialDevice->GetReadingVals());
 
         if (sendCommand)
         {
