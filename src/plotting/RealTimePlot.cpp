@@ -36,7 +36,13 @@ namespace RTPlot
         ImGui::Begin(std::string(name + " - Plotting").c_str(), killFlag);
             ImVec2 nameSize = ImGui::CalcTextSize(name.c_str());
             ImGui::SeparatorText(name.c_str());
+
+            ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.35f, 1.0f, 0.6f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.7f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.5f));
             if (ImGui::Button("Add Plot")) plotData.push_back(new PlotData(basicData));
+            ImGui::PopStyleColor(3);
+
             ImGui::SameLine();
 
             static char tempCommand[RTPLOT_MSG_SIZE] = "Send message to device";
@@ -203,7 +209,16 @@ namespace RTPlot
         static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_None;
         ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_WINDOW_RADIUS);
         ImGui::BeginChild(std::string(std::to_string(id) + "graph").c_str(), ImVec2(availX, availY), ImGuiChildFlags_Border);
+            ImGui::PushID(id);
+            ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.0f, 1.0f, 0.6f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f / 10.0f, 0.7f, 0.7f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.0f / 10.0f, 0.7f, 0.5f));
+        
             if (ImGui::Button("Delete this plot")) *killPlotFlag = true;
+
+            ImGui::PopStyleColor(3);
+            ImGui::PopID();
+
             ImGui::SameLine();
             ImGui::PushItemWidth(availX - 217);
             if (ImGui::InputText("##", plotData[id]->tempName, sizeof(plotData[id]->tempName), ImGuiInputTextFlags_EnterReturnsTrue))

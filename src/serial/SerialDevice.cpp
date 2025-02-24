@@ -1,7 +1,7 @@
 #include <serial/SerialDevice.h>
 
 RTPlot::SerialDevice::SerialDevice(const char* portName, size_t size, uint32_t baudRate) : 
-    port(new RTPlot::SerialPort(portName, baudRate)), 
+    port(new RTPlot::SerialPort(portName, baudRate, 8U, PARITY_EVEN)), 
     reading("\0")
 { 
     port->ClearBuffer(); 
@@ -19,8 +19,11 @@ bool RTPlot::SerialDevice::Recieve(uint32_t delay)
     if (!port) { if (verboseData) std::cerr << "[SerialDevice]: Error dereferencing port: it is nullptr." << std::endl; return false; }
     if (!port->IsConnected()) { if (verboseData) std::cout << "[SerialDevice]: Device not connected." << std::endl; return false; }
 
+    // Reset reading variable
+    strcpy_s(reading, "");
+
     // Reading from port and error checking
-    int8_t readCode = port->Read(reading, RTPLOT_MSG_SIZE);
+    int8_t readCode = port->Read(reading, sizeof(reading));
     if (readCode == RTPLOT_ERROR) { if (verboseData) std::cout << "[SerialDevice]: Could not read message from device." << std::endl; return false; }
     
     // If the reading is correct, process the data
@@ -42,8 +45,6 @@ bool RTPlot::SerialDevice::Recieve(uint32_t delay)
             }
             std::cout << std::endl;
         }
-
-        Sleep(delay);
 
         return true;
     }
