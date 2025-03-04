@@ -10,18 +10,12 @@ namespace RTPlot
         strcpy_s(tempName, "New plot name");
     }
 
-    void PlotData::SetDataToPlot(std::vector<double> data) // Yes, copy
+    void PlotData::SetDataToPlot(std::vector<RollingBuffer> data) // Yes, copy
     {
-        if (data.size() <= 0) return;
-
-        for (size_t i = 0; i < rdata.size(); i++)
-        {
-            if (i < data.size() - 1)
-                rdata.at(i).AddPoint(data[0], data[i + 1]);
-        }
+        this->rdata = data;
     }
 
-    void PlotData::PlotGraph(const std::vector<ColorPalette*>& plotColors)
+    void PlotData::PlotGraph(const std::vector<ColorPalette*>& plotColors, uint8_t dataNum)
     {
         for (uint32_t i = 0; i < rdata.size(); i++)
         {

@@ -1,3 +1,5 @@
+/// ScrollingBuffer.h - Class to manage a buffer that scrolls continuously.
+
 #ifndef _SCROLLINGBUFFER__H_
 #define _SCROLLINGBUFFER__H_
 

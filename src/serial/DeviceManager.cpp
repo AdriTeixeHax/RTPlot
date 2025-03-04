@@ -6,27 +6,26 @@ void RTPlot::DeviceManager::AddDevice(const char* port, Graphics* graphicsPtr)
 	if (!graphicsPtr) std::cerr << "[DeviceManager]: Graphics pointer is not valid." << std::endl;
 	
 	// Create the new component and asign it the serial port.
-	components.push_back(new DeviceComponent(port, graphicsPtr));
+	devices.push_back(new SerialPlotter(port, graphicsPtr));
 }
 
 void RTPlot::DeviceManager::RemoveDevice(uint8_t i)
 {
-	delete components[i];
-	components.erase(components.begin() + i);
+	delete devices[i];
+	devices.erase(devices.begin() + i);
 }
 
 void RTPlot::DeviceManager::PlotAllDevices(void)
 {
-	for (uint8_t i = 0; i < components.size(); i++)
+	for (uint8_t i = 0; i < devices.size(); i++)
 	{
-		if (!components[i]->GetPlotExitFlag(i)) return;
+		if (!devices[i]->GetPlotExitFlag(i)) return;
 
-		static const std::string prefix = "\\\\.\\"; // Part of the string to strip
-		std::string name = components[i]->GetPortName();
+		std::string name = devices[i]->GetPortName();
 		size_t pos; // Iterator
-		while ((pos = name.find(prefix)) != std::string::npos)
-			name.erase(pos, prefix.length());
+		while ((pos = name.find(LONG_COM_PORT_PREFIX)) != std::string::npos)
+			name.erase(pos, strlen(LONG_COM_PORT_PREFIX));
 
-		components[i]->Plot(name);
+		devices[i]->Plot(name);
 	}
 }

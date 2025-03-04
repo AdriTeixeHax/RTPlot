@@ -37,10 +37,10 @@ namespace RTPlot
         bool*              GetKillPtr(void) { return &killPlot; }
 
         // Setters
-        void SetDataToPlot(std::vector<double> data); // Yes, copy
+        void SetDataToPlot(std::vector<RollingBuffer> data); // Yes, copy
 
         // Actions
-        void PlotGraph(const std::vector<ColorPalette*>& plotColors);
+        void PlotGraph(const std::vector<ColorPalette*>& plotColors, uint8_t dataNum);
     };
 }
 

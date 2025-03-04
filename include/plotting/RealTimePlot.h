@@ -1,3 +1,5 @@
+/// RealTimePlot.h - Class to manage printing in real-time and other GUI functions.
+
 #ifndef _REALTIMEPLOT__H_
 #define _REALTIMEPLOT__H_
 
@@ -14,10 +16,9 @@ namespace RTPlot
         std::vector<ColorPalette*> plotColors;
         std::vector<PlotData*>     plotData;
         std::vector<RollingBuffer> basicData;
-        Graphics* graphicsPtr;
-        bool      plotExitFlag   = false;
-        bool      exitFlag       = true;
-        uint8_t   id             = 0;
+		uint8_t   dataNum = 1;                  // Number of variables to plot. First one is always time.
+		Graphics* graphicsPtr;                  // Pointer to the graphics object, needed to access some functions.
+		bool      exitFlag = true;              // If false, the object doesn't plot anymore.
 
     public:
         RealTimePlot(void) = delete;
@@ -28,7 +29,6 @@ namespace RTPlot
         bool GetPlotExitFlag(void) const { return exitFlag; }
 
         // Setters
-        void SetID        (uint8_t _id) { id = _id; }
         void SetDataToPlot(const std::vector<double>& data);
 
         // Actions

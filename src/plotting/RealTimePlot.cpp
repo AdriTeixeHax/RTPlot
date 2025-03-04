@@ -7,7 +7,7 @@ namespace RTPlot
     RealTimePlot::RealTimePlot(Graphics* graphicsPtr) :
         graphicsPtr(graphicsPtr)
     {
-        for (uint8_t i = 0; i < RTPLOT_DATA_NUM - 1; i++)
+        for (uint8_t i = 0; i < RTPLOT_MAX_DATA_NUM - 1; i++)
         {
             basicData.push_back(std::to_string(i));
             plotColors.push_back(new ColorPalette((ImVec4)ImColor::HSV(i / 7.0f, 1.0f, 1.0f), i));
@@ -24,11 +24,13 @@ namespace RTPlot
 
     void RealTimePlot::SetDataToPlot(const std::vector<double>& data)
     {
-        for (size_t i = 0; i < data.size() - 1; i++)
+        if (dataNum > data.size() || data.size() < 2) return;
+
+        for (size_t i = 0; i < dataNum - 1; i++)
             basicData.at(i).AddPoint(data[0], data[i + 1]);
 
         for (auto i : plotData)
-            i->SetDataToPlot(data);
+            i->SetDataToPlot(basicData);
     }
 
     int8_t RealTimePlot::Plot(const std::string& name, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable)
@@ -64,20 +66,37 @@ namespace RTPlot
             }
 
             ImGui::Begin(std::string(name + " - Data settings").c_str(), NULL);
+                ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.35f, 1.0f, 0.6f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.7f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.5f));
                 if (ImGui::Button("Add variable"))
                 {
-                    basicData.push_back(std::to_string(basicData.size()));
-                    plotColors.push_back(new ColorPalette((ImVec4)ImColor::HSV((plotColors.size()) / 7.0f, 1.0f, 1.0f), plotColors.size()));
-                    
-                    *addVariable = true;
-
-                    for (auto i : plotData)
-                        i->rdata = basicData;
+					if (dataNum < RTPLOT_MAX_DATA_NUM - 2) // IDK why 2 honestly
+						dataNum++;
                 }
+				ImGui::PopStyleColor(3);
+				ImGui::SameLine();
+
+                ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(0.0f, 1.0f, 0.6f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 0.7f, 0.7f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(0.0f, 0.7f, 0.5f));
+                if (ImGui::Button("Remove variable"))
+                {
+                    if (dataNum > 1) // 1 must be present (time)
+                    {
+                        for (size_t i = 0; i < plotData.size(); i++)
+                        {
+                            plotData[i]->rdata[dataNum].plotFlag = !plotData[i]->rdata[dataNum].plotFlag;
+                        }
+                        dataNum--;
+                    }
+                }
+                ImGui::PopStyleColor(3);
             ImGui::End();
 
             std::vector<std::string> currentNames;
-            for (uint8_t i = 0; i < basicData.size(); i++)
+            if (dataNum > basicData.size() - 1) return RTPLOT_ERROR;
+            for (uint8_t i = 0; i < dataNum - 1; i++)
             {
                 currentNames.push_back(basicData[i].name);
                 PlotVars(i, name, currentNames, command, sendCommand);
@@ -114,7 +133,10 @@ namespace RTPlot
                         {
                             std::string tempNameData = std::string((char*)payload->Data);
                             if (tempNameData == plotData[i]->rdata[j].name)
+                            {
                                 plotData[i]->rdata[j].plotFlag = !plotData[i]->rdata[j].plotFlag;
+                                break;
+                            }
                         }
                     }
                     ImGui::EndDragDropTarget();
@@ -238,7 +260,7 @@ namespace RTPlot
                 ImPlot::SetupAxisLimits(ImAxis_X1, 0, *(plotData[id]->history), ImGuiCond_Always);
                 ImPlot::SetupAxisLimits(ImAxis_Y1, -2, 2);
 
-                plotData[id]->PlotGraph(plotColors);
+                plotData[id]->PlotGraph(plotColors, dataNum);
 
                 ImPlot::EndPlot();
             }

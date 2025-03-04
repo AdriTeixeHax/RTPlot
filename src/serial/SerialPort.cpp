@@ -35,7 +35,7 @@ namespace RTPlot
 
 	bool SerialPort::Connect(void)
 	{
-		if (portName.rfind("\\\\.\\", 0) != 0) { std::cerr << "[SerialPort]: Couldn't connect. Invalid port name." << std::endl; }
+		if (portName.rfind(LONG_COM_PORT_PREFIX, 0) != 0) { std::cerr << "[SerialPort]: Couldn't connect. Invalid port name." << std::endl; }
 
 		hCOM = CreateFileA(reinterpret_cast<LPCSTR>(portName.c_str()), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 		if (!hCOM) if (verboseData) { std::cerr << "[SerialPort]: Invalid handle pointer." << std::endl; return false; }
@@ -100,7 +100,7 @@ namespace RTPlot
 		return false;
 	}
 
-	bool SerialPort::ClearBuffer(uint8_t flags) const
+	bool SerialPort::ClearBuffer(uint8_t flags)
 	{
 		if (PurgeComm(hCOM, flags))
 		{
@@ -117,7 +117,9 @@ namespace RTPlot
 	bool SerialPort::IsConnected(void) const
 	{
 		DWORD modemStatus = 0;
-		if (!hCOM || hCOM == 0) { std::cerr << "[SerialPort]: invalid handle." << std::endl; return false; }
+
+		// Error checking.
+		if (!hCOM || hCOM == 0) { if (verboseData) std::cerr << "[SerialPort]: invalid handle." << std::endl; return false; }
 		if (!GetCommModemStatus(hCOM, &modemStatus))
 		{
 			DWORD error = GetLastError();
@@ -128,16 +130,18 @@ namespace RTPlot
 		return connected;
 	}
 
-	const std::string& SerialPort::GetNameStr(void)
+	const std::string& SerialPort::GetNameStr(void) const
 	{
-		const std::string prefix = "\\\\.\\";
 		std::string result;
-		if (portName.rfind(prefix, 0) == 0) 
-		{ // Check if the string starts with the prefix
-			result = portName.substr(prefix.size());
+
+		// Check if the prefix is present and delete it if it is.
+		if (portName.rfind(LONG_COM_PORT_PREFIX, 0) == 0) 
+		{ 
+			// Substract the ammount of bytes in the prefix from the name.
+			result = portName.substr(strlen(LONG_COM_PORT_PREFIX));
 			return result;
 		}
-		else return portName; // Return the original string if no prefix is found
+		else return portName; // Return the original string if no prefix is found.
 	}
 
 	int8_t SerialPort::Read(LPVOID buf, DWORD size)
@@ -149,7 +153,7 @@ namespace RTPlot
 		static uint8_t readingCount = 0;
 
 		// Check COM status
-		Sleep(1); // Small delay to allow status update ¡IMPORTANT!
+		Sleep(readingDelay); // Small delay to allow status update ¡IMPORTANT!
 		ClearCommError(hCOM, &errors, &status);
 
 		if (status.cbInQue > 0) bytesToRead = (status.cbInQue >= size) ? size : status.cbInQue;
@@ -177,7 +181,7 @@ namespace RTPlot
 	}
 
 
-	int8_t SerialPort::Write(LPVOID buf, DWORD size) const
+	int8_t SerialPort::Write(LPVOID buf, DWORD size)
 	{
 		DWORD bytesWritten;
 		if (!WriteFile(hCOM, buf, size, &bytesWritten, NULL))
@@ -210,7 +214,6 @@ namespace RTPlot
 			{
 				ports.push_back(portNumber);
 			}
-			// else std::wcout << "[COM" << portNumber << "]: Error code " << GetLastError() << std::endl;
 			CloseHandle(hPort);
 		}
 

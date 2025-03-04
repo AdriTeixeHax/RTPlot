@@ -1,3 +1,5 @@
+/// RollingBuffer.h - Class to manage a buffer that scrolls after reaching a certain size or value.
+
 #ifndef _ROLLINGBUFFER__H_
 #define _ROLLINGBUFFER__H_
 
