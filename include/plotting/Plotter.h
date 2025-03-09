@@ -35,6 +35,7 @@ namespace RTPlot
 				*plotData  = *pdata.plotData;
 				 dataName  =  pdata.dataName;
 				strcpy_s(tempDataName, pdata.tempDataName);
+                plottable = pdata.plottable;
 			}
 			return *this;
 		}

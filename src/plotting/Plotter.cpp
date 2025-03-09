@@ -35,6 +35,7 @@ namespace RTPlot
         {
             *(data.at(i)->plotData)  = *(pData->at(i)->plotData);
             *(data.at(i)->plotColor) = *(pData->at(i)->plotColor);
+              data.at(i)->plottable  =   pData->at(i)->plottable;
         }
     }
 
@@ -47,12 +48,11 @@ namespace RTPlot
     {
         if (this != &pldata)
         {
-            for (uint32_t i = 0; i < fmin(pldata.GetDataSize(), this->GetDataSize()); i++)
+            this->data.clear();
+            for (uint32_t i = 0; i < pldata.GetDataSize(); i++)
 			{
-                *(this->data.at(i)->plotData)  = *(pldata.data.at(i)->plotData);
-                *(this->data.at(i)->plotColor) = *(pldata.data.at(i)->plotColor);
-                  this->data.at(i)->dataName   =   pldata.data.at(i)->dataName;
-				strcpy_s(this->data.at(i)->tempDataName, pldata.data.at(i)->tempDataName);
+                this->data.push_back(new PlotData(i, pldata.name.c_str()));
+                *(this->data.at(i)) = *(pldata.data.at(i));
 			}
 
             // Copy simple data types

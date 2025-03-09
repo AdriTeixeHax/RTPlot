@@ -16,6 +16,7 @@ namespace RTPlot // Had to rename the namespace because of linker issues. Class 
     RollingBuffer& RollingBuffer::operator=(const RollingBuffer& rbuf)
     {
         this->span = 10.0f;
+        this->plotFlag = rbuf.plotFlag;
         this->data.reserve(2000);
         for (size_t i = 0; i < fmin(data.size(), rbuf.data.size()); i++)
             this->data[i] = rbuf.data[i];

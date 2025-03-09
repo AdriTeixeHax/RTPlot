@@ -105,7 +105,8 @@ namespace RTPlot
                             std::string varName = plotters.at(i)->GetDataPtr()->at(j)->dataName;
                             if (payloadName == varName)
                             {
-                                RTPlot::Toggle(plotters.at(i)->GetDataPtr()->at(j)->plotData->GetPlotFlagRef());
+                                bool& plotFlag = plotters.at(i)->GetDataPtr()->at(j)->plotData->GetPlotFlagRef();
+                                RTPlot::Toggle(plotFlag);
                                 break;
                             }
                         }
@@ -136,10 +137,12 @@ namespace RTPlot
                 {
                     if (visibleVarsNum < RTPLOT_MAX_DATA_NUM - 1)
                     {
-                        visibleVarsNum++;
+                        basicData.at(visibleVarsNum)->plottable = true;
 
                         for (auto i : plotters)
-                            RTPlot::Toggle(i->GetDataPtr()->at(visibleVarsNum - 1)->plottable);
+                            i->GetDataPtr()->at(visibleVarsNum)->plottable = true;
+
+                        visibleVarsNum++;
                     }
                     else
                     {
@@ -159,8 +162,10 @@ namespace RTPlot
                 {
                     if (visibleVarsNum > 0)
                     {
+                        basicData.at(visibleVarsNum - 1)->plottable = false;
+
                         for (auto i : plotters)
-                            RTPlot::Toggle(i->GetDataPtr()->at(visibleVarsNum - 1)->plottable);
+                            i->GetDataPtr()->at(visibleVarsNum - 1)->plottable = false;
 
                         visibleVarsNum--;
                     }
