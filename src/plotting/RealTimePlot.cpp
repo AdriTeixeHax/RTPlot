@@ -123,9 +123,10 @@ namespace RTPlot
             ImGui::Begin(std::string(name + " - Data settings").c_str(), NULL);
                 // Number of variables visible and text flag
                 static size_t visibleVarsNum = 0;
-                static bool   maxVarsReached = false;
-                static bool   minVarsReached = false;
                 static bool   startTimeFlag  = true;
+
+                static std::string buttonMsg;
+                static bool buttonMsgFlag = false;
             
                 // "Add variable" button
                 ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.35f, 1.0f, 0.6f));
@@ -142,35 +143,15 @@ namespace RTPlot
                     }
                     else
                     {
-                        maxVarsReached = true;
                         startTimeFlag = true;
+                        buttonMsgFlag = true;
+                        buttonMsg = "Max. no. of variables reached!";
                     }
                 }
                 ImGui::PopStyleColor(3);
 
-                // Delayed message
-                if (maxVarsReached)
-                {
-                    static auto startTime = std::chrono::steady_clock::now();
-
-                    if (startTimeFlag == true)
-                    {
-                        startTime = std::chrono::steady_clock::now();
-                        startTimeFlag = false;
-                    }
-
-                    auto elapsed = (std::chrono::steady_clock::now() - startTime).count() / 1e6;
-
-                    if (elapsed >= 1000) // 1 second
-                    {
-                        maxVarsReached = false;
-                    }
-
-                    ImGui::SameLine();
-                    ImGui::Text("Max. no. of variables reached!");
-                }
-
                 // "Remove variable" button
+                ImGui::SameLine();
                 ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.0f, 1.0f, 0.6f));
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 0.7f, 0.7f));
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.0f, 0.7f, 0.5f));
@@ -185,14 +166,15 @@ namespace RTPlot
                     }
                     else
                     {
-                        minVarsReached = true;
                         startTimeFlag = true;
+                        buttonMsgFlag = true;
+                        buttonMsg = "There are no variables to remove!";
                     }
                 }
                 ImGui::PopStyleColor(3);
 
                 // Delayed message
-                if (minVarsReached)
+                if (buttonMsgFlag)
                 {
                     static auto startTime = std::chrono::steady_clock::now();
 
@@ -204,13 +186,12 @@ namespace RTPlot
 
                     auto elapsed = (std::chrono::steady_clock::now() - startTime).count() / 1e6;
 
-                    if (elapsed >= 1000) // 1 second
+                    if (elapsed <= 1000) // 1 second
                     {
-                        minVarsReached = false;
+                        ImGui::SameLine();
+                        ImGui::Text(buttonMsg.c_str());
                     }
-
-                    ImGui::SameLine();
-                    ImGui::Text("There are no variables to remove!");
+                    else buttonMsgFlag = false;
                 }
 
                 // Plot variable settings
