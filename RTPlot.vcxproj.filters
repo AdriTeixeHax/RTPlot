@@ -16,14 +16,17 @@
     <ClCompile Include="src\serial\SerialPort.cpp" />
     <ClCompile Include="src\serial\SerialDevice.cpp" />
     <ClCompile Include="src\plotting\RealTimePlot.cpp" />
-    <ClCompile Include="include\Graphics.h" />
-    <ClCompile Include="src\serial\DeviceManager.cpp" />
+    <ClCompile Include="include\core\RTPlotCore.h" />
+    <ClCompile Include="src\core\DeviceManager.cpp" />
     <ClCompile Include="src\serial\SerialPlotter.cpp" />
     <ClCompile Include="src\plotting\Logger.cpp" />
     <ClCompile Include="src\plotting\ScrollingBuffer.cpp" />
     <ClCompile Include="src\plotting\RollingBuffer.cpp" />
     <ClCompile Include="src\plotting\ColorPalette.cpp" />
-    <ClCompile Include="src\plotting\PlotData.cpp" />
+    <ClCompile Include="src\plotting\Plotter.cpp" />
+    <ClCompile Include="include\core\RTPlotFunctions.h" />
+    <ClCompile Include="src\core\RTPlotCore.cpp" />
+    <ClCompile Include="src\core\RTPlotFunctions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFW\glfw3.h" />
@@ -53,13 +56,13 @@
     <ClInclude Include="include\menus\Menu.h" />
     <ClInclude Include="include\windows\MainMenuWindow.h" />
     <ClInclude Include="include\plotting\Logger.h" />
-    <ClInclude Include="include\serial\DeviceManager.h" />
-    <ClInclude Include="include\RTPlotVars.h" />
+    <ClInclude Include="include\core\DeviceManager.h" />
+    <ClInclude Include="include\core\RTPlotVars.h" />
     <ClInclude Include="include\serial\SerialPlotter.h" />
     <ClInclude Include="include\plotting\ScrollingBuffer.h" />
     <ClInclude Include="include\plotting\RollingBuffer.h" />
     <ClInclude Include="include\plotting\ColorPalette.h" />
-    <ClInclude Include="include\plotting\PlotData.h" />
+    <ClInclude Include="include\plotting\Plotter.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />

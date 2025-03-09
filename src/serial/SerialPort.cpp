@@ -1,7 +1,5 @@
 #include <serial/SerialPort.h>
 
-#include <string>
-
 namespace RTPlot
 {
 	SerialPort::SerialPort(const std::string& _port, DWORD _baudRate, BYTE _byteSize, WORD _parity, bool _verboseData) : 
@@ -35,7 +33,7 @@ namespace RTPlot
 
 	bool SerialPort::Connect(void)
 	{
-		if (portName.rfind(LONG_COM_PORT_PREFIX, 0) != 0) { std::cerr << "[SerialPort]: Couldn't connect. Invalid port name." << std::endl; }
+		if (portName.rfind("\\\\.\\", 0) != 0) { std::cerr << "[SerialPort]: Couldn't connect. Invalid port name." << std::endl; }
 
 		hCOM = CreateFileA(reinterpret_cast<LPCSTR>(portName.c_str()), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
 		if (!hCOM) if (verboseData) { std::cerr << "[SerialPort]: Invalid handle pointer." << std::endl; return false; }
@@ -128,20 +126,6 @@ namespace RTPlot
 		}
 
 		return connected;
-	}
-
-	const std::string& SerialPort::GetNameStr(void) const
-	{
-		std::string result;
-
-		// Check if the prefix is present and delete it if it is.
-		if (portName.rfind(LONG_COM_PORT_PREFIX, 0) == 0) 
-		{ 
-			// Substract the ammount of bytes in the prefix from the name.
-			result = portName.substr(strlen(LONG_COM_PORT_PREFIX));
-			return result;
-		}
-		else return portName; // Return the original string if no prefix is found.
 	}
 
 	int8_t SerialPort::Read(LPVOID buf, DWORD size)

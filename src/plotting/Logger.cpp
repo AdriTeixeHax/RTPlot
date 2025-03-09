@@ -95,12 +95,16 @@ void ImGui::Log::AddLog(const char* fmt, ...) IM_FMTARGS(2)
 
 void ImGui::Log::ShowConsoleLog(const std::string& logMsg, bool* closable)
 {
-    static ImGui::Log log;
-
+    static std::string prevMsg = "";
+    
     ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
     ImGui::Begin("Console output", closable);
-    log.AddLog(logMsg.c_str());
+        if (prevMsg != logMsg)
+        {
+            prevMsg = logMsg;
+            AddLog(logMsg.c_str());
+        }
     ImGui::End();
 
-    log.Draw("Console output", closable);
+    Draw("Console output", closable);
 }

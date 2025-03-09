@@ -9,32 +9,32 @@
 #include <imgui/imgui_impl_glfw.h>
 
 #include <string>
+#include <vector>
 
 namespace RTPlot // Had to rename the namespace because of linker issues (honestly idfk wtf was going on there)
 {
-    struct RollingBuffer // Taken and modified from implot_demo.cpp
+    class RollingBuffer // Taken and modified from implot_demo.cpp
     {
         double span;
         ImVector<ImVec2> data;
-        std::string name;
-        char tempName[32];
         bool plotFlag = false;
 
-        RollingBuffer(void) = delete;
-        RollingBuffer(const std::string& _name);
+    public:
+        RollingBuffer(void);
         ~RollingBuffer(void);
+        RollingBuffer& operator=(const RollingBuffer& rbuf);
 
-        RollingBuffer operator=(const RollingBuffer& rbuf)
-        {
-            RollingBuffer result(rbuf.name);
-            result.data = rbuf.data;
-            strcpy_s(result.tempName, rbuf.tempName);
-            result.data.reserve(2000);
-            return result;
-        }
+        // Getters
+		bool              GetPlotFlag(void) { return plotFlag; }
+		bool&             GetPlotFlagRef(void) { return plotFlag; }
+		size_t            GetDataSize(void) const { return data.size(); }
+		ImVector<ImVec2>* GetDataPtr(void) { return &data; }
+		ImVector<ImVec2>& GetDataRef(void) { return data; }
 
-        char* GetNameCPtr(void) { static char cname[32]; strcpy_s(cname, name.c_str()); return cname; }
+        // Setters
+		void SetSpan(double _span) { span = _span; }
 
+        // Actions
         void AddPoint(double x, double y);
     };
 }

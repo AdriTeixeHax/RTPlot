@@ -60,7 +60,7 @@
     <Position X="7.75" Y="0.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AACAAAACAAAAAAggAAAAAAAACAAAECAIABAAAAABAAE=</HashCode>
-      <FileName>include\Graphics.h</FileName>
+      <FileName>include\RTPlotCore.h</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="RTPlot::PlotData">

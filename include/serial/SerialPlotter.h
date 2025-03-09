@@ -1,6 +1,7 @@
 /// SerialPlotter.h - Header file for the SerialPlotter class, used to manage information gathered from a SerialDevice object and plot it in real-time.
 
 #include <thread>
+#include <mutex>
 
 #include <serial/SerialDevice.h>
 #include <plotting/RealTimePlot.h>
@@ -24,17 +25,18 @@ namespace RTPlot
 
 		// Plotting
 		RealTimePlot* plotter;							// Real-time plot object
-		Graphics*	  graphicsPtr;						// Graphics object to access some necessary functions
+
+		// Mutex
+		std::mutex mutex;
 
 	public:
-		SerialPlotter(const char* port, Graphics* graphicsPtr);
+		SerialPlotter(const char* port);
 		~SerialPlotter(void);
 
 		// Getters
 		bool        GetPlotExitFlag(uint8_t i)  { return plotter->GetPlotExitFlag(); }
 		SerialPort* GetPort        (void)       { return serialDevice->GetPort(); }
 		std::string GetPortName    (void) const { return serialDevice->GetPort()->GetName(); }
-		std::string GetPortNameGUI (void) const;
 		bool		GetKillFlag    (void) const { return killFlag; }
 
 		// Functions

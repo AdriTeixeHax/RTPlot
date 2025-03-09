@@ -11,9 +11,9 @@
 
 #include <iostream>
 #include <vector>
-#include <RTPlotVars.h>
+#include <string>
 
-constexpr const char* LONG_COM_PORT_PREFIX = "\\\\.\\";
+#include <core/RTPlotVars.h>
 
 namespace RTPlot
 {
@@ -40,7 +40,6 @@ namespace RTPlot
 		// Getters
 		bool			   IsConnected(void) const;
 		const std::string& GetName    (void) const { return portName; }
-		const std::string& GetNameStr (void) const;
 
 		// Setters
 		void SetName(const std::string& name) { this->portName = name; }

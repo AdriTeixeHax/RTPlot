@@ -127,7 +127,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include;src/vendor;include/plotting;include/serial</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;src/vendor;include/core;include/plotting;include/serial</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,16 +158,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\Graphics.h" />
+    <ClCompile Include="include\core\RTPlotCore.h" />
+    <ClCompile Include="include\core\RTPlotFunctions.h" />
+    <ClCompile Include="src\core\RTPlotCore.cpp" />
+    <ClCompile Include="src\core\RTPlotFunctions.cpp" />
     <ClCompile Include="src\plotting\ColorPalette.cpp" />
     <ClCompile Include="src\plotting\Logger.cpp" />
-    <ClCompile Include="src\plotting\PlotData.cpp" />
+    <ClCompile Include="src\plotting\Plotter.cpp" />
     <ClCompile Include="src\plotting\RealTimePlot.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\plotting\RollingBuffer.cpp" />
     <ClCompile Include="src\plotting\ScrollingBuffer.cpp" />
     <ClCompile Include="src\serial\SerialPlotter.cpp" />
-    <ClCompile Include="src\serial\DeviceManager.cpp" />
+    <ClCompile Include="src\core\DeviceManager.cpp" />
     <ClCompile Include="src\serial\SerialDevice.cpp" />
     <ClCompile Include="src\serial\SerialPort.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui.cpp" />
@@ -189,13 +194,13 @@
     <ClInclude Include="include\GL\wglew.h" />
     <ClInclude Include="include\plotting\ColorPalette.h" />
     <ClInclude Include="include\plotting\Logger.h" />
-    <ClInclude Include="include\plotting\PlotData.h" />
+    <ClInclude Include="include\plotting\Plotter.h" />
     <ClInclude Include="include\plotting\RealTimePlot.h" />
     <ClInclude Include="include\plotting\RollingBuffer.h" />
     <ClInclude Include="include\plotting\ScrollingBuffer.h" />
-    <ClInclude Include="include\RTPlotVars.h" />
+    <ClInclude Include="include\core\RTPlotVars.h" />
     <ClInclude Include="include\serial\SerialPlotter.h" />
-    <ClInclude Include="include\serial\DeviceManager.h" />
+    <ClInclude Include="include\core\DeviceManager.h" />
     <ClInclude Include="include\serial\SerialDevice.h" />
     <ClInclude Include="include\serial\SerialPort.h" />
     <ClInclude Include="include\windows\DemoWindow.h" />

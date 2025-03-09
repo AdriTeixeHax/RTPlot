@@ -17,13 +17,13 @@ namespace RTPlot
 		~DeviceManager(void) { for (auto i : devices) delete i; }	
 
 		// Getters
-		uint8_t Size(void) { return devices.size(); }
+		size_t Size(void) const { return devices.size(); }
 		const std::vector<SerialPlotter*>& GetComponents(void) { return devices; }
-		SerialPlotter* operator[](uint8_t i) { return devices.at(i); }
+		SerialPlotter* operator[](size_t i) { return devices.at(i); }
 
 		// Actions
-		void AddDevice(const char* port, Graphics* graphicsPtr);
-		void RemoveDevice(uint8_t i);
+		void AddDevice(const char* port);
+		void RemoveDevice(size_t i);
 
 		void PlotAllDevices(void);
 	};

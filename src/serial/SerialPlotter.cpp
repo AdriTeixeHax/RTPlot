@@ -1,13 +1,11 @@
 #include <serial/SerialPlotter.h>
-#include <RTPlotVars.h>
+#include <core/RTPlotVars.h>
 
-RTPlot::SerialPlotter::SerialPlotter(const char* port, Graphics* graphicsPtr) :
-	plotter(new RealTimePlot(graphicsPtr)),
+RTPlot::SerialPlotter::SerialPlotter(const char* port) :
+	plotter(new RealTimePlot),
 	serialDevice(new SerialDevice(port))
 {
-    this->graphicsPtr = graphicsPtr;  
 	serialCommThread = std::thread(&SerialPlotter::SerialFunc, this);
-
 	strcpy_s(commandToSend, "");
 }
 
@@ -19,18 +17,12 @@ RTPlot::SerialPlotter::~SerialPlotter(void)
     delete plotter;
 }
 
-std::string RTPlot::SerialPlotter::GetPortNameGUI(void) const 
-{
-    std::string name = this->GetPortName();
-    size_t pos; // Iterator
-    while ((pos = name.find(LONG_COM_PORT_PREFIX)) != std::string::npos)
-        name.erase(pos, strlen(LONG_COM_PORT_PREFIX));
-    return name;
-}
-
 void RTPlot::SerialPlotter::Plot(const std::string& portName)
 {
+    mutex.lock();
     plotter->Plot(portName, &killFlag, commandToSend, &sendCommand, &addVariable, &varToRemove, &removeVariable);
+	mutex.unlock();
+
     if (addVariable)
     {
         serialDevice->GetReadingPtr()->push_back(0.0f);
@@ -43,7 +35,10 @@ void RTPlot::SerialPlotter::SerialFunc(void)
     while (!exitCommThreadFlag)
     {
         serialDevice->Recieve();
+
+        mutex.lock();
         plotter->SetDataToPlot(serialDevice->GetReadingVals());
+		mutex.unlock();
 
         if (sendCommand)
         {
