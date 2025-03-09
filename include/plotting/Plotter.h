@@ -69,14 +69,14 @@ namespace RTPlot
 		char*                   GetTempName  (void)       { return  tempName; }
         bool*                   GetKillPtr   (void)       { return &killPlot; }
 		float*                  GetHistoryPtr(void)       { return  history; }
-        float                   GetHistory   (void) const { return *history;}
-
+        float                   GetHistory   (void) const { return *history; }
+        
         // Setters
-        void SetDataToPlot(const std::vector<double>& originalData);
+        void                    SetDataToPlot(const std::vector<double>& originalData);
 
         // Actions
-        void PlotGraph(void);
-        void ColorPicker(uint32_t id) { if (data.size() > id) data.at(id)->plotColor->ColorPicker(); }
+        void                    PlotGraph(void);
+        void                    ColorPicker(uint32_t id) { if (data.size() > id) data.at(id)->plotColor->ColorPicker(); }
     };
 }
 

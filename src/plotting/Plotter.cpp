@@ -93,7 +93,7 @@ namespace RTPlot
 
             if (size <= 0) return;
 
-            if (this->plotFlag && rdata->GetPlotFlag())
+            if (this->plotFlag && rdata->GetPlotFlag() && data.at(i)->plottable)
             {
                 ImPlot::PushStyleColor(ImPlotCol_Line, color->GetColor());
                 ImPlot::PlotLine(name, &rdata->GetDataRef()[0].x, &rdata->GetDataRef()[0].y, size, 0, 0, 2 * sizeof(float));

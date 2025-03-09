@@ -28,40 +28,40 @@ namespace RTPlot
     class RTPlotCore
     {
         // Flags
-        bool verboseFlag        = true;
-        bool ImGuiDemoFlag      = false;
-        bool ImPlotDemoFlag     = false;
-        bool consoleLogFlag     = true;
-        bool showAddPlotFlag    = false;
-        bool serialOptionsFlag  = true;
-        bool showDeletePlotFlag = true;
+        bool                 verboseFlag        = true;
+        bool                 ImGuiDemoFlag      = false;
+        bool                 ImPlotDemoFlag     = false;
+        bool                 consoleLogFlag     = true;
+        bool                 showAddPlotFlag    = false;
+        bool                 serialOptionsFlag  = true;
+        bool                 showDeletePlotFlag = true;
 
         std::vector<uint8_t> serialPorts;
         std::string          logMsg;
 		ImGui::Log		     log;
 
     public:
-        GLFWwindow*   window;
-        ImFont*       largeFont;
-        DeviceManager deviceManager;
+        GLFWwindow*          window;
+        ImFont*              largeFont;
+        DeviceManager        deviceManager;
 
     public:
         RTPlotCore(void) : window(nullptr), largeFont(new ImFont) { }
         ~RTPlotCore(void) { } // window and font pointers are deleted by the ImGui library
         
-        bool GraphicsInit       (void);
-        bool GuiInit            (void);
-        bool LoadLogo           (void);
-        void NewFrame           (void);
-        void EndFrame           (void);
-        void MenuBar            (void);
-        void SerialOptionsWindow(void);
-        void WelcomeWindow      (void);
-        void DemoWindows        (void);
-        void ShowLog            (void);
-        void DeleteComponents   (void);
-        void ShutDown           (void);
-        ImFont* GetLargeFontPtr (void);
+        bool    GraphicsInit       (void);
+        bool    GuiInit            (void);
+        bool    LoadLogo           (void);
+        void    NewFrame           (void);
+        void    EndFrame           (void);
+        void    MenuBar            (void);
+        void    SerialOptionsWindow(void);
+        void    WelcomeWindow      (void);
+        void    DemoWindows        (void);
+        void    ShowLog            (void);
+        void    DeleteComponents   (void);
+        void    ShutDown           (void);
+        ImFont* GetLargeFontPtr    (void);
     };
 }
 

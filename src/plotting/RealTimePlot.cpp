@@ -5,8 +5,8 @@
 #include <thread>
 #include <iostream>
 
-#include <core/RTPlotVars.h>
-#include <core/RTPlotFunctions.h>
+#include <RTPlotVars.h>
+#include <RTPlotFunctions.h>
 
 namespace RTPlot
 {
@@ -121,17 +121,54 @@ namespace RTPlot
 
             // Variable modification window. Lives inside the other window so that it can close with it.
             ImGui::Begin(std::string(name + " - Data settings").c_str(), NULL);
+                // Number of variables visible and text flag
+                static size_t visibleVarsNum = 0;
+                static bool   maxVarsReached = false;
+                static bool   minVarsReached = false;
+                static bool   startTimeFlag  = true;
+            
                 // "Add variable" button
                 ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.35f, 1.0f, 0.6f));
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.7f));
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.5f));
                 if (ImGui::Button("Add variable"))
                 {
-                    //if (dataNum < RTPLOT_MAX_DATA_NUM - 2) // IDK why 2 honestly
-                    //    dataNum++;
+                    if (visibleVarsNum < RTPLOT_MAX_DATA_NUM - 1)
+                    {
+                        visibleVarsNum++;
+
+                        for (auto i : plotters)
+                            RTPlot::Toggle(i->GetDataPtr()->at(visibleVarsNum - 1)->plottable);
+                    }
+                    else
+                    {
+                        maxVarsReached = true;
+                        startTimeFlag = true;
+                    }
                 }
                 ImGui::PopStyleColor(3);
-                ImGui::SameLine();
+
+                // Delayed message
+                if (maxVarsReached)
+                {
+                    static auto startTime = std::chrono::steady_clock::now();
+
+                    if (startTimeFlag == true)
+                    {
+                        startTime = std::chrono::steady_clock::now();
+                        startTimeFlag = false;
+                    }
+
+                    auto elapsed = (std::chrono::steady_clock::now() - startTime).count() / 1e6;
+
+                    if (elapsed >= 1000) // 1 second
+                    {
+                        maxVarsReached = false;
+                    }
+
+                    ImGui::SameLine();
+                    ImGui::Text("Max. no. of variables reached!");
+                }
 
                 // "Remove variable" button
                 ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.0f, 1.0f, 0.6f));
@@ -139,23 +176,53 @@ namespace RTPlot
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.0f, 0.7f, 0.5f));
                 if (ImGui::Button("Remove variable"))
                 {
-                    //if (dataNum > 1) // 1 must be present (time)
-                    //{
-                    //    for (size_t i = 0; i < plotters.size(); i++)
-                    //    {
-                    //        RTPlot::Toggle(plotters.at(i)->GetDataPtr()->at(dataNum - 1)->plotData->GetPlotFlagRef());
-                    //    }
-                    //    dataNum--;
-                    //}
+                    if (visibleVarsNum > 0)
+                    {
+                        for (auto i : plotters)
+                            RTPlot::Toggle(i->GetDataPtr()->at(visibleVarsNum - 1)->plottable);
+
+                        visibleVarsNum--;
+                    }
+                    else
+                    {
+                        minVarsReached = true;
+                        startTimeFlag = true;
+                    }
                 }
                 ImGui::PopStyleColor(3);
 
+                // Delayed message
+                if (minVarsReached)
+                {
+                    static auto startTime = std::chrono::steady_clock::now();
+
+                    if (startTimeFlag == true)
+                    {
+                        startTime = std::chrono::steady_clock::now();
+                        startTimeFlag = false;
+                    }
+
+                    auto elapsed = (std::chrono::steady_clock::now() - startTime).count() / 1e6;
+
+                    if (elapsed >= 1000) // 1 second
+                    {
+                        minVarsReached = false;
+                    }
+
+                    ImGui::SameLine();
+                    ImGui::Text("There are no variables to remove!");
+                }
+
                 // Plot variable settings
                 std::vector<std::string> currentNames;
-                for (uint8_t i = 0; i < basicData.size(); i++)
+                for (uint8_t i = 0; i < plotters.at(0)->GetDataPtr()->size(); i++)
                 {
-                    currentNames.push_back(plotters.at(0)->GetDataPtr()->at(i)->dataName);
-                    PlotVars(i, name, currentNames, command, sendCommand);
+                    PlotData* data = plotters.at(0)->GetDataPtr()->at(i);
+
+                    currentNames.push_back(data->dataName);
+
+                    if (data->plottable)
+                        PlotVars(i, name, currentNames, command, sendCommand);
                 }
             ImGui::End();
 

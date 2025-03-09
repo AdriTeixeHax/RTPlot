@@ -15,9 +15,9 @@ namespace RTPlot // Had to rename the namespace because of linker issues (honest
 {
     class RollingBuffer // Taken and modified from implot_demo.cpp
     {
-        double span;
         ImVector<ImVec2> data;
-        bool plotFlag = false;
+        double           span;
+        bool             plotFlag = false;
 
     public:
         RollingBuffer(void);
@@ -32,10 +32,10 @@ namespace RTPlot // Had to rename the namespace because of linker issues (honest
 		ImVector<ImVec2>& GetDataRef(void) { return data; }
 
         // Setters
-		void SetSpan(double _span) { span = _span; }
+		void              SetSpan(double _span) { span = _span; }
 
         // Actions
-        void AddPoint(double x, double y);
+        void              AddPoint(double x, double y);
     };
 }
 

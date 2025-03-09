@@ -18,10 +18,10 @@ namespace RTPlot
         ~RealTimePlot(void);
 
         // Getters
-        bool GetPlotExitFlag(void) const { return exitFlag; }
+        bool   GetPlotExitFlag(void) const { return exitFlag; }
 
         // Setters
-        void SetDataToPlot(const std::vector<double>& data);
+        void   SetDataToPlot(const std::vector<double>& data);
 
         // Actions
         int8_t Plot(const std::string& name, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable);
