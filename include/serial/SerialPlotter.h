@@ -39,6 +39,9 @@ namespace RTPlot
 		std::string GetPortName    (void) const { return serialDevice->GetPort()->GetName(); }
 		bool		GetKillFlag    (void) const { return killFlag; }
 
+		// Setters
+		void SetReadingDelay(uint8_t delay) { serialDevice->GetPort()->SetReadingDelay(delay); }
+
 		// Functions
 		void Plot(const std::string& portName);
 

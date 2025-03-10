@@ -14,7 +14,7 @@ namespace RTPlot
         name = "New Plot";
         strcpy_s(tempName, "New plot name");
 
-		for (uint8_t i = 0; i < RTPLOT_DATA_SIZE - 1; i++)
+		for (size_t i = 0; i < RTPLOT_DATA_SIZE - 1; i++)
 		{
 			data.push_back(new PlotData(i, std::to_string(i).c_str()));
 		}
@@ -26,7 +26,7 @@ namespace RTPlot
         name = "New Plot";
         strcpy_s(tempName, "New plot name");
 
-        for (uint8_t i = 0; i < pData->size(); i++)
+        for (size_t i = 0; i < pData->size(); i++)
         {
             data.push_back(new PlotData(i, std::to_string(i).c_str()));
         }

@@ -24,7 +24,7 @@ namespace RTPlot
 		WORD         parity;		   // Parity type
 		bool         connected;		   // Connection status
 		bool		 verboseData;	   // Send messages or not through console
-		uint8_t		 readingDelay = 1; // Delay to allow status update
+		uint8_t		 readingDelay = 5; // Delay to allow status update
 		DWORD        errors;		   // Error messages
 		DWORD        baudRate;		   // Baud rate (CBR_XXXXXX)
 		HANDLE       hCOM;			   // Handle variable for the COM port
@@ -45,6 +45,7 @@ namespace RTPlot
 		void SetName(const std::string& name) { this->portName = name; }
 		void SetVerbose(bool vb) { verboseData = vb; }
 		void SetTimeouts(DWORD WriteTotalMultiplier = 10, DWORD ReadTotalMultiplier = 10, DWORD ReadInterval = 50, DWORD ReadTotalConstant = 1000, DWORD WriteTotalConstant = 1000);
+		void SetReadingDelay(uint8_t delay) { readingDelay = delay; }
 
 		// Actions
 		bool   Connect(void);

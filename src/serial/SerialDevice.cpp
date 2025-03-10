@@ -105,7 +105,8 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
         }
     }
 
-    // Cast the data into a double.
+    // Cast the data into a double, unless t = 0 (invalid)
+    if (atof(finalMsg[0]) < RTPLOT_TOLERANCE_DELTA) return RTPLOT_ERROR;
     for (uint8_t i = 0; i < RTPLOT_MAX_DATA_NUM; i++)
         readingVals.at(i) = atof(finalMsg[i]);
 

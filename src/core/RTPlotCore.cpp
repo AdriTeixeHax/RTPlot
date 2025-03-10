@@ -199,19 +199,27 @@ void RTPlot::RTPlotCore::SerialOptionsWindow(void)
     {
         ImGui::Begin("Serial Options", &serialOptionsFlag);
         static int wtm = 10, rtm = 10, ri = 50, rtc = 1000, wtc = 1000; // Serial parameters
+        static int readingDelay = 5;
 
+        if (ImGui::Button("Apply"))
+        {
+            for (uint8_t i = 0; i < deviceManager.Size(); i++)
+            {
+                deviceManager[i]->GetPort()->SetTimeouts(wtm, rtm, ri, rtc, wtc);
+                deviceManager[i]->SetReadingDelay(abs(readingDelay)); // abs just in case some negative number ends up there.
+            }
+            logMsg = "Applied serial parameters.\n";
+        }
+
+        ImGui::SeparatorText("RTPlot port options");
+        ImGui::InputInt("Reading Delay", &readingDelay);
+
+        ImGui::SeparatorText("Windows port options");
         ImGui::InputInt("Write Total Multiplier", &wtm);
         ImGui::InputInt("Write Total Constant", &wtc);
         ImGui::InputInt("Read Total Multiplier", &rtm);
         ImGui::InputInt("Read Total Constant", &rtc);
         ImGui::InputInt("Read Interval", &ri);
-
-        if (ImGui::Button("Apply"))
-        {
-            for (uint8_t i = 0; i < deviceManager.Size(); i++)
-                deviceManager[i]->GetPort()->SetTimeouts(wtm, rtm, ri, rtc, wtc);
-            logMsg = "Applied serial parameters.\n";
-        }
 
         ImGui::End();
     }

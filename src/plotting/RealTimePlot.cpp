@@ -1,6 +1,6 @@
 #include <plotting/RealTimePlot.h>
 
-#include <../src/vendor/implot/implot.h>
+#include <implot/implot.h>
 
 #include <thread>
 #include <iostream>
@@ -69,24 +69,24 @@ namespace RTPlot
             }
 
             /// BEGIN Test environmet for PI controller
-            static float kiVal = 0, kpVal = 0;
+            //static float kiVal = 0, kpVal = 0;
 
-            ImGui::InputFloat("Ki", &kiVal);
-            ImGui::InputFloat("Kp", &kpVal);
-            ImGui::SameLine();
-            if (ImGui::Button("Apply"))
-            {
-                char tempCommand[32] = "";
-                snprintf(tempCommand, sizeof(tempCommand), "bKi:%.3f;", kiVal);
-                strcpy_s(command, sizeof(tempCommand), tempCommand);
-                *sendCommand = true;
+            //ImGui::InputFloat("Ki", &kiVal);
+            //ImGui::InputFloat("Kp", &kpVal);
+            //ImGui::SameLine();
+            //if (ImGui::Button("Apply"))
+            //{
+            //    char tempCommand[32] = "";
+            //    snprintf(tempCommand, sizeof(tempCommand), "bKi:%.3f;", kiVal);
+            //    strcpy_s(command, sizeof(tempCommand), tempCommand);
+            //    *sendCommand = true;
 
-                while (*sendCommand) std::this_thread::yield();
+            //    while (*sendCommand) std::this_thread::yield(); // wait until the command completes
 
-                snprintf(tempCommand, sizeof(tempCommand), "bKp:%.3f;", kpVal);
-                strcpy_s(command, sizeof(tempCommand), tempCommand);
-                *sendCommand = true;
-            }
+            //    snprintf(tempCommand, sizeof(tempCommand), "bKp:%.3f;", kpVal);
+            //    strcpy_s(command, sizeof(tempCommand), tempCommand);
+            //    *sendCommand = true;
+            //}
             /// END test environment
 
             // Plot graphs for all plots
@@ -200,6 +200,7 @@ namespace RTPlot
 
                 // Plot variable settings
                 std::vector<std::string> currentNames;
+                if (plotters.empty()) return -1;
                 for (uint8_t i = 0; i < plotters.at(0)->GetDataPtr()->size(); i++)
                 {
                     PlotData* data = plotters.at(0)->GetDataPtr()->at(i);
@@ -260,7 +261,7 @@ namespace RTPlot
                 ImGui::SameLine();
 
                 ImGui::PushItemWidth(availX - 216);
-                if (ImGui::InputText("##", tempName, sizeof(tempName), ImGuiInputTextFlags_EnterReturnsTrue))
+                if (ImGui::InputText("##", tempName, RTPLOT_TEMP_NAME_LEN, ImGuiInputTextFlags_EnterReturnsTrue))
                 {
                     if (!sameNameFlag && !emptyFlag)
                     {
@@ -315,7 +316,7 @@ namespace RTPlot
 			// Change plot name
             ImGui::SameLine();
             ImGui::PushItemWidth(availX - 217);
-            if (ImGui::InputText("##", plotters.at(id)->GetTempName(), strlen(plotters.at(id)->GetTempName()), ImGuiInputTextFlags_EnterReturnsTrue))
+            if (ImGui::InputText("##", plotters.at(id)->GetTempName(), RTPLOT_TEMP_NAME_LEN, ImGuiInputTextFlags_EnterReturnsTrue))
             {
                 *(plotters.at(id)->GetNamePtr()) = plotters.at(id)->GetTempName();
             }

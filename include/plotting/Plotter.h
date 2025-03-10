@@ -7,6 +7,7 @@
 
 #include <plotting/RollingBuffer.h>
 #include <plotting/ColorPalette.h>
+#include <RTPlotVars.h>
 
 namespace RTPlot
 {
@@ -15,7 +16,7 @@ namespace RTPlot
         ColorPalette*  plotColor;
         RollingBuffer* plotData;
         std::string    dataName;
-        char           tempDataName[32];
+        char           tempDataName[RTPLOT_TEMP_NAME_LEN];
         bool           plottable = false;
 
         PlotData(void) = delete;
@@ -48,7 +49,7 @@ namespace RTPlot
     {
         std::vector<PlotData*> data;
         std::string            name;
-        char                   tempName[32];
+        char                   tempName[RTPLOT_TEMP_NAME_LEN];
         bool                   plotFlag = true;
         bool                   killPlot = false;
         float*                 history; 
