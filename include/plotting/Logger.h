@@ -1,3 +1,5 @@
+/// Logger.h - Header file for the Logger class, used to manage the console log in the ImGui window.
+
 #ifndef _LOGGER__H_
 #define _LOGGER__H_
 
@@ -24,7 +26,7 @@ namespace ImGui
         void Draw(const char* title, bool* p_open = NULL);
         void AddLog(const char* fmt, ...);
 
-        static void ShowConsoleLog(const std::string& logMsg, bool* closable);
+        void ShowConsoleLog(const std::string& logMsg, bool* closable);
     };
 }
 

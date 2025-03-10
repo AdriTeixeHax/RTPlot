@@ -1,7 +1,5 @@
 #include <serial/SerialPort.h>
 
-#include <string>
-
 namespace RTPlot
 {
 	SerialPort::SerialPort(const std::string& _port, DWORD _baudRate, BYTE _byteSize, WORD _parity, bool _verboseData) : 
@@ -100,7 +98,7 @@ namespace RTPlot
 		return false;
 	}
 
-	bool SerialPort::ClearBuffer(uint8_t flags) const
+	bool SerialPort::ClearBuffer(uint8_t flags)
 	{
 		if (PurgeComm(hCOM, flags))
 		{
@@ -117,7 +115,9 @@ namespace RTPlot
 	bool SerialPort::IsConnected(void) const
 	{
 		DWORD modemStatus = 0;
-		if (!hCOM || hCOM == 0) { std::cerr << "[SerialPort]: invalid handle." << std::endl; return false; }
+
+		// Error checking.
+		if (!hCOM || hCOM == 0) { if (verboseData) std::cerr << "[SerialPort]: invalid handle." << std::endl; return false; }
 		if (!GetCommModemStatus(hCOM, &modemStatus))
 		{
 			DWORD error = GetLastError();
@@ -128,34 +128,23 @@ namespace RTPlot
 		return connected;
 	}
 
-	const std::string& SerialPort::GetNameStr(void)
-	{
-		const std::string prefix = "\\\\.\\";
-		std::string result;
-		if (portName.rfind(prefix, 0) == 0) 
-		{ // Check if the string starts with the prefix
-			result = portName.substr(prefix.size());
-			return result;
-		}
-		else return portName; // Return the original string if no prefix is found
-	}
-
 	int8_t SerialPort::Read(LPVOID buf, DWORD size)
 	{
-		if (!hCOM || hCOM == 0) { std::cerr << "[SerialPort]: invalid handle value." << std::endl; return -1; }
-		
-		DWORD bytesRead;
-		DWORD bytesToRead = 0;
+		if (!hCOM) { std::cerr << "[SerialPort]: invalid handle value." << std::endl; return -1; }
 
+		DWORD bytesRead = 0;
+		DWORD bytesToRead = 0;
+		static uint8_t readingCount = 0;
+
+		// Check COM status
+		Sleep(readingDelay); // Small delay to allow status update ¡IMPORTANT!
 		ClearCommError(hCOM, &errors, &status);
 
-		if (status.cbInQue > 0)
-		{
-			if (status.cbInQue >= size) bytesToRead = size;
-			else bytesToRead = status.cbInQue;
-		}
+		if (status.cbInQue > 0) bytesToRead = (status.cbInQue >= size) ? size : status.cbInQue;
 
-		static uint8_t readingCount = 0;
+		if (bytesToRead == 0) return RTPLOT_READING; // Avoid zero-byte reads
+
+		// If repeated reading failures, clear the buffer
 		if (readingCount >= 5)
 		{
 			ClearBuffer(PURGE_RXCLEAR);
@@ -164,19 +153,19 @@ namespace RTPlot
 
 		if (ReadFile(hCOM, buf, bytesToRead, &bytesRead, NULL))
 		{
-			if (bytesRead == bytesToRead)   { return RTPLOT_FINISHED; readingCount++; }
-			else if (bytesRead < bytesToRead) return RTPLOT_READING;
-			else if (bytesRead > bytesToRead) return RTPLOT_ERROR;
+			if (bytesRead == bytesToRead) { readingCount = 0; return RTPLOT_FINISHED; }
+			else return RTPLOT_READING;
 		}
 		else
 		{
-			if (verboseData) std::cerr << "[SerialPort]: Error reading from COM port handler. Error: " << GetLastError() << std::endl;
-			if (GetLastError() == 0x3E6) std::cerr << "[SerialPort]: Invalid access to memory location." << std::endl;
+			readingCount++;
+			if (verboseData) std::cerr << "[SerialPort]: Error reading from COM port. Error: " << GetLastError() << std::endl;
 			return RTPLOT_ERROR;
 		}
 	}
 
-	int8_t SerialPort::Write(LPVOID buf, DWORD size) const
+
+	int8_t SerialPort::Write(LPVOID buf, DWORD size)
 	{
 		DWORD bytesWritten;
 		if (!WriteFile(hCOM, buf, size, &bytesWritten, NULL))
@@ -209,7 +198,6 @@ namespace RTPlot
 			{
 				ports.push_back(portNumber);
 			}
-			// else std::wcout << "[COM" << portNumber << "]: Error code " << GetLastError() << std::endl;
 			CloseHandle(hPort);
 		}
 

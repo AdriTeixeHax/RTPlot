@@ -1,7 +1,9 @@
+/// ScrollingBuffer.h - Class to manage a buffer that scrolls continuously.
+
 #ifndef _SCROLLINGBUFFER__H_
 #define _SCROLLINGBUFFER__H_
 
-#include <../Graphics.h>
+#include <../src/vendor/imgui/imgui.h>
 
 namespace RTPlot // Had to rename the namespace because of linker issues
 {

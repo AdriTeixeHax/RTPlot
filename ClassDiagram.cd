@@ -1,67 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ImGui::Log">
-    <Position X="2.75" Y="2.75" Width="1.5" />
+  <Class Name="RTPlot::ColorPalette" Collapsed="true">
+    <Position X="4" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAAgAACAAAAgAAAAAAAAAAAhgAAAAAAAAEAABAAAA=</HashCode>
-      <FileName>include\plotting\Logger.h</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAQAACAAAAAAAAAAgA=</HashCode>
+      <FileName>include\plotting\ColorPalette.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RTPlot::RealTimePlot">
-    <Position X="4.5" Y="2.75" Width="1.5" />
+    <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQIAAAEAAQAAAAAgABAAAAAAQCCAAAgAAAEAABAAgA=</HashCode>
+      <HashCode>AACIAAAAQAAAQAAAgAAAAACAAQACEAIAAgAEAAAAAgg=</HashCode>
       <FileName>include\plotting\RealTimePlot.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="RTPlot::RollingBuffer">
-    <Position X="6.25" Y="2.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAwAAAAAAA=</HashCode>
-      <FileName>include\plotting\RollingBuffer.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="RTPlot::ScrollingBuffer">
-    <Position X="8" Y="2.75" Width="1.5" />
+  <Class Name="RTPlot::ScrollingBuffer" Collapsed="true">
+    <Position X="2.25" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAQAAAAAAAAAAABCAACAAAAAAAQAAAAAAA=</HashCode>
       <FileName>include\plotting\ScrollingBuffer.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="RTPlot::Graphics">
-    <Position X="1" Y="2.75" Width="1.5" />
+  <Class Name="ImGui::Log" Collapsed="true">
+    <Position X="5.75" Y="0.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAAAgAAAAAAAAACAAAECAIABAAAAABAAE=</HashCode>
-      <FileName>include\Graphics.h</FileName>
+      <HashCode>AAIAAgAACAAAAgAAAAAAAAAAAhgAAAAAAAAEAABAAAA=</HashCode>
+      <FileName>include\plotting\Logger.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="RTPlot::DeviceComponents">
-    <Position X="10.75" Y="0.5" Width="1.75" />
+  <Class Name="RTPlot::DeviceComponent">
+    <Position X="7.75" Y="1.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAABEAAAAAAAAAIQAAAAAZAgEEAAFAIoA=</HashCode>
-      <FileName>include\serial\DeviceComponents.h</FileName>
+      <HashCode>AAAAAAAAAAAACAEAAAAAwAAEIQQAAAAQAAAGkAgAErg=</HashCode>
+      <FileName>include\serial\DeviceComponent.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RTPlot::DeviceManager">
-    <Position X="12.75" Y="0.5" Width="1.75" />
+    <Position X="5.75" Y="1.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>IAAQAAAAAAAAgAAAAACAAAAAAA0AAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQAAAAAAAAgAAAAACAAAAgAA0AAAAAAAAQAAAAAAA=</HashCode>
       <FileName>include\serial\DeviceManager.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RTPlot::SerialDevice">
-    <Position X="15" Y="0.5" Width="2.25" />
+    <Position X="9.75" Y="1.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAAMAIAQABAAEAAACAAAAAAAAgAAAACAABAAYA=</HashCode>
+      <HashCode>ABAAAAAAMAAAQABAAEAIAAAAgAAAAAgAAAACAABAAYA=</HashCode>
       <FileName>include\serial\SerialDevice.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="RTPlot::SerialPort">
-    <Position X="17.5" Y="0.5" Width="2" />
+  <Class Name="RTPlot::SerialPort" Collapsed="true">
+    <Position X="9.75" Y="0.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>ABRBAAbAAAIAAABABgEAAIAgABAEAAAAAAAAQAFAhAA=</HashCode>
+      <HashCode>ABRBAAbAAAIAAABABgEAAIAoABAEAAAAAAAAQAFAhAA=</HashCode>
       <FileName>include\serial\SerialPort.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="RTPlot::Graphics" Collapsed="true">
+    <Position X="7.75" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AACAAAACAAAAAAggAAAAAAAACAAAECAIABAAAAABAAE=</HashCode>
+      <FileName>include\RTPlotCore.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="RTPlot::PlotData">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQIQAAAAAAAAAAAAAAAAAAEEAAgCAEiAAAABgA=</HashCode>
+      <FileName>include\plotting\PlotData.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="RTPlot::RollingBuffer">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAgAQAAAAAAAAAAAAAAAEAAgACAEwAAAAAAA=</HashCode>
+      <FileName>include\plotting\RollingBuffer.h</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
