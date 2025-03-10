@@ -9,9 +9,10 @@ namespace RTPlot
 {
 	class RealTimePlot
 	{
-		std::vector<Plotter*>  plotters;        // Array of plotter objects. No. of plotters = no. of graphs.
-		std::vector<PlotData*> basicData;       // Basic array to store a copy of the obtained values from the serial port.
-		bool                   exitFlag = true; // If false, the object doesn't plot anymore.
+		std::vector<Plotter*>  plotters;           // Array of plotter objects. No. of plotters = no. of graphs.
+		std::vector<PlotData*> basicData;          // Basic array to store a copy of the obtained values from the serial port.
+		bool                   exitFlag = true;    // If false, the object doesn't plot anymore.
+        size_t                 visibleVarsNum = 0; // Number of visible variables
 
     public:
         RealTimePlot(void);

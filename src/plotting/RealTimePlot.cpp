@@ -23,6 +23,7 @@ namespace RTPlot
     RealTimePlot::~RealTimePlot(void)
     {
         for (auto i : plotters) delete i;
+        for (auto i : basicData) delete i;
     }
 
     void RealTimePlot::SetDataToPlot(const std::vector<double>& originalData)
@@ -123,11 +124,9 @@ namespace RTPlot
             // Variable modification window. Lives inside the other window so that it can close with it.
             ImGui::Begin(std::string(name + " - Data settings").c_str(), NULL);
                 // Number of variables visible and text flag
-                static size_t visibleVarsNum = 0;
-                static bool   startTimeFlag  = true;
-
-                static std::string buttonMsg;
+                static bool startTimeFlag = true;
                 static bool buttonMsgFlag = false;
+                static std::string buttonMsg;
             
                 // "Add variable" button
                 ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.35f, 1.0f, 0.6f));

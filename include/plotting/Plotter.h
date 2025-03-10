@@ -5,7 +5,6 @@
 
 #include <vector>
 
-#include <plotting/ScrollingBuffer.h>
 #include <plotting/RollingBuffer.h>
 #include <plotting/ColorPalette.h>
 
