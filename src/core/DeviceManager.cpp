@@ -19,7 +19,7 @@ void RTPlot::DeviceManager::PlotAllDevices(void)
 	for (uint8_t i = 0; i < devices.size(); i++)
 	{
 		if (!devices.at(i)->GetPlotExitFlag(i)) return;
-		std::string name = GUIPortNameCalc(devices.at(i)->GetPortName());
+		std::string name = StripPortNamePrefix(devices.at(i)->GetPortName());
 		devices.at(i)->Plot(name);
 	}
 }

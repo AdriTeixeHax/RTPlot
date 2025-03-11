@@ -6,7 +6,7 @@ void RTPlot::Toggle(bool& var)
 	var = !var; 
 }
 
-std::string RTPlot::GUIPortNameCalc(const std::string& name)
+std::string RTPlot::StripPortNamePrefix(const std::string& name)
 {
 	std::string result = name;
 	size_t pos; // Iterator

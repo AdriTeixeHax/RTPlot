@@ -275,7 +275,7 @@ void RTPlot::RTPlotCore::DeleteComponents(void)
     {
         if (!component->GetKillFlag())
         {
-            logMsg = "Deleted device " + RTPlot::GUIPortNameCalc(component->GetPortName()) + "\n";
+            logMsg = "Deleted device " + RTPlot::StripPortNamePrefix(component->GetPortName()) + "\n";
             deviceManager.RemoveDevice(counter);
             counter = 0;
             break;

@@ -24,20 +24,30 @@ bool RTPlot::SerialDevice::Recieve(void)
 
     // Reading from port and error checking
     int8_t readCode = port->Read(readingRaw, sizeof(readingRaw));
-    if (readCode == RTPLOT_ERROR) { if (verboseData) std::cout << "[SerialDevice]: Could not read message from device." << std::endl; return false; }
-    
-    // If the reading is correct, process the data
-    if (readCode == RTPLOT_FINISHED)
+
+    switch (readCode)
     {
+    case RTPLOT_ERROR:
+        if (verboseData) std::cout << "[SerialDevice]: Could not read message from device." << std::endl; 
+        return false;
+        break;
+
+    case RTPLOT_READING:
+        return true;
+
+    case RTPLOT_FINISHED:
         // Error checking
         if (readingRaw == nullptr) { if (verboseData) std::cout << "[SerialDevice]: Reading returned nullptr." << std::endl; return false; }
-        
+
         ProcessData();
         PrintData();
-        return true;
-    }
 
-    return false;
+        return true;
+        break;
+
+    default:
+        return false;
+    }
 }
 
 bool RTPlot::SerialDevice::Send(const char* msg, uint32_t len)

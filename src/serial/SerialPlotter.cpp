@@ -21,7 +21,7 @@ RTPlot::SerialPlotter::~SerialPlotter(void)
 void RTPlot::SerialPlotter::Plot(const std::string& portName)
 {
     mutex.lock();
-    plotter->Plot(portName, &killFlag, commandToSend, &sendCommand, &addVariable, &varToRemove, &removeVariable);
+    plotter->Plot(portName, serialDevice->GetFriendlyPortName(), & killFlag, commandToSend, &sendCommand, &addVariable, &varToRemove, &removeVariable);
     this->SerialOptionsWindow(plotter->GetSerialOptionsFlagPtr(), logMsgPtr);
     mutex.unlock();
 
@@ -36,7 +36,7 @@ void RTPlot::SerialPlotter::SerialOptionsWindow(bool* serialOptionsFlag, std::st
 {
     if (*serialOptionsFlag)
     {
-        ImGui::Begin(std::string(GUIPortNameCalc(GetPortName()) + " - Serial options").c_str(), serialOptionsFlag);
+        ImGui::Begin(std::string(StripPortNamePrefix(GetPortName()) + " - Serial options").c_str(), serialOptionsFlag);
         static int wtm = 10, rtm = 10, ri = 50, rtc = 1000, wtc = 1000; // Serial parameters
         static int readingDelay = 5;
 
@@ -44,7 +44,7 @@ void RTPlot::SerialPlotter::SerialOptionsWindow(bool* serialOptionsFlag, std::st
         {
             serialDevice->GetPort()->SetTimeouts(wtm, rtm, ri, rtc, wtc);
             serialDevice->GetPort()->SetReadingDelay(abs(readingDelay)); // abs just in case some negative number ends up there.
-            *logMsg = "Applied serial parameters for port " + GUIPortNameCalc(GetPortName()) + ".\n";
+            *logMsg = "Applied serial parameters for port " + StripPortNamePrefix(GetPortName()) + ".\n";
         }
 
         ImGui::SeparatorText("RTPlot port options");
@@ -65,7 +65,7 @@ void RTPlot::SerialPlotter::SerialFunc(void)
 {
     while (!exitCommThreadFlag)
     {
-        serialDevice->Recieve();
+        if (!serialDevice->Recieve()) killFlag = false;
 
         mutex.lock();
         plotter->SetDataToPlot(serialDevice->GetReadingVals());

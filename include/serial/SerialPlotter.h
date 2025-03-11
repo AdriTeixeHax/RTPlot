@@ -43,13 +43,13 @@ namespace RTPlot
 		bool		GetKillFlag    (void) const { return killFlag; }
 
 		// Setters
-		void SetReadingDelay(uint8_t delay) { serialDevice->GetPort()->SetReadingDelay(delay); }
+		void        SetReadingDelay(uint8_t delay) { serialDevice->GetPort()->SetReadingDelay(delay); }
 
 		// Functions
-		void Plot(const std::string& portName);
-		void SerialOptionsWindow(bool* serialOptionsFlag, std::string* logMsg);
+		void        Plot(const std::string& portName);
+		void        SerialOptionsWindow(bool* serialOptionsFlag, std::string* logMsg);
 
 		// Thread functions
-		void SerialFunc(void);
+		void        SerialFunc(void);
 	};
 }

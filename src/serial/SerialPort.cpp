@@ -11,15 +11,55 @@ namespace RTPlot
 		baudRate(_baudRate), 
 		hCOM((void*)0), 
 		status({ 0 }), 
-		portName(_port)
+		portName(_port),
+		friendlyName("")
 	{
-		if (this->Connect()) this->SetTimeouts();
+		if (this->Connect()) 
+		{
+			this->SetTimeouts();
+			this->CalcFrndlyName();
+		}
 		else std::cerr << "[SerialPort]: Error constructing SerialPort object because couldn't connect with the serial port." << std::endl;
 	}
 
 	SerialPort::~SerialPort(void) 
 	{ 
 		while (!this->Disconnect());
+	}
+
+	void SerialPort::CalcFrndlyName(void)
+	{
+		HDEVINFO hDevInfo;
+		SP_DEVINFO_DATA DeviceInfoData;
+		char deviceName[256] = { 0 };
+		DWORD size = 0;
+
+		// Get device information set for ports
+		hDevInfo = SetupDiGetClassDevs(&GUID_DEVCLASS_PORTS, 0, 0, DIGCF_PRESENT);
+		if (hDevInfo == INVALID_HANDLE_VALUE) std::cerr << "[SerialPort]: Unable to get device list to get friendly serial port name." << std::endl;
+
+		// Enumerate devices
+		DeviceInfoData.cbSize = sizeof(SP_DEVINFO_DATA);
+		for (DWORD i = 0; SetupDiEnumDeviceInfo(hDevInfo, i, &DeviceInfoData); i++)
+		{
+			// Get the COM port name from registry
+			if (SetupDiGetDeviceRegistryPropertyA(hDevInfo, &DeviceInfoData, SPDRP_FRIENDLYNAME, nullptr,
+				(PBYTE)deviceName, sizeof(deviceName), &size))
+			{
+				std::string tempFriendlyName = deviceName;
+
+				// Check if the friendly name contains the target COM port
+				if (tempFriendlyName.find(StripPortNamePrefix(this->portName)) != std::string::npos)
+				{
+					SetupDiDestroyDeviceInfoList(hDevInfo);
+					this->friendlyName = tempFriendlyName;
+				}
+			}
+		}
+
+		// Cleanup
+		SetupDiDestroyDeviceInfoList(hDevInfo);
+		std::cerr << "[SerialPort]: COM port not found when getting friendly serial port name." << std::endl;
 	}
 
 	void SerialPort::SetTimeouts(DWORD WriteTotalMultiplier, DWORD ReadTotalMultiplier, DWORD ReadInterval, DWORD ReadTotalConstant, DWORD WriteTotalConstant)

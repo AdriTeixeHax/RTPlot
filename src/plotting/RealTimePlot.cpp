@@ -37,12 +37,12 @@ namespace RTPlot
 			i->SetDataToPlot(originalData);
     }
 
-    int8_t RealTimePlot::Plot(const std::string& name, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable)
+    int8_t RealTimePlot::Plot(const std::string& name, const std::string& friendlyName, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable)
     {
         // Plotting window
         ImGui::Begin(std::string(name + " - Plotting").c_str(), killFlag);
             // Header text    
-            ImGui::SeparatorText(name.c_str());
+            ImGui::SeparatorText(friendlyName.c_str());
 
             // "Add plot" button
             ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.35f, 1.0f, 0.6f));
