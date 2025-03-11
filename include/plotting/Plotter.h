@@ -68,6 +68,7 @@ namespace RTPlot
         const std::string&      GetName      (void) const { return  name; }
         std::string*            GetNamePtr   (void)       { return &name; }
 		char*                   GetTempName  (void)       { return  tempName; }
+        bool                    GetKillPlot  (void) const { return  killPlot; }
         bool*                   GetKillPtr   (void)       { return &killPlot; }
 		float*                  GetHistoryPtr(void)       { return  history; }
         float                   GetHistory   (void) const { return *history; }

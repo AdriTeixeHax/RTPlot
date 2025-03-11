@@ -42,6 +42,7 @@ namespace RTPlot
     Plotter::~Plotter(void)
     {
 		if (history) delete history;
+        for (auto i : data) delete i;
     }
 
     Plotter& Plotter::operator=(const Plotter& pldata)
@@ -96,7 +97,7 @@ namespace RTPlot
             if (this->plotFlag && rdata->GetPlotFlag() && data.at(i)->plottable)
             {
                 ImPlot::PushStyleColor(ImPlotCol_Line, color->GetColor());
-                ImPlot::PlotLine(name, &rdata->GetDataRef()[0].x, &rdata->GetDataRef()[0].y, size, 0, 0, 2 * sizeof(float));
+                    ImPlot::PlotLine(name, &rdata->GetDataRef()[0].x, &rdata->GetDataRef()[0].y, size, 0, 0, 2 * sizeof(float));
                 ImPlot::PopStyleColor();
             }
         }

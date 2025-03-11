@@ -113,7 +113,9 @@ void RTPlot::RTPlotCore::NewFrame(void)
 
     if (!opt_padding) ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
+    // Begin main window
     ImGui::Begin("RTPlot", NULL, window_flags);
+
     if (!opt_padding)   ImGui::PopStyleVar();
     if (opt_fullscreen) ImGui::PopStyleVar(2);
 
@@ -128,6 +130,9 @@ void RTPlot::RTPlotCore::NewFrame(void)
 
 void RTPlot::RTPlotCore::EndFrame(void)
 {
+    // End main window
+    ImGui::End();
+
     // GUI rendering
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -189,7 +194,6 @@ void RTPlot::RTPlotCore::MenuBar(void)
         }
         ImGui::EndMenuBar();
     }
-    ImGui::End();
 }
 
 void RTPlot::RTPlotCore::WelcomeWindow(void)
@@ -197,62 +201,60 @@ void RTPlot::RTPlotCore::WelcomeWindow(void)
     if (deviceManager.Size() == 0)
     {
         ImGui::Begin("RTPlot - by AdriTeixeHax", NULL); // Null so that it cannot be closed
-        ImVec2 avail = ImGui::GetContentRegionAvail();
+            ImVec2 avail = ImGui::GetContentRegionAvail();
 
-        static const char* welcome = "Welcome to RTPlot!";
-        static const char* connectBtn = "Connect to a device...";
-        ImVec2 welcomeSize = ImGui::CalcTextSize(welcome);
+            static const char* welcome = "Welcome to RTPlot!";
+            static const char* connectBtn = "Connect to a device...";
+            ImVec2 welcomeSize = ImGui::CalcTextSize(welcome);
 
-        static ImVec2 connectSize = ImVec2(0, 0);
+            static ImVec2 connectSize = ImVec2(0, 0);
 
-        ImGui::SetCursorPosX((avail.x - welcomeSize.x) * 0.5f);
-        ImGui::SetCursorPosY((avail.y - welcomeSize.y) * 0.5f - 15);
-        ImGui::Text(welcome);
+            ImGui::SetCursorPosX((avail.x - welcomeSize.x) * 0.5f);
+            ImGui::SetCursorPosY((avail.y - welcomeSize.y) * 0.5f - 15);
+            ImGui::Text(welcome);
 
-        ImGui::SetCursorPosX((avail.x - connectSize.x) * 0.5f);
-        ImGui::SetCursorPosY((avail.y - connectSize.y) * 0.5f + 15);
-        if (ImGui::Button(connectBtn))
-        {
-            serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
-            showAddPlotFlag = true;
-        }
-        connectSize = ImGui::GetItemRectSize();
-
-        if (showAddPlotFlag)
-        {
-            static ImVec2 groupSize = ImVec2(0, 0);
-
-            ImGui::SetCursorPosX((avail.x - groupSize.x) / 2);
-            ImGui::SetCursorPosY((avail.y - groupSize.y) / 2 + 50);
-            ImGui::BeginGroup();
-            for (uint8_t device : serialPorts)
+            ImGui::SetCursorPosX((avail.x - connectSize.x) * 0.5f);
+            ImGui::SetCursorPosY((avail.y - connectSize.y) * 0.5f + 15);
+            if (ImGui::Button(connectBtn))
             {
-                ImGui::PushID(device);
-                ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(device / 10.0f, 1.0f, 0.6f));
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.7f));
-                ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.5f));
-
-                std::string portName = "\\\\.\\COM" + std::to_string(device);
-                std::string portNameGUI = "COM" + std::to_string(device);
-                if (ImGui::Button(portNameGUI.c_str()))
-                {
-                    deviceManager.AddDevice(portName.c_str(), logMsg);
-                    showAddPlotFlag = false;
-                    logMsg = "Added device " + portNameGUI + "\n";
-                }
-
-                ImGui::PopStyleColor(3);
-                ImGui::PopID();
-
-                ImGui::SameLine();
+                serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
+                showAddPlotFlag = true;
             }
-            ImGui::EndGroup();
+            connectSize = ImGui::GetItemRectSize();
 
-            groupSize = ImGui::GetItemRectSize();
-            float posX = ImGui::GetCursorPosX();
-            float posY = ImGui::GetCursorPosY();
-        }
+            if (showAddPlotFlag)
+            {
+                static ImVec2 groupSize = ImVec2(0, 0);
 
+                ImGui::SetCursorPosX((avail.x - groupSize.x) / 2);
+                ImGui::SetCursorPosY((avail.y - groupSize.y) / 2 + 50);
+                ImGui::BeginGroup();
+                    for (uint8_t device : serialPorts)
+                    {
+                        std::string portName = "\\\\.\\COM" + std::to_string(device);
+                        std::string portNameGUI = "COM" + std::to_string(device);
+
+                        ImGui::PushID(device);
+                            ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(device / 10.0f, 1.0f, 0.6f));
+                            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.7f));
+                            ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.5f));
+                                if (ImGui::Button(portNameGUI.c_str()))
+                                {
+                                    deviceManager.AddDevice(portName.c_str(), logMsg);
+                                    showAddPlotFlag = false;
+                                    logMsg = "Added device " + portNameGUI + "\n";
+                                }
+                            ImGui::PopStyleColor(3);
+                        ImGui::PopID();
+
+                        ImGui::SameLine();
+                    }
+                ImGui::EndGroup();
+
+                groupSize = ImGui::GetItemRectSize();
+                float posX = ImGui::GetCursorPosX();
+                float posY = ImGui::GetCursorPosY();
+            }
         ImGui::End();
     }
 }

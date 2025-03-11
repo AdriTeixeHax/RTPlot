@@ -21,8 +21,18 @@ RTPlot::SerialPlotter::~SerialPlotter(void)
 void RTPlot::SerialPlotter::Plot(const std::string& portName)
 {
     mutex.lock();
-    plotter->Plot(portName, serialDevice->GetFriendlyPortName(), & killFlag, commandToSend, &sendCommand, &addVariable, &varToRemove, &removeVariable);
-    this->SerialOptionsWindow(plotter->GetSerialOptionsFlagPtr(), logMsgPtr);
+        plotter->Plot(portName, serialDevice->GetFriendlyPortName(), &killFlag, commandToSend, &sendCommand, &addVariable, &varToRemove, &removeVariable);
+        for (size_t i = 0; i < plotter->GetPlotters()->size(); i++)
+        {
+            // Delete element if its kill flag is true
+            if (plotter->GetPlotters()->at(i)->GetKillPlot() == true)
+            {
+                delete plotter->GetPlotters()->at(i);
+                plotter->GetPlotters()->erase(plotter->GetPlotters()->begin() + i);
+            }
+        }
+
+        this->SerialOptionsWindow(plotter->GetSerialOptionsFlagPtr(), logMsgPtr);
     mutex.unlock();
 
     if (addVariable)
