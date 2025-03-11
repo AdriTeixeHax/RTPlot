@@ -13,6 +13,7 @@ namespace RTPlot
 		std::vector<PlotData*> basicData;          // Basic array to store a copy of the obtained values from the serial port.
 		bool                   exitFlag = true;    // If false, the object doesn't plot anymore.
         size_t                 visibleVarsNum = 0; // Number of visible variables
+        bool                   serialOptionsFlag = true;
 
     public:
         RealTimePlot(void);
@@ -20,6 +21,7 @@ namespace RTPlot
 
         // Getters
         bool   GetPlotExitFlag(void) const { return exitFlag; }
+        bool*  GetSerialOptionsFlagPtr(void) { return &serialOptionsFlag; }
 
         // Setters
         void   SetDataToPlot(const std::vector<double>& data);

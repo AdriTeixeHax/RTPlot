@@ -42,17 +42,17 @@ namespace RTPlot
 		const std::string& GetName    (void) const { return portName; }
 
 		// Setters
-		void SetName(const std::string& name) { this->portName = name; }
-		void SetVerbose(bool vb) { verboseData = vb; }
-		void SetTimeouts(DWORD WriteTotalMultiplier = 10, DWORD ReadTotalMultiplier = 10, DWORD ReadInterval = 50, DWORD ReadTotalConstant = 1000, DWORD WriteTotalConstant = 1000);
-		void SetReadingDelay(uint8_t delay) { readingDelay = delay; }
+		void               SetName(const std::string& name) { this->portName = name; }
+		void               SetVerbose(bool vb) { verboseData = vb; }
+		void               SetTimeouts(DWORD WriteTotalMultiplier = 10, DWORD ReadTotalMultiplier = 10, DWORD ReadInterval = 50, DWORD ReadTotalConstant = 1000, DWORD WriteTotalConstant = 1000);
+		void               SetReadingDelay(uint8_t delay) { readingDelay = delay; }
 
 		// Actions
-		bool   Connect(void);
-		bool   Disconnect(void);
-		bool   ClearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
-		int8_t Read (LPVOID buf, DWORD size);
-		int8_t Write(LPVOID buf, DWORD size);
+		bool               Connect(void);
+		bool               Disconnect(void);
+		bool               ClearBuffer(uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
+		int8_t             Read (LPVOID buf, DWORD size);
+		int8_t             Write(LPVOID buf, DWORD size);
 
 		// Static functions
 		static std::vector<uint8_t> ScanAvailablePorts(void);

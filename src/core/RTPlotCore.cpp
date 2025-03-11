@@ -168,7 +168,6 @@ void RTPlot::RTPlotCore::MenuBar(void)
                 else             logMsg = "Turned off verbose.\n";
             }
             if (ImGui::MenuItem("Console log", "", consoleLogFlag)) { consoleLogFlag = !consoleLogFlag; }
-            if (ImGui::MenuItem("Serial options", "", serialOptionsFlag)) { serialOptionsFlag = !serialOptionsFlag; }
             ImGui::EndMenu();
         }
         if (ImGui::BeginMenu("Add device"))
@@ -180,7 +179,7 @@ void RTPlot::RTPlotCore::MenuBar(void)
                 if (ImGui::MenuItem(tempName.c_str(), "", false))
                 {
                     std::string portName = "\\\\.\\COM" + std::to_string(device);
-                    deviceManager.AddDevice(portName.c_str());
+                    deviceManager.AddDevice(portName.c_str(), logMsg);
                     logMsg = "Added device " + tempName + "\n";
                     showAddPlotFlag = false;
                 }
@@ -191,38 +190,6 @@ void RTPlot::RTPlotCore::MenuBar(void)
         ImGui::EndMenuBar();
     }
     ImGui::End();
-}
-
-void RTPlot::RTPlotCore::SerialOptionsWindow(void)
-{
-    if (serialOptionsFlag)
-    {
-        ImGui::Begin("Serial Options", &serialOptionsFlag);
-        static int wtm = 10, rtm = 10, ri = 50, rtc = 1000, wtc = 1000; // Serial parameters
-        static int readingDelay = 5;
-
-        if (ImGui::Button("Apply"))
-        {
-            for (uint8_t i = 0; i < deviceManager.Size(); i++)
-            {
-                deviceManager[i]->GetPort()->SetTimeouts(wtm, rtm, ri, rtc, wtc);
-                deviceManager[i]->SetReadingDelay(abs(readingDelay)); // abs just in case some negative number ends up there.
-            }
-            logMsg = "Applied serial parameters.\n";
-        }
-
-        ImGui::SeparatorText("RTPlot port options");
-        ImGui::InputInt("Reading Delay", &readingDelay);
-
-        ImGui::SeparatorText("Windows port options");
-        ImGui::InputInt("Write Total Multiplier", &wtm);
-        ImGui::InputInt("Write Total Constant", &wtc);
-        ImGui::InputInt("Read Total Multiplier", &rtm);
-        ImGui::InputInt("Read Total Constant", &rtc);
-        ImGui::InputInt("Read Interval", &ri);
-
-        ImGui::End();
-    }
 }
 
 void RTPlot::RTPlotCore::WelcomeWindow(void)
@@ -261,15 +228,15 @@ void RTPlot::RTPlotCore::WelcomeWindow(void)
             for (uint8_t device : serialPorts)
             {
                 ImGui::PushID(device);
-                ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(device / 10.0f, 1.0f, 0.6f));
+                ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(device / 10.0f, 1.0f, 0.6f));
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.7f));
-                ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.5f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.5f));
 
                 std::string portName = "\\\\.\\COM" + std::to_string(device);
                 std::string portNameGUI = "COM" + std::to_string(device);
                 if (ImGui::Button(portNameGUI.c_str()))
                 {
-                    deviceManager.AddDevice(portName.c_str());
+                    deviceManager.AddDevice(portName.c_str(), logMsg);
                     showAddPlotFlag = false;
                     logMsg = "Added device " + portNameGUI + "\n";
                 }

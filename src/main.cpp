@@ -34,7 +34,6 @@ int main(int argc, char** argv)
 
         // Menus and options
         core.MenuBar();
-        core.SerialOptionsWindow();
         core.DemoWindows();
 
         // Device managing

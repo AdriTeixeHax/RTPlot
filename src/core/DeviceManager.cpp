@@ -2,10 +2,10 @@
 
 #include <RTPlotFunctions.h>
 
-void RTPlot::DeviceManager::AddDevice(const char* port)
+void RTPlot::DeviceManager::AddDevice(const char* port, std::string& logMsg)
 {
 	// Create the new component and asign it the serial port.
-	devices.push_back(new SerialPlotter(port));
+	devices.push_back(new SerialPlotter(port, &logMsg));
 }
 
 void RTPlot::DeviceManager::RemoveDevice(size_t i)

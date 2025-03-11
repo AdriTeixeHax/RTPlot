@@ -33,7 +33,6 @@ namespace RTPlot
         bool                 ImPlotDemoFlag     = false;
         bool                 consoleLogFlag     = true;
         bool                 showAddPlotFlag    = false;
-        bool                 serialOptionsFlag  = true;
         bool                 showDeletePlotFlag = true;
 
         std::vector<uint8_t> serialPorts;
@@ -55,7 +54,6 @@ namespace RTPlot
         void    NewFrame           (void);
         void    EndFrame           (void);
         void    MenuBar            (void);
-        void    SerialOptionsWindow(void);
         void    WelcomeWindow      (void);
         void    DemoWindows        (void);
         void    ShowLog            (void);

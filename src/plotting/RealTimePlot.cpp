@@ -53,6 +53,15 @@ namespace RTPlot
             ImGui::PopStyleColor(3);
             ImGui::SameLine();
 
+            // Serial options
+            ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.1f, 1.0f, 0.6f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.1f, 0.7f, 0.7f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.1f, 0.7f, 0.5f));
+            if (ImGui::Button("Serial Options"))
+                serialOptionsFlag = true;
+            ImGui::PopStyleColor(3);
+            ImGui::SameLine();
+
 			// Send command to device, either by pressing enter or the "Send" button.
             static char tempCommand[RTPLOT_MSG_SIZE] = "Send message to device";
 			static bool sendFlag = false;

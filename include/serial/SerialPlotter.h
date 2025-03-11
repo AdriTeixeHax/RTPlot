@@ -27,10 +27,13 @@ namespace RTPlot
 		RealTimePlot* plotter;							// Real-time plot object
 
 		// Mutex
-		std::mutex mutex;
+		std::mutex    mutex;
+
+		// Log message pointer
+		std::string*  logMsgPtr;
 
 	public:
-		SerialPlotter(const char* port);
+		SerialPlotter(const char* _port, std::string* _logMsg);
 		~SerialPlotter(void);
 
 		// Getters
@@ -44,6 +47,7 @@ namespace RTPlot
 
 		// Functions
 		void Plot(const std::string& portName);
+		void SerialOptionsWindow(bool* serialOptionsFlag, std::string* logMsg);
 
 		// Thread functions
 		void SerialFunc(void);
