@@ -151,16 +151,23 @@ void RTPlot::RTPlotCore::EndFrame(void)
     glfwPollEvents(); // Poll and process events
 }
 
-ImFont* RTPlot::RTPlotCore::GetLargeFontPtr(void)
-{
-    if (largeFont) return largeFont;
-    else return nullptr;
-}
-
 void RTPlot::RTPlotCore::MenuBar(void)
 {
+    // Menu shortcut implementation
+    ImGuiIO& io = ImGui::GetIO();
+    if (io.KeyCtrl && ImGui::IsKeyPressed(ImGuiKey_O)) 
+        OpenConfigFile();
+
     if (ImGui::BeginMenuBar())
     {
+        if (ImGui::BeginMenu("File"))
+        {
+            if (ImGui::MenuItem("Load config. file", "Ctrl + O"))
+            {
+                OpenConfigFile();
+            }
+            ImGui::EndMenu();
+        }
         if (ImGui::BeginMenu("Options"))
         {
             if (ImGui::MenuItem("ImPlot Demo", "", ImPlotDemoFlag)) { ImPlotDemoFlag = !ImPlotDemoFlag; }
@@ -296,4 +303,17 @@ void RTPlot::RTPlotCore::ShutDown(void)
 
     // GLFW shutdown
     glfwTerminate();
+}
+
+void RTPlot::RTPlotCore::OpenConfigFile(void)
+{
+    std::string filePath = fileManager.OpenFileDialog();
+    std::string readMsg  = fileManager.ReadFormat(filePath, RTPLOT_FORMAT);
+    std::cout << readMsg << std::endl;
+}
+
+ImFont* RTPlot::RTPlotCore::GetLargeFontPtr(void)
+{
+    if (largeFont) return largeFont;
+    else return nullptr;
 }

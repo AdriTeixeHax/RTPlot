@@ -23,6 +23,8 @@
 
 #include <RTPlotFunctions.h>
 
+#include <FileManager.h>
+
 namespace RTPlot
 {
     class RTPlotCore
@@ -34,6 +36,7 @@ namespace RTPlot
         bool                 consoleLogFlag     = true;
         bool                 showAddPlotFlag    = false;
         bool                 showDeletePlotFlag = true;
+        bool                 loadFileFlag       = false;
 
         std::vector<uint8_t> serialPorts;
         std::string          logMsg;
@@ -43,23 +46,26 @@ namespace RTPlot
         GLFWwindow*          window;
         ImFont*              largeFont;
         DeviceManager        deviceManager;
+        FileManager          fileManager;
 
     public:
         RTPlotCore(void) : window(nullptr), largeFont(new ImFont) { }
         ~RTPlotCore(void) { } // window and font pointers are deleted by the ImGui library
         
-        bool    GraphicsInit       (void);
-        bool    GuiInit            (void);
-        bool    LoadLogo           (void);
-        void    NewFrame           (void);
-        void    EndFrame           (void);
-        void    MenuBar            (void);
-        void    WelcomeWindow      (void);
-        void    DemoWindows        (void);
-        void    ShowLog            (void);
-        void    DeleteComponents   (void);
-        void    ShutDown           (void);
-        ImFont* GetLargeFontPtr    (void);
+        bool    GraphicsInit    (void);
+        bool    GuiInit         (void);
+        bool    LoadLogo        (void);
+        void    NewFrame        (void);
+        void    EndFrame        (void);
+        void    MenuBar         (void);
+        void    WelcomeWindow   (void);
+        void    DemoWindows     (void);
+        void    ShowLog         (void);
+        void    DeleteComponents(void);
+        void    ShutDown        (void);
+        void    OpenConfigFile  (void);
+        ImFont* GetLargeFontPtr (void);
+
     };
 }
 

@@ -248,7 +248,6 @@ namespace RTPlot
             emptyFlag = true;
 
         ImGui::Begin(std::string(portName + " - Data settings").c_str(), NULL);
-        int stackSize2 = GImGui->CurrentWindowStack.Size;
             const float availX = ImGui::GetContentRegionAvail().x;
             const float availY = ImGui::GetContentRegionAvail().y;
             static bool dragFlag = false;

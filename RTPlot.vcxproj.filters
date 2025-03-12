@@ -27,6 +27,8 @@
     <ClCompile Include="include\core\RTPlotFunctions.h" />
     <ClCompile Include="src\core\RTPlotCore.cpp" />
     <ClCompile Include="src\core\RTPlotFunctions.cpp" />
+    <ClCompile Include="src\files\FileManager.cpp" />
+    <ClCompile Include="src\tests\FileManager_UnitTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFW\glfw3.h" />
@@ -63,6 +65,7 @@
     <ClInclude Include="include\plotting\RollingBuffer.h" />
     <ClInclude Include="include\plotting\ColorPalette.h" />
     <ClInclude Include="include\plotting\Plotter.h" />
+    <ClInclude Include="include\files\FileManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />

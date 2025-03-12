@@ -127,7 +127,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)include;src/vendor;include/core;include/plotting;include/serial</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;src/vendor;include/core;include/plotting;include/serial;include/files</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -160,8 +160,10 @@
   <ItemGroup>
     <ClCompile Include="include\core\RTPlotCore.h" />
     <ClCompile Include="include\core\RTPlotFunctions.h" />
+    <ClCompile Include="src\files\FileManager.cpp" />
     <ClCompile Include="src\core\RTPlotCore.cpp" />
     <ClCompile Include="src\core\RTPlotFunctions.cpp" />
+    <ClCompile Include="src\tests\FileManager_UnitTest.cpp" />
     <ClCompile Include="src\plotting\ColorPalette.cpp" />
     <ClCompile Include="src\plotting\Logger.cpp" />
     <ClCompile Include="src\plotting\Plotter.cpp" />
@@ -186,6 +188,7 @@
     <ClCompile Include="src\vendor\stb_image\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\files\FileManager.h" />
     <ClInclude Include="include\GLFW\glfw3.h" />
     <ClInclude Include="include\GLFW\glfw3native.h" />
     <ClInclude Include="include\GL\eglew.h" />

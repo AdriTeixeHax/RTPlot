@@ -1,10 +1,13 @@
 /// main.cpp - Main file for RTPlot by AdriTeixeHax
 
-#include <core/RTPlotCore.h>
+//#define FILEMANAGER_UNITTEST
+#ifndef FILEMANAGER_UNITTEST
+
+#include <RTPlotCore.h>
 
 /*******************************************************/
 
-// Main function
+ //Main function
 int main(int argc, char** argv)
 {
     /********************** SETUP **********************/
@@ -50,3 +53,5 @@ int main(int argc, char** argv)
 
     return 0;
 }
+
+#endif
