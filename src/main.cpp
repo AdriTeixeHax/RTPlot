@@ -1,8 +1,5 @@
 /// main.cpp - Main file for RTPlot by AdriTeixeHax
 
-//#define FILEMANAGER_UNITTEST
-#ifndef FILEMANAGER_UNITTEST
-
 #include <RTPlotCore.h>
 
 /*******************************************************/
@@ -20,9 +17,6 @@ int main(int argc, char** argv)
     if (!core.GuiInit())      return -1;
     if (!core.LoadLogo())     return -1;
 
-    //// Create a rendering instance for custom models
-    //RTPlot::Renderer renderer;
-
     /******************** MAIN LOOP ********************/
 
     // Loop until the user closes the window
@@ -33,14 +27,14 @@ int main(int argc, char** argv)
 
         // Main window
 		core.WelcomeWindow(); 
-        core.deviceManager.PlotAllDevices(); /// <---
+        core.RenderObjects();
 
         // Menus and options
         core.MenuBar();
         core.DemoWindows();
 
         // Device managing
-		core.DeleteComponents(); /// <--- // Check if a device wishes to be deleted 
+		core.DeleteComponents();
         
         // Show log and end frame
         core.ShowLog(); // Plot the log message of the current cycle
@@ -53,5 +47,3 @@ int main(int argc, char** argv)
 
     return 0;
 }
-
-#endif

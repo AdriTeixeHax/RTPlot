@@ -91,7 +91,7 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
     }
 
     // Process the data
-    char finalMsg[RTPLOT_MAX_DATA_NUM][RTPLOT_DATA_SIZE] = { 0 }; // TODO: Needs to be according to current size
+    char finalMsg[RTPLOT_MAX_DATA_NUM][RTPLOT_DATA_SIZE] = { 0 };
     size_t msgSel = 0;
     size_t k = 0;
     for (size_t i = 0; i < sizeof(tempMsg); i++)
@@ -137,4 +137,19 @@ void RTPlot::SerialDevice::PrintData(void)
         }
         std::cout << std::endl;
     }
+}
+
+JSON RTPlot::SerialDevice::toJSON(void)
+{
+    return JSON
+    {
+        {"verboseData", verboseData},
+        {"port", port->toJSON()},
+    };
+}
+
+void RTPlot::SerialDevice::fromJSON(const JSON& j)
+{
+    j.at("verboseData").get_to(verboseData);
+    port->fromJSON(j.at("port"));
 }

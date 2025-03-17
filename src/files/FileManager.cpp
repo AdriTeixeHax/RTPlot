@@ -28,9 +28,8 @@ std::string RTPlot::FileManager::ReadFormat(const std::string& fileName, const s
         return "[FileManager]: Error reading file! Wrong format";
 }
 
-std::string RTPlot::FileManager::ReadLine(const std::string& fileName, const std::string& format, uint32_t lineNumber)
+std::string RTPlot::FileManager::ReadLine(const std::string& text, uint32_t lineNumber)
 {
-    std::string text = ReadFormat(fileName, format);
     std::stringstream ss(text);
     std::string line;
     size_t currentLine = 0;
@@ -47,31 +46,30 @@ std::string RTPlot::FileManager::ReadLine(const std::string& fileName, const std
 
 std::string RTPlot::FileManager::ReadAndStripPrefix(const std::string& fileName, const std::string& format, uint32_t line, const std::string& prefix)
 {
-    std::string result = ReadLine(fileName, format, line);
+    std::string result = ReadLine(ReadFormat(fileName, format), line);
     size_t pos; // Iterator
     while ((pos = result.find(prefix)) != std::string::npos)
         result.erase(pos, prefix.length());
     return result;
 }
 
-std::vector<std::string> RTPlot::FileManager::ReadAndSeparate(const std::string& fileName, const std::string& format, uint32_t line, const std::string& separator)
+std::vector<std::string> RTPlot::FileManager::ReadAndSeparate(const std::string& text, const std::string& separator)
 {
-    std::string input = ReadLine(fileName, format, line);
     std::vector<std::string> result;
     size_t start = 0;
     size_t end;
 
-    while ((end = input.find(separator, start)) != std::string::npos) {
-        result.push_back(input.substr(start, end - start));
+    while ((end = text.find(separator, start)) != std::string::npos) {
+        result.push_back(text.substr(start, end - start));
         start = end + separator.length();
     }
 
-    result.push_back(input.substr(start));
+    result.push_back(text.substr(start));
 
     return result;
 }
 
-std::string RTPlot::FileManager::OpenFileDialog()
+std::string RTPlot::FileManager::OpenFileDialog(void)
 {
     WCHAR filename[1024] = { 0 };
 
@@ -79,13 +77,36 @@ std::string RTPlot::FileManager::OpenFileDialog()
     ZeroMemory(&ofn, sizeof(ofn));
     ofn.lStructSize = sizeof(ofn);
     ofn.hwndOwner = NULL;
-    ofn.lpstrFilter = L"All Files (*.*)\0*.*\0RTPlot configuration files (*.rtplot)\0*.rtplot\0";
+    ofn.lpstrFilter = L"All Files (*.*)\0*.*\0JSON configuration files (*.json)\0*.json\0";
     ofn.lpstrFile = filename;
     ofn.nMaxFile = 1024;
     ofn.Flags = OFN_FILEMUSTEXIST | OFN_PATHMUSTEXIST;
     ofn.lpstrTitle = L"Select a file to open";
 
     if (GetOpenFileName(&ofn))
+    {
+        std::wstring result(filename);
+        return std::string(result.begin(), result.end());
+    }
+
+    return "";
+}
+
+std::string RTPlot::FileManager::SaveFileDialog(void)
+{
+    WCHAR filename[1024] = { 0 };
+
+    OPENFILENAME ofn;
+    ZeroMemory(&ofn, sizeof(ofn));
+    ofn.lStructSize = sizeof(ofn);
+    ofn.hwndOwner = NULL;
+    ofn.lpstrFilter = L"All Files (*.*)\0*.*\0JSON configuration files (*.json)\0*.json\0";
+    ofn.lpstrFile = filename;
+    ofn.nMaxFile = 1024;
+    ofn.Flags = OFN_OVERWRITEPROMPT | OFN_PATHMUSTEXIST;
+    ofn.lpstrTitle = L"Select a file to save";
+
+    if (GetSaveFileName(&ofn)) // <-- Changed to GetSaveFileName()
     {
         std::wstring result(filename);
         return std::string(result.begin(), result.end());

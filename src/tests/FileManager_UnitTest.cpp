@@ -24,23 +24,19 @@ void FileManager_UnitTest(void)
     read = fileManager.ReadFormat(filename, RTPLOT_FORMAT);
     std::cout << "Read whole text with its format: " << read << std::endl;
 
-    read = fileManager.ReadLine(filename, RTPLOT_FORMAT, 3);
+    read = fileManager.ReadLine(fileManager.ReadFormat(filename, RTPLOT_FORMAT), 3);
     std::cout << "Read line 3: " << read << std::endl;
     
     read = fileManager.ReadAndStripPrefix(filename, RTPLOT_FORMAT, 3, "asdf:");
     std::cout << "Read and strip prefix: " << read << std::endl;
 
-    readVector = fileManager.ReadAndSeparate(filename, RTPLOT_FORMAT, 3, ":");
+    readVector = fileManager.ReadAndSeparate(read, ":");
     std::cout << "Read and separate: ";
     for (auto i : readVector) std::cout << i << " ";
 }
 
-//#define FILEMANAGER_UNITTEST
-
-#ifdef FILEMANAGER_UNITTEST
 int main()
 {
     FileManager_UnitTest();
     return 0;
 }
-#endif

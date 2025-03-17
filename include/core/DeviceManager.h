@@ -17,9 +17,9 @@ namespace RTPlot
 		~DeviceManager(void) { for (auto i : devices) delete i; }	
 
 		// Getters
-		size_t Size(void) const { return devices.size(); }
-		const std::vector<SerialPlotter*>& GetComponents(void) { return devices; }
-		SerialPlotter* operator[](size_t i) { return devices.at(i); }
+		size_t                             Size         (void)     const { return devices.size(); }
+		const std::vector<SerialPlotter*>& GetComponents(void)           { return devices; }
+		SerialPlotter*                     operator[]   (size_t i)       { return devices.at(i); }
 
 		// Actions
 		void AddDevice(const char* port, std::string& logMsg);

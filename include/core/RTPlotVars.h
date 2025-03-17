@@ -37,6 +37,6 @@ constexpr   double    RTPLOT_TOLERANCE_LOWER       = -1e6;
 constexpr   double    RTPLOT_TOLERANCE_DELTA       = 1e-6;
 constexpr  uint8_t    RTPLOT_TEMP_NAME_LEN         = 32;
 
-constexpr const char* RTPLOT_FORMAT                = "rtplot";
+constexpr const char* RTPLOT_FORMAT                = "json";
 
 #endif

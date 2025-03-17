@@ -20,23 +20,26 @@
 #include <RTPlotFunctions.h>
 #include <RTPlotVars.h>
 
+#include <nlohmann/json.hpp>
+using JSON = nlohmann::json;
+
 namespace RTPlot
 {
 	class SerialPort
 	{
-		DCB          dcb = { 0 };	   // DCB == Device Control Block
-		BYTE         byteSize;		   // Byte size
-		WORD         parity;		   // Parity type
-		bool         connected;		   // Connection status
-		bool		 verboseData;	   // Send messages or not through console
-		uint8_t		 readingDelay = 5; // Delay to allow status update
-		DWORD        errors;		   // Error messages
-		DWORD        baudRate;		   // Baud rate (CBR_XXXXXX)
-		HANDLE       hCOM;			   // Handle variable for the COM port
-		COMSTAT      status;		   // Status of the COM port
-		std::string  portName;         // Port name in standard short ASCII format
-		COMMTIMEOUTS timeouts = { 0 }; // Serial reading timeouts
-		std::string  friendlyName;
+		DCB                dcb = { 0 };	     // DCB == Device Control Block
+		BYTE               byteSize;		 // Byte size
+		WORD               parity;		     // Parity type
+		bool               connected;		 // Connection status
+		bool		       verboseData;	     // Send messages or not through console
+		uint8_t		       readingDelay = 5; // Delay to allow status update
+		DWORD              errors;		     // Error messages
+		DWORD              baudRate;		 // Baud rate (CBR_XXXXXX)
+		HANDLE             hCOM;			 // Handle variable for the COM port
+		COMSTAT            status;			 // Status of the COM port
+		std::string        portName;         // Port name in standard short ASCII format
+		COMMTIMEOUTS       timeouts = { 0 }; // Serial reading timeouts
+		std::string        friendlyName;	 // Friendly name of the COM port
 
 	public:
 		SerialPort(void) = delete;
@@ -47,6 +50,8 @@ namespace RTPlot
 		bool			   IsConnected    (void) const;
 		const std::string& GetFriendlyName(void) const              { return friendlyName;}
 		const std::string& GetName        (void) const              { return portName; }
+		uint8_t			   GetReadingDelay(void) const				{ return readingDelay; }
+		COMMTIMEOUTS	   GetTimeouts	  (void) const				{ return timeouts; }
 
 		// Setters
 		void               SetName        (const std::string& name) { this->portName = name; }
@@ -61,6 +66,10 @@ namespace RTPlot
 		bool               ClearBuffer    (uint8_t flags = PURGE_RXCLEAR | PURGE_TXCLEAR);
 		int8_t             Read           (LPVOID buf, DWORD size);
 		int8_t             Write          (LPVOID buf, DWORD size);
+
+		// JSON managing
+		JSON			   toJSON		  (void);
+		void			   fromJSON		  (const JSON& j);
 
 		// Static functions
 		static std::vector<uint8_t> ScanAvailablePorts(void);

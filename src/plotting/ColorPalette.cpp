@@ -2,11 +2,8 @@
 
 #include <string>
 
-RTPlot::ColorPalette::ColorPalette(ImVec4 _color, uint32_t _id)
-{
-    color = _color;
-    id = _id;
-}
+RTPlot::ColorPalette::ColorPalette(const ImVec4& _color, uint32_t _id) :
+    color(_color), id(_id) { }
 
 void RTPlot::ColorPalette::ColorPicker(void)
 {
@@ -74,4 +71,19 @@ void RTPlot::ColorPalette::ColorPicker(void)
         ImGui::EndGroup();
         ImGui::EndPopup();
     }
+}
+
+JSON RTPlot::ColorPalette::toJSON(void)
+{
+    return 
+    {
+        {"id", id},
+        {"color", Vec4ToJSON(color)}
+    };
+}
+
+void RTPlot::ColorPalette::fromJSON(const JSON& j)
+{
+    j.at("id").get_to(id);
+    JSONToVec4(j.at("color"), color);
 }

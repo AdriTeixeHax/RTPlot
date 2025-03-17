@@ -2,7 +2,7 @@
 #include <RTPlotFunctions.h>
 
 RTPlot::SerialPlotter::SerialPlotter(const char* _port, std::string* _logMsg) :
-	plotter(new RealTimePlot),
+	realTimePlotter(new RealTimePlot),
 	serialDevice(new SerialDevice(_port)),
     logMsgPtr(_logMsg)
 {
@@ -10,29 +10,46 @@ RTPlot::SerialPlotter::SerialPlotter(const char* _port, std::string* _logMsg) :
 	strcpy_s(commandToSend, "");
 }
 
+RTPlot::SerialPlotter::SerialPlotter(const SerialPlotter& s)
+{
+    this->killFlag           = s.killFlag;
+    this->addVariable        = s.addVariable;
+    this->removeVariable     = s.removeVariable;
+    this->varToRemove        = s.varToRemove;
+    this->exitCommThreadFlag = s.exitCommThreadFlag;
+    this->sendCommand        = s.sendCommand;
+
+    this->logMsgPtr          = s.logMsgPtr;
+
+    this->realTimePlotter    = new RealTimePlot(*s.realTimePlotter);
+    this->serialDevice       = new SerialDevice(*s.serialDevice);
+
+    strcpy_s(this->commandToSend, s.commandToSend);
+}
+
 RTPlot::SerialPlotter::~SerialPlotter(void)
 {
     exitCommThreadFlag = true;
     serialCommThread.join();
     delete serialDevice;
-    delete plotter;
+    delete realTimePlotter;
 }
 
 void RTPlot::SerialPlotter::Plot(const std::string& portName)
 {
     mutex.lock();
-        plotter->Plot(portName, serialDevice->GetFriendlyPortName(), &killFlag, commandToSend, &sendCommand, &addVariable, &varToRemove, &removeVariable);
-        for (size_t i = 0; i < plotter->GetPlotters()->size(); i++)
+        realTimePlotter->Plot(portName, serialDevice->GetFriendlyPortName(), &killFlag, commandToSend, &sendCommand, &addVariable, &varToRemove, &removeVariable);
+        for (size_t i = 0; i < realTimePlotter->GetPlotters()->size(); i++)
         {
             // Delete element if its kill flag is true
-            if (plotter->GetPlotters()->at(i)->GetKillPlot() == true)
+            if (realTimePlotter->GetPlotters()->at(i)->GetKillPlot() == true)
             {
-                delete plotter->GetPlotters()->at(i);
-                plotter->GetPlotters()->erase(plotter->GetPlotters()->begin() + i);
+                delete realTimePlotter->GetPlotters()->at(i);
+                realTimePlotter->GetPlotters()->erase(realTimePlotter->GetPlotters()->begin() + i);
             }
         }
 
-        this->SerialOptionsWindow(plotter->GetSerialOptionsFlagPtr(), logMsgPtr);
+        this->SerialOptionsWindow(realTimePlotter->GetSerialOptionsFlagPtr(), logMsgPtr);
     mutex.unlock();
 
     if (addVariable)
@@ -46,29 +63,64 @@ void RTPlot::SerialPlotter::SerialOptionsWindow(bool* serialOptionsFlag, std::st
 {
     if (*serialOptionsFlag)
     {
-        ImGui::Begin(std::string(StripPortNamePrefix(GetPortName()) + " - Serial options").c_str(), serialOptionsFlag);
         static int wtm = 10, rtm = 10, ri = 50, rtc = 1000, wtc = 1000; // Serial parameters
         static int readingDelay = 5;
 
-        if (ImGui::Button("Apply"))
-        {
-            serialDevice->GetPort()->SetTimeouts(wtm, rtm, ri, rtc, wtc);
-            serialDevice->GetPort()->SetReadingDelay(abs(readingDelay)); // abs just in case some negative number ends up there.
-            *logMsg = "Applied serial parameters for port " + StripPortNamePrefix(GetPortName()) + ".\n";
-        }
+        ImGui::Begin(std::string(StripPortNamePrefix(GetPortName()) + " - Serial options").c_str(), serialOptionsFlag);
+            if (ImGui::Button("Apply"))
+            {
+                serialDevice->GetPort()->SetTimeouts(wtm, rtm, ri, rtc, wtc);
+                serialDevice->GetPort()->SetReadingDelay(abs(readingDelay)); // abs just in case some negative number ends up there.
+                *logMsg = "Applied serial parameters for port " + StripPortNamePrefix(GetPortName()) + ".\n";
+            }
 
-        ImGui::SeparatorText("RTPlot port options");
-        ImGui::InputInt("Reading Delay", &readingDelay);
+            COMMTIMEOUTS timeouts = serialDevice->GetPort()->GetTimeouts();
+            // Extra label (##x) just in case the numbers coincide
+            std::string rdlText  = "(Curr. value: " + std::to_string(serialDevice->GetPort()->GetReadingDelay()) + ")##1";
+            std::string wtmText = "(Curr. value: " + std::to_string(timeouts.WriteTotalTimeoutMultiplier)       + ")##2";
+            std::string wtcText = "(Curr. value: " + std::to_string(timeouts.WriteTotalTimeoutConstant)         + ")##3";
+            std::string rtmText = "(Curr. value: " + std::to_string(timeouts.ReadTotalTimeoutMultiplier)        + ")##4";
+            std::string rtcText = "(Curr. value: " + std::to_string(timeouts.ReadTotalTimeoutConstant)          + ")##5";
+            std::string rdiText = "(Curr. value: " + std::to_string(timeouts.ReadIntervalTimeout)               + ")##6";
 
-        ImGui::SeparatorText("Windows port options");
-        ImGui::InputInt("Write Total Multiplier", &wtm);
-        ImGui::InputInt("Write Total Constant",   &wtc);
-        ImGui::InputInt("Read Total Multiplier",  &rtm);
-        ImGui::InputInt("Read Total Constant",    &rtc);
-        ImGui::InputInt("Read Interval",          &ri);
+            ImGui::SeparatorText("RTPlot port options");
+            ImGui::Text("Reading Delay:");
+            ImGui::InputInt(rdlText.c_str(), &readingDelay);
 
+            ImGui::SeparatorText("Windows port options");
+            ImGui::Text("Write Total Multiplier:");
+            ImGui::InputInt(wtmText.c_str(), &wtm);
+            ImGui::Text("Write Total Constant:");
+            ImGui::InputInt(wtcText.c_str(), &wtc);
+            ImGui::Text("Read Total Multiplier:");
+            ImGui::InputInt(rtmText.c_str(), &rtm);
+            ImGui::Text("Read Total Constant:");
+            ImGui::InputInt(rtcText.c_str(), &rtc);
+            ImGui::Text("Read Interval:");
+            ImGui::InputInt(rdiText.c_str(), &ri);
         ImGui::End();
     }
+}
+
+void RTPlot::SerialPlotter::SaveConfig(const std::string& filepath)
+{
+    JSON          json = this->toJSON();
+    std::ofstream file(filepath);
+
+    if (file) file << json.dump(4); // Pretty print JSON with 4-space indentation
+    else std::cerr << "[SerialPlotter]: Failed to open file for writing!" << std::endl;
+}
+
+void RTPlot::SerialPlotter::LoadConfig(const std::string& filepath)
+{
+    std::ifstream file(filepath);
+    if (file)
+    {
+        JSON j;
+        file >> j;
+        this->fromJSON(j);
+    }
+    else std::cerr << "[SerialPlotter]: Failed to open file for reading!" << std::endl;
 }
 
 void RTPlot::SerialPlotter::SerialFunc(void)
@@ -78,7 +130,7 @@ void RTPlot::SerialPlotter::SerialFunc(void)
         if (!serialDevice->Recieve()) killFlag = false;
 
         mutex.lock();
-        plotter->SetDataToPlot(serialDevice->GetReadingVals());
+            realTimePlotter->SetDataToPlot(serialDevice->GetReadingVals());
 		mutex.unlock();
 
         if (sendCommand)
@@ -87,4 +139,19 @@ void RTPlot::SerialPlotter::SerialFunc(void)
             sendCommand = false;
         }
     }
+}
+
+JSON RTPlot::SerialPlotter::toJSON(void)
+{
+    return JSON
+    {
+        { "serialDevice", serialDevice->toJSON()},
+        { "realTimePlotter", realTimePlotter->toJSON() }
+    };
+}
+
+void RTPlot::SerialPlotter::fromJSON(const JSON& j)
+{
+    serialDevice->fromJSON(j.at("serialDevice"));
+    realTimePlotter->fromJSON(j.at("realTimePlotter"));
 }

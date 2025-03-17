@@ -27,6 +27,7 @@ namespace RTPlot
         const std::string&         GetFriendlyPortName(void)    { return port->GetFriendlyName(); }
 
         // Setters
+        void                       SetVerbose         (bool vb) { this->verboseData = vb; }
         void                       SetPortVerbose     (bool vb) { verboseData = vb; port->SetVerbose(vb); }
 
         // Actions
@@ -34,6 +35,10 @@ namespace RTPlot
         bool                       Send               (const char* msg, uint32_t len);
         int8_t                     ProcessData        (void);
         void                       PrintData          (void);
+
+        // JSON managing
+        JSON                       toJSON(void);
+        void                       fromJSON(const JSON& j);
 	};
 }
 

@@ -14,17 +14,14 @@ namespace RTPlot
 		portName(_port),
 		friendlyName("")
 	{
-		if (this->Connect()) 
-		{
-			this->SetTimeouts();
-			this->CalcFrndlyName();
-		}
+		this->SetTimeouts();
+		if (this->Connect()) this->CalcFrndlyName();
 		else std::cerr << "[SerialPort]: Error constructing SerialPort object because couldn't connect with the serial port." << std::endl;
 	}
 
 	SerialPort::~SerialPort(void) 
 	{ 
-		while (!this->Disconnect());
+		this->Disconnect();
 	}
 
 	void SerialPort::CalcFrndlyName(void)
@@ -242,5 +239,36 @@ namespace RTPlot
 		}
 
 		return ports;
+	}
+	JSON SerialPort::toJSON(void)
+	{
+		return
+		{
+			{ "readingDelay",         readingDelay },
+			{ "WriteTotalMultiplier", timeouts.WriteTotalTimeoutMultiplier },
+			{ "ReadTotalMultiplier",  timeouts.ReadTotalTimeoutMultiplier},
+			{ "ReadInterval",         timeouts.ReadIntervalTimeout},
+			{ "ReadTotalConstant",    timeouts.ReadTotalTimeoutConstant},
+			{ "WriteTotalConstant",   timeouts.WriteTotalTimeoutConstant}
+		};
+	}
+
+	void SerialPort::fromJSON(const JSON& j)
+	{
+		DWORD WriteTotalTimeoutMultiplier, ReadTotalTimeoutMultiplier, ReadIntervalTimeout,
+			ReadTotalTimeoutConstant, WriteTotalTimeoutConstant;
+
+		j.at("readingDelay").get_to(readingDelay);
+		j.at("WriteTotalMultiplier").get_to(WriteTotalTimeoutMultiplier);
+		j.at("ReadTotalMultiplier").get_to(ReadTotalTimeoutMultiplier);
+		j.at("ReadInterval").get_to(ReadIntervalTimeout);
+		j.at("ReadTotalConstant").get_to(ReadTotalTimeoutConstant);
+		j.at("WriteTotalConstant").get_to(WriteTotalTimeoutConstant);
+
+		timeouts.WriteTotalTimeoutMultiplier = WriteTotalTimeoutMultiplier;
+		timeouts.ReadTotalTimeoutMultiplier  = ReadTotalTimeoutMultiplier;
+		timeouts.ReadIntervalTimeout         = ReadIntervalTimeout;
+		timeouts.ReadTotalTimeoutConstant    = ReadTotalTimeoutConstant;
+		timeouts.WriteTotalTimeoutConstant   = WriteTotalTimeoutConstant;
 	}
 }

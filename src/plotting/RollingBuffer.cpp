@@ -1,4 +1,4 @@
-#include <../include/plotting/RollingBuffer.h>
+#include <RollingBuffer.h>
 
 namespace RTPlot // Had to rename the namespace because of linker issues. Class taken and slightly modified from the implot_demo.cpp file.
 {
@@ -29,5 +29,19 @@ namespace RTPlot // Had to rename the namespace because of linker issues. Class 
         if (!data.empty() && xmod < data.back().x)
             data.shrink(0);
         data.push_back(ImVec2(xmod, y));
+    }
+
+    JSON RollingBuffer::toJSON(void)
+    {
+        return
+        {
+            {"span", span},
+            {"plotFlag", plotFlag}
+        };
+    }
+    void RollingBuffer::fromJSON(const JSON& j)
+    {
+        j.at("span").get_to(span);
+        j.at("plotFlag").get_to(plotFlag);
     }
 }
