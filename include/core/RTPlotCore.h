@@ -21,7 +21,7 @@
 #include <RTPlotFunctions.h>
 
 #include <FileManager.h>
-#include <Parser.h>
+#include <DeviceManager.h>
 
 namespace RTPlot
 {

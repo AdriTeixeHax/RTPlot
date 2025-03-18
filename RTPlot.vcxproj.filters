@@ -26,7 +26,6 @@
     <ClCompile Include="src\core\RTPlotCore.cpp" />
     <ClCompile Include="src\core\RTPlotFunctions.cpp" />
     <ClCompile Include="src\files\FileManager.cpp" />
-    <ClCompile Include="src\files\Parser.cpp" />
     <ClCompile Include="src\plotting\PlotData.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
@@ -64,7 +63,6 @@
     <ClInclude Include="include\plotting\ColorPalette.h" />
     <ClInclude Include="include\plotting\Plotter.h" />
     <ClInclude Include="include\files\FileManager.h" />
-    <ClInclude Include="include\files\Parser.h" />
     <ClInclude Include="src\vendor\nlohmann\json.hpp" />
     <ClInclude Include="include\plotting\PlotData.h" />
     <ClInclude Include="include\plotting\RollingBuffer.h" />
@@ -74,15 +72,10 @@
     <Library Include="lib\glfw3.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\textures\test.png" />
-    <Image Include="res\logos\RTPlot.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include=".gitignore" />
     <None Include="imgui.ini" />
     <None Include="LICENSE" />
     <None Include="README.md" />
-    <None Include="res\shaders\Basic.shader" />
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>
