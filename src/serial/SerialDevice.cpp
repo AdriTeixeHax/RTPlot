@@ -24,20 +24,30 @@ bool RTPlot::SerialDevice::Recieve(void)
 
     // Reading from port and error checking
     int8_t readCode = port->Read(readingRaw, sizeof(readingRaw));
-    if (readCode == RTPLOT_ERROR) { if (verboseData) std::cout << "[SerialDevice]: Could not read message from device." << std::endl; return false; }
-    
-    // If the reading is correct, process the data
-    if (readCode == RTPLOT_FINISHED)
+
+    switch (readCode)
     {
+    case RTPLOT_ERROR:
+        if (verboseData) std::cout << "[SerialDevice]: Could not read message from device." << std::endl; 
+        return false;
+        break;
+
+    case RTPLOT_READING:
+        return true;
+
+    case RTPLOT_FINISHED:
         // Error checking
         if (readingRaw == nullptr) { if (verboseData) std::cout << "[SerialDevice]: Reading returned nullptr." << std::endl; return false; }
-        
+
         ProcessData();
         PrintData();
-        return true;
-    }
 
-    return false;
+        return true;
+        break;
+
+    default:
+        return false;
+    }
 }
 
 bool RTPlot::SerialDevice::Send(const char* msg, uint32_t len)
@@ -81,7 +91,7 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
     }
 
     // Process the data
-    char finalMsg[RTPLOT_MAX_DATA_NUM][RTPLOT_DATA_SIZE] = { 0 }; // TODO: Needs to be according to current size
+    char finalMsg[RTPLOT_MAX_DATA_NUM][RTPLOT_DATA_SIZE] = { 0 };
     size_t msgSel = 0;
     size_t k = 0;
     for (size_t i = 0; i < sizeof(tempMsg); i++)
@@ -127,4 +137,19 @@ void RTPlot::SerialDevice::PrintData(void)
         }
         std::cout << std::endl;
     }
+}
+
+JSON RTPlot::SerialDevice::toJSON(void)
+{
+    return JSON
+    {
+        {"verboseData", verboseData},
+        {"port", port->toJSON()},
+    };
+}
+
+void RTPlot::SerialDevice::fromJSON(const JSON& j)
+{
+    j.at("verboseData").get_to(verboseData);
+    port->fromJSON(j.at("port"));
 }

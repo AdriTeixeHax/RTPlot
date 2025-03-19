@@ -8,11 +8,10 @@
     <ClCompile Include="src\vendor\imgui\imgui_impl_opengl3.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_tables.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_widgets.cpp" />
-    <ClCompile Include="src\vendor\stb_image\stb_image.cpp" />
+    <ClCompile Include="src\vendor\stb\stb_image.cpp" />
     <ClCompile Include="src\vendor\implot\implot.cpp" />
     <ClCompile Include="src\vendor\implot\implot_items.cpp" />
     <ClCompile Include="src\vendor\implot\implot_demo.cpp" />
-    <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\serial\SerialPort.cpp" />
     <ClCompile Include="src\serial\SerialDevice.cpp" />
     <ClCompile Include="src\plotting\RealTimePlot.cpp" />
@@ -20,13 +19,15 @@
     <ClCompile Include="src\core\DeviceManager.cpp" />
     <ClCompile Include="src\serial\SerialPlotter.cpp" />
     <ClCompile Include="src\plotting\Logger.cpp" />
-    <ClCompile Include="src\plotting\ScrollingBuffer.cpp" />
     <ClCompile Include="src\plotting\RollingBuffer.cpp" />
     <ClCompile Include="src\plotting\ColorPalette.cpp" />
     <ClCompile Include="src\plotting\Plotter.cpp" />
     <ClCompile Include="include\core\RTPlotFunctions.h" />
     <ClCompile Include="src\core\RTPlotCore.cpp" />
     <ClCompile Include="src\core\RTPlotFunctions.cpp" />
+    <ClCompile Include="src\files\FileManager.cpp" />
+    <ClCompile Include="src\plotting\PlotData.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\GLFW\glfw3.h" />
@@ -44,7 +45,7 @@
     <ClInclude Include="src\vendor\imgui\imstb_rectpack.h" />
     <ClInclude Include="src\vendor\imgui\imstb_textedit.h" />
     <ClInclude Include="src\vendor\imgui\imstb_truetype.h" />
-    <ClInclude Include="src\vendor\stb_image\stb_image.h" />
+    <ClInclude Include="src\vendor\stb\stb_image.h" />
     <ClInclude Include="src\vendor\implot\implot.h" />
     <ClInclude Include="src\vendor\implot\implot_internal.h" />
     <ClInclude Include="include\serial\SerialPort.h" />
@@ -59,25 +60,22 @@
     <ClInclude Include="include\core\DeviceManager.h" />
     <ClInclude Include="include\core\RTPlotVars.h" />
     <ClInclude Include="include\serial\SerialPlotter.h" />
-    <ClInclude Include="include\plotting\ScrollingBuffer.h" />
-    <ClInclude Include="include\plotting\RollingBuffer.h" />
     <ClInclude Include="include\plotting\ColorPalette.h" />
     <ClInclude Include="include\plotting\Plotter.h" />
+    <ClInclude Include="include\files\FileManager.h" />
+    <ClInclude Include="src\vendor\nlohmann\json.hpp" />
+    <ClInclude Include="include\plotting\PlotData.h" />
+    <ClInclude Include="include\plotting\RollingBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glew32s.lib" />
     <Library Include="lib\glfw3.lib" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\textures\test.png" />
-    <Image Include="res\logos\RTPlot.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include=".gitignore" />
     <None Include="imgui.ini" />
     <None Include="LICENSE" />
     <None Include="README.md" />
-    <None Include="res\shaders\Basic.shader" />
     <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

@@ -44,16 +44,15 @@ bool RTPlot::RTPlotCore::GuiInit(void)
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;                           // Enable viewports
     io.Fonts->AddFontFromFileTTF(RTPLOT_SOURCESANS_PATH, RTPLOT_SOURCESANS_SIZE); // Add the SourceSans font
     io.Fonts->AddFontFromFileTTF(RTPLOT_CONSOLA_PATH, RTPLOT_CONSOLA_SIZE);       // Add the Consolas font
-    largeFont = io.Fonts->AddFontFromFileTTF(RTPLOT_SOURCESANS_PATH, RTPLOT_SOURCESANS_SIZE_LARGE);
 
     // ImGui element radius setting
-    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, RTPLOT_MAIN_RADIUS);
-    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_MAIN_RADIUS);
-    ImGui::PushStyleVar(ImGuiStyleVar_GrabRounding, RTPLOT_MAIN_RADIUS);
-    ImGui::PushStyleVar(ImGuiStyleVar_PopupRounding, RTPLOT_MAIN_RADIUS);
+    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding,     RTPLOT_MAIN_RADIUS);
+    ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding,     RTPLOT_MAIN_RADIUS);
+    ImGui::PushStyleVar(ImGuiStyleVar_GrabRounding,      RTPLOT_MAIN_RADIUS);
+    ImGui::PushStyleVar(ImGuiStyleVar_PopupRounding,     RTPLOT_MAIN_RADIUS);
     ImGui::PushStyleVar(ImGuiStyleVar_ScrollbarRounding, RTPLOT_MAIN_RADIUS);
-    ImGui::PushStyleVar(ImGuiStyleVar_TabRounding, RTPLOT_MAIN_RADIUS);
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, RTPLOT_WINDOW_RADIUS);
+    ImGui::PushStyleVar(ImGuiStyleVar_TabRounding,       RTPLOT_MAIN_RADIUS);
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding,    RTPLOT_WINDOW_RADIUS);
 
     // Set the default color scheme to dark
     ImGui::StyleColorsDark();
@@ -113,7 +112,9 @@ void RTPlot::RTPlotCore::NewFrame(void)
 
     if (!opt_padding) ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
+    // Begin main window
     ImGui::Begin("RTPlot", NULL, window_flags);
+
     if (!opt_padding)   ImGui::PopStyleVar();
     if (opt_fullscreen) ImGui::PopStyleVar(2);
 
@@ -128,6 +129,9 @@ void RTPlot::RTPlotCore::NewFrame(void)
 
 void RTPlot::RTPlotCore::EndFrame(void)
 {
+    // End main window
+    ImGui::End();
+
     // GUI rendering
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -146,16 +150,52 @@ void RTPlot::RTPlotCore::EndFrame(void)
     glfwPollEvents(); // Poll and process events
 }
 
-ImFont* RTPlot::RTPlotCore::GetLargeFontPtr(void)
-{
-    if (largeFont) return largeFont;
-    else return nullptr;
-}
-
 void RTPlot::RTPlotCore::MenuBar(void)
 {
     if (ImGui::BeginMenuBar())
     {
+        if (ImGui::BeginMenu("Port"))
+        {
+            if (ImGui::BeginMenu("Connect"))
+            {
+                serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
+                for (uint8_t device : serialPorts)
+                {
+                    std::string tempName = "COM" + std::to_string(device);
+                    if (ImGui::MenuItem(tempName.c_str(), "", false))
+                    {
+                        std::string portName = "\\\\.\\COM" + std::to_string(device);
+                        deviceManager.AddDevice(portName.c_str(), logMsg);
+                        logMsg = "Added device " + tempName + "\n";
+                        showAddPlotFlag = false;
+                    }
+                }
+                if (serialPorts.size() == 0) ImGui::MenuItem("No free serial ports found", "", false);
+                ImGui::EndMenu();
+            }
+            for (auto i : deviceManager.GetComponents())
+            {
+                std::string portName = StripPortNamePrefix(i->GetPortName());
+                if (ImGui::BeginMenu(portName.c_str()))
+                {
+                    if (ImGui::MenuItem("Load config. file", "Ctrl + O"))
+                    {
+                        std::string filepath = fileManager.OpenFileDialog();
+                        i->LoadConfig(filepath);
+                        logMsg = "Loaded config. from file " + filepath + " to serial port " + portName + "\n";
+                    }
+                    
+                    if (ImGui::MenuItem("Save config. file", "Ctrl + S"))
+                    {
+                        std::string filepath = fileManager.SaveFileDialog();
+                        i->SaveConfig(filepath);
+                        logMsg = "Saved config. to file " + filepath + ", from serial port " + portName + "\n";
+                    }
+                    ImGui::EndMenu();  
+                }
+            }
+            ImGui::EndMenu();
+        }
         if (ImGui::BeginMenu("Options"))
         {
             if (ImGui::MenuItem("ImPlot Demo", "", ImPlotDemoFlag)) { ImPlotDemoFlag = !ImPlotDemoFlag; }
@@ -168,60 +208,9 @@ void RTPlot::RTPlotCore::MenuBar(void)
                 else             logMsg = "Turned off verbose.\n";
             }
             if (ImGui::MenuItem("Console log", "", consoleLogFlag)) { consoleLogFlag = !consoleLogFlag; }
-            if (ImGui::MenuItem("Serial options", "", serialOptionsFlag)) { serialOptionsFlag = !serialOptionsFlag; }
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("Add device"))
-        {
-            serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
-            for (uint8_t device : serialPorts)
-            {
-                std::string tempName = "COM" + std::to_string(device);
-                if (ImGui::MenuItem(tempName.c_str(), "", false))
-                {
-                    std::string portName = "\\\\.\\COM" + std::to_string(device);
-                    deviceManager.AddDevice(portName.c_str());
-                    logMsg = "Added device " + tempName + "\n";
-                    showAddPlotFlag = false;
-                }
-            }
-            if (serialPorts.size() == 0) ImGui::MenuItem("No free serial ports found", "", false);
             ImGui::EndMenu();
         }
         ImGui::EndMenuBar();
-    }
-    ImGui::End();
-}
-
-void RTPlot::RTPlotCore::SerialOptionsWindow(void)
-{
-    if (serialOptionsFlag)
-    {
-        ImGui::Begin("Serial Options", &serialOptionsFlag);
-        static int wtm = 10, rtm = 10, ri = 50, rtc = 1000, wtc = 1000; // Serial parameters
-        static int readingDelay = 5;
-
-        if (ImGui::Button("Apply"))
-        {
-            for (uint8_t i = 0; i < deviceManager.Size(); i++)
-            {
-                deviceManager[i]->GetPort()->SetTimeouts(wtm, rtm, ri, rtc, wtc);
-                deviceManager[i]->SetReadingDelay(abs(readingDelay)); // abs just in case some negative number ends up there.
-            }
-            logMsg = "Applied serial parameters.\n";
-        }
-
-        ImGui::SeparatorText("RTPlot port options");
-        ImGui::InputInt("Reading Delay", &readingDelay);
-
-        ImGui::SeparatorText("Windows port options");
-        ImGui::InputInt("Write Total Multiplier", &wtm);
-        ImGui::InputInt("Write Total Constant", &wtc);
-        ImGui::InputInt("Read Total Multiplier", &rtm);
-        ImGui::InputInt("Read Total Constant", &rtc);
-        ImGui::InputInt("Read Interval", &ri);
-
-        ImGui::End();
     }
 }
 
@@ -230,64 +219,67 @@ void RTPlot::RTPlotCore::WelcomeWindow(void)
     if (deviceManager.Size() == 0)
     {
         ImGui::Begin("RTPlot - by AdriTeixeHax", NULL); // Null so that it cannot be closed
-        ImVec2 avail = ImGui::GetContentRegionAvail();
+            ImVec2 avail = ImGui::GetContentRegionAvail();
 
-        static const char* welcome = "Welcome to RTPlot!";
-        static const char* connectBtn = "Connect to a device...";
-        ImVec2 welcomeSize = ImGui::CalcTextSize(welcome);
+            static const char* welcome = "Welcome to RTPlot!";
+            static const char* connectBtn = "Connect to a device...";
+            ImVec2 welcomeSize = ImGui::CalcTextSize(welcome);
 
-        static ImVec2 connectSize = ImVec2(0, 0);
+            static ImVec2 connectSize = ImVec2(0, 0);
 
-        ImGui::SetCursorPosX((avail.x - welcomeSize.x) * 0.5f);
-        ImGui::SetCursorPosY((avail.y - welcomeSize.y) * 0.5f - 15);
-        ImGui::Text(welcome);
+            ImGui::SetCursorPosX((avail.x - welcomeSize.x) * 0.5f);
+            ImGui::SetCursorPosY((avail.y - welcomeSize.y) * 0.5f - 15);
+            ImGui::Text(welcome);
 
-        ImGui::SetCursorPosX((avail.x - connectSize.x) * 0.5f);
-        ImGui::SetCursorPosY((avail.y - connectSize.y) * 0.5f + 15);
-        if (ImGui::Button(connectBtn))
-        {
-            serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
-            showAddPlotFlag = true;
-        }
-        connectSize = ImGui::GetItemRectSize();
-
-        if (showAddPlotFlag)
-        {
-            static ImVec2 groupSize = ImVec2(0, 0);
-
-            ImGui::SetCursorPosX((avail.x - groupSize.x) / 2);
-            ImGui::SetCursorPosY((avail.y - groupSize.y) / 2 + 50);
-            ImGui::BeginGroup();
-            for (uint8_t device : serialPorts)
+            ImGui::SetCursorPosX((avail.x - connectSize.x) * 0.5f);
+            ImGui::SetCursorPosY((avail.y - connectSize.y) * 0.5f + 15);
+            if (ImGui::Button(connectBtn))
             {
-                ImGui::PushID(device);
-                ImGui::PushStyleColor(ImGuiCol_Button, (ImVec4)ImColor::HSV(device / 10.0f, 1.0f, 0.6f));
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.7f));
-                ImGui::PushStyleColor(ImGuiCol_ButtonActive, (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.5f));
-
-                std::string portName = "\\\\.\\COM" + std::to_string(device);
-                std::string portNameGUI = "COM" + std::to_string(device);
-                if (ImGui::Button(portNameGUI.c_str()))
-                {
-                    deviceManager.AddDevice(portName.c_str());
-                    showAddPlotFlag = false;
-                    logMsg = "Added device " + portNameGUI + "\n";
-                }
-
-                ImGui::PopStyleColor(3);
-                ImGui::PopID();
-
-                ImGui::SameLine();
+                serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
+                showAddPlotFlag = true;
             }
-            ImGui::EndGroup();
+            connectSize = ImGui::GetItemRectSize();
 
-            groupSize = ImGui::GetItemRectSize();
-            float posX = ImGui::GetCursorPosX();
-            float posY = ImGui::GetCursorPosY();
-        }
+            if (showAddPlotFlag)
+            {
+                static ImVec2 groupSize = ImVec2(0, 0);
 
+                ImGui::SetCursorPosX((avail.x - groupSize.x) / 2);
+                ImGui::SetCursorPosY((avail.y - groupSize.y) / 2 + 50);
+                ImGui::BeginGroup();
+                    for (uint8_t device : serialPorts)
+                    {
+                        std::string portName = "\\\\.\\COM" + std::to_string(device);
+                        std::string portNameGUI = "COM" + std::to_string(device);
+
+                        ImGui::PushID(device);
+                            ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(device / 10.0f, 1.0f, 0.6f));
+                            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.7f));
+                            ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.5f));
+                                if (ImGui::Button(portNameGUI.c_str()))
+                                {
+                                    deviceManager.AddDevice(portName.c_str(), logMsg);
+                                    showAddPlotFlag = false;
+                                    logMsg = "Added device " + portNameGUI + "\n";
+                                }
+                            ImGui::PopStyleColor(3);
+                        ImGui::PopID();
+
+                        ImGui::SameLine();
+                    }
+                ImGui::EndGroup();
+
+                groupSize = ImGui::GetItemRectSize();
+                float posX = ImGui::GetCursorPosX();
+                float posY = ImGui::GetCursorPosY();
+            }
         ImGui::End();
     }
+}
+
+void RTPlot::RTPlotCore::RenderObjects(void)
+{
+    deviceManager.PlotAllDevices();
 }
 
 void RTPlot::RTPlotCore::DemoWindows(void)
@@ -308,7 +300,7 @@ void RTPlot::RTPlotCore::DeleteComponents(void)
     {
         if (!component->GetKillFlag())
         {
-            logMsg = "Deleted device " + RTPlot::GUIPortNameCalc(component->GetPortName()) + "\n";
+            logMsg = "Deleted device " + RTPlot::StripPortNamePrefix(component->GetPortName()) + "\n";
             deviceManager.RemoveDevice(counter);
             counter = 0;
             break;

@@ -13,15 +13,15 @@
 #include <implot/implot.h>
 
 // Image loading
-#include <stb_image/stb_image.h>
-
-// Serial communication
-#include <DeviceManager.h>
+#include <stb/stb_image.h>
 
 // Plotting
 #include <Logger.h>
 
 #include <RTPlotFunctions.h>
+
+#include <FileManager.h>
+#include <DeviceManager.h>
 
 namespace RTPlot
 {
@@ -33,8 +33,8 @@ namespace RTPlot
         bool                 ImPlotDemoFlag     = false;
         bool                 consoleLogFlag     = true;
         bool                 showAddPlotFlag    = false;
-        bool                 serialOptionsFlag  = true;
         bool                 showDeletePlotFlag = true;
+        bool                 loadFileFlag       = false;
 
         std::vector<uint8_t> serialPorts;
         std::string          logMsg;
@@ -42,26 +42,25 @@ namespace RTPlot
 
     public:
         GLFWwindow*          window;
-        ImFont*              largeFont;
         DeviceManager        deviceManager;
+        FileManager          fileManager;
 
     public:
-        RTPlotCore(void) : window(nullptr), largeFont(new ImFont) { }
+        RTPlotCore(void) : window(nullptr) { }
         ~RTPlotCore(void) { } // window and font pointers are deleted by the ImGui library
         
-        bool    GraphicsInit       (void);
-        bool    GuiInit            (void);
-        bool    LoadLogo           (void);
-        void    NewFrame           (void);
-        void    EndFrame           (void);
-        void    MenuBar            (void);
-        void    SerialOptionsWindow(void);
-        void    WelcomeWindow      (void);
-        void    DemoWindows        (void);
-        void    ShowLog            (void);
-        void    DeleteComponents   (void);
-        void    ShutDown           (void);
-        ImFont* GetLargeFontPtr    (void);
+        bool GraphicsInit    (void);
+        bool GuiInit         (void);
+        bool LoadLogo        (void);
+        void NewFrame        (void);
+        void EndFrame        (void);
+        void MenuBar         (void);
+        void WelcomeWindow   (void);
+        void RenderObjects   (void);
+        void DemoWindows     (void);
+        void ShowLog         (void);
+        void DeleteComponents(void);
+        void ShutDown        (void);
     };
 }
 

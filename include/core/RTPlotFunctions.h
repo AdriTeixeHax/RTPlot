@@ -11,7 +11,7 @@ namespace RTPlot
 {
 	void Toggle(bool& var);
 
-	std::string GUIPortNameCalc(const std::string& name);
+	std::string StripPortNamePrefix(const std::string& name);
 }
 
 #endif

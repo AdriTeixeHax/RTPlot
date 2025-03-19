@@ -17,12 +17,12 @@ namespace RTPlot
             basicData.push_back(new PlotData(i, std::to_string(i).c_str()));
         }
 
-        plotters.push_back(new Plotter(&basicData)); // Initial plot
+        //plotters.push_back(new Plotter(&basicData)); // Initial plot
     }
 
     RealTimePlot::~RealTimePlot(void)
     {
-        for (auto i : plotters) delete i;
+        for (auto i : plotters)  delete i;
         for (auto i : basicData) delete i;
     }
 
@@ -31,34 +31,110 @@ namespace RTPlot
         if (originalData.size() < 2) { std::cerr << "[RealTimePlot]: Error setting data to plot." << std::endl; return; }
 
         for (size_t i = 0; i < basicData.size() - 1; i++)
-            basicData.at(i)->plotData->AddPoint(originalData[0], originalData[i + 1]);
+            basicData.at(i)->plotData.AddPoint(originalData[0], originalData[i + 1]);
 
         for (auto i : plotters)
 			i->SetDataToPlot(originalData);
     }
 
-    int8_t RealTimePlot::Plot(const std::string& name, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable)
+    int8_t RealTimePlot::PlotGraph(uint8_t id, bool* killPlotFlag)
+    {
+        // Get region dimensions
+        const float availX = ImGui::GetContentRegionAvail().x / (plotters.size() - id);
+        const float availY = ImGui::GetContentRegionAvail().y;
+
+        // Begin child window with style
+        static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_None;
+        ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_WINDOW_RADIUS);
+        ImGui::BeginChild(std::string(std::to_string(id) + "graph").c_str(), ImVec2(availX, availY), ImGuiChildFlags_Border);
+            // Delete plot button
+            ImGui::PushID(id);
+                ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.0f, 1.0f, 0.6f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f / 10.0f, 0.7f, 0.7f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.0f / 10.0f, 0.7f, 0.5f));
+                    if (ImGui::Button("Delete this plot")) 
+                        *killPlotFlag = true;
+                ImGui::PopStyleColor(3);
+            ImGui::PopID();
+
+			// Change plot name
+            ImGui::SameLine();
+            ImGui::PushItemWidth(availX - 217);
+                if (ImGui::InputText("##", plotters.at(id)->GetTempName(), RTPLOT_TEMP_NAME_LEN, ImGuiInputTextFlags_EnterReturnsTrue))
+                {
+                    *(plotters.at(id)->GetNamePtr()) = plotters.at(id)->GetTempName();
+                }
+            ImGui::PopItemWidth();
+            ImGui::SameLine();
+            if (ImGui::Button("Change name"))
+            {
+                *(plotters.at(id)->GetNamePtr()) = plotters.at(id)->GetTempName();
+            }
+
+			// Plot graph
+            if (ImPlot::BeginPlot(std::string(plotters.at(id)->GetName() + "##" + std::to_string(id)).c_str(), ImVec2(availX - 15, availY - 80)))
+            {
+                ImPlot::SetupAxes("Time [s]", "Value", linePlotFlags, 0);
+                ImPlot::SetupAxisLimits(ImAxis_X1, 0, *(plotters.at(id)->GetHistoryPtr()), ImGuiCond_Always);
+                ImPlot::SetupAxisLimits(ImAxis_Y1, -2, 2);
+
+                plotters.at(id)->PlotGraph();
+
+                ImPlot::EndPlot();
+            }
+
+			// History slider
+            ImGui::Text("History:");
+            ImGui::SameLine();
+            ImGui::PushItemWidth(availX - 70);
+            ImGui::SliderFloat(std::string("##" + std::to_string(id)).c_str(), plotters.at(id)->GetHistoryPtr(), 0.1, 60, "%.1f s");
+            ImGui::PopItemWidth();
+        ImGui::EndChild();
+        ImGui::PopStyleVar();
+
+        for (uint8_t i = 0; i < plotters.at(id)->GetDataSize(); i++)
+        {
+            float     span     = plotters.at(id)->GetHistory();
+            PlotData* plotData = plotters.at(id)->GetDataPtr()->at(i);
+
+            plotData->SetSpan(span);
+        }
+
+        return 0;
+    }
+
+    int8_t RealTimePlot::Plot(const std::string& name, const std::string& friendlyName, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable)
     {
         // Plotting window
         ImGui::Begin(std::string(name + " - Plotting").c_str(), killFlag);
             // Header text    
-            ImGui::SeparatorText(name.c_str());
+            ImGui::SeparatorText(friendlyName.c_str());
 
             // "Add plot" button
             ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.35f, 1.0f, 0.6f));
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.7f));
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.5f));
-            if (ImGui::Button("Add Plot"))
-                plotters.push_back(new Plotter(&basicData));
+                if (ImGui::Button("Add Plot"))
+                    plotters.push_back(new Plotter(&basicData));
+            ImGui::PopStyleColor(3);
+            ImGui::SameLine();
+
+            // Serial options
+            ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.1f, 1.0f, 0.6f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.1f, 0.7f, 0.7f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.1f, 0.7f, 0.5f));
+                if (ImGui::Button("Serial Options"))
+                    serialOptionsFlag = true;
             ImGui::PopStyleColor(3);
             ImGui::SameLine();
 
 			// Send command to device, either by pressing enter or the "Send" button.
             static char tempCommand[RTPLOT_MSG_SIZE] = "Send message to device";
 			static bool sendFlag = false;
+
             ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x - 48);
-            if (ImGui::InputText(std::string("##" + name).c_str(), tempCommand, sizeof(tempCommand), ImGuiInputTextFlags_EnterReturnsTrue))
-                sendFlag = true;
+                if (ImGui::InputText(std::string("##" + name).c_str(), tempCommand, sizeof(tempCommand), ImGuiInputTextFlags_EnterReturnsTrue))
+                    sendFlag = true;
             ImGui::PopItemWidth();
             ImGui::SameLine();
             if (ImGui::Button("Send") || sendFlag)
@@ -106,7 +182,7 @@ namespace RTPlot
                             std::string varName = plotters.at(i)->GetDataPtr()->at(j)->dataName;
                             if (payloadName == varName)
                             {
-                                bool& plotFlag = plotters.at(i)->GetDataPtr()->at(j)->plotData->GetPlotFlagRef();
+                                bool& plotFlag = plotters.at(i)->GetDataPtr()->at(j)->plotData.GetPlotFlagRef();
                                 RTPlot::Toggle(plotFlag);
                                 break;
                             }
@@ -115,11 +191,7 @@ namespace RTPlot
                     ImGui::EndDragDropTarget();
                 }
                 ImGui::SameLine();
-                
-				// Delete element if its kill flag is true
-                if (*plotters.at(i)->GetKillPtr() == true)
-                    plotters.erase(plotters.begin() + i);
-            }                
+            }
 
             // Variable modification window. Lives inside the other window so that it can close with it.
             ImGui::Begin(std::string(name + " - Data settings").c_str(), NULL);
@@ -132,24 +204,24 @@ namespace RTPlot
                 ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.35f, 1.0f, 0.6f));
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.7f));
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.5f));
-                if (ImGui::Button("Add variable"))
-                {
-                    if (visibleVarsNum < RTPLOT_MAX_DATA_NUM - 1)
+                    if (ImGui::Button("Add variable"))
                     {
-                        basicData.at(visibleVarsNum)->plottable = true;
+                        if (visibleVarsNum < RTPLOT_MAX_DATA_NUM - 1)
+                        {
+                            basicData.at(visibleVarsNum)->plottable = true;
 
-                        for (auto i : plotters)
-                            i->GetDataPtr()->at(visibleVarsNum)->plottable = true;
+                            for (auto i : plotters)
+                                i->GetDataPtr()->at(visibleVarsNum)->plottable = true;
 
-                        visibleVarsNum++;
+                            visibleVarsNum++;
+                        }
+                        else
+                        {
+                            startTimeFlag = true;
+                            buttonMsgFlag = true;
+                            buttonMsg = "Max. no. of variables reached!";
+                        }
                     }
-                    else
-                    {
-                        startTimeFlag = true;
-                        buttonMsgFlag = true;
-                        buttonMsg = "Max. no. of variables reached!";
-                    }
-                }
                 ImGui::PopStyleColor(3);
 
                 // "Remove variable" button
@@ -157,24 +229,24 @@ namespace RTPlot
                 ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.0f, 1.0f, 0.6f));
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f, 0.7f, 0.7f));
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.0f, 0.7f, 0.5f));
-                if (ImGui::Button("Remove variable"))
-                {
-                    if (visibleVarsNum > 0)
+                    if (ImGui::Button("Remove variable"))
                     {
-                        basicData.at(visibleVarsNum - 1)->plottable = false;
+                        if (visibleVarsNum > 0)
+                        {
+                            basicData.at(visibleVarsNum - 1)->plottable = false;
 
-                        for (auto i : plotters)
-                            i->GetDataPtr()->at(visibleVarsNum - 1)->plottable = false;
+                            for (auto i : plotters)
+                                i->GetDataPtr()->at(visibleVarsNum - 1)->plottable = false;
 
-                        visibleVarsNum--;
+                            visibleVarsNum--;
+                        }
+                        else
+                        {
+                            startTimeFlag = true;
+                            buttonMsgFlag = true;
+                            buttonMsg = "There are no variables to remove!";
+                        }
                     }
-                    else
-                    {
-                        startTimeFlag = true;
-                        buttonMsgFlag = true;
-                        buttonMsg = "There are no variables to remove!";
-                    }
-                }
                 ImGui::PopStyleColor(3);
 
                 // Delayed message
@@ -200,7 +272,12 @@ namespace RTPlot
 
                 // Plot variable settings
                 std::vector<std::string> currentNames;
-                if (plotters.empty()) return -1;
+                if (plotters.empty())
+                {
+                    ImGui::End(); // Vars
+                    ImGui::End(); // Plotting
+                    return -1;
+                }
                 for (uint8_t i = 0; i < plotters.at(0)->GetDataPtr()->size(); i++)
                 {
                     PlotData* data = plotters.at(0)->GetDataPtr()->at(i);
@@ -211,9 +288,8 @@ namespace RTPlot
                         PlotVars(i, name, currentNames, command, sendCommand);
                 }
             ImGui::End();
-
         ImGui::End();
-
+        
         return 0;
     }
 
@@ -240,10 +316,8 @@ namespace RTPlot
         ImGui::Begin(std::string(portName + " - Data settings").c_str(), NULL);
             const float availX = ImGui::GetContentRegionAvail().x;
             const float availY = ImGui::GetContentRegionAvail().y;
-            static bool dragFlag = false;
 
-            ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_WINDOW_RADIUS);
-
+            ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_WINDOW_RADIUS); 
             ImGui::BeginChild(currentName.c_str(), ImVec2(availX, 100), ImGuiChildFlags_Border);
                 if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
                 {
@@ -258,6 +332,8 @@ namespace RTPlot
                 ImGui::SameLine();
 
                 plotters.at(0)->ColorPicker(i);
+                basicData.at(i)->plotColor = plotters.at(0)->GetDataPtr()->at(i)->plotColor;
+
                 ImGui::SameLine();
 
                 ImGui::PushItemWidth(availX - 216);
@@ -294,68 +370,36 @@ namespace RTPlot
         return 0;
     }
 
-    int8_t RealTimePlot::PlotGraph(uint8_t id, bool* killPlotFlag)
+    JSON RealTimePlot::toJSON(void)
     {
-        // Get region dimensions
-        const float availX = ImGui::GetContentRegionAvail().x / (plotters.size() - id);
-        const float availY = ImGui::GetContentRegionAvail().y;
+        JSON j;
+        j["visibleVarsNum"] = visibleVarsNum;
+        j["serialOptionsFlag"] = serialOptionsFlag;
 
-        // Begin child window with style
-        static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_None;
-        ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_WINDOW_RADIUS);
-        ImGui::BeginChild(std::string(std::to_string(id) + "graph").c_str(), ImVec2(availX, availY), ImGuiChildFlags_Border);
-            // Delete plot button
-            ImGui::PushID(id);
-            ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.0f, 1.0f, 0.6f));
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.0f / 10.0f, 0.7f, 0.7f));
-            ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.0f / 10.0f, 0.7f, 0.5f));
-            if (ImGui::Button("Delete this plot")) *killPlotFlag = true;
-            ImGui::PopStyleColor(3);
-            ImGui::PopID();
+        JSON plotterArray = JSON::array();
+        JSON dataArray = JSON::array();
 
-			// Change plot name
-            ImGui::SameLine();
-            ImGui::PushItemWidth(availX - 217);
-            if (ImGui::InputText("##", plotters.at(id)->GetTempName(), RTPLOT_TEMP_NAME_LEN, ImGuiInputTextFlags_EnterReturnsTrue))
-            {
-                *(plotters.at(id)->GetNamePtr()) = plotters.at(id)->GetTempName();
-            }
-            ImGui::PopItemWidth();
-            ImGui::SameLine();
-            if (ImGui::Button("Change name"))
-            {
-                *(plotters.at(id)->GetNamePtr()) = plotters.at(id)->GetTempName();
-            }
+        for (const auto& i : plotters)  if (i) plotterArray.push_back(i->toJSON());
+        for (const auto& i : basicData) if (i) dataArray.push_back(i->toJSON());
+        
+        j["plotters"] = plotterArray;
+        j["basicData"] = dataArray;
 
-			// Plot graph
-            if (ImPlot::BeginPlot(std::string(plotters.at(id)->GetName() + "##" + std::to_string(id)).c_str(), ImVec2(availX - 15, availY - 80)))
-            {
-                ImPlot::SetupAxes("Time [s]", "Value", linePlotFlags, 0);
-                ImPlot::SetupAxisLimits(ImAxis_X1, 0, *(plotters.at(id)->GetHistoryPtr()), ImGuiCond_Always);
-                ImPlot::SetupAxisLimits(ImAxis_Y1, -2, 2);
+        return j;
+    }
 
-                plotters.at(id)->PlotGraph();
+    void RealTimePlot::fromJSON(const JSON& j)
+    {
+        j.at("visibleVarsNum").get_to(visibleVarsNum);
+        j.at("serialOptionsFlag").get_to(serialOptionsFlag);
 
-                ImPlot::EndPlot();
-            }
+        std::vector<PlotData> dataVec    = PlotData::ArrayFromJSON(j.at("basicData"));
+        std::vector<Plotter>  plotterVec = Plotter::ArrayFromJSON(j.at("plotters"));
 
-			// History slider
-            ImGui::Text("History:");
-            ImGui::SameLine();
-            ImGui::PushItemWidth(availX - 70);
-            ImGui::SliderFloat(std::string("##" + std::to_string(id)).c_str(), plotters.at(id)->GetHistoryPtr(), 0.1, 60, "%.1f s");
-            ImGui::PopItemWidth();
-        ImGui::EndChild();
-        ImGui::PopStyleVar();
-
-        for (uint8_t i = 0; i < plotters.at(id)->GetDataSize(); i++)
-        {
-            float     span     = plotters.at(id)->GetHistory();
-            PlotData* plotData = plotters.at(id)->GetDataPtr()->at(i);
-
-            plotData->SetSpan(span);
-        }
-
-        return 0;
+        basicData.clear();
+        for (auto i : dataVec) basicData.push_back(new PlotData(i));
+        
+        plotters.clear();
+        for (auto i : plotterVec) plotters.push_back(new Plotter(i));
     }
 }

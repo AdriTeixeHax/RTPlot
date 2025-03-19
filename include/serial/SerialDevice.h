@@ -20,19 +20,25 @@ namespace RTPlot
         ~SerialDevice(void);
 
         // Getters
-        const std::vector<double>& GetReadingVals(void) { return  readingVals; }
-        std::vector<double>*       GetReadingPtr (void) { return &readingVals; }
-        SerialPort*                GetPort       (void) { return port; }
-        bool                       IsConnected   (void) { return port->IsConnected(); }
+        const std::vector<double>& GetReadingVals     (void)    { return  readingVals; }
+        std::vector<double>*       GetReadingPtr      (void)    { return &readingVals; }
+        SerialPort*                GetPort            (void)    { return port; }
+        bool                       IsConnected        (void)    { return port->IsConnected(); }
+        const std::string&         GetFriendlyPortName(void)    { return port->GetFriendlyName(); }
 
         // Setters
-        void SetPortVerbose(bool vb) { verboseData = vb; port->SetVerbose(vb); }
+        void                       SetVerbose         (bool vb) { this->verboseData = vb; }
+        void                       SetPortVerbose     (bool vb) { verboseData = vb; port->SetVerbose(vb); }
 
         // Actions
-        bool   Recieve    (void);
-        bool   Send       (const char* msg, uint32_t len);
-        int8_t ProcessData(void);
-        void   PrintData  (void);
+        bool                       Recieve            (void);
+        bool                       Send               (const char* msg, uint32_t len);
+        int8_t                     ProcessData        (void);
+        void                       PrintData          (void);
+
+        // JSON managing
+        JSON                       toJSON(void);
+        void                       fromJSON(const JSON& j);
 	};
 }
 

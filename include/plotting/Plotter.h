@@ -3,48 +3,11 @@
 #ifndef _PLOTTER__H_
 #define _PLOTTER__H_
 
-#include <vector>
-
-#include <plotting/RollingBuffer.h>
-#include <plotting/ColorPalette.h>
+#include <PlotData.h>
 #include <RTPlotVars.h>
 
 namespace RTPlot
 {
-    struct PlotData
-    {
-        ColorPalette*  plotColor;
-        RollingBuffer* plotData;
-        std::string    dataName;
-        char           tempDataName[RTPLOT_TEMP_NAME_LEN];
-        bool           plottable = false;
-
-        PlotData(void) = delete;
-        PlotData(uint32_t colorID, const char* name) :
-            plotColor(new ColorPalette((ImVec4)ImColor::HSV(colorID / 7.0f, 1.0f, 1.0f), colorID)),
-            plotData(new RollingBuffer)
-        {
-			dataName = name;
-			strcpy_s(tempDataName, "New variable name");
-        }
-		PlotData& operator= (const PlotData& pdata)
-		{
-			if (this != &pdata)
-			{
-				*plotColor = *pdata.plotColor;
-				*plotData  = *pdata.plotData;
-				 dataName  =  pdata.dataName;
-				strcpy_s(tempDataName, pdata.tempDataName);
-                plottable = pdata.plottable;
-			}
-			return *this;
-		}
-		~PlotData(void) { delete plotColor; delete plotData; }
-
-        // Setters
-        void SetSpan(float span) { plotData->SetSpan(span); }
-    };
-
     class Plotter
     {
         std::vector<PlotData*> data;
@@ -52,13 +15,12 @@ namespace RTPlot
         char                   tempName[RTPLOT_TEMP_NAME_LEN];
         bool                   plotFlag = true;
         bool                   killPlot = false;
-        float*                 history; 
-
-    private:
-        Plotter(void);
+        float                  history; 
 
 	public:
+        Plotter(void);
         Plotter(std::vector<PlotData*>* pData);
+        Plotter(const Plotter& p);
         ~Plotter(void);
         Plotter& operator=(const Plotter& pldata);
 
@@ -68,16 +30,22 @@ namespace RTPlot
         const std::string&      GetName      (void) const { return  name; }
         std::string*            GetNamePtr   (void)       { return &name; }
 		char*                   GetTempName  (void)       { return  tempName; }
+        bool                    GetKillPlot  (void) const { return  killPlot; }
         bool*                   GetKillPtr   (void)       { return &killPlot; }
-		float*                  GetHistoryPtr(void)       { return  history; }
-        float                   GetHistory   (void) const { return *history; }
+		float*                  GetHistoryPtr(void)       { return &history; }
+        float                   GetHistory   (void) const { return  history; }
         
         // Setters
         void                    SetDataToPlot(const std::vector<double>& originalData);
 
         // Actions
-        void                    PlotGraph(void);
-        void                    ColorPicker(uint32_t id) { if (data.size() > id) data.at(id)->plotColor->ColorPicker(); }
+        void                    PlotGraph    (void);
+        void                    ColorPicker  (uint32_t id);
+    
+        // JSON managing
+        JSON                    toJSON       (void);
+        void                    fromJSON     (const JSON& j);
+        static std::vector<Plotter> ArrayFromJSON(const JSON& j);
     };
 }
 

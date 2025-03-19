@@ -11,6 +11,9 @@
 #include <string>
 #include <vector>
 
+#include <nlohmann/json.hpp>
+using JSON = nlohmann::json;
+
 namespace RTPlot // Had to rename the namespace because of linker issues (honestly idfk wtf was going on there)
 {
     class RollingBuffer // Taken and modified from implot_demo.cpp
@@ -25,17 +28,20 @@ namespace RTPlot // Had to rename the namespace because of linker issues (honest
         RollingBuffer& operator=(const RollingBuffer& rbuf);
 
         // Getters
-		bool              GetPlotFlag(void) { return plotFlag; }
-		bool&             GetPlotFlagRef(void) { return plotFlag; }
-		size_t            GetDataSize(void) const { return data.size(); }
-		ImVector<ImVec2>* GetDataPtr(void) { return &data; }
-		ImVector<ImVec2>& GetDataRef(void) { return data; }
+		bool              GetPlotFlag   (void)         { return plotFlag; }
+		bool&             GetPlotFlagRef(void)         { return plotFlag; }
+		size_t            GetDataSize   (void) const   { return data.size(); }
+		ImVector<ImVec2>* GetDataPtr    (void)         { return &data; }
+		ImVector<ImVec2>& GetDataRef    (void)         { return data; }
+        double            GetSpan       (void)         { return span; }
 
         // Setters
-		void              SetSpan(double _span) { span = _span; }
+		void              SetSpan       (double _span) { span = _span; }
 
         // Actions
-        void              AddPoint(double x, double y);
+        void              AddPoint      (double x, double y);
+        JSON              toJSON        (void);
+        void              fromJSON      (const JSON& j);
     };
 }
 

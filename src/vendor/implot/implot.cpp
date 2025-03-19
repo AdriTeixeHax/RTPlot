@@ -5240,7 +5240,8 @@ void ShowMetricsWindow(bool* p_popen) {
     ImPlotContext& gp = *GImPlot;
     // ImGuiContext& g = *GImGui;
     ImGuiIO& io = ImGui::GetIO();
-    ImGui::Begin("ImPlot Metrics", p_popen);
+    
+    ("ImPlot Metrics", p_popen);
     ImGui::Text("ImPlot " IMPLOT_VERSION);
     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
     ImGui::Text("Mouse Position: [%.0f,%.0f]", io.MousePos.x, io.MousePos.y);
