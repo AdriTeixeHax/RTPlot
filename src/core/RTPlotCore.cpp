@@ -159,14 +159,12 @@ void RTPlot::RTPlotCore::MenuBar(void)
             if (ImGui::BeginMenu("Connect"))
             {
                 serialPorts = RTPlot::SerialPort::ScanAvailablePorts();
-                for (uint8_t device : serialPorts)
+                for (auto device : serialPorts)
                 {
-                    std::string tempName = "COM" + std::to_string(device);
-                    if (ImGui::MenuItem(tempName.c_str(), "", false))
+                    if (ImGui::MenuItem(StripPortNamePrefix(device).c_str(), "", false))
                     {
-                        std::string portName = "\\\\.\\COM" + std::to_string(device);
-                        deviceManager.AddDevice(portName.c_str(), logMsg);
-                        logMsg = "Added device " + tempName + "\n";
+                        deviceManager.AddDevice(device.c_str(), logMsg);
+                        logMsg = "Added device " + StripPortNamePrefix(device) + "\n";
                         showAddPlotFlag = false;
                     }
                 }
@@ -247,20 +245,17 @@ void RTPlot::RTPlotCore::WelcomeWindow(void)
                 ImGui::SetCursorPosX((avail.x - groupSize.x) / 2);
                 ImGui::SetCursorPosY((avail.y - groupSize.y) / 2 + 50);
                 ImGui::BeginGroup();
-                    for (uint8_t device : serialPorts)
+                    for (size_t i = 0; i < serialPorts.size(); i++)
                     {
-                        std::string portName = "\\\\.\\COM" + std::to_string(device);
-                        std::string portNameGUI = "COM" + std::to_string(device);
-
-                        ImGui::PushID(device);
-                            ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(device / 10.0f, 1.0f, 0.6f));
-                            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.7f));
-                            ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(device / 10.0f, 0.7f, 0.5f));
-                                if (ImGui::Button(portNameGUI.c_str()))
+                        ImGui::PushID(i);
+                            ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(i / 10.0f, 1.0f, 0.6f));
+                            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(i / 10.0f, 0.7f, 0.7f));
+                            ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(i / 10.0f, 0.7f, 0.5f));
+                                if (ImGui::Button(StripPortNamePrefix(serialPorts.at(i)).c_str()))
                                 {
-                                    deviceManager.AddDevice(portName.c_str(), logMsg);
+                                    deviceManager.AddDevice(serialPorts.at(i).c_str(), logMsg);
+                                    logMsg = "Added device " + StripPortNamePrefix(serialPorts.at(i)) + "\n";
                                     showAddPlotFlag = false;
-                                    logMsg = "Added device " + portNameGUI + "\n";
                                 }
                             ImGui::PopStyleColor(3);
                         ImGui::PopID();

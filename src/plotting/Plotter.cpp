@@ -12,7 +12,7 @@ namespace RTPlot
         history(10.0f)
     {
         name = "New Plot";
-        strcpy_s(tempName, "New plot name");
+        strcpy_s(tempName, sizeof("New plot name"), "New plot name");
 
 		for (size_t i = 0; i < RTPLOT_DATA_SIZE - 1; i++)
 		{
@@ -24,7 +24,7 @@ namespace RTPlot
 		history(10.0f)
     {
         name = "New Plot";
-        strcpy_s(tempName, "New plot name");
+        strcpy_s(tempName, sizeof("New plot name"), "New plot name");
 
         for (size_t i = 0; i < pData->size(); i++)
         {

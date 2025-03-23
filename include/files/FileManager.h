@@ -6,9 +6,16 @@
 #include <string>
 #include <vector>
 
-#include <Windows.h>
-#include <commdlg.h>
-#pragma comment(lib, "Comdlg32.lib")
+#ifdef _WIN32
+	#include <Windows.h>
+	#include <commdlg.h>
+	#pragma comment(lib, "Comdlg32.lib")
+#endif
+#ifdef __linux__
+    #include <fcntl.h>
+	#include <array>
+	#include <memory>
+#endif
 
 #include <RTPlotVars.h>
 

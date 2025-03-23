@@ -1,4 +1,4 @@
-#include <plotting/Logger.h>
+#include <Logger.h>
 
 ImGui::Log::Log()
 {
@@ -76,7 +76,7 @@ void ImGui::Log::Draw(const char* title, bool* p_open)
     ImGui::End();
 }
 
-void ImGui::Log::AddLog(const char* fmt, ...) IM_FMTARGS(2)
+void ImGui::Log::AddLog(const char* fmt, ...)
 {
     int old_size = Buf.size();
     va_list args;

@@ -1,0 +1,152 @@
+[
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/main.cpp.o -c /home/ateixeira/dev/RTPlot/src/main.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/main.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/main.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o -c /home/ateixeira/dev/RTPlot/src/core/DeviceManager.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/core/DeviceManager.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o -c /home/ateixeira/dev/RTPlot/src/core/RTPlotCore.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/core/RTPlotCore.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o -c /home/ateixeira/dev/RTPlot/src/core/RTPlotFunctions.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/core/RTPlotFunctions.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o -c /home/ateixeira/dev/RTPlot/src/files/FileManager.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/files/FileManager.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/ColorPalette.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/plotting/ColorPalette.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/Logger.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/plotting/Logger.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/PlotData.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/plotting/PlotData.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/Plotter.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/plotting/Plotter.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/RealTimePlot.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/plotting/RealTimePlot.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/RollingBuffer.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/plotting/RollingBuffer.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o -c /home/ateixeira/dev/RTPlot/src/serial/SerialDevice.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/serial/SerialDevice.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o -c /home/ateixeira/dev/RTPlot/src/serial/SerialPlotter.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/serial/SerialPlotter.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o -c /home/ateixeira/dev/RTPlot/src/serial/SerialPort.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/serial/SerialPort.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_demo.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_demo.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_draw.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_draw.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_glfw.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_glfw.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_opengl3.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_opengl3.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_tables.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_tables.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_widgets.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_widgets.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/implot/implot.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/implot/implot.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/implot/implot_demo.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/implot/implot_demo.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/implot/implot_items.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/implot/implot_items.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o"
+},
+{
+  "directory": "/home/ateixeira/dev/RTPlot/build",
+  "command": "/usr/bin/g++ -I/home/ateixeira/dev/RTPlot/include -I/home/ateixeira/dev/RTPlot/include/core -I/home/ateixeira/dev/RTPlot/include/files -I/home/ateixeira/dev/RTPlot/include/plotting -I/home/ateixeira/dev/RTPlot/include/serial -I/home/ateixeira/dev/RTPlot/src/vendor -g -o CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/stb/stb_image.cpp",
+  "file": "/home/ateixeira/dev/RTPlot/src/vendor/stb/stb_image.cpp",
+  "output": "CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o"
+}
+]

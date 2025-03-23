@@ -1,0 +1,533 @@
+{
+    "realTimePlotter": {
+        "basicData": [
+            {
+                "dataName": "0",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "id": 0
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "1",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.8571428656578064,
+                        "z": 0.0
+                    },
+                    "id": 1
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "2",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.2857142686843872,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    "id": 2
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "3",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.5714285373687744
+                    },
+                    "id": 3
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "4",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 0.5714285373687744,
+                        "z": 1.0
+                    },
+                    "id": 4
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "5",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.28571414947509766,
+                        "y": 0.0,
+                        "z": 1.0
+                    },
+                    "id": 5
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "6",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.8571429252624512
+                    },
+                    "id": 6
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "7",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "id": 7
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "8",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.8571431636810303,
+                        "z": 0.0
+                    },
+                    "id": 8
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "9",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.28571438789367676,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    "id": 9
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "10",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.5714287757873535
+                    },
+                    "id": 10
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "11",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 0.5714287757873535,
+                        "z": 1.0
+                    },
+                    "id": 11
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "12",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.28571414947509766,
+                        "y": 0.0,
+                        "z": 1.0
+                    },
+                    "id": 12
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "13",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.8571434020996094
+                    },
+                    "id": 13
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "14",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "id": 14
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            }
+        ],
+        "plotters": [
+            {
+                "data": [
+                    {
+                        "dataName": "asdfa",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 0
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "asdfasdf",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571428656578064,
+                                "z": 0.0
+                            },
+                            "id": 1
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "asdf",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.2857142686843872,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 2
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "3",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714285373687744
+                            },
+                            "id": 3
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "4",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714285373687744,
+                                "z": 1.0
+                            },
+                            "id": 4
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "5",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 5
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "6",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571429252624512
+                            },
+                            "id": 6
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "7",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 7
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "8",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571431636810303,
+                                "z": 0.0
+                            },
+                            "id": 8
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "9",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571438789367676,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 9
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "10",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 10
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "11",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 11
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "12",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 12
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "13",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571434020996094
+                            },
+                            "id": 13
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "14",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 14
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    }
+                ],
+                "history": 10.0,
+                "name": "New Plot",
+                "plotFlag": true
+            }
+        ],
+        "serialOptionsFlag": true,
+        "visibleVarsNum": 2
+    },
+    "serialDevice": {
+        "port": {
+            "readingDelay": 5
+        },
+        "verboseData": true
+    }
+}

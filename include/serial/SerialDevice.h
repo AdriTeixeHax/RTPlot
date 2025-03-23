@@ -3,6 +3,13 @@
 #ifndef _SERIALDEVICE__H_
 #define _SERIALDEVICE__H_
 
+#ifdef _WIN32
+	#define RTPLOT_DEF_BAUDRATE CBR_115200
+#endif
+#ifdef __linux__
+	#define RTPLOT_DEF_BAUDRATE 115200U
+#endif
+
 #include <serial/SerialPort.h>
 
 namespace RTPlot
@@ -16,7 +23,7 @@ namespace RTPlot
 
 	public:
         SerialDevice(void) = delete;
-        SerialDevice(const char* portName, size_t size = RTPLOT_MSG_SIZE, uint32_t baudRate = CBR_115200);
+        SerialDevice(const char* portName, size_t size = RTPLOT_MSG_SIZE, uint32_t baudRate = RTPLOT_DEF_BAUDRATE);
         ~SerialDevice(void);
 
         // Getters

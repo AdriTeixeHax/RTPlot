@@ -69,6 +69,8 @@ std::vector<std::string> RTPlot::FileManager::ReadAndSeparate(const std::string&
     return result;
 }
 
+#ifdef _WIN32
+
 std::string RTPlot::FileManager::OpenFileDialog(void)
 {
     WCHAR filename[1024] = { 0 };
@@ -114,6 +116,61 @@ std::string RTPlot::FileManager::SaveFileDialog(void)
 
     return "";
 }
+
+#endif
+
+#ifdef __linux__
+
+std::string RTPlot::FileManager::OpenFileDialog(void)
+{
+    std::array<char, 1024> buffer;
+    std::string result;
+
+    // Open a file dialog using Zenity (native Linux GUI)
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen("zenity --file-selection --title='Select a file to open' 2>/dev/null", "r"), pclose);
+
+    if (!pipe) {
+        std::cerr << "[FileManager]: Failed to open file dialog.\n";
+        return "";
+    }
+
+    // Read the file path returned by Zenity
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+
+    // Remove trailing newline (Zenity outputs the filename with a newline)
+    if (!result.empty() && result.back() == '\n') {
+        result.pop_back();
+    }
+
+    return result;
+}
+
+std::string RTPlot::FileManager::SaveFileDialog(void)
+{
+    std::array<char, 1024> buffer;
+    std::string result;
+
+    std::unique_ptr<FILE, decltype(&pclose)> pipe(popen("zenity --file-selection --save --confirm-overwrite --title='Save file as' 2>/dev/null", "r"), pclose);
+
+    if (!pipe) {
+        std::cerr << "[FileManager]: Failed to open save dialog.\n";
+        return "";
+    }
+
+    while (fgets(buffer.data(), buffer.size(), pipe.get()) != nullptr) {
+        result += buffer.data();
+    }
+
+    if (!result.empty() && result.back() == '\n') {
+        result.pop_back();
+    }
+
+    return result;
+}
+
+#endif
 
 bool RTPlot::FileManager::Write(const std::string& fileName, const std::string& msg)
 {

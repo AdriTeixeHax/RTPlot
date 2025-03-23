@@ -1,5 +1,6 @@
 #include <serial/SerialPort.h>
 
+#ifdef _WIN32
 namespace RTPlot
 {
 	SerialPort::SerialPort(const std::string& _port, DWORD _baudRate, BYTE _byteSize, WORD _parity, bool _verboseData) : 
@@ -174,7 +175,7 @@ namespace RTPlot
 		static uint8_t readingCount = 0;
 
 		// Check COM status
-		Sleep(readingDelay); // Small delay to allow status update ¡IMPORTANT!
+		Sleep(readingDelay); // Small delay to allow status update ï¿½IMPORTANT!
 		ClearCommError(hCOM, &errors, &status);
 
 		if (status.cbInQue > 0) bytesToRead = (status.cbInQue >= size) ? size : status.cbInQue;
@@ -216,7 +217,7 @@ namespace RTPlot
 		return RTPLOT_FINISHED;
 	}
 
-	std::vector<uint8_t> SerialPort::ScanAvailablePorts(void)
+	std::vector<std::string> SerialPort::ScanAvailablePorts(void)
 	{
 		static std::vector<std::wstring> portNames;
 		if (portNames.size() < 1) // Create names just once
@@ -227,19 +228,20 @@ namespace RTPlot
 			}
 		}
 
-		std::vector<uint8_t> ports;
+		std::vector<std::string> ports;
 		for (uint8_t portNumber = 0; portNumber < RTPLOT_MAX_PORT_NUMBER; portNumber++)
 		{
 			HANDLE hPort = CreateFileW(portNames[portNumber].c_str(), GENERIC_READ | GENERIC_WRITE, 0, nullptr, OPEN_EXISTING, 0, nullptr);
 			if (hPort != INVALID_HANDLE_VALUE)
 			{
-				ports.push_back(portNumber);
+				ports.push_back("\\\\.\\COM" + std::to_string(portNumber));
 			}
 			CloseHandle(hPort);
 		}
 
 		return ports;
 	}
+
 	JSON SerialPort::toJSON(void)
 	{
 		return
@@ -272,3 +274,264 @@ namespace RTPlot
 		timeouts.WriteTotalTimeoutConstant   = WriteTotalTimeoutConstant;
 	}
 }
+#endif
+
+#ifdef __linux__
+
+namespace RTPlot
+{
+	SerialPort::SerialPort(const std::string& _portName, uint32_t _baudRate, uint32_t _byteSize, sp_parity _parity, bool _verboseData) : 
+		byteSize(_byteSize),
+		parity(_parity), 
+		connected(false),
+		verboseData(_verboseData),
+		baudRate(_baudRate), 
+		portName(_portName),
+		friendlyName("")
+	{
+		if (this->Connect()) this->CalcFrndlyName();
+		else std::cerr << "[SerialPort]: Error constructing SerialPort object because couldn't connect with the serial port." << std::endl;
+	}
+
+	SerialPort::~SerialPort(void) 
+	{
+		this->Disconnect();
+	}
+
+	bool SerialPort::IsConnected(void) const
+	{
+        if (!port)
+        {
+            if (verboseData)
+                std::cerr << "[SerialPort]: Invalid handle." << std::endl;
+            return false;
+        }
+
+        sp_signal signals;
+        sp_return result = sp_get_signals(port, &signals);
+        if (result != SP_OK)
+        {
+            if (verboseData)
+            {
+                char* errorMsg = sp_last_error_message();
+                std::cerr << "[SerialPort]: Error getting modem status. Error: " 
+                          << (errorMsg ? errorMsg : "Unknown") << std::endl;
+                sp_free_error_message(errorMsg);
+            }
+            return false;
+        }
+        
+        return connected;
+    }
+
+    bool SerialPort::Connect(void)
+    {
+        // Get port object
+        sp_return result = sp_get_port_by_name(portName.c_str(), &port);
+        if (result != SP_OK || !port)
+        {
+            if (verboseData)
+                std::cerr << "[SerialPort]: Couldn't connect. Invalid port name." << std::endl;
+            return false;
+        }
+
+        // Try to open the port
+        result = sp_open(port, SP_MODE_READ_WRITE);
+        if (result != SP_OK)
+        {
+            if (verboseData)
+            {
+                char* errorMsg = sp_last_error_message();
+                std::cerr << "[SerialPort]: Failed to open port " << portName << ". Error: " << (errorMsg ? errorMsg : "Unknown") << std::endl;
+                sp_free_error_message(errorMsg);
+            }
+            sp_free_port(port);
+            return false;
+        }
+
+        // Set port parameters
+        if (sp_set_baudrate(port, baudRate) != SP_OK ||
+            sp_set_bits(port, byteSize) != SP_OK ||
+            sp_set_parity(port, parity) != SP_OK ||
+            sp_set_stopbits(port, 1) != SP_OK)
+        {
+            if (verboseData)
+                std::cerr << "[SerialPort]: Failed to set COM port parameters." << std::endl;
+            sp_close(port);
+            sp_free_port(port);
+            return false;
+        }
+
+        // Clear buffers
+        sp_flush(port, SP_BUF_BOTH);
+
+        if (verboseData)
+            std::cout << "[SerialPort]: Connected to device at port " << portName << "." << std::endl;
+
+        connected = true;
+        return true;
+    }
+
+	bool SerialPort::Disconnect(void)
+	{
+		if (port)
+        {
+            sp_close(port);
+            sp_free_port(port);
+			return true;
+        }
+		else std::cerr << "[SerialPort]: The device trying to disconnect is not connected." << std::endl;
+		return false;
+	}
+
+	void SerialPort::ClearBuffer(sp_buffer whichBuffer)
+	{
+		if (!port) return;
+	
+		enum sp_return result = sp_flush(port, whichBuffer);
+		if (result != SP_OK)
+		{
+			std::cerr << "[SerialPort]: Error flushing buffer: " << sp_last_error_message() << std::endl;
+		}
+	}
+
+	void SerialPort::CalcFrndlyName()
+    {
+        std::string sysPath = "/dev/serial/by-id/"; // Symlinks for device identifiers
+
+        if (!std::filesystem::exists(sysPath))
+        {
+            if (verboseData) std::cerr << "[SerialPort]: Serial device path not found." << std::endl;
+            return;
+        }
+
+        for (const auto &entry : std::filesystem::directory_iterator(sysPath))
+        {
+            std::string devicePath = entry.path();
+            std::string deviceName = entry.path().filename();
+
+            if (std::filesystem::canonical(devicePath) == std::filesystem::canonical(portName))
+            {
+                friendlyName = deviceName;
+                return;
+            }
+        }
+
+        if (verboseData)
+            std::cerr << "[SerialPort]: Friendly name not found for port " << portName << std::endl;
+    }
+
+	int8_t SerialPort::Read(void* buf, size_t size)
+    {
+        if (!port) 
+        {
+            std::cerr << "[SerialPort]: Invalid handle value." << std::endl;
+            return -1;
+        }
+
+        sp_return status;
+        int bytesRead = 0;
+        int bytesToRead = 0;
+
+        usleep(readingDelay); 
+
+        int availableBytes = sp_input_waiting(port);
+        if (availableBytes < 0)
+        {
+            std::cerr << "[SerialPort]: Error checking input buffer." << std::endl;
+            return RTPLOT_ERROR;
+        }
+
+        bytesToRead = (availableBytes >= size) ? size : availableBytes;
+        if (bytesToRead == 0)
+            return RTPLOT_READING;
+
+		static uint8_t readingCount = 0;
+        if (readingCount >= 5)
+        {
+            sp_flush(port, SP_BUF_INPUT);
+            readingCount = 0;
+        }
+
+        status = sp_blocking_read(port, buf, bytesToRead, 100);
+
+        if (status > 0)
+        {
+            readingCount = 0;
+            return (status == bytesToRead) ? RTPLOT_FINISHED : RTPLOT_READING;
+        }
+        else if (status == 0) 
+			return RTPLOT_READING;
+        else
+        {
+            readingCount++;
+            if (verboseData)
+                std::cerr << "[SerialPort]: Error reading from COM port. Error: " << sp_last_error_message() << std::endl;
+            return RTPLOT_ERROR;
+        }
+    }
+
+	int8_t SerialPort::Write(void* buf, size_t size)
+	{
+		static auto start_time = std::chrono::steady_clock::now();
+		static bool delaying = true;
+	
+		if (!buf || size == 0)
+			return RTPLOT_ERROR; // Invalid buffer or size
+	
+		if (!port) 
+			return RTPLOT_ERROR; // Serial port not initialized
+	
+		// Check if still delaying
+		if (delaying) 
+		{
+			auto now = std::chrono::steady_clock::now();
+			int elapsed_time = std::chrono::duration_cast<millis_t>(now - start_time).count();
+	
+			if (elapsed_time < readingDelay)
+				return RTPLOT_READING; // Still delaying
+			else
+				delaying = false; // Delay finished, proceed with writing
+		}
+	
+		int bytes_written = sp_blocking_write(port, buf, size, 1000);
+	
+		if (bytes_written < 0)
+			return RTPLOT_ERROR;
+	
+		return RTPLOT_OK;
+	}
+
+	std::vector<std::string> SerialPort::ScanAvailablePorts(void)
+	{
+		std::vector<std::string> ports;
+		struct sp_port**         port_list;
+
+		if (sp_list_ports(&port_list) == SP_OK)
+		{
+			for (size_t i = 0; port_list[i] != nullptr; i++)
+			{
+				const char* port_name = sp_get_port_name(port_list[i]);
+				if (port_name) ports.push_back(port_name);
+			}
+			sp_free_port_list(port_list);
+		}
+
+		return ports;
+	}
+
+	JSON SerialPort::toJSON(void)
+	{
+		return
+		{
+			{ "readingDelay", readingDelay },
+		};
+	}
+
+	void SerialPort::fromJSON(const JSON& j)
+	{
+		j.at("readingDelay").get_to(readingDelay);
+	}
+}
+
+#endif

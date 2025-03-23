@@ -7,7 +7,7 @@ RTPlot::SerialPlotter::SerialPlotter(const char* _port, std::string* _logMsg) :
     logMsgPtr(_logMsg)
 {
 	serialCommThread = std::thread(&SerialPlotter::SerialFunc, this);
-	strcpy_s(commandToSend, "");
+	strcpy_s(commandToSend, sizeof(""), "");
 }
 
 RTPlot::SerialPlotter::SerialPlotter(const SerialPlotter& s)
@@ -24,7 +24,7 @@ RTPlot::SerialPlotter::SerialPlotter(const SerialPlotter& s)
     this->realTimePlotter    = new RealTimePlot(*s.realTimePlotter);
     this->serialDevice       = new SerialDevice(*s.serialDevice);
 
-    strcpy_s(this->commandToSend, s.commandToSend);
+    strcpy_s(this->commandToSend, sizeof(s.commandToSend), s.commandToSend);
 }
 
 RTPlot::SerialPlotter::~SerialPlotter(void)
@@ -59,6 +59,7 @@ void RTPlot::SerialPlotter::Plot(const std::string& portName)
     }
 }
 
+#ifdef _WIN32
 void RTPlot::SerialPlotter::SerialOptionsWindow(bool* serialOptionsFlag, std::string* logMsg)
 {
     if (*serialOptionsFlag)
@@ -76,7 +77,7 @@ void RTPlot::SerialPlotter::SerialOptionsWindow(bool* serialOptionsFlag, std::st
 
             COMMTIMEOUTS timeouts = serialDevice->GetPort()->GetTimeouts();
             // Extra label (##x) just in case the numbers coincide
-            std::string rdlText  = "(Curr. value: " + std::to_string(serialDevice->GetPort()->GetReadingDelay()) + ")##1";
+            std::string rdlText = "(Curr. value: " + std::to_string(serialDevice->GetPort()->GetReadingDelay()) + ")##1";
             std::string wtmText = "(Curr. value: " + std::to_string(timeouts.WriteTotalTimeoutMultiplier)       + ")##2";
             std::string wtcText = "(Curr. value: " + std::to_string(timeouts.WriteTotalTimeoutConstant)         + ")##3";
             std::string rtmText = "(Curr. value: " + std::to_string(timeouts.ReadTotalTimeoutMultiplier)        + ")##4";
@@ -101,6 +102,33 @@ void RTPlot::SerialPlotter::SerialOptionsWindow(bool* serialOptionsFlag, std::st
         ImGui::End();
     }
 }
+#endif
+
+#ifdef __linux__
+void RTPlot::SerialPlotter::SerialOptionsWindow(bool* serialOptionsFlag, std::string* logMsg)
+{
+    if (*serialOptionsFlag)
+    {
+        static int wtm = 10, rtm = 10, ri = 50, rtc = 1000, wtc = 1000; // Serial parameters
+        static int readingDelay = 5;
+
+        ImGui::Begin(std::string(StripPortNamePrefix(GetPortName()) + " - Serial options").c_str(), serialOptionsFlag);
+            if (ImGui::Button("Apply"))
+            {
+                serialDevice->GetPort()->SetReadingDelay(abs(readingDelay)); // abs just in case some negative number ends up there.
+                *logMsg = "Applied serial parameters for port " + StripPortNamePrefix(GetPortName()) + ".\n";
+            }
+
+            // Extra label (##x) just in case the numbers coincide
+            std::string rdlText = "(Curr. value: " + std::to_string(serialDevice->GetPort()->GetReadingDelay()) + ")##1";
+
+            ImGui::SeparatorText("RTPlot port options");
+            ImGui::Text("Reading Delay:");
+            ImGui::InputInt(rdlText.c_str(), &readingDelay);
+        ImGui::End();
+    }
+}
+#endif
 
 void RTPlot::SerialPlotter::SaveConfig(const std::string& filepath)
 {

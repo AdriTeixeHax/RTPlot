@@ -5,7 +5,7 @@ RTPlot::PlotData::PlotData(uint32_t colorID, const char* name) :
     plotData()
 {
     dataName = name;
-    strcpy_s(tempDataName, "New variable name");
+    strcpy_s(tempDataName, sizeof("New variable name"), "New variable name");
 }
 
 RTPlot::PlotData::PlotData(const PlotData& pdata)
@@ -20,7 +20,7 @@ RTPlot::PlotData& RTPlot::PlotData::operator=(const PlotData& pdata)
         plotColor = pdata.plotColor;
         plotData = pdata.plotData;
         dataName = pdata.dataName;
-        strcpy_s(tempDataName, pdata.tempDataName);
+        strcpy_s(tempDataName, sizeof(pdata.tempDataName), pdata.tempDataName);
         plottable = pdata.plottable;
     }
     return *this;

@@ -24,7 +24,7 @@ namespace ImGui
         Log();
         void Clear();
         void Draw(const char* title, bool* p_open = NULL);
-        void AddLog(const char* fmt, ...);
+        void AddLog(const char* fmt, ...) IM_FMTARGS(2);
 
         void ShowConsoleLog(const std::string& logMsg, bool* closable);
     };

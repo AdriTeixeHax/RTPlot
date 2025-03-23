@@ -13,7 +13,7 @@ constexpr const char* RTPLOT_LOGO_PATH             = "res/logos/RTPlot.png";
 
 // Font paths and sizes
 constexpr const char* RTPLOT_SOURCESANS_PATH       = "res/fonts/SourceSans/SourceSans3-Regular.ttf";
-constexpr const char* RTPLOT_CONSOLA_PATH          = "res/fonts/Consola/Consola.ttf";
+constexpr const char* RTPLOT_CONSOLA_PATH          = "res/fonts/Consola/consola.ttf";
 constexpr uint8_t     RTPLOT_CONSOLA_SIZE          = 15;
 constexpr uint8_t     RTPLOT_SOURCESANS_SIZE       = 20;
 constexpr uint8_t     RTPLOT_SOURCESANS_SIZE_LARGE = 40;

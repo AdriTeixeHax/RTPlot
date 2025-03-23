@@ -1,5 +1,6 @@
 #include <serial/SerialDevice.h>
 
+#ifdef _WIN32
 RTPlot::SerialDevice::SerialDevice(const char* portName, size_t size, uint32_t baudRate) : 
     port(new RTPlot::SerialPort(portName, baudRate, 8U, PARITY_EVEN)), 
     readingRaw("\0")
@@ -7,6 +8,17 @@ RTPlot::SerialDevice::SerialDevice(const char* portName, size_t size, uint32_t b
     port->ClearBuffer(); 
     for (uint8_t i = 0; i < RTPLOT_MAX_DATA_NUM; i++) readingVals.push_back(0);
 }
+#endif
+
+#ifdef __linux__
+RTPlot::SerialDevice::SerialDevice(const char* portName, size_t size, uint32_t baudRate) : 
+    port(new RTPlot::SerialPort(portName)), 
+    readingRaw("\0")
+{ 
+    port->ClearBuffer(); 
+    for (uint8_t i = 0; i < RTPLOT_MAX_DATA_NUM; i++) readingVals.push_back(0);
+}
+#endif
 
 RTPlot::SerialDevice::~SerialDevice(void) 
 { 
@@ -20,7 +32,7 @@ bool RTPlot::SerialDevice::Recieve(void)
     if (!port->IsConnected()) { if (verboseData) std::cout << "[SerialDevice]: Device not connected." << std::endl; return false; }
 
     // Reset reading variable
-    strcpy_s(readingRaw, "");
+    strcpy_s(readingRaw, sizeof(""), "");
 
     // Reading from port and error checking
     int8_t readCode = port->Read(readingRaw, sizeof(readingRaw));
@@ -50,6 +62,8 @@ bool RTPlot::SerialDevice::Recieve(void)
     }
 }
 
+#ifdef _WIN32
+
 bool RTPlot::SerialDevice::Send(const char* msg, uint32_t len)
 {
     LPVOID message = (LPVOID)msg;
@@ -59,6 +73,22 @@ bool RTPlot::SerialDevice::Send(const char* msg, uint32_t len)
     }
     else return false;
 }
+
+#endif
+
+#ifdef __linux__
+
+bool RTPlot::SerialDevice::Send(const char* msg, uint32_t len)
+{
+    void* message = (void*)msg;
+    if (port->Write(message, len) == RTPLOT_FINISHED)
+    {
+        return true;
+    }
+    else return false;
+}
+
+#endif
 
 int8_t RTPlot::SerialDevice::ProcessData(void)
 {

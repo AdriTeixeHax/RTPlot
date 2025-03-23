@@ -9,6 +9,8 @@
 #include <ColorPalette.h>
 #include <RollingBuffer.h>
 
+#include <RTPlotFunctions.h>
+
 namespace RTPlot
 {
     struct PlotData

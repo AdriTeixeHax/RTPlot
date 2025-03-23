@@ -23,27 +23,35 @@
 #include <FileManager.h>
 #include <DeviceManager.h>
 
+#ifdef _WIN32
+#define USING_LINUX false
+#endif
+#ifdef __linux__
+#define USING_LINUX true
+#endif
+
 namespace RTPlot
 {
     class RTPlotCore
     {
         // Flags
-        bool                 verboseFlag        = true;
-        bool                 ImGuiDemoFlag      = false;
-        bool                 ImPlotDemoFlag     = false;
-        bool                 consoleLogFlag     = true;
-        bool                 showAddPlotFlag    = false;
-        bool                 showDeletePlotFlag = true;
-        bool                 loadFileFlag       = false;
+        bool                     verboseFlag        = true;
+        bool                     ImGuiDemoFlag      = false;
+        bool                     ImPlotDemoFlag     = false;
+        bool                     consoleLogFlag     = true;
+        bool                     showAddPlotFlag    = false;
+        bool                     showDeletePlotFlag = true;
+        bool                     loadFileFlag       = false;
+        bool                     usingLinux         = USING_LINUX;
 
-        std::vector<uint8_t> serialPorts;
-        std::string          logMsg;
-		ImGui::Log		     log;
+        std::vector<std::string> serialPorts;
+        std::string              logMsg;
+		ImGui::Log		         log;
 
     public:
-        GLFWwindow*          window;
-        DeviceManager        deviceManager;
-        FileManager          fileManager;
+        GLFWwindow*              window;
+        DeviceManager            deviceManager;
+        FileManager              fileManager;
 
     public:
         RTPlotCore(void) : window(nullptr) { }

@@ -1,0 +1,4 @@
+# ninja log v5
+1	1598	1742731344105091522	CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o	ecbea12ba94c6f73
+1598	1708	1742731344216091655	RTPlot	2855dbaf7701e68b
+0	1534	1742731344041091445	CMakeFiles/RTPlot.dir/src/tests/SerialPort_UnitTest.cpp.o	f168e1b550642f0b

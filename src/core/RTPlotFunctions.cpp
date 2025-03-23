@@ -1,5 +1,6 @@
 #include <RTPlotFunctions.h>
 #include <cstdint>
+#include <cstring>
 
 void RTPlot::Toggle(bool& var)
 { 
