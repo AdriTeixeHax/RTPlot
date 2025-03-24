@@ -16,7 +16,7 @@ namespace RTPlot
 {
 	class SerialDevice
 	{
-		SerialPort*         port;
+	SerialPort*         port;
         char                readingRaw[RTPLOT_MSG_SIZE];
         std::vector<double> readingVals;
         bool                verboseData = true;

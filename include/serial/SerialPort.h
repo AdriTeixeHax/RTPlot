@@ -89,19 +89,19 @@ namespace RTPlot
 {
 	class SerialPort
 	{
-		struct sp_port* port;
-		bool            connected;
-		bool		    verboseData;
-		uint8_t		    readingDelay = 5;
-		uint32_t        byteSize;
-		uint32_t        baudRate;
-		sp_parity       parity;
-		std::string     portName;
-		std::string     friendlyName;
+		struct sp_port*    port;
+		bool               connected;
+		bool		       verboseData;
+		uint8_t		       readingDelay = 2;
+		uint32_t           byteSize;
+		uint32_t           baudRate;
+		sp_parity          parity;
+		std::string        portName;
+		std::string        friendlyName;
 
 	public:
 		SerialPort(void) = delete;
-		SerialPort(const std::string& _portName, uint32_t _baudRate = 115200, uint32_t _byteSize = 8, sp_parity _parity = SP_PARITY_NONE, bool _verboseData = true);
+		SerialPort(const std::string& _portName, uint32_t _baudRate = 115200, uint32_t _byteSize = 8, sp_parity _parity = SP_PARITY_EVEN, bool _verboseData = true);
 		~SerialPort(void);
 
 		// Getters

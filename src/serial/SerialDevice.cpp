@@ -37,6 +37,8 @@ bool RTPlot::SerialDevice::Recieve(void)
     // Reading from port and error checking
     int8_t readCode = port->Read(readingRaw, sizeof(readingRaw));
 
+    if (strcmp(readingRaw, "") == 0) readCode = RTPLOT_READING;
+
     switch (readCode)
     {
     case RTPLOT_ERROR:
@@ -120,6 +122,9 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
         }
     }
 
+    std::cout << "[RawMsg]: " << readingRaw << std::endl;
+    std::cout << "[TempMsg]: " << tempMsg << std::endl;
+
     // Process the data
     char finalMsg[RTPLOT_MAX_DATA_NUM][RTPLOT_DATA_SIZE] = { 0 };
     size_t msgSel = 0;
@@ -157,15 +162,15 @@ void RTPlot::SerialDevice::PrintData(void)
 {
     if (verboseData)
     {
-        std::cout << "[" << port->GetName() << "]: Converted read data: ";
+        // std::cout << "[" << port->GetName() << "]: Converted read data: ";
 
-        for (uint8_t i = 0; i < readingVals.size(); i++)
-        {
-            std::cout << readingVals.at(i);
-            if (i < RTPLOT_MAX_DATA_NUM - 1)
-                std::cout << ", ";
-        }
-        std::cout << std::endl;
+        // for (uint8_t i = 0; i < readingVals.size(); i++)
+        // {
+        //     std::cout << readingVals.at(i);
+        //     if (i < RTPLOT_MAX_DATA_NUM - 1)
+        //         std::cout << ", ";
+        // }
+        // std::cout << std::endl;
     }
 }
 

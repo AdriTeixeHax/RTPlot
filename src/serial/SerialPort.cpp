@@ -351,9 +351,9 @@ namespace RTPlot
 
         // Set port parameters
         if (sp_set_baudrate(port, baudRate) != SP_OK ||
-            sp_set_bits(port, byteSize) != SP_OK ||
-            sp_set_parity(port, parity) != SP_OK ||
-            sp_set_stopbits(port, 1) != SP_OK)
+            sp_set_bits(port, byteSize)     != SP_OK ||
+            sp_set_parity(port, parity)     != SP_OK ||
+            sp_set_stopbits(port, 1)        != SP_OK)
         {
             if (verboseData)
                 std::cerr << "[SerialPort]: Failed to set COM port parameters." << std::endl;
@@ -443,7 +443,7 @@ namespace RTPlot
         }
 
         bytesToRead = (availableBytes >= size) ? size : availableBytes;
-        if (bytesToRead == 0)
+        if (bytesToRead < size)
             return RTPLOT_READING;
 
 		static uint8_t readingCount = 0;
@@ -455,20 +455,19 @@ namespace RTPlot
 
         status = sp_blocking_read(port, buf, bytesToRead, 100);
 
+		if (status == 0) 
+			return RTPLOT_READING;
+
         if (status > 0)
         {
             readingCount = 0;
             return (status == bytesToRead) ? RTPLOT_FINISHED : RTPLOT_READING;
         }
-        else if (status == 0) 
-			return RTPLOT_READING;
-        else
-        {
-            readingCount++;
-            if (verboseData)
-                std::cerr << "[SerialPort]: Error reading from COM port. Error: " << sp_last_error_message() << std::endl;
-            return RTPLOT_ERROR;
-        }
+
+		readingCount++;
+		if (verboseData)
+			std::cerr << "[SerialPort]: Error reading from COM port. Error: " << sp_last_error_message() << std::endl;
+		return RTPLOT_ERROR;
     }
 
 	int8_t SerialPort::Write(void* buf, size_t size)
