@@ -40,9 +40,9 @@
                 "plotColor": {
                     "color": {
                         "w": 1.0,
-                        "x": 0.2857142686843872,
-                        "y": 1.0,
-                        "z": 0.0
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.9757790565490723
                     },
                     "id": 2
                 },
@@ -50,7 +50,7 @@
                     "plotFlag": false,
                     "span": 10.0
                 },
-                "plottable": false
+                "plottable": true
             },
             {
                 "dataName": "3",
@@ -261,7 +261,7 @@
             {
                 "data": [
                     {
-                        "dataName": "asdfa",
+                        "dataName": "asdf",
                         "plotColor": {
                             "color": {
                                 "w": 1.0,
@@ -272,13 +272,13 @@
                             "id": 0
                         },
                         "plotData": {
-                            "plotFlag": true,
+                            "plotFlag": false,
                             "span": 10.0
                         },
                         "plottable": true
                     },
                     {
-                        "dataName": "asdfasdf",
+                        "dataName": "a",
                         "plotColor": {
                             "color": {
                                 "w": 1.0,
@@ -295,13 +295,13 @@
                         "plottable": true
                     },
                     {
-                        "dataName": "asdf",
+                        "dataName": "aa",
                         "plotColor": {
                             "color": {
                                 "w": 1.0,
-                                "x": 0.2857142686843872,
-                                "y": 1.0,
-                                "z": 0.0
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.9757790565490723
                             },
                             "id": 2
                         },
@@ -309,7 +309,7 @@
                             "plotFlag": false,
                             "span": 10.0
                         },
-                        "plottable": false
+                        "plottable": true
                     },
                     {
                         "dataName": "3",
@@ -522,11 +522,11 @@
             }
         ],
         "serialOptionsFlag": true,
-        "visibleVarsNum": 2
+        "visibleVarsNum": 3
     },
     "serialDevice": {
         "port": {
-            "readingDelay": 5
+            "readingDelay": 3
         },
         "verboseData": true
     }
