@@ -1,3 +1,0 @@
-/home/ateixeira/dev/RTPlot/build/CMakeFiles/RTPlot.dir
-/home/ateixeira/dev/RTPlot/build/CMakeFiles/edit_cache.dir
-/home/ateixeira/dev/RTPlot/build/CMakeFiles/rebuild_cache.dir

@@ -313,8 +313,6 @@ namespace RTPlot
             }
         }
 
-        std::cout << "[Same name]: " << sameNameFlag << std::endl;
-
         if (tempName[0] == '\0')
             emptyFlag = true;
 
