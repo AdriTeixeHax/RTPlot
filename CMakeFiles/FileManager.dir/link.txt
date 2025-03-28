@@ -1,2 +1,0 @@
-/usr/bin/ar qc libFileManager.a CMakeFiles/FileManager.dir/src/files/FileManager.cpp.o
-/usr/bin/ranlib libFileManager.a
