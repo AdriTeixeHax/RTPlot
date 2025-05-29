@@ -64,5 +64,6 @@
         "typeinfo": "cpp",
         "valarray": "cpp",
         "variant": "cpp"
-    }
+    },
+    "editor.fontFamily": "'Consolas', 'monospace', monospace"
 }
