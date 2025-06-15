@@ -34,8 +34,8 @@ constexpr   int8_t    RTPLOT_ERROR                 = -1;
 constexpr  uint8_t    RTPLOT_READING_DELAY         =  0;
 constexpr   double    RTPLOT_TOLERANCE_UPPER       =  1e6;
 constexpr   double    RTPLOT_TOLERANCE_LOWER       = -1e6;
-constexpr   double    RTPLOT_TOLERANCE_DELTA       = 1e-6;
-constexpr  uint8_t    RTPLOT_TEMP_NAME_LEN         = 32;
+constexpr   double    RTPLOT_TOLERANCE_DELTA       =  1e-6;
+constexpr  uint8_t    RTPLOT_TEMP_NAME_LEN         =  32;
 
 constexpr const char* RTPLOT_FORMAT                = "json";
 

@@ -2,8 +2,8 @@
 Version=1.0
 Type=Application
 Name=RTPlot
-Exec=/home/ateixeira/dev/RTPlot/RTPlot.sh
-Icon=/home/ateixeira/dev/RTPlot/res/logos/RTPlot.png
+Exec=/home/username/RTPlot/RTPlot.sh %u
+Icon=/home/username/RTPlot/res/logos/RTPlot.png
 StartupNotify=true
 StartupWMClass=RTPlot - by AdriTeixeHax
-Categories=Graphics;Science;
+Categories=Graphics;Science;Plotting;
