@@ -502,7 +502,7 @@ namespace RTPlot
 	
 		int bytes_written = sp_blocking_write(port, buf, size, 1000);
 
-		std::cout << "W"
+		std::cout << "Wrote " << (char*)buf << ", no. of bytes: " << bytes_written << std::endl;
 	
 		if (bytes_written < 0)
 			return RTPLOT_ERROR;

@@ -161,7 +161,7 @@ void RTPlot::SerialPlotter::SerialFunc(void)
 
         if (sendCommand)
         {
-            serialDevice->Send(commandToSend, sizeof(commandToSend));
+            serialDevice->Send(commandToSend, strlen(commandToSend));
             sendCommand = false;
         }
     }
