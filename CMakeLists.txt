@@ -1,9 +1,12 @@
 cmake_minimum_required(VERSION 3.5)
-project(RTPlot VERSION 0.1.0)
+project(RTPlot VERSION 0.1.1)
+
+set(CMAKE_BUILD_TYPE Debug)
 
 include_directories(include include/core include/files include/plotting include/serial src/vendor)
 
 find_package(OpenGL REQUIRED)
+find_package(glfw3 3.4 REQUIRED)
 find_package(GLEW 2.2.0 REQUIRED)
 
 find_package(PkgConfig REQUIRED)

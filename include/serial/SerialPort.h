@@ -93,6 +93,7 @@ namespace RTPlot
 		bool               connected;
 		bool		       verboseData;
 		uint8_t		       readingDelay = 2;
+		uint8_t			   readingCount = 0;
 		uint32_t           byteSize;
 		uint32_t           baudRate;
 		sp_parity          parity;

@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/ateixeira/dev/RTPlot/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

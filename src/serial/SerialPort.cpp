@@ -426,7 +426,7 @@ namespace RTPlot
         if (!port) 
         {
             std::cerr << "[SerialPort]: Invalid handle value." << std::endl;
-            return -1;
+            return RTPLOT_ERROR;
         }
 
         sp_return status;
@@ -443,10 +443,8 @@ namespace RTPlot
         }
 
         bytesToRead = (availableBytes >= size) ? size : availableBytes;
-        if (bytesToRead < size)
-            return RTPLOT_READING;
 
-		static uint8_t readingCount = 0;
+		readingCount = 0;
         if (readingCount >= 5)
         {
             sp_flush(port, SP_BUF_INPUT);
@@ -455,19 +453,28 @@ namespace RTPlot
 
         status = sp_blocking_read(port, buf, bytesToRead, 100);
 
+		if (bytesToRead != 0) 
+		{
+			char* rawMsgTest = (char*)buf;
+			std::cout << "Status: " << status << ", bytesToRead: " << bytesToRead << ", Raw message: " << rawMsgTest << std::endl;
+		}
+		
+
 		if (status == 0) 
 			return RTPLOT_READING;
 
-        if (status > 0)
+        else if (status > 0)
         {
             readingCount = 0;
             return (status == bytesToRead) ? RTPLOT_FINISHED : RTPLOT_READING;
         }
-
-		readingCount++;
-		if (verboseData)
-			std::cerr << "[SerialPort]: Error reading from COM port. Error: " << sp_last_error_message() << std::endl;
-		return RTPLOT_ERROR;
+		else
+		{
+			readingCount++;
+			if (verboseData)
+				std::cerr << "[SerialPort]: Error reading from COM port. Error: " << sp_last_error_message() << std::endl;
+			return RTPLOT_ERROR;
+		}
     }
 
 	int8_t SerialPort::Write(void* buf, size_t size)

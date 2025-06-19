@@ -37,8 +37,6 @@ bool RTPlot::SerialDevice::Recieve(void)
     // Reading from port and error checking
     int8_t readCode = port->Read(readingRaw, sizeof(readingRaw));
 
-    if (strcmp(readingRaw, "") == 0) readCode = RTPLOT_READING;
-
     switch (readCode)
     {
     case RTPLOT_ERROR:
@@ -54,7 +52,7 @@ bool RTPlot::SerialDevice::Recieve(void)
         if (readingRaw == nullptr) { if (verboseData) std::cout << "[SerialDevice]: Reading returned nullptr." << std::endl; return false; }
 
         ProcessData();
-        PrintData();
+        //PrintData();
 
         return true;
         break;
@@ -99,9 +97,10 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
     bool endFlag = false;
     size_t x = 0;
 
+    
+
     for (size_t i = 0; i < sizeof(tempMsg); i++)
     {
-
         // If the byte read is a 'b' (begin), then start copying the message
         if (readingRaw[i] == 'b') startFlag = true;
         if (startFlag && readingRaw[i] != 'b' && readingRaw[i] != 'e')
@@ -122,8 +121,7 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
         }
     }
 
-    std::cout << "[RawMsg]: " << readingRaw << std::endl;
-    std::cout << "[TempMsg]: " << tempMsg << std::endl;
+    //std::cout << "[TempMsg]: " << tempMsg << std::endl;
 
     // Process the data
     char finalMsg[RTPLOT_MAX_DATA_NUM][RTPLOT_DATA_SIZE] = { 0 };
@@ -162,15 +160,15 @@ void RTPlot::SerialDevice::PrintData(void)
 {
     if (verboseData)
     {
-        // std::cout << "[" << port->GetName() << "]: Converted read data: ";
+        std::cout << "[" << port->GetName() << "]: Converted read data: ";
 
-        // for (uint8_t i = 0; i < readingVals.size(); i++)
-        // {
-        //     std::cout << readingVals.at(i);
-        //     if (i < RTPLOT_MAX_DATA_NUM - 1)
-        //         std::cout << ", ";
-        // }
-        // std::cout << std::endl;
+        for (uint8_t i = 0; i < readingVals.size(); i++)
+        {
+            std::cout << readingVals.at(i);
+            if (i < RTPLOT_MAX_DATA_NUM - 1)
+                std::cout << ", ";
+        }
+        std::cout << std::endl;
     }
 }
 
