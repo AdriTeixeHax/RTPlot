@@ -38,15 +38,17 @@ namespace RTPlot
         bool                     verboseFlag        = true;
         bool                     ImGuiDemoFlag      = false;
         bool                     ImPlotDemoFlag     = false;
-        bool                     consoleLogFlag     = true;
         bool                     showAddPlotFlag    = false;
         bool                     showDeletePlotFlag = true;
         bool                     loadFileFlag       = false;
         bool                     usingLinux         = USING_LINUX;
-
+        
         std::vector<std::string> serialPorts;
-        std::string              logMsg;
-		ImGui::Log		         log;
+
+        bool                     consoleLogFlag     = true;
+        bool                     inverterLogFlag    = true;
+        std::string              logMsg, inverterLogMsg;
+		ImGui::Log		         log, inverterLog;
 
     public:
         GLFWwindow*              window;
@@ -54,7 +56,7 @@ namespace RTPlot
         FileManager              fileManager;
 
     public:
-        RTPlotCore(void) : window(nullptr) { }
+        RTPlotCore(void) : window(nullptr), log("Console log"), inverterLog("Inverter log") { }
         ~RTPlotCore(void) { } // window and font pointers are deleted by the ImGui library
         
         bool GraphicsInit    (void);

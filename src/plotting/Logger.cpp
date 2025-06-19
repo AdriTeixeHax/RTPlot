@@ -1,6 +1,6 @@
 #include <Logger.h>
 
-ImGui::Log::Log()
+ImGui::Log::Log(const std::string& windowName) : name(windowName)
 {
     AutoScroll = true;
     Clear();
@@ -89,11 +89,9 @@ void ImGui::Log::AddLog(const char* fmt, ...)
 }
 
 void ImGui::Log::ShowConsoleLog(const std::string& logMsg, bool* closable)
-{
-    static std::string prevMsg = "";
-    
+{    
     ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
-    ImGui::Begin("Console output", closable);
+    ImGui::Begin(name.c_str(), closable);
         if (prevMsg != logMsg)
         {
             prevMsg = logMsg;
@@ -101,5 +99,5 @@ void ImGui::Log::ShowConsoleLog(const std::string& logMsg, bool* closable)
         }
     ImGui::End();
 
-    Draw("Console output", closable);
+    Draw(name.c_str(), closable);
 }

@@ -23,9 +23,9 @@ void saveToFile(SerialPlotter& data, const std::string& filename)
 }
 
 // Function to load a vector of Persons from a JSON file
-SerialPlotter loadFromFile(const std::string& filename, std::string* logMsgPtr)
+SerialPlotter loadFromFile(const std::string& filename, std::string* logMsgRef)
 {
-    SerialPlotter data("\\\\.\\COM6", logMsgPtr);
+    SerialPlotter data("\\\\.\\COM6", logMsgRef);
     std::ifstream file(filename);
     if (file)
     {

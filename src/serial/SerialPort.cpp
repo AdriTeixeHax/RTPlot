@@ -456,7 +456,7 @@ namespace RTPlot
 		if (bytesToRead != 0) 
 		{
 			char* rawMsgTest = (char*)buf;
-			std::cout << "Status: " << status << ", bytesToRead: " << bytesToRead << ", Raw message: " << rawMsgTest << std::endl;
+			//std::cout << "Status: " << status << ", bytesToRead: " << bytesToRead << ", Raw message: " << rawMsgTest << std::endl;
 		}
 		
 
@@ -501,6 +501,8 @@ namespace RTPlot
 		}
 	
 		int bytes_written = sp_blocking_write(port, buf, size, 1000);
+
+		std::cout << "W"
 	
 		if (bytes_written < 0)
 			return RTPLOT_ERROR;

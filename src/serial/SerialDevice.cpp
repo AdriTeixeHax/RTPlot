@@ -11,8 +11,9 @@ RTPlot::SerialDevice::SerialDevice(const char* portName, size_t size, uint32_t b
 #endif
 
 #ifdef __linux__
-RTPlot::SerialDevice::SerialDevice(const char* portName, size_t size, uint32_t baudRate) : 
+RTPlot::SerialDevice::SerialDevice(const char* portName, std::string& inverterLogMsgRef, size_t size, uint32_t baudRate) : 
     port(new RTPlot::SerialPort(portName)), 
+    inverterLogMsg(inverterLogMsgRef),
     readingRaw("\0")
 { 
     port->ClearBuffer(); 
@@ -97,7 +98,11 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
     bool endFlag = false;
     size_t x = 0;
 
-    
+    for (size_t i = 0; i < sizeof(readingRaw); i++)
+    {
+        if (readingRaw[i] == '[')
+            inverterLogMsg = readingRaw;
+    }
 
     for (size_t i = 0; i < sizeof(tempMsg); i++)
     {

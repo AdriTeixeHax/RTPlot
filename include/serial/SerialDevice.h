@@ -20,10 +20,11 @@ namespace RTPlot
         char                readingRaw[RTPLOT_MSG_SIZE];
         std::vector<double> readingVals;
         bool                verboseData = true;
+        std::string&        inverterLogMsg;
 
 	public:
         SerialDevice(void) = delete;
-        SerialDevice(const char* portName, size_t size = RTPLOT_MSG_SIZE, uint32_t baudRate = RTPLOT_DEF_BAUDRATE);
+        SerialDevice(const char* portName, std::string& inverterLogMsgRef, size_t size = RTPLOT_MSG_SIZE, uint32_t baudRate = RTPLOT_DEF_BAUDRATE);
         ~SerialDevice(void);
 
         // Getters

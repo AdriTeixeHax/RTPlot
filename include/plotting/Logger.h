@@ -20,8 +20,10 @@ namespace ImGui
         ImGuiTextFilter Filter;
         ImVector<int>   LineOffsets; // Index to lines offset. We maintain this with AddLog() calls.
         bool            AutoScroll;
+        std::string     name;
+        std::string     prevMsg = "";
 
-        Log();
+        Log(const std::string& windowName);
         void Clear();
         void Draw(const char* title, bool* p_open = NULL);
         void AddLog(const char* fmt, ...) IM_FMTARGS(2);

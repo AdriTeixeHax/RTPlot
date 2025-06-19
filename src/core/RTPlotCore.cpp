@@ -163,7 +163,7 @@ void RTPlot::RTPlotCore::MenuBar(void)
                 {
                     if (ImGui::MenuItem(StripPortNamePrefix(device).c_str(), "", false))
                     {
-                        deviceManager.AddDevice(device.c_str(), logMsg);
+                        deviceManager.AddDevice(device.c_str(), logMsg, inverterLogMsg);
                         logMsg = "Added device " + StripPortNamePrefix(device) + "\n";
                         showAddPlotFlag = false;
                     }
@@ -206,6 +206,7 @@ void RTPlot::RTPlotCore::MenuBar(void)
                 else             logMsg = "Turned off verbose.\n";
             }
             if (ImGui::MenuItem("Console log", "", consoleLogFlag)) { consoleLogFlag = !consoleLogFlag; }
+            if (ImGui::MenuItem("Inverter log", "", inverterLogFlag)) { inverterLogFlag = !inverterLogFlag; }
             ImGui::EndMenu();
         }
         ImGui::EndMenuBar();
@@ -253,7 +254,7 @@ void RTPlot::RTPlotCore::WelcomeWindow(void)
                             ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(i / 10.0f, 0.7f, 0.5f));
                                 if (ImGui::Button(StripPortNamePrefix(serialPorts.at(i)).c_str()))
                                 {
-                                    deviceManager.AddDevice(serialPorts.at(i).c_str(), logMsg);
+                                    deviceManager.AddDevice(serialPorts.at(i).c_str(), logMsg, inverterLogMsg);
                                     logMsg = "Added device " + StripPortNamePrefix(serialPorts.at(i)) + "\n";
                                     showAddPlotFlag = false;
                                 }
@@ -286,6 +287,7 @@ void RTPlot::RTPlotCore::DemoWindows(void)
 void RTPlot::RTPlotCore::ShowLog(void)
 {
     if (consoleLogFlag) log.ShowConsoleLog(logMsg, &consoleLogFlag);
+    if (inverterLogFlag) inverterLog.ShowConsoleLog(inverterLogMsg, &inverterLogFlag);
 }
 
 void RTPlot::RTPlotCore::DeleteComponents(void)

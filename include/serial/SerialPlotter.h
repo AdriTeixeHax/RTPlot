@@ -29,11 +29,11 @@ namespace RTPlot
 		// Mutex
 		std::mutex    mutex;
 
-		// Log message pointer
-		std::string*  logMsgPtr;
+		// Log message reference
+		std::string&  logMsgRef;
 
 	public:
-		SerialPlotter (const char* _port, std::string* _logMsg);
+		SerialPlotter (const char* _port, std::string& _logMsg, std::string& _inverterLogMsg);
 		SerialPlotter (const SerialPlotter& s);
 		~SerialPlotter(void);
 
@@ -50,7 +50,7 @@ namespace RTPlot
 
 		// Functions
 		void          Plot               (const std::string& portName);
-		void          SerialOptionsWindow(bool* serialOptionsFlag, std::string* logMsg);
+		void          SerialOptionsWindow(bool* serialOptionsFlag);
 
 		// Thread functions
 		void          SerialFunc         (void);

@@ -1,16 +1,19 @@
 #include <serial/SerialPlotter.h>
 #include <RTPlotFunctions.h>
 
-RTPlot::SerialPlotter::SerialPlotter(const char* _port, std::string* _logMsg) :
+RTPlot::SerialPlotter::SerialPlotter(const char* _port, std::string& _logMsg, std::string& _inverterLogMsg) :
 	realTimePlotter(new RealTimePlot),
-	serialDevice(new SerialDevice(_port)),
-    logMsgPtr(_logMsg)
+	serialDevice(new SerialDevice(_port, _inverterLogMsg)),
+    logMsgRef(_logMsg)
 {
 	serialCommThread = std::thread(&SerialPlotter::SerialFunc, this);
 	strcpy_s(commandToSend, sizeof(""), "");
 }
 
 RTPlot::SerialPlotter::SerialPlotter(const SerialPlotter& s)
+    : realTimePlotter(new RealTimePlot(*s.realTimePlotter)),
+      serialDevice(new SerialDevice(*s.serialDevice)),
+      logMsgRef(s.logMsgRef)
 {
     this->killFlag           = s.killFlag;
     this->addVariable        = s.addVariable;
@@ -18,11 +21,6 @@ RTPlot::SerialPlotter::SerialPlotter(const SerialPlotter& s)
     this->varToRemove        = s.varToRemove;
     this->exitCommThreadFlag = s.exitCommThreadFlag;
     this->sendCommand        = s.sendCommand;
-
-    this->logMsgPtr          = s.logMsgPtr;
-
-    this->realTimePlotter    = new RealTimePlot(*s.realTimePlotter);
-    this->serialDevice       = new SerialDevice(*s.serialDevice);
 
     strcpy_s(this->commandToSend, sizeof(s.commandToSend), s.commandToSend);
 }
@@ -49,7 +47,7 @@ void RTPlot::SerialPlotter::Plot(const std::string& portName)
             }
         }
 
-        this->SerialOptionsWindow(realTimePlotter->GetSerialOptionsFlagPtr(), logMsgPtr);
+        this->SerialOptionsWindow(realTimePlotter->GetSerialOptionsFlagPtr());
     mutex.unlock();
 
     if (addVariable)
@@ -105,7 +103,7 @@ void RTPlot::SerialPlotter::SerialOptionsWindow(bool* serialOptionsFlag, std::st
 #endif
 
 #ifdef __linux__
-void RTPlot::SerialPlotter::SerialOptionsWindow(bool* serialOptionsFlag, std::string* logMsg)
+void RTPlot::SerialPlotter::SerialOptionsWindow(bool* serialOptionsFlag)
 {
     if (*serialOptionsFlag)
     {
@@ -116,7 +114,7 @@ void RTPlot::SerialPlotter::SerialOptionsWindow(bool* serialOptionsFlag, std::st
             if (ImGui::Button("Apply"))
             {
                 serialDevice->GetPort()->SetReadingDelay(abs(readingDelay)); // abs just in case some negative number ends up there.
-                *logMsg = "Applied serial parameters for port " + StripPortNamePrefix(GetPortName()) + ".\n";
+                logMsgRef = "Applied serial parameters for port " + StripPortNamePrefix(GetPortName()) + ".\n";
             }
 
             // Extra label (##x) just in case the numbers coincide
