@@ -100,10 +100,24 @@ CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ateixeira/dev/RTPlot/src/core/DeviceManager.cpp -o CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.s
 
+CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: CMakeFiles/RTPlot.dir/flags.make
+CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: src/core/InverterControl.cpp
+CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o -MF CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o.d -o CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o -c /home/ateixeira/dev/RTPlot/src/core/InverterControl.cpp
+
+CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/ateixeira/dev/RTPlot/src/core/InverterControl.cpp > CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.i
+
+CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/ateixeira/dev/RTPlot/src/core/InverterControl.cpp -o CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.s
+
 CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o: src/core/RTPlotCore.cpp
 CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o -MF CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o.d -o CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o -c /home/ateixeira/dev/RTPlot/src/core/RTPlotCore.cpp
 
 CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.i: cmake_force
@@ -117,7 +131,7 @@ CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o: src/core/RTPlotFunctions.cpp
 CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o -MF CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o.d -o CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o -c /home/ateixeira/dev/RTPlot/src/core/RTPlotFunctions.cpp
 
 CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.i: cmake_force
@@ -131,7 +145,7 @@ CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o: src/files/FileManager.cpp
 CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o -MF CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o.d -o CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o -c /home/ateixeira/dev/RTPlot/src/files/FileManager.cpp
 
 CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.i: cmake_force
@@ -145,7 +159,7 @@ CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.o: src/plotting/ColorPalette.cpp
 CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.o -MF CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.o.d -o CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/ColorPalette.cpp
 
 CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.i: cmake_force
@@ -159,7 +173,7 @@ CMakeFiles/RTPlot.dir/src/plotting/ColorPalette.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o: src/plotting/Logger.cpp
 CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o -MF CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o.d -o CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/Logger.cpp
 
 CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.i: cmake_force
@@ -173,7 +187,7 @@ CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.o: src/plotting/PlotData.cpp
 CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.o -MF CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.o.d -o CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/PlotData.cpp
 
 CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.i: cmake_force
@@ -187,7 +201,7 @@ CMakeFiles/RTPlot.dir/src/plotting/PlotData.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.o: src/plotting/Plotter.cpp
 CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.o -MF CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.o.d -o CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/Plotter.cpp
 
 CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.i: cmake_force
@@ -201,7 +215,7 @@ CMakeFiles/RTPlot.dir/src/plotting/Plotter.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.o: src/plotting/RealTimePlot.cpp
 CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.o -MF CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.o.d -o CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/RealTimePlot.cpp
 
 CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.i: cmake_force
@@ -215,7 +229,7 @@ CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.o: src/plotting/RollingBuffer.cpp
 CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.o -MF CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.o.d -o CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.o -c /home/ateixeira/dev/RTPlot/src/plotting/RollingBuffer.cpp
 
 CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.i: cmake_force
@@ -229,7 +243,7 @@ CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: src/serial/SerialDevice.cpp
 CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o -MF CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o.d -o CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o -c /home/ateixeira/dev/RTPlot/src/serial/SerialDevice.cpp
 
 CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.i: cmake_force
@@ -243,7 +257,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o: src/serial/SerialPlotter.cpp
 CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o -MF CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o.d -o CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o -c /home/ateixeira/dev/RTPlot/src/serial/SerialPlotter.cpp
 
 CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.i: cmake_force
@@ -257,7 +271,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o: src/serial/SerialPort.cpp
 CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o -MF CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o.d -o CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o -c /home/ateixeira/dev/RTPlot/src/serial/SerialPort.cpp
 
 CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.i: cmake_force
@@ -271,7 +285,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o: src/vendor/imgui/imgui.cpp
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o -MF CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o.d -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui.cpp
 
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.i: cmake_force
@@ -285,7 +299,7 @@ CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o: src/vendor/imgui/imgui_demo.cpp
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o -MF CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o.d -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_demo.cpp
 
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.i: cmake_force
@@ -299,7 +313,7 @@ CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o: src/vendor/imgui/imgui_draw.cpp
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o -MF CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o.d -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_draw.cpp
 
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.i: cmake_force
@@ -313,7 +327,7 @@ CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_draw.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.o: src/vendor/imgui/imgui_impl_glfw.cpp
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.o -MF CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.o.d -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_glfw.cpp
 
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.i: cmake_force
@@ -327,7 +341,7 @@ CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_glfw.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o: src/vendor/imgui/imgui_impl_opengl3.cpp
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o -MF CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o.d -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_opengl3.cpp
 
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.i: cmake_force
@@ -341,7 +355,7 @@ CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.o: src/vendor/imgui/imgui_tables.cpp
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.o -MF CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.o.d -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_tables.cpp
 
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.i: cmake_force
@@ -355,7 +369,7 @@ CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_tables.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o: src/vendor/imgui/imgui_widgets.cpp
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o -MF CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o.d -o CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_widgets.cpp
 
 CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.i: cmake_force
@@ -369,7 +383,7 @@ CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_widgets.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o: src/vendor/implot/implot.cpp
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o -MF CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o.d -o CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/implot/implot.cpp
 
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.i: cmake_force
@@ -383,7 +397,7 @@ CMakeFiles/RTPlot.dir/src/vendor/implot/implot.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o: src/vendor/implot/implot_demo.cpp
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o -MF CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o.d -o CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/implot/implot_demo.cpp
 
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.i: cmake_force
@@ -397,7 +411,7 @@ CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o: src/vendor/implot/implot_items.cpp
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o -MF CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o.d -o CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/implot/implot_items.cpp
 
 CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.i: cmake_force
@@ -411,7 +425,7 @@ CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.s: cmake_force
 CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o: CMakeFiles/RTPlot.dir/flags.make
 CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o: src/vendor/stb/stb_image.cpp
 CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o: CMakeFiles/RTPlot.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o -MF CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o.d -o CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o -c /home/ateixeira/dev/RTPlot/src/vendor/stb/stb_image.cpp
 
 CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.i: cmake_force
@@ -426,6 +440,7 @@ CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.s: cmake_force
 RTPlot_OBJECTS = \
 "CMakeFiles/RTPlot.dir/src/main.cpp.o" \
 "CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o" \
+"CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o" \
 "CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o" \
 "CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o" \
 "CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o" \
@@ -455,6 +470,7 @@ RTPlot_EXTERNAL_OBJECTS =
 
 RTPlot: CMakeFiles/RTPlot.dir/src/main.cpp.o
 RTPlot: CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o
+RTPlot: CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o
 RTPlot: CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o
 RTPlot: CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o
 RTPlot: CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o
@@ -482,7 +498,7 @@ RTPlot: CMakeFiles/RTPlot.dir/build.make
 RTPlot: CMakeFiles/RTPlot.dir/compiler_depend.ts
 RTPlot: /usr/lib/libglfw.so.3.4
 RTPlot: CMakeFiles/RTPlot.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Linking CXX executable RTPlot"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Linking CXX executable RTPlot"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RTPlot.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

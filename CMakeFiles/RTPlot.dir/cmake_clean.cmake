@@ -2,6 +2,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/RTPlot.dir/link.d"
   "CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o"
   "CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o.d"
+  "CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o"
+  "CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o.d"
   "CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o"
   "CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o.d"
   "CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o"

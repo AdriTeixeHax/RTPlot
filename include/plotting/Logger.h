@@ -25,10 +25,10 @@ namespace ImGui
 
         Log(const std::string& windowName);
         void Clear();
-        void Draw(const char* title, bool* p_open = NULL);
+        void Draw(const char* title, bool showOnlyText, bool childOnly, bool* p_open = NULL);
         void AddLog(const char* fmt, ...) IM_FMTARGS(2);
 
-        void ShowConsoleLog(const std::string& logMsg, bool* closable);
+        void ShowConsoleLog(const std::string& logMsg, bool* closable, bool childOnly = false, bool showOnlyText = false);
     };
 }
 

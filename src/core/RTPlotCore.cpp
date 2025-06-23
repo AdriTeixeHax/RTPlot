@@ -206,7 +206,6 @@ void RTPlot::RTPlotCore::MenuBar(void)
                 else             logMsg = "Turned off verbose.\n";
             }
             if (ImGui::MenuItem("Console log", "", consoleLogFlag)) { consoleLogFlag = !consoleLogFlag; }
-            if (ImGui::MenuItem("Inverter log", "", inverterLogFlag)) { inverterLogFlag = !inverterLogFlag; }
             ImGui::EndMenu();
         }
         ImGui::EndMenuBar();
@@ -276,6 +275,7 @@ void RTPlot::RTPlotCore::WelcomeWindow(void)
 void RTPlot::RTPlotCore::RenderObjects(void)
 {
     deviceManager.PlotAllDevices();
+    
 }
 
 void RTPlot::RTPlotCore::DemoWindows(void)
@@ -287,7 +287,6 @@ void RTPlot::RTPlotCore::DemoWindows(void)
 void RTPlot::RTPlotCore::ShowLog(void)
 {
     if (consoleLogFlag) log.ShowConsoleLog(logMsg, &consoleLogFlag);
-    if (inverterLogFlag) inverterLog.ShowConsoleLog(inverterLogMsg, &inverterLogFlag);
 }
 
 void RTPlot::RTPlotCore::DeleteComponents(void)

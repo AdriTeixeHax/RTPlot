@@ -94,19 +94,33 @@ bool RTPlot::SerialDevice::Send(const char* msg, uint32_t len)
 int8_t RTPlot::SerialDevice::ProcessData(void)
 {
     char tempMsg[RTPLOT_MSG_SIZE] = { 0 };
+    char inverterTempMsg[RTPLOT_MSG_SIZE] = { 0 };
     bool startFlag = false;
     bool endFlag = false;
+    bool inverterMsgFlag = false;
     size_t x = 0;
 
     for (size_t i = 0; i < sizeof(readingRaw); i++)
     {
         if (readingRaw[i] == '[')
+        {
+            inverterMsgFlag = true;
             inverterLogMsg = readingRaw;
+        }
+
+        if (inverterMsgFlag)
+        {
+            inverterTempMsg[x] = readingRaw[i];
+            x++;
+        }
     }
+    inverterLogMsg = inverterTempMsg;
+
+    x = 0;
 
     for (size_t i = 0; i < sizeof(tempMsg); i++)
     {
-        // If the byte read is a 'b' (begin), then start copying the message
+        // If the byte read is a 'b' (begin), then start copying the message.
         if (readingRaw[i] == 'b') startFlag = true;
         if (startFlag && readingRaw[i] != 'b' && readingRaw[i] != 'e')
         {
@@ -121,7 +135,7 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
             for (size_t j = x; j < sizeof(tempMsg); j++)
                 tempMsg[j] = '\0';
 
-            // Exit the main "for" loop
+            // Exit the main "for" loop.
             break;
         }
     }

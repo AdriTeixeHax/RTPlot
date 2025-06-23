@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/ateixeira/dev/RTPlot/src/core/DeviceManager.cpp" "CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o" "gcc" "CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o.d"
+  "/home/ateixeira/dev/RTPlot/src/core/InverterControl.cpp" "CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o" "gcc" "CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o.d"
   "/home/ateixeira/dev/RTPlot/src/core/RTPlotCore.cpp" "CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o" "gcc" "CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o.d"
   "/home/ateixeira/dev/RTPlot/src/core/RTPlotFunctions.cpp" "CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o" "gcc" "CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o.d"
   "/home/ateixeira/dev/RTPlot/src/files/FileManager.cpp" "CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o" "gcc" "CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o.d"

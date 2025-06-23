@@ -15,12 +15,14 @@
 namespace RTPlot
 {
 	class SerialDevice
-	{
-	SerialPort*         port;
+	{	
+		SerialPort*         port;
         char                readingRaw[RTPLOT_MSG_SIZE];
         std::vector<double> readingVals;
         bool                verboseData = true;
         std::string&        inverterLogMsg;
+
+		friend class InverterControl;
 
 	public:
         SerialDevice(void) = delete;
@@ -43,6 +45,8 @@ namespace RTPlot
         bool                       Send               (const char* msg, uint32_t len);
         int8_t                     ProcessData        (void);
         void                       PrintData          (void);
+		void					   ClearBuffer        (void) { port->ClearBuffer(); }
+		void					   ClearMsg			  (void) { for (size_t i = 0; i < RTPLOT_MSG_SIZE; i++) readingRaw[i] = 0; }
 
         // JSON managing
         JSON                       toJSON(void);

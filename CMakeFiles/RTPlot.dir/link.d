@@ -4,6 +4,7 @@ RTPlot: \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o \
   CMakeFiles/RTPlot.dir/src/main.cpp.o \
   CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o \
+  CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o \
   CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o \
   CMakeFiles/RTPlot.dir/src/core/RTPlotFunctions.cpp.o \
   CMakeFiles/RTPlot.dir/src/files/FileManager.cpp.o \
@@ -100,6 +101,8 @@ RTPlot: \
 CMakeFiles/RTPlot.dir/src/main.cpp.o:
 
 CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o:
+
+CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o:
 
 CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o:
 

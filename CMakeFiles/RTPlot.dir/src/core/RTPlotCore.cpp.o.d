@@ -409,4 +409,6 @@ CMakeFiles/RTPlot.dir/src/core/RTPlotCore.cpp.o: \
  /home/ateixeira/dev/RTPlot/include/plotting/PlotData.h \
  /home/ateixeira/dev/RTPlot/include/plotting/ColorPalette.h \
  /home/ateixeira/dev/RTPlot/src/vendor/imgui/imstb_rectpack.h \
- /home/ateixeira/dev/RTPlot/include/plotting/RollingBuffer.h
+ /home/ateixeira/dev/RTPlot/include/plotting/RollingBuffer.h \
+ /home/ateixeira/dev/RTPlot/include/core/InverterControl.h \
+ /home/ateixeira/dev/RTPlot/include/serial/SerialDevice.h

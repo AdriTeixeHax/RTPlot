@@ -1,4 +1,6 @@
 #include <Logger.h>
+#include <iostream>
+#include <cstdint>
 
 ImGui::Log::Log(const std::string& windowName) : name(windowName)
 {
@@ -13,29 +15,33 @@ void ImGui::Log::Clear()
     LineOffsets.push_back(0);
 }
 
-void ImGui::Log::Draw(const char* title, bool* p_open)
+void ImGui::Log::Draw(const char* title, bool showOnlyText, bool childOnly, bool* p_open)
 {
-    ImGui::Begin(title, p_open);
-        // Options menu
-        if (ImGui::BeginPopup("Options"))
+    if (!childOnly) ImGui::Begin(title, p_open);
+        bool clear = false, copy = false;
+        if (!showOnlyText)
         {
-            ImGui::Checkbox("Auto-scroll", &AutoScroll);
-            ImGui::EndPopup();
+            // Options menu
+            if (ImGui::BeginPopup("Options"))
+            {
+                ImGui::Checkbox("Auto-scroll", &AutoScroll);
+                ImGui::EndPopup();
+            }
+
+            // Main window
+            if (ImGui::Button("Options"))
+                ImGui::OpenPopup("Options");
+            ImGui::SameLine();
+            clear = ImGui::Button("Clear");
+            ImGui::SameLine();
+            copy = ImGui::Button("Copy");
+            ImGui::SameLine();
+            Filter.Draw("Filter", -100.0f);
+
+            ImGui::Separator();
         }
 
-        // Main window
-        if (ImGui::Button("Options"))
-            ImGui::OpenPopup("Options");
-        ImGui::SameLine();
-        bool clear = ImGui::Button("Clear");
-        ImGui::SameLine();
-        bool copy = ImGui::Button("Copy");
-        ImGui::SameLine();
-        Filter.Draw("Filter", -100.0f);
-
-        ImGui::Separator();
-
-        if (ImGui::BeginChild("scrolling", ImVec2(0, 0), ImGuiChildFlags_None, ImGuiWindowFlags_HorizontalScrollbar))
+        if (ImGui::BeginChild("scrolling", ImVec2(0, 0), ImGuiChildFlags_Border, ImGuiWindowFlags_HorizontalScrollbar))
         {
             if (clear) Clear();
             if (copy) ImGui::LogToClipboard();
@@ -73,7 +79,7 @@ void ImGui::Log::Draw(const char* title, bool* p_open)
                 ImGui::SetScrollHereY(1.0f);
         }
         ImGui::EndChild();
-    ImGui::End();
+    if (!childOnly) ImGui::End();
 }
 
 void ImGui::Log::AddLog(const char* fmt, ...)
@@ -88,16 +94,22 @@ void ImGui::Log::AddLog(const char* fmt, ...)
             LineOffsets.push_back(old_size + 1);
 }
 
-void ImGui::Log::ShowConsoleLog(const std::string& logMsg, bool* closable)
+void ImGui::Log::ShowConsoleLog(const std::string& logMsg, bool* closable, bool childOnly, bool showOnlyText)
 {    
     ImGui::SetNextWindowSize(ImVec2(500, 400), ImGuiCond_FirstUseEver);
-    ImGui::Begin(name.c_str(), closable);
+    if (!childOnly) ImGui::Begin(name.c_str(), closable);
         if (prevMsg != logMsg)
         {
-            prevMsg = logMsg;
-            AddLog(logMsg.c_str());
-        }
-    ImGui::End();
+            std::cout << "logMsg:" << std::endl;
+            for (uint8_t i = 0; i < 255; i++)
+            {
+                std::cout << (int)i << ": " << logMsg.c_str()[i] << ", " << (int)logMsg.c_str()[i] << std::endl;
+            }
 
-    Draw(name.c_str(), closable);
+            AddLog(logMsg.c_str());
+            prevMsg = logMsg;
+        }
+    if (!childOnly) ImGui::End();
+
+    Draw(name.c_str(), showOnlyText, childOnly, closable);
 }

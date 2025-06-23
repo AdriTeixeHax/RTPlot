@@ -252,4 +252,49 @@ CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o: \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/amxmovrsintrin.h \
  /home/ateixeira/dev/RTPlot/src/vendor/imgui/imstb_textedit.h \
  /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_opengl3.h \
- /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_glfw.h
+ /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_glfw.h \
+ /usr/include/c++/15.1.1/iostream /usr/include/c++/15.1.1/ostream \
+ /usr/include/c++/15.1.1/bits/ostream.h /usr/include/c++/15.1.1/ios \
+ /usr/include/c++/15.1.1/exception \
+ /usr/include/c++/15.1.1/bits/exception_ptr.h \
+ /usr/include/c++/15.1.1/bits/cxxabi_init_exception.h \
+ /usr/include/c++/15.1.1/typeinfo \
+ /usr/include/c++/15.1.1/bits/nested_exception.h \
+ /usr/include/c++/15.1.1/bits/ios_base.h \
+ /usr/include/c++/15.1.1/ext/atomicity.h \
+ /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/gthr.h \
+ /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/gthr-default.h \
+ /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
+ /usr/include/linux/sched/types.h /usr/include/linux/types.h \
+ /usr/include/asm/types.h /usr/include/asm-generic/types.h \
+ /usr/include/asm-generic/int-ll64.h /usr/include/asm/bitsperlong.h \
+ /usr/include/asm-generic/bitsperlong.h /usr/include/linux/posix_types.h \
+ /usr/include/linux/stddef.h /usr/include/asm/posix_types.h \
+ /usr/include/asm/posix_types_64.h /usr/include/asm-generic/posix_types.h \
+ /usr/include/bits/types/struct_sched_param.h /usr/include/bits/cpu-set.h \
+ /usr/include/time.h /usr/include/bits/time.h /usr/include/bits/timex.h \
+ /usr/include/bits/types/struct_tm.h \
+ /usr/include/bits/types/struct_itimerspec.h /usr/include/bits/setjmp.h \
+ /usr/include/bits/types/struct___jmp_buf_tag.h \
+ /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/atomic_word.h \
+ /usr/include/sys/single_threaded.h \
+ /usr/include/c++/15.1.1/bits/locale_classes.h \
+ /usr/include/c++/15.1.1/bits/locale_classes.tcc \
+ /usr/include/c++/15.1.1/system_error \
+ /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/error_constants.h \
+ /usr/include/c++/15.1.1/stdexcept /usr/include/c++/15.1.1/streambuf \
+ /usr/include/c++/15.1.1/bits/streambuf.tcc \
+ /usr/include/c++/15.1.1/bits/basic_ios.h \
+ /usr/include/c++/15.1.1/bits/locale_facets.h \
+ /usr/include/c++/15.1.1/cwctype /usr/include/wctype.h \
+ /usr/include/bits/wctype-wchar.h \
+ /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/ctype_base.h \
+ /usr/include/c++/15.1.1/bits/streambuf_iterator.h \
+ /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/ctype_inline.h \
+ /usr/include/c++/15.1.1/bits/locale_facets.tcc \
+ /usr/include/c++/15.1.1/bits/basic_ios.tcc \
+ /usr/include/c++/15.1.1/bits/ostream.tcc /usr/include/c++/15.1.1/istream \
+ /usr/include/c++/15.1.1/bits/istream.tcc /usr/include/c++/15.1.1/cstdint \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/stdint-uintn.h \
+ /usr/include/bits/stdint-least.h

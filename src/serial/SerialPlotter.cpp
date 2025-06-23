@@ -4,16 +4,18 @@
 RTPlot::SerialPlotter::SerialPlotter(const char* _port, std::string& _logMsg, std::string& _inverterLogMsg) :
 	realTimePlotter(new RealTimePlot),
 	serialDevice(new SerialDevice(_port, _inverterLogMsg)),
-    logMsgRef(_logMsg)
+    logMsgRef(_logMsg),
+    inverterControlWindow(_inverterLogMsg, this->commandToSend, &this->sendCommand)
 {
 	serialCommThread = std::thread(&SerialPlotter::SerialFunc, this);
 	strcpy_s(commandToSend, sizeof(""), "");
 }
 
-RTPlot::SerialPlotter::SerialPlotter(const SerialPlotter& s)
-    : realTimePlotter(new RealTimePlot(*s.realTimePlotter)),
-      serialDevice(new SerialDevice(*s.serialDevice)),
-      logMsgRef(s.logMsgRef)
+RTPlot::SerialPlotter::SerialPlotter(const SerialPlotter& s) :
+    realTimePlotter(new RealTimePlot(*s.realTimePlotter)),
+    serialDevice(new SerialDevice(*s.serialDevice)),
+    logMsgRef(s.logMsgRef),
+    inverterControlWindow(s.inverterControlWindow)
 {
     this->killFlag           = s.killFlag;
     this->addVariable        = s.addVariable;
@@ -55,6 +57,8 @@ void RTPlot::SerialPlotter::Plot(const std::string& portName)
         serialDevice->GetReadingPtr()->push_back(0.0f);
         addVariable = false;
     }
+
+    inverterControlWindow.Draw();
 }
 
 #ifdef _WIN32
@@ -157,11 +161,13 @@ void RTPlot::SerialPlotter::SerialFunc(void)
 
         mutex.lock();
             realTimePlotter->SetDataToPlot(serialDevice->GetReadingVals());
+            serialDevice->ClearMsg();
 		mutex.unlock();
 
         if (sendCommand)
         {
             serialDevice->Send(commandToSend, strlen(commandToSend));
+            serialDevice->ClearBuffer();
             sendCommand = false;
         }
     }

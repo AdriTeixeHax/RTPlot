@@ -153,6 +153,30 @@ src/core/DeviceManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTPlot.dir/build.make CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.s
 .PHONY : src/core/DeviceManager.cpp.s
 
+src/core/InverterControl.o: src/core/InverterControl.cpp.o
+.PHONY : src/core/InverterControl.o
+
+# target to build an object file
+src/core/InverterControl.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTPlot.dir/build.make CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o
+.PHONY : src/core/InverterControl.cpp.o
+
+src/core/InverterControl.i: src/core/InverterControl.cpp.i
+.PHONY : src/core/InverterControl.i
+
+# target to preprocess a source file
+src/core/InverterControl.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTPlot.dir/build.make CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.i
+.PHONY : src/core/InverterControl.cpp.i
+
+src/core/InverterControl.s: src/core/InverterControl.cpp.s
+.PHONY : src/core/InverterControl.s
+
+# target to generate assembly for a file
+src/core/InverterControl.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/RTPlot.dir/build.make CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.s
+.PHONY : src/core/InverterControl.cpp.s
+
 src/core/RTPlotCore.o: src/core/RTPlotCore.cpp.o
 .PHONY : src/core/RTPlotCore.o
 
@@ -741,6 +765,9 @@ help:
 	@echo "... src/core/DeviceManager.o"
 	@echo "... src/core/DeviceManager.i"
 	@echo "... src/core/DeviceManager.s"
+	@echo "... src/core/InverterControl.o"
+	@echo "... src/core/InverterControl.i"
+	@echo "... src/core/InverterControl.s"
 	@echo "... src/core/RTPlotCore.o"
 	@echo "... src/core/RTPlotCore.i"
 	@echo "... src/core/RTPlotCore.s"

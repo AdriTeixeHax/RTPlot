@@ -92,7 +92,7 @@ namespace RTPlot
 		struct sp_port*    port;
 		bool               connected;
 		bool		       verboseData;
-		uint8_t		       readingDelay = 2;
+		uint8_t		       readingDelay = 5;
 		uint8_t			   readingCount = 0;
 		uint32_t           byteSize;
 		uint32_t           baudRate;

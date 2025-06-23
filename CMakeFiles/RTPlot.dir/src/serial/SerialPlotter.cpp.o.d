@@ -396,4 +396,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o: \
  /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/amxmovrsintrin.h \
  /home/ateixeira/dev/RTPlot/src/vendor/imgui/imstb_textedit.h \
  /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_opengl3.h \
- /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_glfw.h
+ /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_glfw.h \
+ /home/ateixeira/dev/RTPlot/include/core/InverterControl.h \
+ /home/ateixeira/dev/RTPlot/include/plotting/Logger.h \
+ /home/ateixeira/dev/RTPlot/include/serial/SerialDevice.h
