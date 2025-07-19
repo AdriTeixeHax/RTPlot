@@ -275,7 +275,6 @@ void RTPlot::RTPlotCore::WelcomeWindow(void)
 void RTPlot::RTPlotCore::RenderObjects(void)
 {
     deviceManager.PlotAllDevices();
-    
 }
 
 void RTPlot::RTPlotCore::DemoWindows(void)

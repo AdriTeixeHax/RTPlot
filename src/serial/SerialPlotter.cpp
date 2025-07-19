@@ -38,7 +38,7 @@ RTPlot::SerialPlotter::~SerialPlotter(void)
 void RTPlot::SerialPlotter::Plot(const std::string& portName)
 {
     mutex.lock();
-        realTimePlotter->Plot(portName, serialDevice->GetFriendlyPortName(), &killFlag, commandToSend, &sendCommand, &addVariable, &varToRemove, &removeVariable);
+        realTimePlotter->Plot(portName, serialDevice->GetFriendlyPortName(), &killFlag, commandToSend, &sendCommand, &addVariable, &varToRemove, &removeVariable, &loadConfigFlag);
         for (size_t i = 0; i < realTimePlotter->GetPlotters()->size(); i++)
         {
             // Delete element if its kill flag is true
@@ -58,7 +58,16 @@ void RTPlot::SerialPlotter::Plot(const std::string& portName)
         addVariable = false;
     }
 
+    inverterControlWindow.ProcessStateChange();
     inverterControlWindow.Draw();
+
+    if (loadConfigFlag)
+    {
+        std::string filepath = fileManager.OpenFileDialog();
+        LoadConfig(filepath);
+        logMsgRef = "Loaded config. from file " + filepath + " to serial port " + portName + "\n";
+        loadConfigFlag = false;
+    }
 }
 
 #ifdef _WIN32

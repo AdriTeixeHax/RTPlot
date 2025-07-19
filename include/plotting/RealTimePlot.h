@@ -31,7 +31,7 @@ namespace RTPlot
         void                    SetSerialOptionsFlag   (bool so) { serialOptionsFlag = so; }
         
         // Actions
-        int8_t                  Plot                   (const std::string& name, const std::string& friendlyName, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable);
+        int8_t                  Plot                   (const std::string& name, const std::string& friendlyName, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable, bool* loadConfigFlag);
         int8_t                  PlotGraph              (uint8_t id, bool* killPlotFlag);
         int8_t                  PlotVars               (uint8_t i, const std::string& portName, const std::vector<std::string>& currentNames, char* command, bool* sendCommand);
 	

@@ -402,4 +402,9 @@ CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o: \
  /home/ateixeira/dev/RTPlot/src/vendor/imgui/imgui_impl_glfw.h \
  /home/ateixeira/dev/RTPlot/include/core/InverterControl.h \
  /home/ateixeira/dev/RTPlot/include/plotting/Logger.h \
- /home/ateixeira/dev/RTPlot/include/serial/SerialDevice.h
+ /home/ateixeira/dev/RTPlot/include/serial/SerialDevice.h \
+ /home/ateixeira/dev/RTPlot/include/files/FileManager.h \
+ /usr/include/fcntl.h /usr/include/bits/fcntl.h \
+ /usr/include/bits/fcntl-linux.h /usr/include/bits/types/struct_iovec.h \
+ /usr/include/linux/falloc.h /usr/include/bits/stat.h \
+ /usr/include/bits/struct_stat.h

@@ -140,7 +140,7 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
         }
     }
 
-    //std::cout << "[TempMsg]: " << tempMsg << std::endl;
+    std::cout << "[TempMsg]: " << tempMsg << std::endl;
 
     // Process the data
     char finalMsg[RTPLOT_MAX_DATA_NUM][RTPLOT_DATA_SIZE] = { 0 };

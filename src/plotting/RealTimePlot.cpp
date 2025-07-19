@@ -103,7 +103,7 @@ namespace RTPlot
         return 0;
     }
 
-    int8_t RealTimePlot::Plot(const std::string& name, const std::string& friendlyName, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable)
+    int8_t RealTimePlot::Plot(const std::string& name, const std::string& friendlyName, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable, bool* loadConfigFlag)
     {
         // Plotting window
         ImGui::Begin(std::string(name + " - Plotting").c_str(), killFlag);
@@ -123,9 +123,16 @@ namespace RTPlot
             ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.1f, 1.0f, 0.6f));
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.1f, 0.7f, 0.7f));
             ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.1f, 0.7f, 0.5f));
+            if (!serialOptionsFlag)
                 if (ImGui::Button("Serial Options"))
                     serialOptionsFlag = true;
             ImGui::PopStyleColor(3);
+            ImGui::SameLine();
+
+            // Load preset
+            if (plotters.size() < 1)
+                if (ImGui::Button("Load Preset"))
+                    *loadConfigFlag = true;
             ImGui::SameLine();
 
 			// Send command to device, either by pressing enter or the "Send" button.
@@ -330,6 +337,8 @@ namespace RTPlot
                 }
 
                 ImGui::SeparatorText(currentName.c_str());
+
+                ImGui::Text("Variable value: %.2f", plotters.at(0)->GetDataPtr()->at(i)->plotData.GetDataRef().front().y);
 
                 ImGui::Text("Plot color:");
                 ImGui::SameLine();

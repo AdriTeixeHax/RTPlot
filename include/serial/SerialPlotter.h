@@ -6,16 +6,18 @@
 #include <serial/SerialDevice.h>
 #include <plotting/RealTimePlot.h>
 #include <InverterControl.h>
+#include <FileManager.h>
 
 namespace RTPlot
 {
 	class SerialPlotter
 	{
 		// Enable/disable, add/remove
-		bool		    killFlag           = true;		// Passed to the RealTimePlot. If the window is closed (killFlag == false), the object destroys itself.
+		bool		    killFlag         = true;		// Passed to the RealTimePlot. If the window is closed (killFlag == false), the object destroys itself.
 		bool		    addVariable	     = false;		// If true, a new variable is added to the plot.
-		bool		    removeVariable     = false;		// If true, a variable is removed from the plot.	
+		bool		    removeVariable   = false;		// If true, a variable is removed from the plot.	
 		uint32_t        varToRemove	     = 0U;			// Index of the variable to remove.
+		bool			loadConfigFlag   = false;
 
 		// Serial communication
 		SerialDevice*   serialDevice;					// Serial device object
@@ -35,6 +37,8 @@ namespace RTPlot
 
 		// Inverter control and settings
 		InverterControl inverterControlWindow;
+
+		FileManager fileManager;
 
 	public:
 		SerialPlotter (const char* _port, std::string& _logMsg, std::string& _inverterLogMsg);

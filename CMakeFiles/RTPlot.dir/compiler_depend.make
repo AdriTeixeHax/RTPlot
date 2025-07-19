@@ -6,6 +6,7 @@ CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o: src/core/DeviceManager.cpp \
   include/core/InverterControl.h \
   include/core/RTPlotFunctions.h \
   include/core/RTPlotVars.h \
+  include/files/FileManager.h \
   include/plotting/ColorPalette.h \
   include/plotting/Logger.h \
   include/plotting/PlotData.h \
@@ -44,6 +45,8 @@ CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o: src/core/DeviceManager.cpp \
   /usr/include/bits/endianness.h \
   /usr/include/bits/environments.h \
   /usr/include/bits/errno.h \
+  /usr/include/bits/fcntl-linux.h \
+  /usr/include/bits/fcntl.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
   /usr/include/bits/flt-eval-method.h \
@@ -71,6 +74,7 @@ CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o: src/core/DeviceManager.cpp \
   /usr/include/bits/sched.h \
   /usr/include/bits/select.h \
   /usr/include/bits/setjmp.h \
+  /usr/include/bits/stat.h \
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
@@ -78,6 +82,7 @@ CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o: src/core/DeviceManager.cpp \
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
+  /usr/include/bits/struct_stat.h \
   /usr/include/bits/thread-shared-types.h \
   /usr/include/bits/time.h \
   /usr/include/bits/time64.h \
@@ -100,6 +105,7 @@ CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o: src/core/DeviceManager.cpp \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/struct___jmp_buf_tag.h \
+  /usr/include/bits/types/struct_iovec.h \
   /usr/include/bits/types/struct_itimerspec.h \
   /usr/include/bits/types/struct_sched_param.h \
   /usr/include/bits/types/struct_timespec.h \
@@ -339,6 +345,7 @@ CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o: src/core/DeviceManager.cpp \
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
+  /usr/include/fcntl.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
   /usr/include/gnu/stubs-64.h \
@@ -348,6 +355,7 @@ CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o: src/core/DeviceManager.cpp \
   /usr/include/limits.h \
   /usr/include/linux/close_range.h \
   /usr/include/linux/errno.h \
+  /usr/include/linux/falloc.h \
   /usr/include/linux/limits.h \
   /usr/include/linux/posix_types.h \
   /usr/include/linux/sched/types.h \
@@ -5271,6 +5279,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o: src/serial/SerialPlotter.c
   include/core/InverterControl.h \
   include/core/RTPlotFunctions.h \
   include/core/RTPlotVars.h \
+  include/files/FileManager.h \
   include/plotting/ColorPalette.h \
   include/plotting/Logger.h \
   include/plotting/PlotData.h \
@@ -5309,6 +5318,8 @@ CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o: src/serial/SerialPlotter.c
   /usr/include/bits/endianness.h \
   /usr/include/bits/environments.h \
   /usr/include/bits/errno.h \
+  /usr/include/bits/fcntl-linux.h \
+  /usr/include/bits/fcntl.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
   /usr/include/bits/flt-eval-method.h \
@@ -5336,6 +5347,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o: src/serial/SerialPlotter.c
   /usr/include/bits/sched.h \
   /usr/include/bits/select.h \
   /usr/include/bits/setjmp.h \
+  /usr/include/bits/stat.h \
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
@@ -5343,6 +5355,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o: src/serial/SerialPlotter.c
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
+  /usr/include/bits/struct_stat.h \
   /usr/include/bits/thread-shared-types.h \
   /usr/include/bits/time.h \
   /usr/include/bits/time64.h \
@@ -5365,6 +5378,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o: src/serial/SerialPlotter.c
   /usr/include/bits/types/sigset_t.h \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/struct___jmp_buf_tag.h \
+  /usr/include/bits/types/struct_iovec.h \
   /usr/include/bits/types/struct_itimerspec.h \
   /usr/include/bits/types/struct_sched_param.h \
   /usr/include/bits/types/struct_timespec.h \
@@ -5604,6 +5618,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o: src/serial/SerialPlotter.c
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
+  /usr/include/fcntl.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
   /usr/include/gnu/stubs-64.h \
@@ -5613,6 +5628,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialPlotter.cpp.o: src/serial/SerialPlotter.c
   /usr/include/limits.h \
   /usr/include/linux/close_range.h \
   /usr/include/linux/errno.h \
+  /usr/include/linux/falloc.h \
   /usr/include/linux/limits.h \
   /usr/include/linux/posix_types.h \
   /usr/include/linux/sched/types.h \
@@ -8406,8 +8422,6 @@ CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o:
 
 /usr/lib/libgcc_s.so:
 
-/usr/include/c++/15.1.1/cstring:
-
 /usr/include/c++/15.1.1/cstddef:
 
 /usr/include/bits/pthreadtypes-arch.h:
@@ -8482,14 +8496,6 @@ src/vendor/imgui/imgui_internal.h:
 
 src/vendor/implot/implot_demo.cpp:
 
-/usr/include/c++/15.1.1/bits/quoted_string.h:
-
-/usr/include/c++/15.1.1/ctime:
-
-/usr/include/linux/close_range.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/avx512vlbwintrin.h:
-
 /usr/include/c++/15.1.1/bits/predefined_ops.h:
 
 /usr/include/c++/15.1.1/pstl/glue_memory_defs.h:
@@ -8510,12 +8516,6 @@ src/vendor/implot/implot_demo.cpp:
 
 /usr/include/c++/15.1.1/bits/locale_facets_nonio.tcc:
 
-/usr/lib32/libz.so.1:
-
-/usr/include/c++/15.1.1/bits/locale_facets.tcc:
-
-/usr/include/c++/15.1.1/bits/invoke.h:
-
 /usr/include/c++/15.1.1/bits/locale_facets.h:
 
 /usr/include/c++/15.1.1/bits/requires_hosted.h:
@@ -8531,6 +8531,12 @@ src/vendor/implot/implot_demo.cpp:
 /usr/include/c++/15.1.1/cassert:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/amxfp8intrin.h:
+
+/usr/include/c++/15.1.1/bits/invoke.h:
+
+/usr/lib32/libz.so.1:
+
+/usr/include/c++/15.1.1/bits/locale_facets.tcc:
 
 /usr/include/c++/15.1.1/bits/indirect_array.h:
 
@@ -8564,10 +8570,6 @@ include/plotting/RealTimePlot.h:
 
 /usr/include/c++/15.1.1/bits/cxxabi_forced.h:
 
-/usr/include/c++/15.1.1/bits/concept_check.h:
-
-/usr/include/asm/posix_types_64.h:
-
 /usr/include/c++/15.1.1/bits/codecvt.h:
 
 /usr/include/bits/timex.h:
@@ -8592,6 +8594,26 @@ include/plotting/RealTimePlot.h:
 
 /usr/include/stdio.h:
 
+/usr/include/c++/15.1.1/bits/allocated_ptr.h:
+
+/usr/include/bits/byteswap.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/avx512vpopcntdqvlintrin.h:
+
+CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o:
+
+/usr/include/c++/15.1.1/bits/algorithmfwd.h:
+
+include/serial/SerialPlotter.h:
+
+/usr/include/c++/15.1.1/bit:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/gfniintrin.h:
+
+/usr/include/c++/15.1.1/bits/charconv.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/keylockerintrin.h:
+
 /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/time_members.h:
 
 /usr/include/bits/getopt_posix.h:
@@ -8601,6 +8623,10 @@ include/plotting/RealTimePlot.h:
 /usr/include/bits/getopt_core.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/amxavx512intrin.h:
+
+/usr/include/c++/15.1.1/bits/cpp_type_traits.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/avxvnniint16intrin.h:
 
 /usr/include/c++/15.1.1/bits/forward_list.tcc:
 
@@ -8642,6 +8668,24 @@ src/vendor/imgui/imgui_impl_opengl3_loader.h:
 
 /usr/include/bits/floatn-common.h:
 
+/usr/include/bits/fcntl.h:
+
+/usr/include/c++/15.1.1/bits/concept_check.h:
+
+/usr/include/asm/posix_types_64.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/sgxintrin.h:
+
+/usr/include/bits/fcntl-linux.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/immintrin.h:
+
+src/main.cpp:
+
+/usr/include/bits/unistd_ext.h:
+
+/usr/include/linux/falloc.h:
+
 /usr/include/bits/endianness.h:
 
 /usr/include/libintl.h:
@@ -8650,11 +8694,15 @@ src/vendor/imgui/imgui_impl_opengl3_loader.h:
 
 /usr/include/c++/15.1.1/bits/locale_facets_nonio.h:
 
-/usr/include/bits/byteswap.h:
-
-/usr/include/c++/15.1.1/bits/allocated_ptr.h:
-
 /usr/include/bits/endian.h:
+
+/usr/include/c++/15.1.1/bits/alloc_traits.h:
+
+/usr/include/bits/atomic_wide_counter.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/x86gprintrin.h:
+
+/usr/include/asm/errno.h:
 
 /usr/include/c++/15.1.1/bits/stl_bvector.h:
 
@@ -8674,12 +8722,6 @@ CMakeFiles/RTPlot.dir/src/plotting/RealTimePlot.cpp.o:
 
 /usr/include/bits/uintn-identity.h:
 
-/usr/include/bits/math-vector.h:
-
-/usr/include/bits/uio_lim.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/prfchwintrin.h:
-
 /usr/include/bits/confname.h:
 
 /usr/include/c++/15.1.1/ext/string_conversions.h:
@@ -8695,8 +8737,6 @@ include/serial/SerialPort.h:
 /usr/include/c++/15.1.1/bits/unordered_map.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/mwaitintrin.h:
-
-/usr/include/assert.h:
 
 /usr/include/asm/types.h:
 
@@ -8732,23 +8772,25 @@ src/plotting/PlotData.cpp:
 
 /usr/include/c++/15.1.1/thread:
 
+/usr/include/assert.h:
+
+include/serial/SerialDevice.h:
+
+/usr/include/c++/15.1.1/backward/binders.h:
+
+src/core/DeviceManager.cpp:
+
 /usr/include/bits/iscanonical.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/avxvnniint16intrin.h:
-
-/usr/include/c++/15.1.1/bits/cpp_type_traits.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/avx512vpopcntdqvlintrin.h:
 
 /usr/include/c++/15.1.1/bits/uses_allocator.h:
 
 /usr/include/bits/environments.h:
 
-include/serial/SerialPlotter.h:
+include/files/FileManager.h:
 
-CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui.cpp.o:
+/usr/include/bits/types/time_t.h:
 
-/usr/include/c++/15.1.1/bits/algorithmfwd.h:
+src/plotting/Logger.cpp:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/avxvnniintrin.h:
 
@@ -8790,9 +8832,17 @@ CMakeFiles/RTPlot.dir/src/serial/SerialPort.cpp.o:
 
 /usr/include/c++/15.1.1/bits/ostream.h:
 
+/usr/include/bits/stat.h:
+
+src/vendor/imgui/imstb_rectpack.h:
+
 /usr/include/asm-generic/posix_types.h:
 
 /usr/include/c++/15.1.1/cerrno:
+
+include/core/DeviceManager.h:
+
+/usr/include/c++/15.1.1/numeric:
 
 src/vendor/imgui/imgui_impl_opengl3.h:
 
@@ -8816,24 +8866,6 @@ include/core/InverterControl.h:
 
 /usr/include/c++/15.1.1/bits/atomic_base.h:
 
-/usr/include/bits/mathcalls-helper-functions.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/avx10_2-512bf16intrin.h:
-
-/usr/lib/libharfbuzz.so.0:
-
-/usr/include/c++/15.1.1/bits/stl_algobase.h:
-
-/usr/include/c++/15.1.1/bits/this_thread_sleep.h:
-
-/usr/include/bits/types/struct_itimerspec.h:
-
-/usr/include/c++/15.1.1/cwctype:
-
-/usr/include/asm-generic/int-ll64.h:
-
-/usr/include/c++/15.1.1/bits/stl_vector.h:
-
 /usr/include/GL/gl.h:
 
 /usr/include/c++/15.1.1/bits/valarray_after.h:
@@ -8847,12 +8879,6 @@ include/core/InverterControl.h:
 /usr/include/bits/types/__mbstate_t.h:
 
 /usr/include/c++/15.1.1/tr1/bessel_function.tcc:
-
-include/serial/SerialDevice.h:
-
-src/vendor/imgui/imstb_rectpack.h:
-
-/usr/include/bits/stat.h:
 
 src/vendor/imgui/imgui.h:
 
@@ -8868,19 +8894,33 @@ src/vendor/imgui/imgui.h:
 
 include/plotting/RollingBuffer.h:
 
-/usr/include/asm/errno.h:
-
-/usr/include/c++/15.1.1/bits/alloc_traits.h:
-
-/usr/include/bits/atomic_wide_counter.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/x86gprintrin.h:
-
-/usr/include/c++/15.1.1/cstdlib:
-
 src/vendor/imgui/imstb_textedit.h:
 
 /usr/include/bits/mathcalls-macros.h:
+
+/usr/include/asm-generic/int-ll64.h:
+
+/usr/include/c++/15.1.1/bits/stl_vector.h:
+
+/usr/include/c++/15.1.1/cwctype:
+
+/usr/include/bits/math-vector.h:
+
+/usr/include/bits/uio_lim.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/prfchwintrin.h:
+
+/usr/include/bits/mathcalls-helper-functions.h:
+
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/avx10_2-512bf16intrin.h:
+
+/usr/lib/libharfbuzz.so.0:
+
+/usr/include/c++/15.1.1/bits/stl_algobase.h:
+
+/usr/include/c++/15.1.1/bits/this_thread_sleep.h:
+
+/usr/include/bits/types/struct_itimerspec.h:
 
 include/plotting/Logger.h:
 
@@ -8916,8 +8956,6 @@ CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o:
 
 /usr/include/bits/types/cookie_io_functions_t.h:
 
-/usr/include/c++/15.1.1/cwchar:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/f16cintrin.h:
 
 /usr/include/bits/select.h:
@@ -8947,6 +8985,10 @@ CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_impl_opengl3.cpp.o:
 /usr/include/bits/stdint-least.h:
 
 /usr/include/bits/struct_mutex.h:
+
+/usr/include/c++/15.1.1/bits/ios_base.h:
+
+/usr/include/bits/struct_stat.h:
 
 /usr/include/bits/thread-shared-types.h:
 
@@ -9010,14 +9052,6 @@ src/vendor/imgui/imgui_impl_glfw.h:
 
 /usr/include/bits/types/wint_t.h:
 
-/usr/include/c++/15.1.1/numeric:
-
-include/core/DeviceManager.h:
-
-/usr/include/bits/unistd_ext.h:
-
-/usr/include/linux/falloc.h:
-
 /usr/include/c++/15.1.1/bits/std_function.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/crtbeginS.o:
@@ -9032,17 +9066,19 @@ include/core/DeviceManager.h:
 
 /usr/include/c++/15.1.1/backward/auto_ptr.h:
 
-src/core/DeviceManager.cpp:
+/usr/include/c++/15.1.1/cstdlib:
 
-/usr/include/c++/15.1.1/backward/binders.h:
+/usr/include/c++/15.1.1/cstring:
 
-/usr/include/c++/15.1.1/bit:
+/usr/include/c++/15.1.1/bits/quoted_string.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/gfniintrin.h:
+/usr/include/c++/15.1.1/ctime:
 
-/usr/include/c++/15.1.1/bits/charconv.h:
+/usr/include/linux/close_range.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/keylockerintrin.h:
+/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/avx512vlbwintrin.h:
+
+/usr/include/c++/15.1.1/cwchar:
 
 /usr/include/c++/15.1.1/debug/debug.h:
 
@@ -9224,6 +9260,8 @@ CMakeFiles/RTPlot.dir/src/plotting/Logger.cpp.o:
 
 /usr/include/ctype.h:
 
+/usr/include/fcntl.h:
+
 /usr/include/c++/15.1.1/bits/stl_numeric.h:
 
 /usr/include/features-time64.h:
@@ -9396,14 +9434,6 @@ src/vendor/imgui/imgui.cpp:
 
 /usr/include/KHR/khrplatform.h:
 
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/immintrin.h:
-
-/usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/sgxintrin.h:
-
-/usr/include/bits/fcntl-linux.h:
-
-src/main.cpp:
-
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/lwpintrin.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/include/stddef.h:
@@ -9494,23 +9524,9 @@ src/core/RTPlotCore.cpp:
 
 include/core/RTPlotCore.h:
 
-include/files/FileManager.h:
-
-/usr/include/bits/types/time_t.h:
-
-src/plotting/Logger.cpp:
-
 src/vendor/implot/implot.h:
 
 /usr/include/GL/glu.h:
-
-/usr/include/bits/fcntl.h:
-
-/usr/include/c++/15.1.1/bits/ios_base.h:
-
-/usr/include/bits/struct_stat.h:
-
-/usr/include/fcntl.h:
 
 src/core/RTPlotFunctions.cpp:
 

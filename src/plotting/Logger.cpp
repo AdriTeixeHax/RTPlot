@@ -100,12 +100,6 @@ void ImGui::Log::ShowConsoleLog(const std::string& logMsg, bool* closable, bool 
     if (!childOnly) ImGui::Begin(name.c_str(), closable);
         if (prevMsg != logMsg)
         {
-            std::cout << "logMsg:" << std::endl;
-            for (uint8_t i = 0; i < 255; i++)
-            {
-                std::cout << (int)i << ": " << logMsg.c_str()[i] << ", " << (int)logMsg.c_str()[i] << std::endl;
-            }
-
             AddLog(logMsg.c_str());
             prevMsg = logMsg;
         }

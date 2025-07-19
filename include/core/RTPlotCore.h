@@ -20,7 +20,6 @@
 
 #include <RTPlotFunctions.h>
 
-#include <FileManager.h>
 #include <DeviceManager.h>
 #include <InverterControl.h>
 
