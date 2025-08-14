@@ -7,6 +7,13 @@
 
 namespace RTPlot
 {
+    struct PlotCell
+    {
+        int id;
+        int row_size;
+        int col_size;
+    };
+
 	class RealTimePlot
 	{
 		std::vector<Plotter*>   plotters;           // Array of plotter objects. No. of plotters = no. of graphs.
@@ -31,8 +38,9 @@ namespace RTPlot
         void                    SetSerialOptionsFlag   (bool so) { serialOptionsFlag = so; }
         
         // Actions
+        void                    CalcCellDimensions     (int size, int id, int maxCols, int& rowSize, int& colSize);
         int8_t                  Plot                   (const std::string& name, const std::string& friendlyName, bool* killFlag, char* command, bool* sendCommand, bool* addVariable, uint32_t* varToRemove, bool* removeVariable, bool* loadConfigFlag);
-        int8_t                  PlotGraph              (uint8_t id, bool* killPlotFlag);
+        int8_t                  PlotGraph              (uint8_t id, bool* killPlotFlag, uint8_t maxCols, float childAvailX, float childAvailY);
         int8_t                  PlotVars               (uint8_t i, const std::string& portName, const std::vector<std::string>& currentNames, char* command, bool* sendCommand);
 	
         // JSON managing

@@ -395,20 +395,19 @@ CMakeFiles/RTPlot.dir/src/main.cpp.o: \
  /usr/include/c++/15.1.1/bits/stl_numeric.h \
  /usr/include/c++/15.1.1/pstl/glue_numeric_defs.h \
  /usr/include/c++/15.1.1/any \
- /home/ateixeira/dev/RTPlot/include/plotting/RealTimePlot.h \
- /home/ateixeira/dev/RTPlot/include/plotting/Plotter.h \
- /home/ateixeira/dev/RTPlot/include/plotting/PlotData.h \
+ /home/ateixeira/dev/RTPlot/include/files/FileManager.h \
  /usr/include/c++/15.1.1/fstream \
  /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
  /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
- /usr/include/c++/15.1.1/bits/fstream.tcc \
+ /usr/include/c++/15.1.1/bits/fstream.tcc /usr/include/fcntl.h \
+ /usr/include/bits/fcntl.h /usr/include/bits/fcntl-linux.h \
+ /usr/include/bits/types/struct_iovec.h /usr/include/linux/falloc.h \
+ /usr/include/bits/stat.h /usr/include/bits/struct_stat.h \
+ /home/ateixeira/dev/RTPlot/include/plotting/RealTimePlot.h \
+ /home/ateixeira/dev/RTPlot/include/plotting/Plotter.h \
+ /home/ateixeira/dev/RTPlot/include/plotting/PlotData.h \
  /home/ateixeira/dev/RTPlot/include/plotting/ColorPalette.h \
  /home/ateixeira/dev/RTPlot/src/vendor/imgui/imstb_rectpack.h \
  /home/ateixeira/dev/RTPlot/include/plotting/RollingBuffer.h \
  /home/ateixeira/dev/RTPlot/include/core/InverterControl.h \
- /home/ateixeira/dev/RTPlot/include/serial/SerialDevice.h \
- /home/ateixeira/dev/RTPlot/include/files/FileManager.h \
- /usr/include/fcntl.h /usr/include/bits/fcntl.h \
- /usr/include/bits/fcntl-linux.h /usr/include/bits/types/struct_iovec.h \
- /usr/include/linux/falloc.h /usr/include/bits/stat.h \
- /usr/include/bits/struct_stat.h
+ /home/ateixeira/dev/RTPlot/include/serial/SerialDevice.h

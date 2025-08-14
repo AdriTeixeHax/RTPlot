@@ -1,5 +1,8 @@
 /// FileManager.h - Class to manage files, responsible of reading and writing to them.
 
+#ifndef _FILEMANAGER__H_
+#define _FILEMANAGER__H_
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -40,3 +43,5 @@ namespace RTPlot
 		static std::vector<std::string> ReadAndSeparate(const std::string& text, const std::string& separator);
 	};
 }
+
+#endif

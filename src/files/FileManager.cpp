@@ -180,7 +180,7 @@ bool RTPlot::FileManager::Write(const std::string& fileName, const std::string& 
     {
         outFile << msg;
         outFile.close();
-        //std::cout << "[FileManager]: Data written to " << fileName << " successfully." << std::endl;
+        std::cout << "[FileManager]: Data written to " << fileName << " successfully." << std::endl;
         return 0;
     }
     else 
@@ -199,6 +199,6 @@ bool RTPlot::FileManager::Append(const std::string& fileName, const std::string&
     }
     outFile << msg;
     outFile.close();
-    //std::cout << "[FileManager]: Text appended successfully!" << std::endl;
+    std::cout << "[FileManager]: Text appended successfully!" << std::endl;
     return true;
 }

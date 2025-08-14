@@ -22,11 +22,11 @@ constexpr uint8_t     RTPLOT_SOURCESANS_SIZE_LARGE = 40;
 constexpr uint8_t     RTPLOT_WINDOW_RADIUS         = 5;
 constexpr uint8_t     RTPLOT_MAIN_RADIUS           = 3;
 
-// Serial parameters
+// Other parameters
 constexpr  uint8_t    RTPLOT_MAX_PORT_NUMBER       =  255;
 constexpr uint32_t    RTPLOT_MSG_SIZE              =  256;
-constexpr  uint8_t    RTPLOT_MAX_DATA_NUM          =  16;
-constexpr  uint8_t    RTPLOT_DATA_SIZE             =  16;
+constexpr  uint8_t    RTPLOT_MAX_DATA_NUM          =  32;
+constexpr  uint8_t    RTPLOT_DATA_SIZE             =  32;
 constexpr  uint8_t    RTPLOT_READING               =  1;
 constexpr  uint8_t    RTPLOT_FINISHED              =  0;
 constexpr  uint8_t    RTPLOT_OK	                   =  0;

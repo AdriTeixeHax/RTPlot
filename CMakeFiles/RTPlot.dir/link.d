@@ -28,7 +28,7 @@ RTPlot: \
   CMakeFiles/RTPlot.dir/src/vendor/implot/implot_demo.cpp.o \
   CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o \
   CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o \
-  /usr/lib/libglfw.so.3.4 \
+  /usr/lib/libglfw.so.3.5 \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libGLEW.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libGL.so \
   /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libserialport.so \
@@ -150,7 +150,7 @@ CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o:
 
 CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o:
 
-/usr/lib/libglfw.so.3.4:
+/usr/lib/libglfw.so.3.5:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.1.1/../../../../lib/libGLEW.so:
 

@@ -496,7 +496,7 @@ RTPlot: CMakeFiles/RTPlot.dir/src/vendor/implot/implot_items.cpp.o
 RTPlot: CMakeFiles/RTPlot.dir/src/vendor/stb/stb_image.cpp.o
 RTPlot: CMakeFiles/RTPlot.dir/build.make
 RTPlot: CMakeFiles/RTPlot.dir/compiler_depend.ts
-RTPlot: /usr/lib/libglfw.so.3.4
+RTPlot: /usr/lib/libglfw.so.3.5
 RTPlot: CMakeFiles/RTPlot.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ateixeira/dev/RTPlot/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Linking CXX executable RTPlot"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/RTPlot.dir/link.txt --verbose=$(VERBOSE)

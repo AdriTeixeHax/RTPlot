@@ -73,10 +73,11 @@ namespace RTPlot
 
     void Plotter::SetDataToPlot(const std::vector<double>& originalData)
     {
-        if (originalData.size() < 2) { std::cerr << "[Plotter]: Error setting data to plot." << std::endl; return; }
+        uint32_t size = originalData.size();
+        if (size < 2) { std::cerr << "[Plotter]: Error setting data to plot." << std::endl; return; }
 
-		for (size_t i = 0; i < data.size() - 1; i++)
-            data.at(i)->plotData.AddPoint(originalData[0], originalData[i + 1]);
+		for (size_t i = 0; i < this->data.size() - 1; i++)
+            this->data.at(i)->plotData.AddPoint(originalData[0], originalData[i + 1]);
     }
 
     void Plotter::PlotGraph(void)

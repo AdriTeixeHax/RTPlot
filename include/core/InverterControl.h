@@ -3,6 +3,7 @@
 
 #include <Logger.h>
 #include <SerialDevice.h>
+#include <FileManager.h>
 
 namespace RTPlot
 {
@@ -14,11 +15,14 @@ namespace RTPlot
         std::string&  logMsg;
         char*         commandStr;
         bool*         sendCommand;
+        bool          logToFileFlag = false;
 
         int           spwmSelect = 0;
 
         InverterState state = InverterState::none;
         int32_t       pwmValue = 0;
+
+        FileManager   fileManager;
 
     public:
         InverterControl(std::string& logMsgRef, char* commandPtr, bool* sendCommandPtr);

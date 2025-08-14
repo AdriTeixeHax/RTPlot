@@ -76,7 +76,8 @@
         "text_encoding": "cpp",
         "cfenv": "cpp",
         "cinttypes": "cpp",
-        "stdfloat": "cpp"
+        "stdfloat": "cpp",
+        "*.inc": "cpp"
     },
     "editor.fontFamily": "'Consolas', 'monospace', monospace"
 }

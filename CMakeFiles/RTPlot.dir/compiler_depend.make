@@ -503,6 +503,7 @@ CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: src/core/InverterControl.c
   include/core/InverterControl.h \
   include/core/RTPlotFunctions.h \
   include/core/RTPlotVars.h \
+  include/files/FileManager.h \
   include/plotting/Logger.h \
   include/serial/SerialDevice.h \
   include/serial/SerialPort.h \
@@ -534,6 +535,8 @@ CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: src/core/InverterControl.c
   /usr/include/bits/endianness.h \
   /usr/include/bits/environments.h \
   /usr/include/bits/errno.h \
+  /usr/include/bits/fcntl-linux.h \
+  /usr/include/bits/fcntl.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
   /usr/include/bits/flt-eval-method.h \
@@ -561,6 +564,7 @@ CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: src/core/InverterControl.c
   /usr/include/bits/sched.h \
   /usr/include/bits/select.h \
   /usr/include/bits/setjmp.h \
+  /usr/include/bits/stat.h \
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
@@ -568,6 +572,7 @@ CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: src/core/InverterControl.c
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
+  /usr/include/bits/struct_stat.h \
   /usr/include/bits/thread-shared-types.h \
   /usr/include/bits/time.h \
   /usr/include/bits/time64.h \
@@ -590,6 +595,7 @@ CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: src/core/InverterControl.c
   /usr/include/bits/types/sigset_t.h \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/struct___jmp_buf_tag.h \
+  /usr/include/bits/types/struct_iovec.h \
   /usr/include/bits/types/struct_itimerspec.h \
   /usr/include/bits/types/struct_sched_param.h \
   /usr/include/bits/types/struct_timespec.h \
@@ -644,6 +650,7 @@ CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: src/core/InverterControl.c
   /usr/include/c++/15.1.1/bits/fs_fwd.h \
   /usr/include/c++/15.1.1/bits/fs_ops.h \
   /usr/include/c++/15.1.1/bits/fs_path.h \
+  /usr/include/c++/15.1.1/bits/fstream.tcc \
   /usr/include/c++/15.1.1/bits/functexcept.h \
   /usr/include/c++/15.1.1/bits/functional_hash.h \
   /usr/include/c++/15.1.1/bits/gslice.h \
@@ -754,6 +761,7 @@ CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: src/core/InverterControl.c
   /usr/include/c++/15.1.1/ext/type_traits.h \
   /usr/include/c++/15.1.1/filesystem \
   /usr/include/c++/15.1.1/forward_list \
+  /usr/include/c++/15.1.1/fstream \
   /usr/include/c++/15.1.1/functional \
   /usr/include/c++/15.1.1/initializer_list \
   /usr/include/c++/15.1.1/iomanip \
@@ -804,8 +812,10 @@ CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: src/core/InverterControl.c
   /usr/include/c++/15.1.1/vector \
   /usr/include/c++/15.1.1/version \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/atomic_word.h \
+  /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++config.h \
+  /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++locale.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/cpu_defines.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/ctype_base.h \
@@ -819,6 +829,7 @@ CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: src/core/InverterControl.c
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
+  /usr/include/fcntl.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
   /usr/include/gnu/stubs-64.h \
@@ -828,6 +839,7 @@ CMakeFiles/RTPlot.dir/src/core/InverterControl.cpp.o: src/core/InverterControl.c
   /usr/include/limits.h \
   /usr/include/linux/close_range.h \
   /usr/include/linux/errno.h \
+  /usr/include/linux/falloc.h \
   /usr/include/linux/limits.h \
   /usr/include/linux/posix_types.h \
   /usr/include/linux/sched/types.h \
@@ -4939,6 +4951,7 @@ CMakeFiles/RTPlot.dir/src/plotting/RollingBuffer.cpp.o: src/plotting/RollingBuff
 CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: src/serial/SerialDevice.cpp \
   include/core/RTPlotFunctions.h \
   include/core/RTPlotVars.h \
+  include/files/FileManager.h \
   include/serial/SerialDevice.h \
   include/serial/SerialPort.h \
   src/vendor/nlohmann/json.hpp \
@@ -4963,6 +4976,8 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: src/serial/SerialDevice.cpp
   /usr/include/bits/endianness.h \
   /usr/include/bits/environments.h \
   /usr/include/bits/errno.h \
+  /usr/include/bits/fcntl-linux.h \
+  /usr/include/bits/fcntl.h \
   /usr/include/bits/floatn-common.h \
   /usr/include/bits/floatn.h \
   /usr/include/bits/flt-eval-method.h \
@@ -4987,6 +5002,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: src/serial/SerialDevice.cpp
   /usr/include/bits/sched.h \
   /usr/include/bits/select.h \
   /usr/include/bits/setjmp.h \
+  /usr/include/bits/stat.h \
   /usr/include/bits/stdint-intn.h \
   /usr/include/bits/stdint-least.h \
   /usr/include/bits/stdint-uintn.h \
@@ -4994,6 +5010,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: src/serial/SerialDevice.cpp
   /usr/include/bits/stdlib-float.h \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
+  /usr/include/bits/struct_stat.h \
   /usr/include/bits/thread-shared-types.h \
   /usr/include/bits/time.h \
   /usr/include/bits/time64.h \
@@ -5016,6 +5033,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: src/serial/SerialDevice.cpp
   /usr/include/bits/types/sigset_t.h \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/struct___jmp_buf_tag.h \
+  /usr/include/bits/types/struct_iovec.h \
   /usr/include/bits/types/struct_itimerspec.h \
   /usr/include/bits/types/struct_sched_param.h \
   /usr/include/bits/types/struct_timespec.h \
@@ -5068,6 +5086,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: src/serial/SerialDevice.cpp
   /usr/include/c++/15.1.1/bits/fs_fwd.h \
   /usr/include/c++/15.1.1/bits/fs_ops.h \
   /usr/include/c++/15.1.1/bits/fs_path.h \
+  /usr/include/c++/15.1.1/bits/fstream.tcc \
   /usr/include/c++/15.1.1/bits/functexcept.h \
   /usr/include/c++/15.1.1/bits/functional_hash.h \
   /usr/include/c++/15.1.1/bits/gslice.h \
@@ -5178,6 +5197,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: src/serial/SerialDevice.cpp
   /usr/include/c++/15.1.1/ext/type_traits.h \
   /usr/include/c++/15.1.1/filesystem \
   /usr/include/c++/15.1.1/forward_list \
+  /usr/include/c++/15.1.1/fstream \
   /usr/include/c++/15.1.1/functional \
   /usr/include/c++/15.1.1/initializer_list \
   /usr/include/c++/15.1.1/iomanip \
@@ -5226,8 +5246,10 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: src/serial/SerialDevice.cpp
   /usr/include/c++/15.1.1/vector \
   /usr/include/c++/15.1.1/version \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/atomic_word.h \
+  /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++allocator.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++config.h \
+  /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++locale.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/cpu_defines.h \
   /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/ctype_base.h \
@@ -5241,6 +5263,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: src/serial/SerialDevice.cpp
   /usr/include/ctype.h \
   /usr/include/endian.h \
   /usr/include/errno.h \
+  /usr/include/fcntl.h \
   /usr/include/features-time64.h \
   /usr/include/features.h \
   /usr/include/gnu/stubs-64.h \
@@ -5249,6 +5272,7 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: src/serial/SerialDevice.cpp
   /usr/include/libserialport.h \
   /usr/include/linux/close_range.h \
   /usr/include/linux/errno.h \
+  /usr/include/linux/falloc.h \
   /usr/include/linux/posix_types.h \
   /usr/include/linux/sched/types.h \
   /usr/include/linux/stddef.h \
@@ -8281,7 +8305,7 @@ RTPlot: /usr/lib/Scrt1.o \
   /usr/lib/libbz2.so.1.0 \
   /usr/lib/libc.so.6 \
   /usr/lib/libc_nonshared.a \
-  /usr/lib/libglfw.so.3.4 \
+  /usr/lib/libglfw.so.3.5 \
   /usr/lib/libglib-2.0.so.0 \
   /usr/lib/libgraphite2.so.3 \
   /usr/lib/libharfbuzz.so.0 \
@@ -8396,7 +8420,7 @@ CMakeFiles/RTPlot.dir/src/vendor/imgui/imgui_demo.cpp.o:
 
 /usr/lib/libgraphite2.so.3:
 
-/usr/lib/libglfw.so.3.4:
+/usr/lib/libglfw.so.3.5:
 
 /usr/lib/libbrotlidec.so.1:
 

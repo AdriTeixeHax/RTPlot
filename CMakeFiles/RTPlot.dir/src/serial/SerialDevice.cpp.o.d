@@ -255,4 +255,12 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o: \
  /usr/include/c++/15.1.1/bits/fs_ops.h /usr/include/c++/15.1.1/numeric \
  /usr/include/c++/15.1.1/bits/stl_numeric.h \
  /usr/include/c++/15.1.1/pstl/glue_numeric_defs.h \
- /usr/include/c++/15.1.1/any
+ /usr/include/c++/15.1.1/any \
+ /home/ateixeira/dev/RTPlot/include/files/FileManager.h \
+ /usr/include/c++/15.1.1/fstream \
+ /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/basic_file.h \
+ /usr/include/c++/15.1.1/x86_64-pc-linux-gnu/bits/c++io.h \
+ /usr/include/c++/15.1.1/bits/fstream.tcc /usr/include/fcntl.h \
+ /usr/include/bits/fcntl.h /usr/include/bits/fcntl-linux.h \
+ /usr/include/bits/types/struct_iovec.h /usr/include/linux/falloc.h \
+ /usr/include/bits/stat.h /usr/include/bits/struct_stat.h

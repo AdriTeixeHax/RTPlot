@@ -140,7 +140,13 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
         }
     }
 
-    std::cout << "[TempMsg]: " << tempMsg << std::endl;
+    // std::cout << "[TempMsg]: " << tempMsg << std::endl;
+    static std::string prevMsg = "";
+
+    if (prevMsg != tempMsg)
+        fileManager.Append("logs/readingLog.csv", tempMsg + std::string("\n"));
+
+    prevMsg = tempMsg;
 
     // Process the data
     char finalMsg[RTPLOT_MAX_DATA_NUM][RTPLOT_DATA_SIZE] = { 0 };

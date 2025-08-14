@@ -11,6 +11,7 @@
 #endif
 
 #include <serial/SerialPort.h>
+#include <FileManager.h>
 
 namespace RTPlot
 {
@@ -21,6 +22,8 @@ namespace RTPlot
         std::vector<double> readingVals;
         bool                verboseData = true;
         std::string&        inverterLogMsg;
+
+        FileManager         fileManager;
 
 		friend class InverterControl;
 

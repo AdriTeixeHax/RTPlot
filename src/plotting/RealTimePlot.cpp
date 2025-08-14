@@ -16,8 +16,6 @@ namespace RTPlot
         {
             basicData.push_back(new PlotData(i, std::to_string(i).c_str()));
         }
-
-        //plotters.push_back(new Plotter(&basicData)); // Initial plot
     }
 
     RealTimePlot::~RealTimePlot(void)
@@ -37,11 +35,26 @@ namespace RTPlot
 			i->SetDataToPlot(originalData);
     }
 
-    int8_t RealTimePlot::PlotGraph(uint8_t id, bool* killPlotFlag)
+    void RealTimePlot::CalcCellDimensions(int size, int id, int maxCols, int& rowSize, int& colSize) 
     {
-        // Get region dimensions
-        const float availX = ImGui::GetContentRegionAvail().x / (plotters.size() - id);
-        const float availY = ImGui::GetContentRegionAvail().y;
+        rowSize = (size - 1) / maxCols + 1;
+
+        if (id >= size - (size % maxCols))
+            colSize = size % maxCols;
+        else
+            colSize = maxCols;
+    }
+
+
+    int8_t RealTimePlot::PlotGraph(uint8_t id, bool* killPlotFlag, uint8_t maxCols, float childAvailX, float childAvailY)
+    {
+        int rows = 0, cols = 0;
+        int size = plotters.size();
+
+        CalcCellDimensions(size, id, maxCols, rows, cols);
+
+        const float availX = (childAvailX - (cols - 1) * 7) / cols; // Modification of avail is to take account child window spacing
+        const float availY = (childAvailY - (rows - 1) * 3) / rows; // Modification of avail is to take account child window spacing
 
         // Begin child window with style
         static ImPlotAxisFlags linePlotFlags = ImPlotAxisFlags_None;
@@ -129,6 +142,18 @@ namespace RTPlot
             ImGui::PopStyleColor(3);
             ImGui::SameLine();
 
+            static int maxCols = 3;
+            if (plotters.size() > 0)
+            {
+                ImGui::PushItemWidth(125);
+                ImGui::Text("Max. Columns: ");
+                ImGui::SameLine();
+                ImGui::InputInt("##maxCols", &maxCols, 1, 1);
+                if (maxCols < 1) maxCols = 1;
+                ImGui::PopItemWidth();
+                ImGui::SameLine();
+            }
+
             // Load preset
             if (plotters.size() < 1)
                 if (ImGui::Button("Load Preset"))
@@ -151,31 +176,14 @@ namespace RTPlot
                 sendFlag = false;
             }
 
-            /// BEGIN Test environmet for PI controller
-            //static float kiVal = 0, kpVal = 0;
-
-            //ImGui::InputFloat("Ki", &kiVal);
-            //ImGui::InputFloat("Kp", &kpVal);
-            //ImGui::SameLine();
-            //if (ImGui::Button("Apply"))
-            //{
-            //    char tempCommand[32] = "";
-            //    snprintf(tempCommand, sizeof(tempCommand), "bKi:%.3f;", kiVal);
-            //    strcpy_s(command, sizeof(tempCommand), tempCommand);
-            //    *sendCommand = true;
-
-            //    while (*sendCommand) std::this_thread::yield(); // wait until the command completes
-
-            //    snprintf(tempCommand, sizeof(tempCommand), "bKp:%.3f;", kpVal);
-            //    strcpy_s(command, sizeof(tempCommand), tempCommand);
-            //    *sendCommand = true;
-            //}
-            /// END test environment
-
             // Plot graphs for all plots
+            float availX = ImGui::GetContentRegionAvail().x;
+            float availY = ImGui::GetContentRegionAvail().y;
+
             for (uint8_t i = 0; i < plotters.size(); i++)
             {
-                PlotGraph(i, plotters.at(i)->GetKillPtr());
+
+                PlotGraph(i, plotters.at(i)->GetKillPtr(), static_cast<uint8_t>(maxCols), availX, availY);
                 if (ImGui::BeginDragDropTarget())
                 {
                     // Read payload
@@ -197,7 +205,9 @@ namespace RTPlot
                     }
                     ImGui::EndDragDropTarget();
                 }
-                ImGui::SameLine();
+                
+                if (i == 0 || (i + 1) % maxCols != 0)
+                    ImGui::SameLine();
             }
 
             // Variable modification window. Lives inside the other window so that it can close with it.
@@ -328,7 +338,7 @@ namespace RTPlot
             const float availY = ImGui::GetContentRegionAvail().y;
 
             ImGui::PushStyleVar(ImGuiStyleVar_ChildRounding, RTPLOT_WINDOW_RADIUS); 
-            ImGui::BeginChild(currentName.c_str(), ImVec2(availX, 100), ImGuiChildFlags_Border);
+            ImGui::BeginChild(currentName.c_str(), ImVec2(availX, 150), ImGuiChildFlags_Border);
                 if (ImGui::BeginDragDropSource(ImGuiDragDropFlags_None))
                 {
                     ImGui::SetDragDropPayload("plotDndPayload", currentName.c_str(), sizeof(char) * strlen(currentName.c_str()));
@@ -338,7 +348,13 @@ namespace RTPlot
 
                 ImGui::SeparatorText(currentName.c_str());
 
-                ImGui::Text("Variable value: %.2f", plotters.at(0)->GetDataPtr()->at(i)->plotData.GetDataRef().front().y);
+                ImVector<ImVec2>* dataPtr = plotters.at(0)->GetDataPtr()->at(i)->plotData.GetDataPtr();
+
+                if (i == 14)
+                {
+                    int a = 0;
+                }
+                ImGui::Text("Variable value: %.2f", dataPtr->front().y);
 
                 ImGui::Text("Plot color:");
                 ImGui::SameLine();

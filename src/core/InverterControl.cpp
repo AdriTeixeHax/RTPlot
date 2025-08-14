@@ -27,6 +27,16 @@ namespace RTPlot
         else if (logMsg == "[RTSpeed Conf]: sixStep")   { state = InverterState::sixStep;    logMsg = ""; }
         else if (logMsg == "[RTSpeed Conf]: spwm")      { state = InverterState::spwm;       logMsg = ""; }
         else if (logMsg == "[RTSpeed Conf]: svpwm")     { state = InverterState::svpwm;      logMsg = ""; }
+
+        if (logToFileFlag == true)
+        {
+            static std::string prevMsg = "";
+
+            if (prevMsg != logMsg)
+                fileManager.Append("logs/configurationLog.txt", logMsg);
+
+            prevMsg = logMsg;
+        }
     }
 
     void InverterControl::ProcessSPWMStateChange(void)
@@ -46,6 +56,7 @@ namespace RTPlot
         {
             strcpy(commandStr, "RTSPEED_RESET");
             *sendCommand = true;
+            logToFileFlag = false;
         }
         ImGui::PopStyleColor(3);
     }
@@ -74,6 +85,7 @@ namespace RTPlot
         {
             strcpy(commandStr, "RTSPEED_START");
             *sendCommand = true;
+            logToFileFlag = true;
         }
         ImGui::PopStyleColor(3); 
     }
@@ -116,21 +128,6 @@ namespace RTPlot
 
     void InverterControl::SixStepOperation(void)
     {
-        // if (ImGui::Button("+"))
-        // {
-        //     if (pwmValue < RTPLOT_BIT_MAX_8)
-        //     pwmValue++;
-            
-        //     SendPWMCommand();
-        // }
-        // ImGui::SameLine();
-        // if (ImGui::Button("-"))
-        // {
-        //     if (pwmValue > 0)
-        //     pwmValue--;
-            
-        //     SendPWMCommand();
-        // }
         ImGui::SetNextItemWidth(150);
         ImGui::InputInt("PWM value", &pwmValue, 1, 10);
         ImGui::SameLine();
@@ -170,6 +167,20 @@ namespace RTPlot
 
                 previousButton = spwmSelect;
             }
+            
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(150);
+            ImGui::InputInt("PWM value", &pwmValue, 1, 10);
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(300);
+            ImGui::SliderInt("##", &pwmValue, 0, 255);
+
+            static int32_t prevValue = 0;
+
+            if (prevValue != pwmValue)
+                SendPWMCommand();
+
+            prevValue = pwmValue;
         ImGui::EndChild();
     }
 
