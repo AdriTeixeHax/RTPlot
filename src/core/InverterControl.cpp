@@ -146,7 +146,7 @@ namespace RTPlot
     {
         ImVec2 avail = ImGui::GetContentRegionAvail();
         ProcessSPWMStateChange();
-        ImGui::BeginChild("SPWM configuration", ImVec2(avail.x, 42), ImGuiChildFlags_Border);
+        ImGui::BeginChild("SPWM configuration", ImVec2(avail.x, avail.y / 2), ImGuiChildFlags_Border);
             ImGui::Text("SPWM modifier wave: ");
             ImGui::SameLine();
             ImGui::RadioButton("None",                &spwmSelect, 0); ImGui::SameLine();
@@ -181,6 +181,35 @@ namespace RTPlot
                 SendPWMCommand();
 
             prevValue = pwmValue;
+
+            static float uD = 0.0f, uQ = 0.0f, uDprev = 0.0f, uQprev = 0.0f;
+
+            ImGui::Text("D voltage setpoint: ");
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(150);
+            if (ImGui::InputFloat("##uD", &uD, 0.1f, 0.0f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue))
+            {
+                if (uDprev != uD) // PROBAR ESTO!!!!!!!!!
+                {
+                    snprintf(commandStr, RTPLOT_MSG_SIZE, "buD:%.2ff;", uD);
+                    *sendCommand = true;
+                    uDprev = uD;
+                }
+            }
+            ImGui::SameLine();
+            ImGui::Text("Q voltage setpoint: ");
+            ImGui::SameLine();
+            ImGui::SetNextItemWidth(150);
+            if (ImGui::InputFloat("##uQ", &uQ, 0.1f, 0.0f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue))
+            {
+                if (uQprev != uQ)
+                {
+                    snprintf(commandStr, RTPLOT_MSG_SIZE, "buQ:%.2ff;", uQ);
+                    *sendCommand = true;
+                    uQprev = uQ;
+                }
+            }
+
         ImGui::EndChild();
     }
 
@@ -211,7 +240,7 @@ namespace RTPlot
 
                 case InverterState::spwm:
                     StopButton();
-                    ImGui::SameLine();
+
                     SPWMOperation();
                     break;
 

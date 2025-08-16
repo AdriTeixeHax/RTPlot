@@ -350,10 +350,6 @@ namespace RTPlot
 
                 ImVector<ImVec2>* dataPtr = plotters.at(0)->GetDataPtr()->at(i)->plotData.GetDataPtr();
 
-                if (i == 14)
-                {
-                    int a = 0;
-                }
                 ImGui::Text("Variable value: %.2f", dataPtr->front().y);
 
                 ImGui::Text("Plot color:");

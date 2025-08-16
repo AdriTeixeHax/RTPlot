@@ -1,4 +1,5 @@
 #include <serial/SerialDevice.h>
+#include <ctime>
 
 #ifdef _WIN32
 RTPlot::SerialDevice::SerialDevice(const char* portName, size_t size, uint32_t baudRate) : 
@@ -103,15 +104,13 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
     for (size_t i = 0; i < sizeof(readingRaw); i++)
     {
         if (readingRaw[i] == '[')
-        {
             inverterMsgFlag = true;
-            inverterLogMsg = readingRaw;
-        }
 
         if (inverterMsgFlag)
         {
             inverterTempMsg[x] = readingRaw[i];
             x++;
+            if (readingRaw[i] == '\n') break;
         }
     }
     inverterLogMsg = inverterTempMsg;
@@ -144,7 +143,25 @@ int8_t RTPlot::SerialDevice::ProcessData(void)
     static std::string prevMsg = "";
 
     if (prevMsg != tempMsg)
-        fileManager.Append("logs/readingLog.csv", tempMsg + std::string("\n"));
+    {
+        static char* timeStr;
+        static bool ranOnceFlag = false;
+        static std::string fileNameCSV;
+        if (!ranOnceFlag)
+        {
+            time_t tt;
+            struct tm* ti;
+            time(&tt);
+            ti = localtime(&tt);
+            timeStr = asctime(ti);
+            ranOnceFlag = true;
+            timeStr[strlen(timeStr) - 1] = '\0'; // Remove \n at the end of the string
+            fileNameCSV = "logs/RTSpeed Reading Log - " + std::string(timeStr) + ".csv";
+            fileManager.Append(fileNameCSV, fileNameCSV + std::string("\n"));
+        }
+
+        fileManager.Append(fileNameCSV, tempMsg + std::string("\n"));
+    }
 
     prevMsg = tempMsg;
 

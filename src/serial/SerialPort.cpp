@@ -451,14 +451,7 @@ namespace RTPlot
             readingCount = 0;
         }
 
-        status = sp_blocking_read(port, buf, bytesToRead, 100);
-
-		if (bytesToRead != 0) 
-		{
-			char* rawMsgTest = (char*)buf;
-			//std::cout << "Status: " << status << ", bytesToRead: " << bytesToRead << ", Raw message: " << rawMsgTest << std::endl;
-		}
-		
+        status = sp_blocking_read(port, buf, bytesToRead, 100);		
 
 		if (status == 0) 
 			return RTPLOT_READING;
