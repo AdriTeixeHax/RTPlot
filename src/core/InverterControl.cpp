@@ -22,12 +22,23 @@ namespace RTPlot
 
     void InverterControl::ProcessStateChange(void)
     {
-        if      (logMsg == "[RTSpeed Conf]: none")      { state = InverterState::none;       logMsg = ""; }
-        else if (logMsg == "[RTSpeed Conf]: waiting")   { state = InverterState::waiting;    logMsg = ""; }
-        else if (logMsg == "[RTSpeed Conf]: sixStep")   { state = InverterState::sixStep;    logMsg = ""; }
-        else if (logMsg == "[RTSpeed Conf]: spwm")      { state = InverterState::spwm;       logMsg = ""; }
-        else if (logMsg == "[RTSpeed Conf]: svpwm")     { state = InverterState::svpwm;      logMsg = ""; }
+        if (logMsg == "[RTSpeed Conf]: none")      
+            state = InverterState::none;    
 
+        else if (logMsg == "[RTSpeed Conf]: waiting")   
+            state = InverterState::waiting; 
+
+        else if (logMsg == "[RTSpeed Conf]: sixStep")   
+            state = InverterState::sixStep; 
+
+        else if (logMsg == "[RTSpeed Conf]: spwm")      
+            state = InverterState::spwm;    
+
+        else if (logMsg == "[RTSpeed Conf]: svpwm")     
+            state = InverterState::svpwm;   
+
+        //if (logMsg != "") std::cout << "Inverter Log Msg: " << logMsg << std::endl;
+            
         if (logToFileFlag == true)
         {
             static std::string prevMsg = "";
@@ -41,9 +52,9 @@ namespace RTPlot
 
     void InverterControl::ProcessSPWMStateChange(void)
     {
-        if      (logMsg == "[RTSpeed Conf]: noTHIPWM")  { spwmSelect = 0; logMsg = ""; }
-        else if (logMsg == "[RTSpeed Conf]: triTHIPWM") { spwmSelect = 1; logMsg = ""; }
-        else if (logMsg == "[RTSpeed Conf]: sinTHIPWM") { spwmSelect = 2; logMsg = ""; }
+        if      (logMsg == "[RTSpeed Conf]: noTHIPWM")  { spwmSelect = 0; }
+        else if (logMsg == "[RTSpeed Conf]: triTHIPWM") { spwmSelect = 1; }
+        else if (logMsg == "[RTSpeed Conf]: sinTHIPWM") { spwmSelect = 2; }
     }
 
     void InverterControl::ResetButton(void)
@@ -145,12 +156,20 @@ namespace RTPlot
     void InverterControl::SPWMOperation(void)
     {
         ImVec2 avail = ImGui::GetContentRegionAvail();
+        ImVec2 newAvail = avail;
+
         ProcessSPWMStateChange();
-        ImGui::BeginChild("SPWM configuration", ImVec2(avail.x, avail.y / 2), ImGuiChildFlags_Border);
+
+        if (avail.x >= SPWM_MAX_WIDTH) newAvail.x = SPWM_MAX_WIDTH;
+        else newAvail.y = avail.y / 2;
+
+        ImGui::BeginChild("SPWM configuration", newAvail, ImGuiChildFlags_Border);
             ImGui::Text("SPWM modifier wave: ");
-            ImGui::SameLine();
-            ImGui::RadioButton("None",                &spwmSelect, 0); ImGui::SameLine();
-            ImGui::RadioButton("Triangular Modifier", &spwmSelect, 1); ImGui::SameLine();
+            if (avail.x >= SPWM_MAX_WIDTH) ImGui::SameLine();
+            ImGui::RadioButton("None",                &spwmSelect, 0); 
+            if (avail.x >= SPWM_MAX_WIDTH) ImGui::SameLine();
+            ImGui::RadioButton("Triangular Modifier", &spwmSelect, 1); 
+            if (avail.x >= SPWM_MAX_WIDTH) ImGui::SameLine();
             ImGui::RadioButton("Sinusoidal Modifier", &spwmSelect, 2);
 
             static uint8_t previousButton = 0;
@@ -167,20 +186,6 @@ namespace RTPlot
 
                 previousButton = spwmSelect;
             }
-            
-            ImGui::SameLine();
-            ImGui::SetNextItemWidth(150);
-            ImGui::InputInt("PWM value", &pwmValue, 1, 10);
-            ImGui::SameLine();
-            ImGui::SetNextItemWidth(300);
-            ImGui::SliderInt("##", &pwmValue, 0, 255);
-
-            static int32_t prevValue = 0;
-
-            if (prevValue != pwmValue)
-                SendPWMCommand();
-
-            prevValue = pwmValue;
 
             static float uD = 0.0f, uQ = 0.0f, uDprev = 0.0f, uQprev = 0.0f;
 
@@ -189,14 +194,14 @@ namespace RTPlot
             ImGui::SetNextItemWidth(150);
             if (ImGui::InputFloat("##uD", &uD, 0.1f, 0.0f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue))
             {
-                if (uDprev != uD) // PROBAR ESTO!!!!!!!!!
+                if (uDprev != uD)
                 {
                     snprintf(commandStr, RTPLOT_MSG_SIZE, "buD:%.2ff;", uD);
                     *sendCommand = true;
                     uDprev = uD;
                 }
             }
-            ImGui::SameLine();
+            if (avail.x >= SPWM_MAX_WIDTH) ImGui::SameLine();
             ImGui::Text("Q voltage setpoint: ");
             ImGui::SameLine();
             ImGui::SetNextItemWidth(150);
@@ -211,10 +216,33 @@ namespace RTPlot
             }
 
         ImGui::EndChild();
+
+        if (avail.x >= SPWM_MAX_WIDTH) ImGui::SameLine();
+    }
+
+    void InverterControl::IVFilteringTweak(void)
+    {
+        static float iRegValue = 0.1f;
+        static float prevIregValue = iRegValue;
+        ImVec2 avail = ImGui::GetContentRegionAvail();
+        ImGui::Text("Filter adjust");
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(150);
+        ImGui::InputFloat("##iregValue", &iRegValue, 0.001f, 0.1f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue);
+        
+        ImGui::SetNextItemWidth(fmin(avail.x, 500));
+        ImGui::SliderFloat("##iregValueSlider", &iRegValue, 0.0f, 50.0f);
+
+        if (prevIregValue != iRegValue)
+        {
+            snprintf(commandStr, RTPLOT_MSG_SIZE, "biRegValue:%.3ff;", iRegValue);
+            *sendCommand = true;
+            prevIregValue = iRegValue;
+        }
     }
 
     void InverterControl::Draw(void)
-    {
+    {       
         ImGui::Begin("Inverter Control");
             switch(state)
             {
@@ -230,22 +258,30 @@ namespace RTPlot
                     SPWMButton();
                     ImGui::SameLine();
                     ResetButton();
+
+                    IVFilteringTweak();
                     break;
 
                 case InverterState::sixStep:
                     StopButton();
                     ImGui::SameLine();
                     SixStepOperation();
+
+                    IVFilteringTweak();
                     break;
 
                 case InverterState::spwm:
                     StopButton();
+
+                    IVFilteringTweak();
 
                     SPWMOperation();
                     break;
 
                 case InverterState::svpwm:
                     StopButton();
+
+                    IVFilteringTweak();
                     break;
 
                 default: 

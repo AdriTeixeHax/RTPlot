@@ -5,6 +5,8 @@
 #include <SerialDevice.h>
 #include <FileManager.h>
 
+#define SPWM_MAX_WIDTH 600
+
 namespace RTPlot
 {
     enum class InverterState  { none, waiting, sixStep, spwm, svpwm };
@@ -37,6 +39,7 @@ namespace RTPlot
         void SixStepButton(void);
 
         void SendPWMCommand(void);
+        void IVFilteringTweak(void);
 
         void SixStepOperation(void);
         void SPWMOperation(void);

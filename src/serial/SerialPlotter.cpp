@@ -50,6 +50,8 @@ void RTPlot::SerialPlotter::Plot(const std::string& portName)
         }
 
         this->SerialOptionsWindow(realTimePlotter->GetSerialOptionsFlagPtr());
+
+        inverterControlWindow.Draw();
     mutex.unlock();
 
     if (addVariable)
@@ -57,9 +59,6 @@ void RTPlot::SerialPlotter::Plot(const std::string& portName)
         serialDevice->GetReadingPtr()->push_back(0.0f);
         addVariable = false;
     }
-
-    inverterControlWindow.ProcessStateChange();
-    inverterControlWindow.Draw();
 
     if (loadConfigFlag)
     {
@@ -171,6 +170,8 @@ void RTPlot::SerialPlotter::SerialFunc(void)
         mutex.lock();
             realTimePlotter->SetDataToPlot(serialDevice->GetReadingVals());
             serialDevice->ClearMsg();
+
+            inverterControlWindow.ProcessStateChange();
 		mutex.unlock();
 
         if (sendCommand)
