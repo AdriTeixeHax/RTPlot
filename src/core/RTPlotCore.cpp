@@ -176,14 +176,14 @@ void RTPlot::RTPlotCore::MenuBar(void)
                 std::string portName = StripPortNamePrefix(i->GetPortName());
                 if (ImGui::BeginMenu(portName.c_str()))
                 {
-                    if (ImGui::MenuItem("Load config. file", "Ctrl + O"))
+                    if (ImGui::MenuItem("Load config. file"))
                     {
                         std::string filepath = fileManager.OpenFileDialog();
                         i->LoadConfig(filepath);
                         logMsg = "Loaded config. from file " + filepath + " to serial port " + portName + "\n";
                     }
                     
-                    if (ImGui::MenuItem("Save config. file", "Ctrl + S"))
+                    if (ImGui::MenuItem("Save config. file"))
                     {
                         std::string filepath = fileManager.SaveFileDialog();
                         i->SaveConfig(filepath);

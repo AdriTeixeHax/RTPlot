@@ -66,6 +66,9 @@ namespace RTPlot
             this->plotFlag = pldata.plotFlag;
             this->killPlot = pldata.killPlot;
             this->history = pldata.history;
+
+            this->yMin = pldata.yMin;
+            this->yMax = pldata.yMax;
         }
 
         return *this;
@@ -117,6 +120,8 @@ namespace RTPlot
         j["name"]     = name;
         j["plotFlag"] = plotFlag;
         j["history"]  = history;
+        j["yMin"]     = yMin;
+        j["yMax"]     = yMax;
 
         return j;
     }
@@ -127,6 +132,8 @@ namespace RTPlot
         j.at("name").get_to(name);
         j.at("plotFlag").get_to(plotFlag);
         j.at("history").get_to(history);
+        j.at("yMin").get_to(yMin);
+        j.at("yMax").get_to(yMax);
 
         std::vector<PlotData> dataVec = PlotData::ArrayFromJSON(j.at("data"));
         for (auto i : data) delete i;

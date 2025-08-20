@@ -16,6 +16,10 @@ namespace RTPlot
         bool                   plotFlag = true;
         bool                   killPlot = false;
         float                  history; 
+        float                  yMin = -10.0f, yMax = 10.0f;
+
+    public:
+        bool                   resetAxisFlag = true;
 
 	public:
         Plotter(void);
@@ -34,9 +38,13 @@ namespace RTPlot
         bool*                   GetKillPtr   (void)       { return &killPlot; }
 		float*                  GetHistoryPtr(void)       { return &history; }
         float                   GetHistory   (void) const { return  history; }
+        float                   GetYMin      (void) const { return  yMin; }
+        float                   GetYMax      (void) const { return  yMax; }
         
         // Setters
         void                    SetDataToPlot(const std::vector<double>& originalData);
+        void                    SetYMin      (float val) { yMin = val; }
+        void                    SetYMax      (float val) { yMax = val; }
 
         // Actions
         void                    PlotGraph    (void);

@@ -14,7 +14,16 @@ namespace RTPlot
 		std::vector<SerialPlotter*> devices;
 
 	public:
-		~DeviceManager(void) { for (auto i : devices) delete i; }	
+		~DeviceManager(void)
+		{ 
+			for (auto i = 0; i < devices.size(); i++) 
+			{
+				if (devices.at(i) != nullptr) 
+					delete devices.at(i);
+					
+				devices.erase(devices.begin() + i);
+			}
+		}	
 
 		// Getters
 		size_t                             Size         (void)     const { return devices.size(); }

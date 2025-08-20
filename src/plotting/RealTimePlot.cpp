@@ -89,9 +89,17 @@ namespace RTPlot
             {
                 ImPlot::SetupAxes("Time [s]", "Value", linePlotFlags, 0);
                 ImPlot::SetupAxisLimits(ImAxis_X1, 0, *(plotters.at(id)->GetHistoryPtr()), ImGuiCond_Always);
-                ImPlot::SetupAxisLimits(ImAxis_Y1, -2, 2);
+
+                if (plotters.at(id)->resetAxisFlag)
+                {
+                    ImPlot::SetupAxisLimits(ImAxis_Y1, plotters.at(id)->GetYMin(), plotters.at(id)->GetYMax(), ImPlotCond_Always);
+                    plotters.at(id)->resetAxisFlag = false;
+                }
 
                 plotters.at(id)->PlotGraph();
+
+                plotters.at(id)->SetYMin(ImPlot::GetPlotLimits().Y.Min);
+                plotters.at(id)->SetYMax(ImPlot::GetPlotLimits().Y.Max);
 
                 ImPlot::EndPlot();
             }
@@ -223,7 +231,7 @@ namespace RTPlot
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.5f));
                     if (ImGui::Button("Add variable"))
                     {
-                        if (visibleVarsNum < RTPLOT_MAX_DATA_NUM - 1)
+                        if (visibleVarsNum < RTPLOT_MAX_DATA_NUM - 1 && plotters.size() > 0)
                         {
                             basicData.at(visibleVarsNum)->plottable = true;
 
@@ -236,7 +244,7 @@ namespace RTPlot
                         {
                             startTimeFlag = true;
                             buttonMsgFlag = true;
-                            buttonMsg = "Max. no. of variables reached!";
+                            buttonMsg = "Cannot add variable!";
                         }
                     }
                 ImGui::PopStyleColor(3);
@@ -406,7 +414,7 @@ namespace RTPlot
         for (const auto& i : plotters)  if (i) plotterArray.push_back(i->toJSON());
         for (const auto& i : basicData) if (i) dataArray.push_back(i->toJSON());
         
-        j["plotters"] = plotterArray;
+        j["plotters"]  = plotterArray;
         j["basicData"] = dataArray;
 
         return j;
@@ -425,5 +433,7 @@ namespace RTPlot
         
         plotters.clear();
         for (auto i : plotterVec) plotters.push_back(new Plotter(i));
+
+        for (auto i : plotters) i->resetAxisFlag = true;
     }
 }

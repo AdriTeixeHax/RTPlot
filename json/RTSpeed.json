@@ -1,0 +1,3759 @@
+{
+    "realTimePlotter": {
+        "basicData": [
+            {
+                "dataName": "0",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "id": 0
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "1",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.8571428656578064,
+                        "z": 0.0
+                    },
+                    "id": 1
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "2",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.2857142686843872,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    "id": 2
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "3",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.5714285373687744
+                    },
+                    "id": 3
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "4",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 0.5714285373687744,
+                        "z": 1.0
+                    },
+                    "id": 4
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "5",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.28571414947509766,
+                        "y": 0.0,
+                        "z": 1.0
+                    },
+                    "id": 5
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "6",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.8571429252624512
+                    },
+                    "id": 6
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "7",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "id": 7
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "8",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.8571431636810303,
+                        "z": 0.0
+                    },
+                    "id": 8
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "9",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.28571438789367676,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    "id": 9
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "10",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.5714287757873535
+                    },
+                    "id": 10
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "11",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 0.5714287757873535,
+                        "z": 1.0
+                    },
+                    "id": 11
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "12",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.28571414947509766,
+                        "y": 0.0,
+                        "z": 1.0
+                    },
+                    "id": 12
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "13",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.8571434020996094
+                    },
+                    "id": 13
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "14",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "id": 14
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "15",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.857142448425293,
+                        "z": 0.0
+                    },
+                    "id": 15
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": true
+            },
+            {
+                "dataName": "16",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.28571367263793945,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    "id": 16
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "17",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.5714287757873535
+                    },
+                    "id": 17
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "18",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 0.5714287757873535,
+                        "z": 1.0
+                    },
+                    "id": 18
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "19",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.28571367263793945,
+                        "y": 0.0,
+                        "z": 1.0
+                    },
+                    "id": 19
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "20",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.857142448425293
+                    },
+                    "id": 20
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "21",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "id": 21
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "22",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.857142448425293,
+                        "z": 0.0
+                    },
+                    "id": 22
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "23",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.28571367263793945,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    "id": 23
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "24",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 1.0,
+                        "z": 0.5714287757873535
+                    },
+                    "id": 24
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "25",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.0,
+                        "y": 0.5714287757873535,
+                        "z": 1.0
+                    },
+                    "id": 25
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "26",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.28571367263793945,
+                        "y": 0.0,
+                        "z": 1.0
+                    },
+                    "id": 26
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "27",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.857142448425293
+                    },
+                    "id": 27
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "28",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "id": 28
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "29",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 1.0,
+                        "y": 0.857142448425293,
+                        "z": 0.0
+                    },
+                    "id": 29
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            },
+            {
+                "dataName": "30",
+                "plotColor": {
+                    "color": {
+                        "w": 1.0,
+                        "x": 0.28571510314941406,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    "id": 30
+                },
+                "plotData": {
+                    "plotFlag": false,
+                    "span": 10.0
+                },
+                "plottable": false
+            }
+        ],
+        "plotters": [
+            {
+                "data": [
+                    {
+                        "dataName": "U Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 0
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571428656578064,
+                                "z": 0.0
+                            },
+                            "id": 1
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.2857142686843872,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 2
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "U Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714285373687744
+                            },
+                            "id": 3
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714285373687744,
+                                "z": 1.0
+                            },
+                            "id": 4
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 5
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "24 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571429252624512
+                            },
+                            "id": 6
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "12 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 7
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571431636810303,
+                                "z": 0.0
+                            },
+                            "id": 8
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571438789367676,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 9
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 10
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 11
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 12
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571434020996094
+                            },
+                            "id": 13
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Speed [rad/s]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 14
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Power [W]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 15
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "16",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 16
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "17",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 17
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "18",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 18
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "19",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 19
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "20",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 20
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "21",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 21
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "22",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 22
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "23",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 23
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "24",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 24
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "25",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 25
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "26",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 26
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "27",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 27
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "28",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 28
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "29",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 29
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "30",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571510314941406,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 30
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    }
+                ],
+                "history": 10.0,
+                "name": "Phase RMS Currents",
+                "plotFlag": true,
+                "yMax": 38.66815948486328,
+                "yMin": -2.814337968826294
+            },
+            {
+                "data": [
+                    {
+                        "dataName": "U Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 0
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571428656578064,
+                                "z": 0.0
+                            },
+                            "id": 1
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.2857142686843872,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 2
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "U Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714285373687744
+                            },
+                            "id": 3
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714285373687744,
+                                "z": 1.0
+                            },
+                            "id": 4
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 5
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "24 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571429252624512
+                            },
+                            "id": 6
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "12 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 7
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571431636810303,
+                                "z": 0.0
+                            },
+                            "id": 8
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571438789367676,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 9
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 10
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 11
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 12
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571434020996094
+                            },
+                            "id": 13
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Speed [rad/s]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 14
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Power [W]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 15
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "16",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 16
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "17",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 17
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "18",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 18
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "19",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 19
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "20",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 20
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "21",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 21
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "22",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 22
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "23",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 23
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "24",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 24
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "25",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 25
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "26",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 26
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "27",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 27
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "28",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 28
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "29",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 29
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "30",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571510314941406,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 30
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    }
+                ],
+                "history": 10.0,
+                "name": "Phase RMS Voltages",
+                "plotFlag": true,
+                "yMax": 38.596534729003906,
+                "yMin": -2.7089569568634033
+            },
+            {
+                "data": [
+                    {
+                        "dataName": "U Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 0
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571428656578064,
+                                "z": 0.0
+                            },
+                            "id": 1
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.2857142686843872,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 2
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "U Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714285373687744
+                            },
+                            "id": 3
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714285373687744,
+                                "z": 1.0
+                            },
+                            "id": 4
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 5
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "24 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571429252624512
+                            },
+                            "id": 6
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "12 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 7
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571431636810303,
+                                "z": 0.0
+                            },
+                            "id": 8
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571438789367676,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 9
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 10
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 11
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 12
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571434020996094
+                            },
+                            "id": 13
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Speed [rad/s]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 14
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Power [W]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 15
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "16",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 16
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "17",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 17
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "18",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 18
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "19",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 19
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "20",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 20
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "21",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 21
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "22",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 22
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "23",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 23
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "24",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 24
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "25",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 25
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "26",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 26
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "27",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 27
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "28",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 28
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "29",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 29
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "30",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571510314941406,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 30
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    }
+                ],
+                "history": 10.0,
+                "name": "DC Bus Voltages",
+                "plotFlag": true,
+                "yMax": 34.64558029174805,
+                "yMin": -2.5945262908935547
+            },
+            {
+                "data": [
+                    {
+                        "dataName": "U Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 0
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571428656578064,
+                                "z": 0.0
+                            },
+                            "id": 1
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.2857142686843872,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 2
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "U Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714285373687744
+                            },
+                            "id": 3
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714285373687744,
+                                "z": 1.0
+                            },
+                            "id": 4
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 5
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "24 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571429252624512
+                            },
+                            "id": 6
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "12 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 7
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571431636810303,
+                                "z": 0.0
+                            },
+                            "id": 8
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571438789367676,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 9
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 10
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 11
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 12
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571434020996094
+                            },
+                            "id": 13
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Speed [rad/s]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 14
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Power [W]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 15
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "16",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 16
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "17",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 17
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "18",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 18
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "19",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 19
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "20",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 20
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "21",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 21
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "22",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 22
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "23",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 23
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "24",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 24
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "25",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 25
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "26",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 26
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "27",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 27
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "28",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 28
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "29",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 29
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "30",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571510314941406,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 30
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    }
+                ],
+                "history": 10.0,
+                "name": "MOSFET Temperatures",
+                "plotFlag": true,
+                "yMax": 93.46577453613281,
+                "yMin": 18.12444496154785
+            },
+            {
+                "data": [
+                    {
+                        "dataName": "U Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 0
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571428656578064,
+                                "z": 0.0
+                            },
+                            "id": 1
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.2857142686843872,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 2
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "U Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714285373687744
+                            },
+                            "id": 3
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714285373687744,
+                                "z": 1.0
+                            },
+                            "id": 4
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 5
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "24 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571429252624512
+                            },
+                            "id": 6
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "12 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 7
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571431636810303,
+                                "z": 0.0
+                            },
+                            "id": 8
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571438789367676,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 9
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 10
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 11
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 12
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571434020996094
+                            },
+                            "id": 13
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Speed [rad/s]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 14
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Power [W]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 15
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "16",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 16
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "17",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 17
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "18",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 18
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "19",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 19
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "20",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 20
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "21",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 21
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "22",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 22
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "23",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 23
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "24",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 24
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "25",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 25
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "26",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 26
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "27",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 27
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "28",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 28
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "29",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 29
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "30",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571510314941406,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 30
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    }
+                ],
+                "history": 10.0,
+                "name": "Motor Speed",
+                "plotFlag": true,
+                "yMax": 18.449438095092773,
+                "yMin": -18.177682876586914
+            },
+            {
+                "data": [
+                    {
+                        "dataName": "U Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 0
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571428656578064,
+                                "z": 0.0
+                            },
+                            "id": 1
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Current [A RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.2857142686843872,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 2
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "U Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714285373687744
+                            },
+                            "id": 3
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "V Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714285373687744,
+                                "z": 1.0
+                            },
+                            "id": 4
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "W Voltage [V RMS]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 5
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "24 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571429252624512
+                            },
+                            "id": 6
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "12 Vdc Bus [V]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 7
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.8571431636810303,
+                                "z": 0.0
+                            },
+                            "id": 8
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET U Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571438789367676,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 9
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 10
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET V Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 11
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Hi-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571414947509766,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 12
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Lo-FET W Temp. [ºC]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.8571434020996094
+                            },
+                            "id": 13
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Speed [rad/s]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 14
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "Power [W]",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 15
+                        },
+                        "plotData": {
+                            "plotFlag": true,
+                            "span": 10.0
+                        },
+                        "plottable": true
+                    },
+                    {
+                        "dataName": "16",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 16
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "17",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 17
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "18",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 18
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "19",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 19
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "20",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 20
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "21",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 21
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "22",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 22
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "23",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 23
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "24",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 1.0,
+                                "z": 0.5714287757873535
+                            },
+                            "id": 24
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "25",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.0,
+                                "y": 0.5714287757873535,
+                                "z": 1.0
+                            },
+                            "id": 25
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "26",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571367263793945,
+                                "y": 0.0,
+                                "z": 1.0
+                            },
+                            "id": 26
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "27",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.857142448425293
+                            },
+                            "id": 27
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "28",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.0,
+                                "z": 0.0
+                            },
+                            "id": 28
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "29",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 1.0,
+                                "y": 0.857142448425293,
+                                "z": 0.0
+                            },
+                            "id": 29
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    },
+                    {
+                        "dataName": "30",
+                        "plotColor": {
+                            "color": {
+                                "w": 1.0,
+                                "x": 0.28571510314941406,
+                                "y": 1.0,
+                                "z": 0.0
+                            },
+                            "id": 30
+                        },
+                        "plotData": {
+                            "plotFlag": false,
+                            "span": 10.0
+                        },
+                        "plottable": false
+                    }
+                ],
+                "history": 10.0,
+                "name": "Motor Power Draw",
+                "plotFlag": true,
+                "yMax": 1253.6094970703125,
+                "yMin": -105.07907104492188
+            }
+        ],
+        "serialOptionsFlag": false,
+        "visibleVarsNum": 16
+    },
+    "serialDevice": {
+        "port": {
+            "readingDelay": 5
+        },
+        "verboseData": true
+    }
+}

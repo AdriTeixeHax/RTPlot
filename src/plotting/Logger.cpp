@@ -84,6 +84,8 @@ void ImGui::Log::Draw(const char* title, bool showOnlyText, bool childOnly, bool
 
 void ImGui::Log::AddLog(const char* fmt, ...)
 {
+    if (Buf.size() > 5000) this->Clear();
+
     int old_size = Buf.size();
     va_list args;
     va_start(args, fmt);
