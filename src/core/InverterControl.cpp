@@ -189,7 +189,8 @@ namespace RTPlot
 
             static float uD = 0.0f, uQ = 0.0f, uDprev = 0.0f, uQprev = 0.0f;
 
-            ImGui::Text("D voltage setpoint: ");
+            // ImGui::Text("D voltage setpoint: ");
+            ImGui::Text("Amplitude [V]: ");
             ImGui::SameLine();
             ImGui::SetNextItemWidth(150);
             if (ImGui::InputFloat("##uD", &uD, 0.1f, 0.0f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue))
@@ -202,7 +203,8 @@ namespace RTPlot
                 }
             }
             if (avail.x >= SPWM_MAX_WIDTH) ImGui::SameLine();
-            ImGui::Text("Q voltage setpoint: ");
+            // ImGui::Text("Q voltage setpoint: ");
+            ImGui::Text("Frequency [Hz]: ");
             ImGui::SameLine();
             ImGui::SetNextItemWidth(150);
             if (ImGui::InputFloat("##uQ", &uQ, 0.1f, 0.0f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue))
