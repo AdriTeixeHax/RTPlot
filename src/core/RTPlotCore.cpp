@@ -43,7 +43,7 @@ bool RTPlot::RTPlotCore::GuiInit(void)
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;                             // Enable docking
     //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;                           // Enable viewports
     io.Fonts->AddFontFromFileTTF(RTPLOT_SOURCESANS_PATH, RTPLOT_SOURCESANS_SIZE); // Add the SourceSans font
-    io.Fonts->AddFontFromFileTTF(RTPLOT_CONSOLA_PATH, RTPLOT_CONSOLA_SIZE);       // Add the Consolas font
+    //io.Fonts->AddFontFromFileTTF(RTPLOT_CONSOLA_PATH, RTPLOT_CONSOLA_SIZE);       // Add the Consolas font
 
     // ImGui element radius setting
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding,     RTPLOT_MAIN_RADIUS);
