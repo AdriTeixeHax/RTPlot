@@ -8306,12 +8306,8 @@ RTPlot: /usr/lib/Scrt1.o \
   /usr/lib/libc.so.6 \
   /usr/lib/libc_nonshared.a \
   /usr/lib/libglfw.so.3.4 \
-  /usr/lib/libglib-2.0.so.0 \
-  /usr/lib/libgraphite2.so.3 \
-  /usr/lib/libharfbuzz.so.0 \
   /usr/lib/libm.so.6 \
   /usr/lib/libmvec.so.1 \
-  /usr/lib/libpcre2-8.so.0 \
   /usr/lib/libpng16.so.16 \
   /usr/lib/libxcb.so.1 \
   /usr/lib/libz.so.1 \
@@ -8324,9 +8320,6 @@ RTPlot: /usr/lib/Scrt1.o \
   /usr/lib32/libbrotlicommon.so.1 \
   /usr/lib32/libbrotlidec.so.1 \
   /usr/lib32/libbz2.so.1.0 \
-  /usr/lib32/libglib-2.0.so.0 \
-  /usr/lib32/libharfbuzz.so.0 \
-  /usr/lib32/libpcre2-8.so.0 \
   /usr/lib32/libpng16.so.16 \
   /usr/lib32/libxcb.so.1 \
   /usr/lib32/libz.so.1 \
@@ -8394,10 +8387,6 @@ CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o:
 
 /usr/lib32/libpng16.so.16:
 
-/usr/lib32/libpcre2-8.so.0:
-
-/usr/lib32/libglib-2.0.so.0:
-
 /usr/lib32/libbrotlicommon.so.1:
 
 /usr/lib32/libXau.so.6:
@@ -8412,13 +8401,7 @@ CMakeFiles/RTPlot.dir/src/core/DeviceManager.cpp.o:
 
 /usr/lib/libpng16.so.16:
 
-/usr/lib/libpcre2-8.so.0:
-
 /usr/lib/libm.so.6:
-
-/usr/lib/libharfbuzz.so.0:
-
-/usr/lib/libgraphite2.so.3:
 
 /usr/lib/libglfw.so.3.4:
 
@@ -8565,8 +8548,6 @@ CMakeFiles/RTPlot.dir/src/serial/SerialDevice.cpp.o:
 /usr/include/alloca.h:
 
 /usr/include/c++/15.2.1/bits/stl_iterator_base_funcs.h:
-
-/usr/lib/libglib-2.0.so.0:
 
 src/vendor/imgui/imgui_impl_glfw.cpp:
 
@@ -8775,8 +8756,6 @@ src/vendor/imgui/imconfig.h:
 /usr/lib/gcc/x86_64-pc-linux-gnu/15.2.1/include/avx10_2copyintrin.h:
 
 /usr/include/asm/types.h:
-
-/usr/lib32/libharfbuzz.so.0:
 
 /usr/include/asm/posix_types.h:
 

@@ -9,7 +9,7 @@
 
 namespace RTPlot
 {
-    enum class InverterState  { none, waiting, sixStep, spwm, svpwm };
+    enum class InverterState  { none, waiting, sixStep, spwm, svpwm, pid };
 
     class InverterControl
     {
@@ -37,10 +37,13 @@ namespace RTPlot
         void StartButton(void);
         void SPWMButton(void);
         void SixStepButton(void);
+        void PIDButton(void);
 
         void SendPWMCommand(void);
         void IVFilteringTweak(void);
+        void CheckAndSend(float* valueArray, const char* name);
 
+        void PIDTweak(void);
         void SixStepOperation(void);
         void SPWMOperation(void);
 

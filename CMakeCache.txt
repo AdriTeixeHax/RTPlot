@@ -342,7 +342,7 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=4
 //Minor version of cmake used to create the current loaded cache
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=1
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=1
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=2
 //ADVANCED property for variable: CMAKE_COLOR_MAKEFILE
 CMAKE_COLOR_MAKEFILE-ADVANCED:INTERNAL=1
 //Path to CMake executable.
@@ -483,7 +483,7 @@ CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Details about finding Freetype
-FIND_PACKAGE_MESSAGE_DETAILS_Freetype:INTERNAL=[/usr/lib/libfreetype.so][/usr/include/freetype2][v2.13.3()]
+FIND_PACKAGE_MESSAGE_DETAILS_Freetype:INTERNAL=[/usr/lib/libfreetype.so][/usr/include/freetype2][v2.14.1()]
 //Details about finding GLEW
 FIND_PACKAGE_MESSAGE_DETAILS_GLEW:INTERNAL=[/usr/include][/usr/lib/libGLEW.so][v2.2.0(2.2.0)]
 //Details about finding OpenGL

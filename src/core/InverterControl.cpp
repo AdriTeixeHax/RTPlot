@@ -37,6 +37,9 @@ namespace RTPlot
         else if (logMsg == "[RTSpeed Conf]: svpwm")     
             state = InverterState::svpwm;   
 
+        else if (logMsg == "[RTSpeed Conf]: PID")     
+            state = InverterState::pid;   
+
         //if (logMsg != "") std::cout << "Inverter Log Msg: " << logMsg << std::endl;
             
         if (logToFileFlag == true)
@@ -124,6 +127,20 @@ namespace RTPlot
         if (ImGui::Button("Start 6 Step Algorithm"))
         {
             strcpy(commandStr, "RTSPEED_BEGIN_6STEP");
+            *sendCommand = true;
+        }
+        ImGui::PopStyleColor(3);
+    }
+
+    void InverterControl::PIDButton(void)
+    {
+        // Green Button
+        ImGui::PushStyleColor(ImGuiCol_Button,        (ImVec4)ImColor::HSV(0.35f, 1.0f, 0.6f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonHovered, (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.7f));
+        ImGui::PushStyleColor(ImGuiCol_ButtonActive,  (ImVec4)ImColor::HSV(0.35f, 0.7f, 0.5f));
+        if (ImGui::Button("Start PID Control"))
+        {
+            strcpy(commandStr, "RTSPEED_BEGIN_PID");
             *sendCommand = true;
         }
         ImGui::PopStyleColor(3);
@@ -243,6 +260,74 @@ namespace RTPlot
         }
     }
 
+    void InverterControl::CheckAndSend(float* valueArray, const char* name)
+    {
+        if (valueArray[1] != valueArray[0])
+        {
+            snprintf(commandStr, RTPLOT_MSG_SIZE, "b%s:%.3ff;", name, valueArray[0]);
+            *sendCommand = true;
+            valueArray[1] = valueArray[0];
+        }
+    }
+
+    void InverterControl::PIDTweak(void)
+    {
+        static float setSpeedPID[2] = { 0.0f, 0.0f };
+        static float pidSpeed_kp[2] = { 1.0f, 0.0f };
+        static float pidSpeed_ki[2] = { 0.0f, 0.0f };
+        static float pidD_kp[2]     = { 1.0f, 0.0f };
+        static float pidD_ki[2]     = { 0.0f, 0.0f };
+        static float pidQ_kp[2]     = { 1.0f, 0.0f };
+        static float pidQ_ki[2]     = { 0.0f, 0.0f };
+
+        ImVec2 avail = ImGui::GetContentRegionAvail();
+        ImGui::Text("Speed Setpoint: ");
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(150);
+        ImGui::InputFloat("##setSpeedPID", &setSpeedPID[0], 0.001f, 0.1f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue);
+
+        ImGui::Text("Speed PID adjust:");
+        ImGui::Text("Kp: ");
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(150);
+        ImGui::InputFloat("##pidSpeed_kp", &pidSpeed_kp[0], 0.001f, 0.1f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue);
+        ImGui::SameLine();
+        ImGui::Text("Ki: ");
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(150);
+        ImGui::InputFloat("##pidSpeed_ki", &pidSpeed_ki[0], 0.001f, 0.1f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue);
+
+        ImGui::Text("D axis PID adjust:");
+        ImGui::Text("Kp: ");
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(150);
+        ImGui::InputFloat("##pidD_kp", &pidD_kp[0], 0.001f, 0.1f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue);
+        ImGui::SameLine();
+        ImGui::Text("Ki: ");
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(150);
+        ImGui::InputFloat("##pidD_ki", &pidD_ki[0], 0.001f, 0.1f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue);
+
+        ImGui::Text("Q axis PID adjust:");
+        ImGui::Text("Kp: ");
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(150);
+        ImGui::InputFloat("##pidQ_kp", &pidQ_kp[0], 0.001f, 0.1f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue);
+        ImGui::SameLine();
+        ImGui::Text("Ki: ");
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(150);
+        ImGui::InputFloat("##pidQ_ki", &pidQ_ki[0], 0.001f, 0.1f, "%.3f", ImGuiInputTextFlags_EnterReturnsTrue);
+
+        CheckAndSend(setSpeedPID, "setSpeedPID");
+        CheckAndSend(pidSpeed_kp, "pidSpeed_kp");
+        CheckAndSend(pidSpeed_ki, "pidSpeed_ki");
+        CheckAndSend(pidD_kp, "pidD_kp");
+        CheckAndSend(pidD_ki, "pidD_ki");
+        CheckAndSend(pidQ_kp, "pidQ_kp");
+        CheckAndSend(pidQ_ki, "pidQ_ki");
+    }
+
     void InverterControl::Draw(void)
     {       
         ImGui::Begin("Inverter Control");
@@ -258,6 +343,8 @@ namespace RTPlot
                     SixStepButton();
                     ImGui::SameLine();
                     SPWMButton();
+                    ImGui::SameLine();
+                    PIDButton();
                     ImGui::SameLine();
                     ResetButton();
 
@@ -282,6 +369,14 @@ namespace RTPlot
 
                 case InverterState::svpwm:
                     StopButton();
+
+                    IVFilteringTweak();
+                    break;
+
+                case InverterState::pid:
+                    StopButton();
+
+                    PIDTweak();
 
                     IVFilteringTweak();
                     break;
